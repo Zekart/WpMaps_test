@@ -1,0 +1,85 @@
+body{
+    padding: 0px;
+    margin:0px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.pageContent{
+    width: 100%;
+    min-height: 100%;
+}
+.ui-widget-content.pageContent {
+    border:0px;
+    border-radius: 0px;
+    padding: 0px;
+}
+
+.ui-panel.pageContent .ui-panel-content.pageContent{
+    padding: 0px;
+}
+
+.loginPanel{
+    position: fixed;
+    top: calc( 50% - 100px);
+    left: calc( 50% - 170px );
+}
+
+.mainMenuPanel{
+    position:fixed;
+    top:0px;
+    right: 0px;
+    width: 350px;
+    background: transparent;
+}
+
+.ui-widget-content.mainMenuPanel{
+    padding: 0px;
+}
+
+.ui-panel.mainMenuPanel .ui-widget-content.mainMenuPanel{
+    padding: 0px;
+}
+
+.ui-widget-content.mainMenuPanel {
+    border:0px;
+    border-radius: 0px;
+    padding: 0px;
+}
+
+.historyMenuPanel{
+    position: fixed;
+    top: -5px;
+    left: 35%;
+    display: block;
+    width: 30%;
+    background: transparent;
+}
+.ui-panel.historyMenuPanel .ui-widget-content.historyMenuPanel{
+    padding: 0px;
+}
+
+.ui-widget-content.historyMenuPanel {
+    border:0px;
+    border-radius: 0px;
+    padding: 0px;
+}
+.legendPanel{
+    position: fixed;
+    top: -5px;
+    right: 0px;
+    display: block;
+    width: 170px;
+
+}
+.ui-panel.legendPanel .ui-widget-content.legendPanel{
+    padding: 0px;
+}
+
+.ui-widget-content.legendPanel {
+    border:0px;
+    border-radius: 0px;
+    padding: 0px;
+}
+
+

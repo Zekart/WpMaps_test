@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:panel id="historyMenuPanel" styleClass="historyMenuPanel" >               
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:commandButton type="button" value="?" icon="ui-icon-arrowthickstop-1-n" />
+
+                    <p:commandButton type="button" value="?" icon="ui-icon-wrench" />
+
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                    </span>
+                    <p:commandButton type="button" title="Pillar" icon="ui-icon-arrowthickstop-1-n" />                
+                </f:facet>
+
+                <f:facet name="right">
+                    <p:tieredMenu style="width:140px; height: 20px;">
+                        <p:submenu label="Option" icon="ui-icon-extlink" style="height: 10px; bottom: 5px;">
+                            <p:menuitem value="All Pillar"  onclick="PF('dlg1').show();" icon="ui-icon-disk"/>
+                            <p:menuitem value="Update" actionListener="#{toolbarView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+                            <p:menuitem value="Delete" actionListener="#{toolbarView.delete}" ajax="false" icon="ui-icon-close" />
+                            <p:menuitem value="Admin panel" url="http://www.primefaces.org" icon="ui-icon-extlink" />
+                            <p:separator /> 
+                            <p:submenu label="Legend">
+                                <p:menuitem onclick="PF('testPanel').show()" value="Show" />
+                                <p:menuitem onclick="PF('testPanel').close()" value="Hide" ajax="true" /> 
+                            </p:submenu>
+                            <p:submenu label="Connections">
+                                <p:menuitem onclick="PF('testPanel').show()" value="Show" />
+                                <p:menuitem onclick="PF('testPanel').close()" value="Hide" ajax="true" /> 
+                            </p:submenu>                        
+                        </p:submenu>
+                    </p:tieredMenu>                    
+                </f:facet>
+            </p:toolbar>       
+        </p:panel>
+    </cc:implementation>
+</html>

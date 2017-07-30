@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:panel widgetVar="test" id="test1">
+
+            <p:selectOneMenu id="object_type" value="#{gMapsController.obj_type}" style="width:150px" >
+                <p:ajax update="gridContainer" />
+                <f:selectItem itemLabel="Выберите объект" />
+                <f:selectItems var="ot" value="#{gMapsController.objectType}" itemValue="#{ot}" itemLabel="#{ot.object_type}"/>
+            </p:selectOneMenu>
+
+            <p:panel id="gridContainer" style="border: 0 solid white" >
+                <h:panelGrid rendered="#{gMapsController.obj_type == 'PILLAR'}" columns="2"  >
+                    <p:row>
+                        <p:column>Транспортная подстанция </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:inputText value="#{gMapsController.transportStation}" />                                           
+                    </p:row>
+                    <p:row>
+                        <p:column>Номер подстанции </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:inputText  value="#{gMapsController.numberStation}"/>
+                    </p:row>        
+                    <p:row>
+                        <p:column><p:outputLabel for="pillar_owner" value="Балансодержатель опоры" /> </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:selectOneMenu id="pillar_owner" value="#{gMapsController.owner}" style="width:150px" >
+                            <f:selectItems var="st" value="#{gMapsController.pillarOwner}" itemValue="#{st}" itemLabel="#{st.ownerType}"/>
+                        </p:selectOneMenu>        
+                    </p:row>
+                    <p:row>
+                        <p:column>Материал столба </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:selectOneMenu id="matheriall" value="#{gMapsController.matheriallPillar}" style="width:150px">
+                            <f:selectItems var="mat"  value="#{gMapsController.pillarMaterial}" itemValue="#{mat}" itemLabel="#{mat.pillarMaterial}" />
+                        </p:selectOneMenu>                     
+                        <!--
+                        <p:inputText value="#{gMapsController.matheriallPillar}" />
+                        -->
+                    </p:row>   
+                    <p:row>
+                        <p:column>Тип столба</p:column>
+                    </p:row> 
+                    <p:row>
+                        <p:selectOneMenu id="pillar_type" value="#{gMapsController.typePillar}" style="width:150px">
+                            <f:selectItems var="pl" value="#{gMapsController.pillarType}" itemValue="#{pl}" itemLabel="#{pl.pilarType}" />
+                        </p:selectOneMenu>     
+                        <!--
+                        <p:inputText value="#{gMapsController.typePillar}" />
+                        -->
+                    </p:row>
+                    <p:row>
+                        <p:column>Запас кабеля</p:column>
+                    </p:row> 
+                    <p:row>
+                        <p:selectOneMenu id="pillar_capacity" value="#{gMapsController.capacityPillar}" style="width:150px">
+                            <f:selectItems var="cp" value="#{gMapsController.pillarCapacity}" itemValue="#{cp}" itemLabel="#{cp.capacity_pillar}" />
+                        </p:selectOneMenu> 
+                    </p:row>
+                </h:panelGrid>    
+
+                <h:panelGrid rendered="#{gMapsController.obj_type == 'HOUSE'}" columns="2" >
+                    <p:row>
+                        <p:column>Транспортная подстанция </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:inputText value="#{gMapsController.transportStation}" />                                           
+                    </p:row>
+                    <p:row>
+                        <p:column>Номер подстанции </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:inputText  value="#{gMapsController.numberStation}"/>
+                    </p:row>        
+                    <p:row>
+                        <p:column><p:outputLabel for="house_type" value="Тип дома" /> </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:selectOneMenu id="house_type" value="#{gMapsController.typeOfHouse}" style="width:150px" >
+                            <f:selectItems var="ht" value="#{gMapsController.houseType}" itemValue="#{ht}" itemLabel="#{ht.houseType}"/>
+                        </p:selectOneMenu>        
+                    </p:row>
+                    <p:row>
+                        <p:column>Владелец</p:column>
+                    </p:row>         
+                    <p:row>
+                        <p:selectOneMenu id="house_owner" value="#{gMapsController.ownerofHouse}" style="width:150px" >
+                            <f:selectItems var="ho" value="#{gMapsController.houseOwner}" itemValue="#{ho}" itemLabel="#{ho.houseOwner}"/>
+                        </p:selectOneMenu>        
+                    </p:row>
+                </h:panelGrid>
+
+                <h:panelGrid rendered="#{gMapsController.obj_type == 'DRAW_WELL'}" >
+                    cc
+                </h:panelGrid>    
+            </p:panel>
+
+        </p:panel>
+    </cc:implementation>
+</html>
