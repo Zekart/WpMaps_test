@@ -13,6 +13,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import net.wildpark.wpmaps.enums.PillarMaterial;
 import net.wildpark.wpmaps.enums.PillarType;
 
 @Entity
@@ -21,7 +22,17 @@ import net.wildpark.wpmaps.enums.PillarType;
 @AttributeOverride(name = "numberOfTracks", column = @Column(name = "cd_release_number_of_tracks"))
 public class Pillar extends MapPoint{
 
-    @Column(name = "cd_release_type")
+    @Column(name = "transportstation")
+    private String transportStation;
+    
+    @Column(name = "numberstation")
+    private int numberStation;    
+    
+    @Column(name = "material")
+    @Enumerated(EnumType.STRING)
+    private PillarMaterial material;
+    
+    @Column(name = "pillar_type")
     @Enumerated(EnumType.STRING)
     private PillarType type;
 
@@ -29,8 +40,11 @@ public class Pillar extends MapPoint{
 
     }
 
-    public Pillar(int id, String name,Double lat,Double lng, int year, String length, PillarType type) {
-        super(id, name,lat,lng, year, length);
+    public Pillar(int id, String owner,Double lat,Double lng,String transportStation,int numberStation,PillarMaterial material, PillarType type) {
+        super(id, owner,lat,lng);
+        this.material = material;
+        this.numberStation = numberStation;
+        this.material = material;
         this.type = type;
     }
 
@@ -42,15 +56,42 @@ public class Pillar extends MapPoint{
         this.type = type;
     }
 
+    public String getTransportStation() {
+        return transportStation;
+    }
+
+    public void setTransportStation(String transportStation) {
+        this.transportStation = transportStation;
+    }
+
+    public int getNumberStation() {
+        return numberStation;
+    }
+
+    public void setNumberStation(int numberStation) {
+        this.numberStation = numberStation;
+    }
+
+    public PillarMaterial getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(PillarMaterial material) {
+        this.material = material;
+    }
+    
+    
+
     @Override
     public String toString() {
-        return "CDRelease{" +
+        return "Pillar{" +
                 "id=" + getId() +
-                ", name='" + getName() + '\'' +
+                ", owner='" + getOwner() + '\'' +
                 ", lat='" + getLat() + '\'' +
                 ", lng='" + getLng() + '\'' +
-                ", year=" + getYear() +
-                ", length='" + getLength() + '\'' +
+                ", transportstation=" + getTransportStation() +
+                ", numberStation='" + getNumberStation() + '\'' +
+                ", material=" + getMaterial() +
                 ", type=" + type +
                 ", type=" + getRelease_type() +
                 '}';

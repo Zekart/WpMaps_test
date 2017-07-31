@@ -15,11 +15,15 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import net.wildpark.wpmaps.entitys.Clutch;
+import net.wildpark.wpmaps.entitys.DrawWell;
 import net.wildpark.wpmaps.entitys.House;
 import net.wildpark.wpmaps.entitys.MapPoint;
 import net.wildpark.wpmaps.entitys.Person;
 import net.wildpark.wpmaps.entitys.Pillar;
 import net.wildpark.wpmaps.entitys.PointStaff;
+import net.wildpark.wpmaps.entitysController.PointAddController;
+import net.wildpark.wpmaps.enums.DrawWellOwner;
+import net.wildpark.wpmaps.enums.DrawWellType;
 import net.wildpark.wpmaps.enums.FiberType;
 import net.wildpark.wpmaps.enums.HouseOwner;
 import net.wildpark.wpmaps.enums.HouseType;
@@ -70,6 +74,8 @@ public class GMapsController implements Serializable {
     private ObjectType obj_type;
     private HouseType typeOfHouse;
     private HouseOwner ownerofHouse;
+    private DrawWellOwner ownerDrawWell;
+    private DrawWellType type_drawWell;
     
     private int id;
     private Boolean capacityCabel;
@@ -86,8 +92,9 @@ public class GMapsController implements Serializable {
      
     //Staff mappoint =  new Staff();
     
-    Pillar car = new Pillar();
-    House bike = new House();
+    Pillar pillar = new Pillar();
+    House house = new House();
+    DrawWell draw_well = new DrawWell();
     
     Clutch selectedMappoint = new Clutch();
 
@@ -102,57 +109,59 @@ public class GMapsController implements Serializable {
         
         for(MapPoint e: list){
             System.out.println(e);
-        }
-
-//        bike.setBitrate(12);
-//        bike.setLength("128");
-//        bike.setName("Nero");
-//        bike.setYear(1239);
-//        
-//        houseFacade.create(bike);
-//        
-
-//car.setLength("34");
-//car.setName("honda");
-//car.setType(PillarType.CIRCULAR);
-//car.setYear(1987);
-//
-//houseFacade.create(bike);
-
-        
+        } 
         for (MapPoint e:list) {
             model.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/EL_TRANCE/EMPTY.png"));                
         }   
     }
 
-    public void addMarker() {
+    public void addMarkerP() {
 
-        car.setLat(lat);
-        car.setLng(lng);
-car.setLength("34");
-car.setName("honda");
-car.setType(PillarType.CIRCULAR);
-car.setYear(1987);
-////        mappoint.setNumbertranspotrstation(numberStation);
-////        mappoint.setTransportstation(transportStation);
-////        mappoint.setOwner(owner);
-////        mappoint.setType(typePillar);
-////        mappoint.setMatheriallPillar(matheriallPillar);
-////        mappoint.setCapacityPillar(capacityPillar);
-//        
-//
-        pillarFacade.create(car);
-        
-        System.out.println("Yes");
-//        
-        id = car.getId();
-        marker = new Marker(new LatLng(lat, lng), String.valueOf(id),bike,"../resources/marker/EL_TRANCE/EMPTY.png" );
+        pillar.setLat(lat);
+        pillar.setLng(lng);
+        pillar.setMaterial(matheriallPillar);
+        pillar.setNumberStation(numberStation);
+        pillar.setTransportStation(transportStation);
+        pillar.setType(typePillar);
+        pillar.setOwner(owner.toString());
+
+        pillarFacade.create(pillar);
+        id = pillar.getId();
+        marker = new Marker(new LatLng(lat, lng), String.valueOf(id),pillar,"../resources/marker/EL_TRANCE/EMPTY.png" );
         model.addOverlay(marker);
 //        //list.clear();
         init();
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }
-    
+    public void addMarkerH() {
+
+        house.setLat(lat);
+        house.setLng(lng);
+        house.setType_house(typeOfHouse);
+        house.setOwner(ownerofHouse.toString());
+        
+        houseFacade.create(house);
+        id = house.getId();
+        marker = new Marker(new LatLng(lat, lng), String.valueOf(id),house,"../resources/marker/EL_TRANCE/EMPTY.png" );
+        model.addOverlay(marker);
+//        //list.clear();
+        init();
+        //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
+    }   
+    public void addMarkerW() {
+        draw_well.setLat(lat);
+        draw_well.setLng(lng);
+        draw_well.setOwner(ownerDrawWell.toString());
+        draw_well.setType_draw_well(type_drawWell);
+        
+        drawWellFacade.create(draw_well);
+        id = draw_well.getId();
+        marker = new Marker(new LatLng(lat, lng), String.valueOf(id),draw_well,"../resources/marker/EL_TRANCE/EMPTY.png" );
+        model.addOverlay(marker);
+//        //list.clear();
+        init();
+        //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
+    }
 //    public void deleteMarker(){        
 //        //selectedPillar = (Pillar) marker.getData();
 ////        System.out.println("Select id  " + selectedMappoint.getId());

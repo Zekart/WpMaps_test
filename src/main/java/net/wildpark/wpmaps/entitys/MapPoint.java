@@ -8,12 +8,15 @@ package net.wildpark.wpmaps.entitys;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import net.wildpark.wpmaps.enums.HouseOwner;
 
 @Entity
 @Table(name = "releases")
@@ -29,36 +32,29 @@ public abstract class MapPoint {
     @Column(name = "point_id")
     private int id;
 
-    @Column(name = "point_name")
-    private String name;
+    @Column(name="owner")
+    private String owner;
     
     @Column(name = "point_lat")
     private Double lat;
     
     @Column(name = "point_lng")
     private Double lng;
-
-    @Column(name = "release_year")
-    private int year;
-
-    @Column(name = "release_length")
-    private String length;
     
     @Column(name="release_type")
     private String release_type;
+    
 
     public MapPoint() {
     }
 
 
 
-    protected MapPoint(int id, String name,Double lat, Double lng, int year, String length) {
+    protected MapPoint(int id, String owner,Double lat, Double lng) {
         this.id = id;
-        this.name = name;
+        this.owner = owner;
         this.lat = lat;
         this.lng = lng;
-        this.year = year;
-        this.length = length;
     }
 
     public int getId() {
@@ -69,12 +65,12 @@ public abstract class MapPoint {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public Double getLat() {
@@ -92,23 +88,7 @@ public abstract class MapPoint {
     public void setLng(Double lng) {
         this.lng = lng;
     }
-    
 
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public String getLength() {
-        return length;
-    }
-
-    public void setLength(String length) {
-        this.length = length;
-    }
 
     public String getRelease_type() {
         return release_type;
@@ -123,9 +103,7 @@ public abstract class MapPoint {
     public String toString() {
      return "Release{" +
        "id=" + id +
-       ", name='" + name + '\'' +
-       ", year=" + year +
-       ", length='" + length + '\'' +
+       ", name='" + owner + '\'' +
        '}';
     }
 }

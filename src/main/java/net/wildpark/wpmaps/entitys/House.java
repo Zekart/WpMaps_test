@@ -9,7 +9,12 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import net.wildpark.wpmaps.enums.HouseOwner;
+import net.wildpark.wpmaps.enums.HouseType;
+import net.wildpark.wpmaps.enums.PillarType;
 
 @Entity
 @Table(name = "house")
@@ -17,36 +22,36 @@ import javax.persistence.Table;
 @AttributeOverride(name = "numberOfTracks", column = @Column(name = "mp3_release_number_of_tracks"))
 public class House extends MapPoint {
 
-    @Column(name = "mp3_release_bitrate")
-    private int bitrate;
+    @Column(name = "house_type")
+    @Enumerated(EnumType.STRING)
+    private HouseType type_house;
 
     public House() {
 
     }
 
-    public House(int id, String name, Double lat, Double lng, int year, String length, int numberOfTracks) {
-        super(id, name,lat,lng, year, length);
-        this.bitrate = bitrate;
+    public House(int id, String owner, Double lat, Double lng, int numberOfTracks) {
+        super(id, owner,lat,lng);
+        this.type_house = type_house;
     }
 
-    public int getBitrate() {
-        return bitrate;
+    public HouseType getType_house() {
+        return type_house;
     }
 
-    public void setBitrate(int bitrate) {
-        this.bitrate = bitrate;
+    public void setType_house(HouseType type_house) {
+        this.type_house = type_house;
     }
 
     @Override
     public String toString() {
         return "House{" +
                 "id=" + getId() +
-                ", name='" + getName() + '\'' +
+                ", owner='" + getOwner() + '\'' +
                 ", lat='" + getLat() + '\'' +
                 ", lng='" + getLng() + '\'' +
-                ", year=" + getYear() +
-                ", length='" + getLength() + '\'' +
-                ", bitrate=" + bitrate +
+                ", house_type=" + type_house +
+                ", type=" + getRelease_type() +
                 '}';
     }
 }

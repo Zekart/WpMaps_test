@@ -9,7 +9,12 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import net.wildpark.wpmaps.enums.DrawWellOwner;
+import net.wildpark.wpmaps.enums.DrawWellType;
+import net.wildpark.wpmaps.enums.PillarType;
 
 /**
  *
@@ -21,34 +26,34 @@ import javax.persistence.Table;
 @AttributeOverride(name = "numberOfTracks", column = @Column(name = "mp3_release_number_of_tracks"))
 public class DrawWell extends MapPoint {
 
-    @Column(name = "mp3_release_bitrate")
-    private int bitrate;
+    @Column(name = "draw_well_type")
+    @Enumerated(EnumType.STRING)
+    private DrawWellType type_draw_well;
+    
 
     public DrawWell() {
 
     }
 
-    public DrawWell(int id, String name,Double lat,Double lng, int year, String length, int numberOfTracks) {
-        super(id, name,lat,lng, year, length);
-        this.bitrate = bitrate;
+    public DrawWell(int id, String owner,Double lat,Double lng, int numberOfTracks) {
+        super(id, owner,lat,lng);
+        this.type_draw_well = type_draw_well;
     }
 
-    public int getBitrate() {
-        return bitrate;
+    public DrawWellType getType_draw_well() {
+        return type_draw_well;
     }
 
-    public void setBitrate(int bitrate) {
-        this.bitrate = bitrate;
+    public void setType_draw_well(DrawWellType type_draw_well) {
+        this.type_draw_well = type_draw_well;
     }
 
     @Override
     public String toString() {
         return "DrawWell{" +
                 "id=" + getId() +
-                ", name='" + getName() + '\'' +
-                ", year=" + getYear() +
-                ", length='" + getLength() + '\'' +
-                ", bitrate=" + bitrate +
+                ", name='" + getOwner() + '\'' +
+                ", type draw well=" + type_draw_well +
                 '}';
     }
 }

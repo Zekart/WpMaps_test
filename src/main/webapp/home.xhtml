@@ -241,8 +241,7 @@
 
             <addDialog:panelAddDialog/>
             
-            <h:panelGrid columns="2" >
-                    <p:commandButton value="Add" actionListener="#{gMapsController.addMarker}" update="@all" />
+            <h:panelGrid columns="1" >
                     <p:commandButton value="Cancel" onclick="return cancel()" />               
             </h:panelGrid>  
             <h:inputHidden id="lat" value="#{gMapsController.lat}" />

@@ -65,13 +65,11 @@
                         -->
                     </p:row>
                     <p:row>
-                        <p:column>Запас кабеля</p:column>
-                    </p:row> 
-                    <p:row>
-                        <p:selectOneMenu id="pillar_capacity" value="#{gMapsController.capacityPillar}" style="width:150px">
-                            <f:selectItems var="cp" value="#{gMapsController.pillarCapacity}" itemValue="#{cp}" itemLabel="#{cp.capacity_pillar}" />
-                        </p:selectOneMenu> 
+                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerP}" update="@all" />                        
                     </p:row>
+                    <p:row>
+                        <p:commandButton value="Cancel" onclick="return cancel()" />                        
+                    </p:row>                    
                 </h:panelGrid>    
 
                 <h:panelGrid rendered="#{gMapsController.obj_type == 'HOUSE'}" columns="2" >
@@ -103,10 +101,34 @@
                             <f:selectItems var="ho" value="#{gMapsController.houseOwner}" itemValue="#{ho}" itemLabel="#{ho.houseOwner}"/>
                         </p:selectOneMenu>        
                     </p:row>
+                    <p:row>
+                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerH}" update="@all" />                        
+                    </p:row>
+                    <p:row>
+                        <p:commandButton value="Cancel" onclick="return cancel()" />                        
+                    </p:row>
                 </h:panelGrid>
 
                 <h:panelGrid rendered="#{gMapsController.obj_type == 'DRAW_WELL'}" >
-                    cc
+                 <p:row>
+                     <p:selectOneMenu id="drawWell_type" value="#{gMapsController.type_drawWell}" style="width:150px" >
+                         <f:selectItems var="ht" value="#{gMapsController.drawWellType}" itemValue="#{ht}" itemLabel="#{ht.drawWellType}"/>
+                        </p:selectOneMenu>        
+                    </p:row>
+                    <p:row>
+                        <p:column>Владелец</p:column>
+                    </p:row>         
+                    <p:row>
+                        <p:selectOneMenu id="drawWell_owner" value="#{gMapsController.ownerDrawWell}" style="width:150px" >
+                            <f:selectItems var="ho" value="#{gMapsController.drawWellOwner}" itemValue="#{ho}" itemLabel="#{ho.drawWellOwner}"/>
+                        </p:selectOneMenu>        
+                    </p:row>
+                    <p:row>
+                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerW}" update="@all" />                        
+                    </p:row>
+                    <p:row>
+                        <p:commandButton value="Cancel" onclick="return cancel()" />                        
+                    </p:row>
                 </h:panelGrid>    
             </p:panel>
 
