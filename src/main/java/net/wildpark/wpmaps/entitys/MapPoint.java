@@ -7,6 +7,7 @@ package net.wildpark.wpmaps.entitys;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import net.wildpark.wpmaps.enums.HouseOwner;
 
 @Entity
@@ -25,6 +27,8 @@ import net.wildpark.wpmaps.enums.HouseOwner;
 
 
 public abstract class MapPoint {
+    
+
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,12 +45,18 @@ public abstract class MapPoint {
     @Column(name = "point_lng")
     private Double lng;
     
-    @Column(name="release_type")
+    @Transient
     private String release_type;
+    
+    public String getDecriminatorValue() {
+        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
+    }
+
     
 
     public MapPoint() {
     }
+    
 
 
 

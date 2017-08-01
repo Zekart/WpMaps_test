@@ -22,8 +22,8 @@ import net.wildpark.wpmaps.enums.PillarType;
  */
 @Entity
 @Table(name = "drawwell")
-@DiscriminatorValue("drawWell")
-@AttributeOverride(name = "numberOfTracks", column = @Column(name = "mp3_release_number_of_tracks"))
+@DiscriminatorValue("Draw")
+//@AttributeOverride(name = "numberOfTracks", column = @Column(name = "mp3_release_number_of_tracks"))
 public class DrawWell extends MapPoint {
 
     @Column(name = "draw_well_type")

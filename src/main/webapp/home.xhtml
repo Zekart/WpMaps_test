@@ -240,10 +240,7 @@
         <p:dialog widgetVar="dlg" showEffect="fade" closable="false" >
 
             <addDialog:panelAddDialog/>
-            
-            <h:panelGrid columns="1" >
-                    <p:commandButton value="Cancel" onclick="return cancel()" />               
-            </h:panelGrid>  
+             
             <h:inputHidden id="lat" value="#{gMapsController.lat}" />
             <h:inputHidden id="lng" value="#{gMapsController.lng}" />
         </p:dialog>                      

@@ -108,10 +108,10 @@ public class GMapsController implements Serializable {
         list = mapFacade.findAll();   
         
         for(MapPoint e: list){
-            System.out.println(e);
+            System.out.println(e.getDecriminatorValue());
         } 
         for (MapPoint e:list) {
-            model.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/EL_TRANCE/EMPTY.png"));                
+            model.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/"+e.getDecriminatorValue().toLowerCase()+"_marker.png"));                
         }   
     }
 
@@ -127,7 +127,7 @@ public class GMapsController implements Serializable {
 
         pillarFacade.create(pillar);
         id = pillar.getId();
-        marker = new Marker(new LatLng(lat, lng), String.valueOf(id),pillar,"../resources/marker/EL_TRANCE/EMPTY.png" );
+        marker = new Marker(new LatLng(lat, lng), String.valueOf(id),pillar,"../resources/marker/pillar_marker.png" );
         model.addOverlay(marker);
 //        //list.clear();
         init();
@@ -142,7 +142,7 @@ public class GMapsController implements Serializable {
         
         houseFacade.create(house);
         id = house.getId();
-        marker = new Marker(new LatLng(lat, lng), String.valueOf(id),house,"../resources/marker/EL_TRANCE/EMPTY.png" );
+        marker = new Marker(new LatLng(lat, lng), String.valueOf(id),house,"../resources/marker/house_marker.png" );
         model.addOverlay(marker);
 //        //list.clear();
         init();
@@ -156,7 +156,7 @@ public class GMapsController implements Serializable {
         
         drawWellFacade.create(draw_well);
         id = draw_well.getId();
-        marker = new Marker(new LatLng(lat, lng), String.valueOf(id),draw_well,"../resources/marker/EL_TRANCE/EMPTY.png" );
+        marker = new Marker(new LatLng(lat, lng), String.valueOf(id),draw_well,"../resources/marker/draw_marker.png" );
         model.addOverlay(marker);
 //        //list.clear();
         init();
@@ -263,7 +263,12 @@ public class GMapsController implements Serializable {
     public PillarCapacity[] getPillarCapacity() {
         return PillarCapacity.values();
     }   
-    
+    public DrawWellOwner[] getDrawWellOwner() {
+        return DrawWellOwner.values();
+    }
+    public DrawWellType[] getDrawWellType() {
+        return DrawWellType.values();
+    }     
     public String changeInfoPillar(){
         return"pillarChange.xhtml?faces-redirect=true";
     }
@@ -395,6 +400,22 @@ public class GMapsController implements Serializable {
 
     public void setOwnerofHouse(HouseOwner ownerofHouse) {
         this.ownerofHouse = ownerofHouse;
+    }
+
+    public DrawWellOwner getOwnerDrawWell() {
+        return ownerDrawWell;
+    }
+
+    public void setOwnerDrawWell(DrawWellOwner ownerDrawWell) {
+        this.ownerDrawWell = ownerDrawWell;
+    }
+
+    public DrawWellType getType_drawWell() {
+        return type_drawWell;
+    }
+
+    public void setType_drawWell(DrawWellType type_drawWell) {
+        this.type_drawWell = type_drawWell;
     }
 
 

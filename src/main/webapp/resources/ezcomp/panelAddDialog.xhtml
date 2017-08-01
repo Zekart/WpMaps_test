@@ -13,14 +13,13 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>
         <p:panel widgetVar="test" id="test1">
-
+            <p:outputLabel>Выберите объект: </p:outputLabel>
             <p:selectOneMenu id="object_type" value="#{gMapsController.obj_type}" style="width:150px" >
                 <p:ajax update="gridContainer" />
-                <f:selectItem itemLabel="Выберите объект" />
                 <f:selectItems var="ot" value="#{gMapsController.objectType}" itemValue="#{ot}" itemLabel="#{ot.object_type}"/>
             </p:selectOneMenu>
-
             <p:panel id="gridContainer" style="border: 0 solid white" >
+
                 <h:panelGrid rendered="#{gMapsController.obj_type == 'PILLAR'}" columns="2"  >
                     <p:row>
                         <p:column>Транспортная подстанция </p:column>
@@ -109,10 +108,13 @@
                     </p:row>
                 </h:panelGrid>
 
-                <h:panelGrid rendered="#{gMapsController.obj_type == 'DRAW_WELL'}" >
-                 <p:row>
-                     <p:selectOneMenu id="drawWell_type" value="#{gMapsController.type_drawWell}" style="width:150px" >
-                         <f:selectItems var="ht" value="#{gMapsController.drawWellType}" itemValue="#{ht}" itemLabel="#{ht.drawWellType}"/>
+                <h:panelGrid rendered="#{gMapsController.obj_type == 'DRAW_WELL'}" columns="2" >
+                    <p:row>
+                        <p:column>Тип</p:column>
+                    </p:row> 
+                    <p:row>                    
+                        <p:selectOneMenu id="drawWell_type" value="#{gMapsController.type_drawWell}" style="width:150px" >
+                            <f:selectItems var="ht" value="#{gMapsController.drawWellType}" itemValue="#{ht}" itemLabel="#{ht.drawWellType}"/>
                         </p:selectOneMenu>        
                     </p:row>
                     <p:row>

@@ -12,14 +12,12 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
-import net.wildpark.wpmaps.enums.HouseOwner;
 import net.wildpark.wpmaps.enums.HouseType;
-import net.wildpark.wpmaps.enums.PillarType;
 
 @Entity
 @Table(name = "house")
 @DiscriminatorValue("House")
-@AttributeOverride(name = "numberOfTracks", column = @Column(name = "mp3_release_number_of_tracks"))
+//@AttributeOverride(name = "numberOfTracks", column = @Column(name = "mp3_release_number_of_tracks"))
 public class House extends MapPoint {
 
     @Column(name = "house_type")
