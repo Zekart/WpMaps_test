@@ -5,12 +5,17 @@
  */
 package net.wildpark.wpmaps.entitys;
 
+import java.util.List;
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import net.wildpark.wpmaps.enums.HouseType;
 
@@ -23,6 +28,7 @@ public class House extends MapPoint {
     @Column(name = "house_type")
     @Enumerated(EnumType.STRING)
     private HouseType type_house;
+       
 
     public House() {
 
@@ -40,6 +46,7 @@ public class House extends MapPoint {
     public void setType_house(HouseType type_house) {
         this.type_house = type_house;
     }
+    
 
     @Override
     public String toString() {

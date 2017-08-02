@@ -5,16 +5,17 @@
  */
 package net.wildpark.wpmaps.entitys;
 
-import javax.persistence.AttributeOverride;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import net.wildpark.wpmaps.enums.DrawWellOwner;
 import net.wildpark.wpmaps.enums.DrawWellType;
-import net.wildpark.wpmaps.enums.PillarType;
 
 /**
  *
@@ -47,6 +48,7 @@ public class DrawWell extends MapPoint {
     public void setType_draw_well(DrawWellType type_draw_well) {
         this.type_draw_well = type_draw_well;
     }
+
 
     @Override
     public String toString() {

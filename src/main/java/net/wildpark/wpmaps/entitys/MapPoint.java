@@ -5,17 +5,21 @@
  */
 package net.wildpark.wpmaps.entitys;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import net.wildpark.wpmaps.enums.HouseOwner;
@@ -47,12 +51,17 @@ public abstract class MapPoint {
     
     @Transient
     private String release_type;
+            
+    @OneToMany(targetEntity = Clutch.class, mappedBy = "mappoint", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Clutch> clutch;
+    
+    
     
     public String getDecriminatorValue() {
         return this.getClass().getAnnotation(DiscriminatorValue.class).value();
     }
-
     
+   
 
     public MapPoint() {
     }
@@ -64,7 +73,7 @@ public abstract class MapPoint {
         this.id = id;
         this.owner = owner;
         this.lat = lat;
-        this.lng = lng;
+        this.lng = lng;        
     }
 
     public int getId() {
@@ -107,13 +116,23 @@ public abstract class MapPoint {
     public void setRelease_type(String release_type) {
         this.release_type = release_type;
     }
-    
 
+    public List<Clutch> getClutch() {
+        return clutch;
+    }
+
+    public void setClutch(List<Clutch> clutch) {
+        this.clutch = clutch;
+    }
+
+    
+    
     @Override
     public String toString() {
      return "Release{" +
        "id=" + id +
        ", name='" + owner + '\'' +
+       ", name='" + clutch + '\'' +
        '}';
     }
 }

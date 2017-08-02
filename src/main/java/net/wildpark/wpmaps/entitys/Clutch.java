@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -32,9 +34,14 @@ public class Clutch implements Serializable {
     private String info;
     private int inputs;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER )
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY )
     private List<Cabel> cabel;
     
+    @ManyToOne
+    @JoinColumn(name = "mappoint_id")
+    private MapPoint mappoint;
+    
+
     public Long getId() {
         return id;
     }
@@ -90,6 +97,14 @@ public class Clutch implements Serializable {
     public void setCabel(List<Cabel> cabel) {
         this.cabel = cabel;
     }
+
+    public MapPoint getMappoint() {
+        return mappoint;
+    }
+
+    public void setMappoint(MapPoint mappoint) {
+        this.mappoint = mappoint;
+    }
     
     
     
@@ -116,7 +131,13 @@ public class Clutch implements Serializable {
 
     @Override
     public String toString() {
-        return "net.wildpark.wpmaps.entitys.Clutch[ id=" + id + " ]";
+        return "Clutch[ id=" + id +        
+                ", Address='" + address + '\'' +
+                ", Conditions='" + conditions + '\'' +
+                ", Count of cassets='" + cassetsCount + '\'' +
+                ", Info='" + info + '\'' +
+                ", Inputs='" + inputs + '\'' +
+       '}';
     }
     
 }

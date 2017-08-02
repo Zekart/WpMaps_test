@@ -96,6 +96,7 @@ public class GMapsController implements Serializable {
     House house = new House();
     DrawWell draw_well = new DrawWell();
     
+    Clutch clutch = new Clutch();
     Clutch selectedMappoint = new Clutch();
 
     
@@ -108,8 +109,11 @@ public class GMapsController implements Serializable {
         list = mapFacade.findAll();   
         
         for(MapPoint e: list){
-            System.out.println(e.getDecriminatorValue());
+            System.out.println(e +" "+ e.getClutch());
         } 
+        
+        
+        
         for (MapPoint e:list) {
             model.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/"+e.getDecriminatorValue().toLowerCase()+"_marker.png"));                
         }   
@@ -124,7 +128,9 @@ public class GMapsController implements Serializable {
         pillar.setTransportStation(transportStation);
         pillar.setType(typePillar);
         pillar.setOwner(owner.toString());
-
+        
+        
+        
         pillarFacade.create(pillar);
         id = pillar.getId();
         marker = new Marker(new LatLng(lat, lng), String.valueOf(id),pillar,"../resources/marker/pillar_marker.png" );

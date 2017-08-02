@@ -34,9 +34,9 @@ public class Cabel implements Serializable {
     private String outPlace;
     private String production;
     
-    
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER )
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY )
     private List<Fiber> fiber;
+
 
     public Long getId() {
         return id;
