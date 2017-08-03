@@ -11,18 +11,16 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import net.wildpark.wpmaps.enums.HouseOwner;
 
 @Entity
 @Table(name = "releases")
@@ -30,7 +28,7 @@ import net.wildpark.wpmaps.enums.HouseOwner;
 @DiscriminatorColumn(name = "release_type")
 
 
-public abstract class MapPoint {
+public  class MapPoint {
     
 
     
@@ -51,11 +49,9 @@ public abstract class MapPoint {
     
     @Transient
     private String release_type;
-            
-    @OneToMany(targetEntity = Clutch.class, mappedBy = "mappoint", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+               
+    @OneToMany(targetEntity = Clutch.class, mappedBy="mappoint", cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
     private List<Clutch> clutch;
-    
-    
     
     public String getDecriminatorValue() {
         return this.getClass().getAnnotation(DiscriminatorValue.class).value();
@@ -69,11 +65,12 @@ public abstract class MapPoint {
 
 
 
-    protected MapPoint(int id, String owner,Double lat, Double lng) {
+    protected MapPoint(int id, String owner,Double lat, Double lng ) {
         this.id = id;
         this.owner = owner;
         this.lat = lat;
-        this.lng = lng;        
+        this.lng = lng;
+        
     }
 
     public int getId() {
@@ -125,14 +122,17 @@ public abstract class MapPoint {
         this.clutch = clutch;
     }
 
-    
+
+
     
     @Override
     public String toString() {
      return "Release{" +
        "id=" + id +
        ", name='" + owner + '\'' +
-       ", name='" + clutch + '\'' +
        '}';
     }
+
+
+
 }

@@ -16,7 +16,7 @@
             <h:panelGrid columns="2" >
                 <p:row>
                     <p:lightBox styleClass="imagebox" id="lighbox1" > 
-                        <h:outputLink value="../resources/pillar_demo_img/pillar.jpg" title="Pillar #{gMapsController.selectedPillar.transportstation}">  
+                        <h:outputLink value="../resources/pillar_demo_img/pillar.jpg" title="Pillar #{gMapsController.selectedMapPoint.decriminatorValue}">  
                             <h:graphicImage name="/pillar_demo_img/pillar.jpg" id="nature1" style="height: 100px; width: 100px" />  
                         </h:outputLink>                                                        
                     </p:lightBox>                            
@@ -27,165 +27,31 @@
                             <h:outputLabel  value="Подстанция: " />
                         </p:row>
                         <p:row>
-                            <h:outputLabel  value="#{gMapsController.selectedPillar.transportstation}" />
+                            <h:outputLabel  value="#{gMapsController.selectedMapPoint.clutch}" />
                         </p:row>
                         <p:row>
                             <h:outputLabel  value="Номер станции:" />
                         </p:row>
                         <p:row>                            
-                            <p:outputLabel value="#{gMapsController.selectedPillar.numbertranspotrstation}"  />    
+                            <p:outputLabel value="#{gMapsController.selectedMapPoint.owner}"  />    
                         </p:row>
                         <p:row>
                             <h:outputLabel  value="Балансодержатель опоры:" />
-                        </p:row>
-                        <p:row>                            
-                            <p:outputLabel value="#{gMapsController.selectedPillar.owner.ownerType}"  />    
-                        </p:row>
-                        <p:row>
-                            <h:outputLabel value="Материал столба:" />
-                        </p:row>
-                        <p:row>
-                            <p:outputLabel value="#{gMapsController.selectedPillar.matheriallPillar.pillarMaterial}"  />                        
-                        </p:row>                                           
-                        <p:row>
-                            <h:outputLabel value="Тип столба:" />
-                        </p:row>
-                        <p:row>
-                            <p:outputLabel value="#{gMapsController.selectedPillar.type.pilarType}"  />                                                     
-                        </p:row> 
-                        <p:row>
-                            <p:link outcome="clutchInfo" value="Муфта" ><f:param name = "clutch_id" value = "#{gMapsController.selectedPillar.id}" /></p:link>              
-                        </p:row>                                
-                        <p:row>
-                            <p:outputLabel value="#{gMapsController.selectedPillar.capacityPillar.capacity_pillar}"  />                                                     
-                        </p:row>                                
+                        </p:row>                     
+                                
                     </h:panelGrid>
 
                 </p:row>                  
             </h:panelGrid>
-            <!--
-            <p:accordionPanel>
-
-                <p:tab title="Столб"  >
-    <h:panelGrid columns="2" width="180">
-                <p:row>
-                    <h:outputLabel  value="Номер станции:" />
-                </p:row>
-                <p:row>                            
-                    <p:outputLabel value="#{gMapsController.selectedPillar.numbertranspotrstation}"  />    
-                </p:row>
-                <p:row>
-                    <h:outputLabel  value="Балансодержатель опоры:" />
-                </p:row>
-                <p:row>                            
-                    <p:outputLabel value="#{gMapsController.selectedPillar.owner.ownerType}"  />    
-                </p:row>
-                <p:row>
-                    <h:outputLabel value="Материал столба:" />
-                </p:row>
-                <p:row>
-                    <p:outputLabel value="#{gMapsController.selectedPillar.matheriallPillar.pillarMaterial}"  />                        
-                </p:row>                                           
-                <p:row>
-                    <h:outputLabel value="Тип столба:" />
-                </p:row>
-                <p:row>
-                    <p:outputLabel value="#{gMapsController.selectedPillar.type.pilarType}"  />                                                     
-                </p:row>                        
-            </h:panelGrid>
-</p:tab>
-<p:tab title="Муфта">
-            <h:panelGrid columns="2" width="180" >
-                <p:row>
-                    <h:outputLabel  value="Адрес:" />
-                </p:row>
-                <p:row>                            
-                    <p:outputLabel value="#{gMapsController.selectedPillar.clutchId.address}"  />    
-                </p:row>
-                <p:row>
-                    <h:outputLabel  value="Количество касет:" />
-                </p:row>
-                <p:row>                            
-                    <p:outputLabel value="#{gMapsController.selectedPillar.clutchId.countcassets}"  />    
-                </p:row>
-                <p:row>
-                    <h:outputLabel value="Вводы:" />
-                </p:row>
-                <p:row>
-                    <p:outputLabel value="#{gMapsController.selectedPillar.clutchId.inputs}"  />                        
-                </p:row>                                           
-                <p:row>
-                    <h:outputLabel value="Информация:" />
-                </p:row>
-                <p:row>
-                    <p:outputLabel value="#{gMapsController.selectedPillar.clutchId.info}"  />                                                     
-                </p:row>                        
-            </h:panelGrid>
-</p:tab>
-<p:tab title="Кабель">
-            <h:panelGrid columns="2" width="180" >
-                <p:row>
-                    <h:outputLabel  value="Вместимость:" />
-                </p:row>
-                <p:row>                            
-                    <p:outputLabel value="#{gMapsController.selectedPillar.transportstation}"  />    
-                </p:row>
-                <p:row>
-                    <h:outputLabel  value="Маркировка:" />
-                </p:row>
-                <p:row>                            
-                    <p:outputLabel value="#{gMapsController.selectedPillar.cabelId.marking}"  />    
-                </p:row>
-                <p:row>
-                    <h:outputLabel value="Производитель:" />
-                </p:row>
-                <p:row>
-                    <p:outputLabel value="#{gMapsController.selectedPillar.cabelId.production}"  />                        
-                </p:row>                                           
-                <p:row>
-                    <h:outputLabel value="Выход:" />
-                </p:row>
-                <p:row>
-                    <p:outputLabel value="#{gMapsController.selectedPillar.cabelId.outplace}"  />                                                     
-                </p:row>
-                <p:row>
-                    <h:outputLabel value="Вход:" />
-                </p:row>
-                <p:row>
-                    <p:outputLabel value="#{gMapsController.selectedPillar.cabelId.inplace}"  />                                                     
-                </p:row>                         
-            </h:panelGrid>
-</p:tab>
-<p:tab title="Волокно">
-            <h:panelGrid columns="2" width="180" >
-                <p:row>
-                    <h:outputLabel  value="Адрес:" />
-                </p:row>
-                <p:row>                            
-                    <p:outputLabel value="#{gMapsController.selectedPillar.cabelId.marking}"  />    
-                </p:row>
-                <p:row>
-                    <h:outputLabel  value="Номер:" />
-                </p:row>
-                <p:row>                            
-                    <p:outputLabel value="#{gMapsController.selectedPillar.cabelId.fiberId.number}"  />    
-                </p:row>
-                <p:row>
-                    <h:outputLabel value="Тип:" />
-                </p:row>
-                <p:row>
-                    <p:outputLabel value="#{gMapsController.selectedPillar.cabelId.fiberId.typefiber}"  />                        
-                </p:row>                                           
-                <p:row>
-                    <h:outputLabel value="Индикация:" />
-                </p:row>
-                <p:row>
-                    <p:outputLabel value="#{gMapsController.selectedPillar.cabelId.fiberId.indicationreflector}"  />                                                     
-                </p:row>                        
-            </h:panelGrid>
-</p:tab>        
-</p:accordionPanel>
-            -->                                      
+            <h:form>
+                <p:fieldset legend="Муфта" toggleable="true" toggleSpeed="900">
+                    <p:ajax event="toggle" />
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
+                        <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film"></h:outputText>
+                    </h:panelGrid>
+                </p:fieldset>                
+            </h:form>                                
             <p:row>
                 <h:panelGrid columns="3" >
                     <p:commandButton value="Удалить" actionListener="#{gMapsController.deleteMarker}" update=":gmap">

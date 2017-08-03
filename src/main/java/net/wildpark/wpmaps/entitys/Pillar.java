@@ -6,17 +6,12 @@
 package net.wildpark.wpmaps.entitys;
 
 import java.util.List;
-import javax.persistence.AttributeOverride;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import net.wildpark.wpmaps.enums.PillarMaterial;
 import net.wildpark.wpmaps.enums.PillarType;
 
@@ -39,9 +34,7 @@ public class Pillar extends MapPoint{
     @Column(name = "pillar_type")
     @Enumerated(EnumType.STRING)
     private PillarType type;
-    
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true )
-    private List<Clutch> clutch;
+        
 
     public Pillar() {
 
@@ -53,7 +46,6 @@ public class Pillar extends MapPoint{
         this.numberStation = numberStation;
         this.material = material;
         this.type = type;
-        this.clutch = clutch;
     }
 
     public PillarType getType() {
@@ -86,17 +78,8 @@ public class Pillar extends MapPoint{
 
     public void setMaterial(PillarMaterial material) {
         this.material = material;
-    }
-
-    public List<Clutch> getClutch() {
-        return clutch;
-    }
-
-    public void setClutch(List<Clutch> clutch) {
-        this.clutch = clutch;
-    }
-    
-    
+    }   
+   
     
 
     @Override
@@ -111,7 +94,7 @@ public class Pillar extends MapPoint{
                 ", material=" + getMaterial() +
                 ", type=" + type +
                 ", type=" + getRelease_type() +
-                ", clutch=" + clutch +
+                ", clutch=" + getClutch() +
                 '}';
     }
 

@@ -9,22 +9,17 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.DrawWell;
 import net.wildpark.wpmaps.entitys.House;
 import net.wildpark.wpmaps.entitys.MapPoint;
-import net.wildpark.wpmaps.entitys.Person;
 import net.wildpark.wpmaps.entitys.Pillar;
-import net.wildpark.wpmaps.entitys.PointStaff;
-import net.wildpark.wpmaps.entitysController.PointAddController;
 import net.wildpark.wpmaps.enums.DrawWellOwner;
 import net.wildpark.wpmaps.enums.DrawWellType;
-import net.wildpark.wpmaps.enums.FiberType;
 import net.wildpark.wpmaps.enums.HouseOwner;
 import net.wildpark.wpmaps.enums.HouseType;
 import net.wildpark.wpmaps.enums.ObjectType;
@@ -41,9 +36,7 @@ import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
 import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.map.StateChangeEvent;
-import org.primefaces.model.map.Polyline;
 
 
 /**
@@ -95,13 +88,15 @@ public class GMapsController implements Serializable {
     Pillar pillar = new Pillar();
     House house = new House();
     DrawWell draw_well = new DrawWell();
+    MapPoint point = new MapPoint();
     
-    Clutch clutch = new Clutch();
+Clutch clutch = new Clutch();
     Clutch selectedMappoint = new Clutch();
 
     
     List<LatLng> coord = new ArrayList<>();
     List<Marker> markers;  
+    List<Clutch> clutchs = new ArrayList<>();
 //
     @PostConstruct
     public void init() {
@@ -109,8 +104,9 @@ public class GMapsController implements Serializable {
         list = mapFacade.findAll();   
         
         for(MapPoint e: list){
-            System.out.println(e +" "+ e.getClutch());
+            System.out.println(e);
         } 
+        
         
         
         
@@ -129,7 +125,13 @@ public class GMapsController implements Serializable {
         pillar.setType(typePillar);
         pillar.setOwner(owner.toString());
         
+        clutch.setAddress("sdfsdf");
+        clutch.setCassetsCount(4);
         
+        
+
+        point.setClutch(Collections.singletonList(clutch));
+        pillar.setClutch(clutchs);
         
         pillarFacade.create(pillar);
         id = pillar.getId();
@@ -181,11 +183,11 @@ public class GMapsController implements Serializable {
 //    }
 //       
 //
-//    public void onMarkerSelect(OverlaySelectEvent event) {
-//        marker = (Marker) event.getOverlay();   
-//        selectedMappoint = (Pillar) marker.getData(); 
-//        System.out.println("go");
-//    }
+    public void onMarkerSelect(OverlaySelectEvent event) {
+        marker = (Marker) event.getOverlay();   
+        selectedMappoint = (Clutch) marker.getData(); 
+        System.out.println("go");
+    }
    
     
 //    public void connectPillar(){
@@ -372,13 +374,15 @@ public class GMapsController implements Serializable {
         this.list = list;
     }
 //
-    public Clutch getSelectedPillar() {
+
+    public Clutch getSelectedMappoint() {
         return selectedMappoint;
     }
 
-    public void setSelectedPillar(Clutch selectedPillar) {
-        this.selectedMappoint = selectedPillar;
+    public void setSelectedMappoint(Clutch selectedMappoint) {
+        this.selectedMappoint = selectedMappoint;
     }
+
 
     public int getZoomMap() {
         return zoomMap;

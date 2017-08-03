@@ -6,6 +6,7 @@
 package net.wildpark.wpmaps.entitys;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -34,11 +37,12 @@ public class Clutch implements Serializable {
     private String info;
     private int inputs;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY )
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER )
     private List<Cabel> cabel;
     
+    
     @ManyToOne
-    @JoinColumn(name = "mappoint_id")
+    @JoinColumn(name = "point_id")
     private MapPoint mappoint;
     
 
@@ -105,9 +109,9 @@ public class Clutch implements Serializable {
     public void setMappoint(MapPoint mappoint) {
         this.mappoint = mappoint;
     }
-    
-    
-    
+
+
+
 
     @Override
     public int hashCode() {
@@ -137,6 +141,7 @@ public class Clutch implements Serializable {
                 ", Count of cassets='" + cassetsCount + '\'' +
                 ", Info='" + info + '\'' +
                 ", Inputs='" + inputs + '\'' +
+                
        '}';
     }
     
