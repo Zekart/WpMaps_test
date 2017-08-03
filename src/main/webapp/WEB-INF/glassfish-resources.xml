@@ -6,7 +6,7 @@
         <property name="portNumber" value="3306"/>
         <property name="databaseName" value="wpmaps"/>
         <property name="User" value="admin"/>
-        <property name="Password" value="12344321"/>
+        <property name="Password" value="admin"/>
         <property name="URL" value="jdbc:mysql://localhost:3306/wpmaps?zeroDateTimeBehavior=convertToNull"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>

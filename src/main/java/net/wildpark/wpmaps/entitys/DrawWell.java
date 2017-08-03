@@ -33,8 +33,8 @@ public class DrawWell extends MapPoint {
 
     }
 
-    public DrawWell(int id, String owner,Double lat,Double lng, int numberOfTracks) {
-        super(id, owner,lat,lng);
+    public DrawWell(int id, String owner,Double lat,Double lng,String address, int numberOfTracks) {
+        super(id, owner,lat,lng,address);
         this.type_draw_well = type_draw_well;
     }
 

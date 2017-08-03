@@ -47,6 +47,9 @@ public  class MapPoint {
     @Column(name = "point_lng")
     private Double lng;
     
+    @Column(name = "address")
+    private String address;
+    
     @Transient
     private String release_type;
                
@@ -65,11 +68,12 @@ public  class MapPoint {
 
 
 
-    protected MapPoint(int id, String owner,Double lat, Double lng ) {
+    protected MapPoint(int id, String owner,Double lat, Double lng,String address ) {
         this.id = id;
         this.owner = owner;
         this.lat = lat;
         this.lng = lng;
+        this.address = address;
         
     }
 
@@ -104,6 +108,15 @@ public  class MapPoint {
     public void setLng(Double lng) {
         this.lng = lng;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
 
 
     public String getRelease_type() {

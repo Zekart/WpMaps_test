@@ -60,7 +60,7 @@ public class GMapsController implements Serializable {
     private Marker marker;
     private String transportStation;
     private int numberStation;
-    private PillarOwner owner;
+    private String owner;
     private PillarMaterial matheriallPillar;
     private PillarType typePillar;
     private PillarCapacity capacityPillar;
@@ -91,7 +91,7 @@ public class GMapsController implements Serializable {
     MapPoint point = new MapPoint();
     
 Clutch clutch = new Clutch();
-    Clutch selectedMappoint = new Clutch();
+    MapPoint selectedMappoint = new MapPoint();
 
     
     List<LatLng> coord = new ArrayList<>();
@@ -185,7 +185,7 @@ Clutch clutch = new Clutch();
 //
     public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();   
-        selectedMappoint = (Clutch) marker.getData(); 
+        selectedMappoint = (MapPoint) marker.getData(); 
         System.out.println("go");
     }
    
@@ -325,11 +325,11 @@ Clutch clutch = new Clutch();
         this.numberStation = numberStation;
     }
 
-    public PillarOwner getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(PillarOwner owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 
@@ -375,13 +375,15 @@ Clutch clutch = new Clutch();
     }
 //
 
-    public Clutch getSelectedMappoint() {
+    public MapPoint getSelectedMappoint() {
         return selectedMappoint;
     }
 
-    public void setSelectedMappoint(Clutch selectedMappoint) {
+    public void setSelectedMappoint(MapPoint selectedMappoint) {
         this.selectedMappoint = selectedMappoint;
     }
+
+
 
 
     public int getZoomMap() {

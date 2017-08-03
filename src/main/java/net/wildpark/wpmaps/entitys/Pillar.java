@@ -40,8 +40,8 @@ public class Pillar extends MapPoint{
 
     }
 
-    public Pillar(int id, String owner,Double lat,Double lng,String transportStation,int numberStation,PillarMaterial material, PillarType type) {
-        super(id, owner,lat,lng);
+    public Pillar(int id, String owner,Double lat,Double lng,String address,String transportStation,int numberStation,PillarMaterial material, PillarType type) {
+        super(id, owner,lat,lng,address);
         this.material = material;
         this.numberStation = numberStation;
         this.material = material;
