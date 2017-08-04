@@ -17,7 +17,7 @@ import net.wildpark.wpmaps.enums.PillarType;
 
 @Entity
 @Table(name = "pillar")
-@DiscriminatorValue("Pillar")
+@DiscriminatorValue("Столб")
 //@AttributeOverride(name = "numberOfTracks", column = @Column(name = "cd_release_number_of_tracks"))
 public class Pillar extends MapPoint{
 

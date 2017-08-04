@@ -20,7 +20,7 @@ import net.wildpark.wpmaps.enums.DrawWellType;
  */
 @Entity
 @Table(name = "drawwell")
-@DiscriminatorValue("Draw")
+@DiscriminatorValue("Колодец")
 //@AttributeOverride(name = "numberOfTracks", column = @Column(name = "mp3_release_number_of_tracks"))
 public class DrawWell extends MapPoint {
 

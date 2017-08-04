@@ -11,8 +11,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.DrawWell;
 import net.wildpark.wpmaps.entitys.House;
@@ -36,7 +38,9 @@ import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
 import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
+import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.StateChangeEvent;
+import org.primefaces.model.map.GeocodeResult;
 
 
 /**
@@ -90,30 +94,46 @@ public class GMapsController implements Serializable {
     DrawWell draw_well = new DrawWell();
     MapPoint point = new MapPoint();
     
-Clutch clutch = new Clutch();
+    Clutch clutch = new Clutch();
     MapPoint selectedMappoint = new MapPoint();
 
     
     List<LatLng> coord = new ArrayList<>();
     List<Marker> markers;  
     List<Clutch> clutchs = new ArrayList<>();
+    
+    private String centerGeoMap = "41.850033, -87.6500523";
+    
 //
     @PostConstruct
     public void init() {
         model = new DefaultMapModel();
         list = mapFacade.findAll();   
-        
+              
         for(MapPoint e: list){
             System.out.println(e);
-        } 
-        
-        
-        
+        }              
         
         for (MapPoint e:list) {
-            model.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/"+e.getDecriminatorValue().toLowerCase()+"_marker.png"));                
+            model.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/"+e.getDecriminatorValue()+"_marker.png"));                
         }   
     }
+    
+    
+    public void onGeocode(GeocodeEvent event) {
+        System.out.println("Nope");
+//        List<GeocodeResult> results = event.getResults();
+//         
+//        if (results != null && !results.isEmpty()) {
+//            LatLng center = results.get(0).getLatLng();
+//            centerGeoMap = center.getLat() + "," + center.getLng();
+//             
+//            for (int i = 0; i < results.size(); i++) {
+//                GeocodeResult result = results.get(i);
+//                model.addOverlay(new Marker(result.getLatLng(), result.getAddress()));
+//            }
+//        }
+    }    
 
     public void addMarkerP() {
 
@@ -173,9 +193,9 @@ Clutch clutch = new Clutch();
 //    public void deleteMarker(){        
 //        //selectedPillar = (Pillar) marker.getData();
 ////        System.out.println("Select id  " + selectedMappoint.getId());
-//        mappoint = mapFacade.find(selectedMappoint.getId());
-//        if(mappoint != null){            
-//            mapFacade.remove(mappoint);
+//        point = mapFacade.find(selectedMappoint.getId());
+//        if(point != null){            
+//            mapFacade.remove(point);
 //            //list.clear();
 //            init();
 //            //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
@@ -428,6 +448,14 @@ Clutch clutch = new Clutch();
 
     public void setType_drawWell(DrawWellType type_drawWell) {
         this.type_drawWell = type_drawWell;
+    }
+
+    public String getCenterGeoMap() {
+        return centerGeoMap;
+    }
+
+    public void setCenterGeoMap(String centerGeoMap) {
+        this.centerGeoMap = centerGeoMap;
     }
 
 

@@ -38,7 +38,8 @@
         <p:gmap id ="gmap" center="46.9422145,31.9990089" zoom="#{gMapsController.zoomMap}" type="terrain" model="#{gMapsController.model}"                 
                 style="width: 100vw;height: 100vh;" onPointClick="handlePointClick(event);" widgetVar="map" fitBounds="false">
             
-            <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}" />            
+            <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}" />    
+            <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />
             <!--
             <p:ajax event="stateChange" listener="#{gMapsController.onStateChange}" />
             -->
@@ -271,6 +272,9 @@
 
             return false;
         }   
+        function geocode() {
+            PF('map').geocode(document.getElementById('address').value);
+        }
                 
     </script>               
     </h:body>

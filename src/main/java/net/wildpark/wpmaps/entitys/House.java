@@ -16,7 +16,7 @@ import net.wildpark.wpmaps.enums.HouseType;
 
 @Entity
 @Table(name = "house")
-@DiscriminatorValue("House")
+@DiscriminatorValue("Дом")
 //@AttributeOverride(name = "numberOfTracks", column = @Column(name = "mp3_release_number_of_tracks"))
 public class House extends MapPoint {
 
