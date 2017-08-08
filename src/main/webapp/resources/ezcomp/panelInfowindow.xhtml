@@ -16,7 +16,7 @@
             <h:panelGrid columns="2" >
                 <p:row>
                     <p:lightBox styleClass="imagebox" id="lighbox1" > 
-                        <h:outputLink value="../resources/pillar_demo_img/pillar.jpg" title="#{gMapsController.selectedMappoint.decriminatorValue} #{gMapsController.selectedMappoint.owner}" >  
+                        <h:outputLink value="../resources/pillar_demo_img/pillar.jpg" title="#{gMapsController.point.decriminatorValue} #{gMapsController.point.owner}" >  
                             <h:graphicImage name="/pillar_demo_img/pillar.jpg" id="nature1" style="height: 100px; width: 100px" />  
                         </h:outputLink>   
                     </p:lightBox>                            
@@ -27,17 +27,26 @@
                             <h:outputLabel  value="Тип: " />
                         </p:row>
                         <p:row>
-                            <h:outputLabel  value="#{gMapsController.selectedMappoint.decriminatorValue}" />
+                            <h:outputLabel  value="#{gMapsController.point.decriminatorValue}" />
                         </p:row>
                         <p:row>
                             <h:outputLabel  value="Владелец:" />
                         </p:row>
                         <p:row>                            
-                            <p:outputLabel value="#{gMapsController.selectedMappoint.owner}"  />    
+                            <p:outputLabel value="#{gMapsController.point.owner}"  />    
                         </p:row>
                         <p:row>
-                            <h:outputLabel  value="Балансодержатель опоры:" />
-                        </p:row>                     
+                            <h:outputLabel  value="Муфта:" />
+                        </p:row>     
+                        <p:row>
+                            <h:dataTable value="#{gMapsController.point.clutch}" var="points">
+                                <h:column>
+                                    <h:commandLink id="ajax"   action="#{gMapsController.buttonAction}" >
+                                        <h:outputText value="#{points.id}" />
+                                    </h:commandLink>
+                                </h:column>
+                            </h:dataTable>
+                        </p:row>                        
                                 
                     </h:panelGrid>
 

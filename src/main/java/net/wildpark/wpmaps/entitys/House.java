@@ -29,8 +29,8 @@ public class House extends MapPoint {
 
     }
 
-    public House(int id, String owner, Double lat, Double lng,String address, int numberOfTracks) {
-        super(id, owner,lat,lng,address);
+    public House(int id, String owner, Double lat, Double lng,String address,List<Clutch> clutch, int numberOfTracks) {
+        super(id, owner,lat,lng,address,clutch);
         this.type_house = type_house;
     }
 

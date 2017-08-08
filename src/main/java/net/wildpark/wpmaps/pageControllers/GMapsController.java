@@ -5,6 +5,7 @@
  */
 package net.wildpark.wpmaps.pageControllers;
 
+import java.awt.event.ActionEvent;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -58,7 +59,8 @@ public class GMapsController implements Serializable {
     @EJB
     private PillarFacade pillarFacade;
     @EJB
-    private PointFacade mapFacade;    
+    private PointFacade mapFacade;  
+
     
     private MapModel model;
     private Marker marker;
@@ -95,20 +97,19 @@ public class GMapsController implements Serializable {
     MapPoint point = new MapPoint();
     
     Clutch clutch = new Clutch();
-    MapPoint selectedMappoint = new MapPoint();
-
     
     List<LatLng> coord = new ArrayList<>();
     List<Marker> markers;  
     List<Clutch> clutchs = new ArrayList<>();
     
-    private String centerGeoMap = "41.850033, -87.6500523";
+    private String centerGeoMap = "46.9422145,31.9990089";
     
 //
     @PostConstruct
     public void init() {
         model = new DefaultMapModel();
         list = mapFacade.findAll();   
+        
               
         for(MapPoint e: list){
             System.out.println(e);
@@ -121,19 +122,21 @@ public class GMapsController implements Serializable {
     
     
     public void onGeocode(GeocodeEvent event) {
-        System.out.println("Nope");
-//        List<GeocodeResult> results = event.getResults();
-//         
-//        if (results != null && !results.isEmpty()) {
-//            LatLng center = results.get(0).getLatLng();
-//            centerGeoMap = center.getLat() + "," + center.getLng();
-//             
-//            for (int i = 0; i < results.size(); i++) {
-//                GeocodeResult result = results.get(i);
-//                model.addOverlay(new Marker(result.getLatLng(), result.getAddress()));
-//            }
-//        }
-    }    
+
+        List<GeocodeResult> results = event.getResults();
+         
+        if (results != null && !results.isEmpty()) {
+            LatLng center = results.get(0).getLatLng();
+            centerGeoMap = center.getLat() + "," + center.getLng();
+            zoomMap = 17;
+             
+        }
+    } 
+    
+    
+    public void buttonAction() {
+        System.out.println("All right");
+    }
 
     public void addMarkerP() {
 
@@ -205,7 +208,7 @@ public class GMapsController implements Serializable {
 //
     public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();   
-        selectedMappoint = (MapPoint) marker.getData(); 
+        point = (MapPoint) marker.getData(); 
         System.out.println("go");
     }
    
@@ -394,18 +397,6 @@ public class GMapsController implements Serializable {
         this.list = list;
     }
 //
-
-    public MapPoint getSelectedMappoint() {
-        return selectedMappoint;
-    }
-
-    public void setSelectedMappoint(MapPoint selectedMappoint) {
-        this.selectedMappoint = selectedMappoint;
-    }
-
-
-
-
     public int getZoomMap() {
         return zoomMap;
     }
@@ -457,6 +448,16 @@ public class GMapsController implements Serializable {
     public void setCenterGeoMap(String centerGeoMap) {
         this.centerGeoMap = centerGeoMap;
     }
+
+    public MapPoint getPoint() {
+        return point;
+    }
+
+    public void setPoint(MapPoint point) {
+        this.point = point;
+    }
+
+    
 
 
 

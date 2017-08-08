@@ -37,8 +37,22 @@ public class Clutch implements Serializable {
     private String info;
     private int inputs;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER )
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Cabel> cabel;
+
+    public Clutch() {
+    }
+    
+
+    public Clutch(Long id, String address, String conditions, int cassetsCount, String info, int inputs) {
+        this.id = id;
+        this.address = address;
+        this.conditions = conditions;
+        this.cassetsCount = cassetsCount;
+        this.info = info;
+        this.inputs = inputs;
+    }
+    
     
     
     @ManyToOne
@@ -135,7 +149,7 @@ public class Clutch implements Serializable {
 
     @Override
     public String toString() {
-        return "Clutch[ id=" + id +        
+        return "Clutch :)[ id=" + id +        
                 ", Address='" + address + '\'' +
                 ", Conditions='" + conditions + '\'' +
                 ", Count of cassets='" + cassetsCount + '\'' +

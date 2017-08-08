@@ -17,7 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -60,20 +59,16 @@ public  class MapPoint {
         return this.getClass().getAnnotation(DiscriminatorValue.class).value();
     }
     
-   
-
     public MapPoint() {
     }
-    
 
-
-
-    protected MapPoint(int id, String owner,Double lat, Double lng,String address ) {
+    protected MapPoint(int id, String owner,Double lat, Double lng,String address,List<Clutch> clutch ) {
         this.id = id;
         this.owner = owner;
         this.lat = lat;
         this.lng = lng;
         this.address = address;
+        this.clutch = clutch;
         
     }
 
@@ -118,7 +113,6 @@ public  class MapPoint {
     }
     
 
-
     public String getRelease_type() {
         return release_type;
     }
@@ -143,6 +137,7 @@ public  class MapPoint {
      return "Release{" +
        "id=" + id +
        ", name='" + owner + '\'' +
+             ", name='"  + '\'' +
        '}';
     }
 

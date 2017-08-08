@@ -82,4 +82,41 @@ body{
     padding: 0px;
 }
 
+.searchPanel{
+    position: fixed;
+    bottom: -5px;
+    right: 190px;
+    display: block;
+    width: 170px;
+
+}
+.ui-panel.searchPanel .ui-widget-content.searchPanel{
+    padding: 0px;
+}
+
+.ui-widget-content.searchPanel {
+    border:0px;
+    border-radius: 0px;
+    padding: 0px;
+}
+
+.clutchPanel{
+    position: fixed;
+    top: 65px;
+    right: 0px;
+    display: block;
+    width: 270px;
+    height: 340px;
+
+}
+.ui-panel.clutchPanel .ui-widget-content.clutchPanel{
+    padding: 0px;
+}
+
+.ui-widget-content.clutchPanel {
+    border:0px;
+    border-radius: 0px;
+    padding: 0px;
+}
+
 

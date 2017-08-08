@@ -40,8 +40,8 @@ public class Pillar extends MapPoint{
 
     }
 
-    public Pillar(int id, String owner,Double lat,Double lng,String address,String transportStation,int numberStation,PillarMaterial material, PillarType type) {
-        super(id, owner,lat,lng,address);
+    public Pillar(int id, String owner,Double lat,Double lng,String address,String transportStation,int numberStation,PillarMaterial material, PillarType type,List<Clutch> clutch) {
+        super(id, owner,lat,lng,address,clutch);
         this.material = material;
         this.numberStation = numberStation;
         this.material = material;
@@ -94,7 +94,7 @@ public class Pillar extends MapPoint{
                 ", material=" + getMaterial() +
                 ", type=" + type +
                 ", type=" + getRelease_type() +
-                ", clutch=" + getClutch() +
+                ", clutch=" + getClutch().size() +
                 '}';
     }
 

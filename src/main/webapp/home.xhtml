@@ -6,7 +6,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:piw="http://xmlns.jcp.org/jsf/composite/ezcomp"
       xmlns:addDialog="http://xmlns.jcp.org/jsf/composite/ezcomp"
-      xmlns:tm="http://xmlns.jcp.org/jsf/composite/ezcomp">
+      xmlns:tm="http://xmlns.jcp.org/jsf/composite/ezcomp"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/images/favicon.ico" />
         <title>WP Maps</title>
@@ -35,7 +36,7 @@
     <h:form id="form" prependId="false">
         
         <p:growl id="messages" showDetail="true"  sticky="true" />
-        <p:gmap id ="gmap" center="46.9422145,31.9990089" zoom="#{gMapsController.zoomMap}" type="terrain" model="#{gMapsController.model}"                 
+        <p:gmap id ="gmap" center="#{gMapsController.centerGeoMap}" zoom="#{gMapsController.zoomMap}" type="terrain" model="#{gMapsController.model}"                 
                 style="width: 100vw;height: 100vh;" onPointClick="handlePointClick(event);" widgetVar="map" fitBounds="false">
             
             <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}" />    
@@ -55,6 +56,33 @@
         <p:panel id="button_panel" styleClass="legendPanel" visible="false" widgetVar="testPanel" closable="true" toggleable="true" >
             <p:graphicImage height="130" width="130" value="../resources/marker/legend.png" />
         </p:panel>
+        <p:panel id="clutch_panel" styleClass="clutchPanel" visible="true" widgetVar="clutchPanel" closable="true" toggleable="true" >
+            <h:outputLabel  value="#{gMapsController.point.decriminatorValue}"  />
+            <p:dataGrid value="#{gMapsController.point.clutch}" var="point" rowIndexVar="rowIndex"  >                
+
+
+                    <p:panelGrid  columns="2"  columnClasses="label,value"  >                       
+                        <f:facet name="header">
+                            <h:outputText value="Муфта №: #{rowIndex+1}"   />                           
+                        </f:facet>
+
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{dataListView.selectedCar.id}" />
+
+                        <h:outputText value="Year" />
+                        <h:outputText value="#{dataListView.selectedCar.year}" />
+
+                        <h:outputText value="Color:" />
+                        <h:outputText value="#{dataListView.selectedCar.color}" style="color:#{dataListView.selectedCar.color}"/>
+
+                        <h:outputText value="Price" />
+                        <h:outputText value="$#{dataListView.selectedCar.price}" />
+                    </p:panelGrid>                               
+
+            </p:dataGrid>                
+
+
+        </p:panel>        
 <!--            
         <p:dialog header="Pillar info" widgetVar="dlg1" modal="false" height="300" width="800">
             <p:dataTable var="pillar" value="{gMapsController.list}">
@@ -244,7 +272,12 @@
              
             <h:inputHidden id="lat" value="#{gMapsController.lat}" />
             <h:inputHidden id="lng" value="#{gMapsController.lng}" />
-        </p:dialog>                      
+        </p:dialog>   
+                    <h:panelGrid styleClass="searchPanel" columns="3" style="margin-bottom:10px" cellpadding="5">
+                        <p:outputLabel for="address" value="Address:" />
+                        <p:inputText id="address" />
+                        <p:commandButton  icon="ui-icon-search" onclick="geocode()" type="button" />
+                    </h:panelGrid>
     </h:form>
 
     <script type="text/javascript">
@@ -271,7 +304,9 @@
             currentMarker = null;
 
             return false;
-        }   
+        }  
+                    
+    
         function geocode() {
             PF('map').geocode(document.getElementById('address').value);
         }
