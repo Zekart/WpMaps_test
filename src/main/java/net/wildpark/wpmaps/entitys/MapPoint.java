@@ -5,6 +5,7 @@
  */
 package net.wildpark.wpmaps.entitys;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,12 +23,12 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "releases")
+@Table(name = "point")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "release_type")
 
 
-public  class MapPoint {
+public  class MapPoint implements Serializable{
     
 
     

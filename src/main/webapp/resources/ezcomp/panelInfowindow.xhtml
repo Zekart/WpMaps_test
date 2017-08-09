@@ -51,22 +51,12 @@
                     </h:panelGrid>
 
                 </p:row>                  
-            </h:panelGrid>
-            <h:form>
-                <p:fieldset legend="Муфта" toggleable="true" toggleSpeed="900">
-                    <p:ajax event="toggle" />
-                    <h:panelGrid columns="2" cellpadding="5">
-                        <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
-                        <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film"></h:outputText>
-                    </h:panelGrid>
-                </p:fieldset>                
-            </h:form>                                
+            </h:panelGrid>                               
             <p:row>
                 <h:panelGrid columns="3" >
                     <p:commandButton value="Удалить" actionListener="#{gMapsController.deleteMarker}" update=":gmap">
                         <p:confirm header="Уведомление" message="Удалить данные?" icon="ui-icon-alert" />        
                     </p:commandButton>  
-                    <p:commandButton value="инфо" onclick="PF('dlg2').show();"/>    
                     <p:commandButton value="Соединить" actionListener="#{gMapsController.connectPillar}" update=":messages"/>
                 </h:panelGrid>                        
             </p:row>                     

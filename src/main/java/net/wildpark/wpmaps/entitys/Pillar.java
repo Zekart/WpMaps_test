@@ -5,6 +5,7 @@
  */
 package net.wildpark.wpmaps.entitys;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -19,7 +20,7 @@ import net.wildpark.wpmaps.enums.PillarType;
 @Table(name = "pillar")
 @DiscriminatorValue("Столб")
 //@AttributeOverride(name = "numberOfTracks", column = @Column(name = "cd_release_number_of_tracks"))
-public class Pillar extends MapPoint{
+public class Pillar extends MapPoint implements Serializable{
 
     @Column(name = "transportstation")
     private String transportStation;

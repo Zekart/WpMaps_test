@@ -16,6 +16,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import net.wildpark.wpmaps.entitys.Cabel;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.DrawWell;
 import net.wildpark.wpmaps.entitys.House;
@@ -95,12 +96,14 @@ public class GMapsController implements Serializable {
     House house = new House();
     DrawWell draw_well = new DrawWell();
     MapPoint point = new MapPoint();
+    Cabel cabel = new Cabel();
     
     Clutch clutch = new Clutch();
     
     List<LatLng> coord = new ArrayList<>();
     List<Marker> markers;  
     List<Clutch> clutchs = new ArrayList<>();
+    List<Cabel> cabels = new ArrayList<>();
     
     private String centerGeoMap = "46.9422145,31.9990089";
     
@@ -455,6 +458,30 @@ public class GMapsController implements Serializable {
 
     public void setPoint(MapPoint point) {
         this.point = point;
+    }
+
+    public List<Cabel> getCabels() {
+        return cabels;
+    }
+
+    public void setCabels(List<Cabel> cabels) {
+        this.cabels = cabels;
+    }
+
+    public Cabel getCabel() {
+        return cabel;
+    }
+
+    public void setCabel(Cabel cabel) {
+        this.cabel = cabel;
+    }
+
+    public Clutch getClutch() {
+        return clutch;
+    }
+
+    public void setClutch(Clutch clutch) {
+        this.clutch = clutch;
     }
 
     

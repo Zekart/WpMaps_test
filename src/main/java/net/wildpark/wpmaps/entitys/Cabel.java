@@ -13,7 +13,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 /**
  *
@@ -36,7 +39,9 @@ public class Cabel implements Serializable {
     
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY )
     private List<Fiber> fiber;
-
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name="CLUTCHID", referencedColumnName="ID")
+    private Clutch clutch;
 
     public Long getId() {
         return id;
@@ -108,6 +113,14 @@ public class Cabel implements Serializable {
 
     public void setFiber(List<Fiber> fiber) {
         this.fiber = fiber;
+    }
+
+    public Clutch getClutch() {
+        return clutch;
+    }
+
+    public void setClutch(Clutch clutch) {
+        this.clutch = clutch;
     }
     
        

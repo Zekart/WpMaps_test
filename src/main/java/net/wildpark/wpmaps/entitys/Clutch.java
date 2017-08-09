@@ -37,20 +37,22 @@ public class Clutch implements Serializable {
     private String info;
     private int inputs;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Cabel.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Cabel> cabel;
 
     public Clutch() {
     }
     
+    
 
-    public Clutch(Long id, String address, String conditions, int cassetsCount, String info, int inputs) {
+    public Clutch(Long id, String address, String conditions, int cassetsCount, String info, int inputs,List<Cabel> cabel) {
         this.id = id;
         this.address = address;
         this.conditions = conditions;
         this.cassetsCount = cassetsCount;
         this.info = info;
         this.inputs = inputs;
+        this.cabel = cabel;
     }
     
     
@@ -155,6 +157,7 @@ public class Clutch implements Serializable {
                 ", Count of cassets='" + cassetsCount + '\'' +
                 ", Info='" + info + '\'' +
                 ", Inputs='" + inputs + '\'' +
+                ", Cabel='" + getCabel() + '\'' +
                 
        '}';
     }

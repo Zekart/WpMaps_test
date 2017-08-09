@@ -5,6 +5,7 @@
  */
 package net.wildpark.wpmaps.entitys;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -22,7 +23,7 @@ import net.wildpark.wpmaps.enums.DrawWellType;
 @Table(name = "drawwell")
 @DiscriminatorValue("Колодец")
 //@AttributeOverride(name = "numberOfTracks", column = @Column(name = "mp3_release_number_of_tracks"))
-public class DrawWell extends MapPoint {
+public class DrawWell extends MapPoint implements Serializable{
 
     @Column(name = "draw_well_type")
     @Enumerated(EnumType.STRING)
