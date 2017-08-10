@@ -112,18 +112,12 @@ public class GMapsController implements Serializable {
     public void init() {
         model = new DefaultMapModel();
         list = mapFacade.findAll();   
-        
-              
-        for(MapPoint e: list){
-            System.out.println(e);
-        }              
-        
+                       
         for (MapPoint e:list) {
             model.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/"+e.getDecriminatorValue()+"_marker.png"));                
         }   
     }
-    
-    
+        
     public void onGeocode(GeocodeEvent event) {
 
         List<GeocodeResult> results = event.getResults();
@@ -154,8 +148,6 @@ public class GMapsController implements Serializable {
         clutch.setAddress("sdfsdf");
         clutch.setCassetsCount(4);
         
-        
-
         point.setClutch(Collections.singletonList(clutch));
         pillar.setClutch(clutchs);
         
@@ -196,17 +188,17 @@ public class GMapsController implements Serializable {
         init();
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }
-//    public void deleteMarker(){        
-//        //selectedPillar = (Pillar) marker.getData();
-////        System.out.println("Select id  " + selectedMappoint.getId());
-//        point = mapFacade.find(selectedMappoint.getId());
-//        if(point != null){            
-//            mapFacade.remove(point);
-//            //list.clear();
-//            init();
-//            //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
-//        }
-//    }
+    public void deleteMarker(){        
+        //point = (MapPoint) marker.getData();
+        System.out.println("Select id  " + point.getId());
+        point = mapFacade.find(point.getId());
+        if(point != null){            
+            mapFacade.remove(point);
+            //list.clear();
+            init();
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
+        }
+    }
 //       
 //
     public void onMarkerSelect(OverlaySelectEvent event) {

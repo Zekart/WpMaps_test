@@ -54,9 +54,8 @@
             </h:panelGrid>                               
             <p:row>
                 <h:panelGrid columns="3" >
-                    <p:commandButton value="Удалить" actionListener="#{gMapsController.deleteMarker}" update=":gmap">
-                        <p:confirm header="Уведомление" message="Удалить данные?" icon="ui-icon-alert" />        
-                    </p:commandButton>  
+                    <p:commandButton value="Удалить" actionListener="#{gMapsController.deleteMarker}" update=":gmap"/>
+
                     <p:commandButton value="Соединить" actionListener="#{gMapsController.connectPillar}" update=":messages"/>
                 </h:panelGrid>                        
             </p:row>                     
