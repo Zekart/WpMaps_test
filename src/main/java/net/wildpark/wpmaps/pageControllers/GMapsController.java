@@ -6,16 +6,30 @@
 package net.wildpark.wpmaps.pageControllers;
 
 import java.awt.event.ActionEvent;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+import javax.sql.rowset.serial.SerialException;
+import javax.swing.ImageIcon;
 import net.wildpark.wpmaps.entitys.Cabel;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.DrawWell;
@@ -42,6 +56,8 @@ import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.StateChangeEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.map.GeocodeResult;
 
 
@@ -105,6 +121,8 @@ public class GMapsController implements Serializable {
     List<Clutch> clutchs = new ArrayList<>();
     List<Cabel> cabels = new ArrayList<>();
     
+    byte[] image;
+    
     private String centerGeoMap = "46.9422145,31.9990089";
     
 //
@@ -134,9 +152,17 @@ public class GMapsController implements Serializable {
     public void buttonAction() {
         System.out.println("All right");
     }
-
+        
+    
+    public StreamedContent getImage() {
+        byte[] imageInByteArray = point.getPic();
+        return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray), "image/png/jpg");
+    }
+    
     public void addMarkerP() {
 
+        
+        
         pillar.setLat(lat);
         pillar.setLng(lng);
         pillar.setMaterial(matheriallPillar);
@@ -174,7 +200,18 @@ public class GMapsController implements Serializable {
         init();
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }   
-    public void addMarkerW() {
+    public void addMarkerW() throws FileNotFoundException {
+        File file = new File("C:\\Users\\zekar\\Pictures\\Saved Pictures\\WJBG_WepKcc.jpg");
+        byte[] picInByte = new byte[(int) file.length()];
+        FileInputStream fileStream = new FileInputStream(file);
+        try {
+            fileStream.read(picInByte);
+            fileStream.close();
+            draw_well.setPic(picInByte);
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+        
         draw_well.setLat(lat);
         draw_well.setLng(lng);
         draw_well.setOwner(ownerDrawWell.toString());
@@ -204,7 +241,6 @@ public class GMapsController implements Serializable {
     public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();   
         point = (MapPoint) marker.getData(); 
-        System.out.println("go");
     }
    
     

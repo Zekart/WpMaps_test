@@ -15,6 +15,8 @@
         <p:panel widgetVar="test" id="test1">
             <p:outputLabel>Выберите объект: </p:outputLabel>
             <p:selectOneMenu id="object_type" value="#{gMapsController.obj_type}" style="width:150px" >
+                <f:selectItem itemValue="#{null}" 
+                itemLabel="-- select retailer --" noSelectionOption="true" />
                 <p:ajax update="gridContainer" />
                 <f:selectItems var="ot" value="#{gMapsController.objectType}" itemValue="#{ot}" itemLabel="#{ot.object_type}"/>
             </p:selectOneMenu>
@@ -64,11 +66,14 @@
                         -->
                     </p:row>
                     <p:row>
-                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerP}" update="@all" />                        
+                        <p:column>Изображение</p:column>
                     </p:row>
                     <p:row>
-                        <p:commandButton value="Cancel" onclick="return cancel()" />                        
-                    </p:row>                    
+                        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+                    </p:row>
+                    <p:row>
+                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerP}" update="@all" />                        
+                    </p:row>                  
                 </h:panelGrid>    
 
                 <h:panelGrid rendered="#{gMapsController.obj_type == 'HOUSE'}" columns="2" >
@@ -101,10 +106,13 @@
                         </p:selectOneMenu>        
                     </p:row>
                     <p:row>
-                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerH}" update="@all" />                        
+                        <p:column>Изображение</p:column>
                     </p:row>
                     <p:row>
-                        <p:commandButton value="Cancel" onclick="return cancel()" />                        
+                        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+                    </p:row>                    
+                    <p:row>
+                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerH}" update="@all" />                        
                     </p:row>
                 </h:panelGrid>
 
@@ -126,14 +134,22 @@
                         </p:selectOneMenu>        
                     </p:row>
                     <p:row>
-                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerW}" update="gmap"   />                        
+                        <p:column>Изображение</p:column>
                     </p:row>
                     <p:row>
-                        <p:commandButton value="Cancel" onclick="return cancel()" />                        
+                        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+                    </p:row>                    
+                    <p:row>
+                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerW}" update="gmap"   />                        
                     </p:row>
+
                 </h:panelGrid>    
             </p:panel>
-
+                    <p:column style="width:100%">
+                        <p:commandLink id="ajax" onclick="return cancel()">
+                                <h:outputText value="Отмена" />
+                            </p:commandLink>
+                    </p:column>
         </p:panel>
     </cc:implementation>
 </html>

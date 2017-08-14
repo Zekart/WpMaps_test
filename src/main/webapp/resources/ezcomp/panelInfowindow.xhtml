@@ -16,10 +16,11 @@
             <h:panelGrid columns="2" >
                 <p:row>
                     <p:lightBox styleClass="imagebox" id="lighbox1" > 
-                        <h:outputLink value="../resources/pillar_demo_img/pillar.jpg" title="#{gMapsController.point.decriminatorValue} #{gMapsController.point.owner}" >  
-                            <h:graphicImage name="/pillar_demo_img/pillar.jpg" id="nature1" style="height: 100px; width: 100px" />  
+                        <h:outputLink value="#{gMapsController.image}" title="#{gMapsController.point.decriminatorValue} #{gMapsController.point.owner}" >   
+                            <p:graphicImage value="#{gMapsController.image}" style="height: 100px; width: 100px" />
                         </h:outputLink>   
-                    </p:lightBox>                            
+                    </p:lightBox>  
+                    
                 </p:row>                        
                 <p:row>
                     <h:panelGrid columns="2" style="border: none; font: 8pt sans-serif;" >
@@ -37,6 +38,7 @@
                         </p:row>
                         <p:row>
                             <h:outputLabel  value="Муфта:" />
+                            
                         </p:row>     
                         <p:row>
                             <h:dataTable value="#{gMapsController.point.clutch}" var="points">

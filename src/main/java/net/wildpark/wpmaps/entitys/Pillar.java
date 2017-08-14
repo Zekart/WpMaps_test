@@ -41,8 +41,8 @@ public class Pillar extends MapPoint implements Serializable{
 
     }
 
-    public Pillar(int id, String owner,Double lat,Double lng,String address,String transportStation,int numberStation,PillarMaterial material, PillarType type,List<Clutch> clutch) {
-        super(id, owner,lat,lng,address,clutch);
+    public Pillar(int id, String owner,Double lat,Double lng,String address,String transportStation,int numberStation,PillarMaterial material, PillarType type,byte[] pic,List<Clutch> clutch) {
+        super(id, owner,lat,lng,address,pic,clutch);
         this.material = material;
         this.numberStation = numberStation;
         this.material = material;

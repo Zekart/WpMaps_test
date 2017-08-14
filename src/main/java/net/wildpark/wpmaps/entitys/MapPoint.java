@@ -7,20 +7,24 @@ package net.wildpark.wpmaps.entitys;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import static javax.persistence.FetchType.LAZY;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.swing.ImageIcon;
 
 @Entity
 @Table(name = "point")
@@ -50,6 +54,11 @@ public  class MapPoint implements Serializable{
     @Column(name = "address")
     private String address;
     
+    @Lob
+    @Basic(fetch=LAZY)
+    @Column(name = "pic")
+    private byte[] pic;
+    
     @Transient
     private String release_type;
                
@@ -63,15 +72,18 @@ public  class MapPoint implements Serializable{
     public MapPoint() {
     }
 
-    protected MapPoint(int id, String owner,Double lat, Double lng,String address,List<Clutch> clutch ) {
+    protected MapPoint(int id, String owner,Double lat, Double lng,String address, byte[] pic, List<Clutch> clutch ) {
         this.id = id;
         this.owner = owner;
         this.lat = lat;
         this.lng = lng;
         this.address = address;
         this.clutch = clutch;
+        this.pic = pic;
         
     }
+    
+
 
     public int getId() {
         return id;
@@ -112,6 +124,15 @@ public  class MapPoint implements Serializable{
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public byte[] getPic() {
+        return pic;
+    }
+
+    public void setPic(byte[] pic) {
+        this.pic = pic;
+    }
+    
     
 
     public String getRelease_type() {
