@@ -69,7 +69,7 @@
                         <p:column>Изображение</p:column>
                     </p:row>
                     <p:row>
-                        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+                        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                     </p:row>
                     <p:row>
                         <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerP}" update="@all" />                        
@@ -109,7 +109,7 @@
                         <p:column>Изображение</p:column>
                     </p:row>
                     <p:row>
-                        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+                        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                     </p:row>                    
                     <p:row>
                         <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerH}" update="@all" />                        
@@ -137,10 +137,10 @@
                         <p:column>Изображение</p:column>
                     </p:row>
                     <p:row>
-                        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+
                     </p:row>                    
                     <p:row>
-                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerW}" update="gmap"   />                        
+                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerW}" update="gmap" ajax="false"  />                        
                     </p:row>
 
                 </h:panelGrid>    

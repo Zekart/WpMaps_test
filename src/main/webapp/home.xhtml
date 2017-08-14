@@ -41,7 +41,7 @@
     </h:head>
     <h:body>
      
-        <h:form id="form" prependId="false" >
+        <h:form id="form" prependId="false" enctype="multipart/form-data" >
         
         <p:growl id="messages" showDetail="true"  sticky="true" />
         <p:gmap id ="gmap" center="#{gMapsController.centerGeoMap}" zoom="#{gMapsController.zoomMap}" type="terrain" model="#{gMapsController.model}"                 

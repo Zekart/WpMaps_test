@@ -5,31 +5,22 @@
  */
 package net.wildpark.wpmaps.pageControllers;
 
-import java.awt.event.ActionEvent;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.sql.Blob;
-import java.sql.SQLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
-import javax.sql.rowset.serial.SerialException;
-import javax.swing.ImageIcon;
 import net.wildpark.wpmaps.entitys.Cabel;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.DrawWell;
@@ -103,6 +94,7 @@ public class GMapsController implements Serializable {
     private double lat;     
     private double lng;
     
+
     
     private List<MapPoint> list; 
      
@@ -116,12 +108,11 @@ public class GMapsController implements Serializable {
     
     Clutch clutch = new Clutch();
     
+    
     List<LatLng> coord = new ArrayList<>();
     List<Marker> markers;  
     List<Clutch> clutchs = new ArrayList<>();
     List<Cabel> cabels = new ArrayList<>();
-    
-    byte[] image;
     
     private String centerGeoMap = "46.9422145,31.9990089";
     
@@ -154,15 +145,25 @@ public class GMapsController implements Serializable {
     }
         
     
-    public StreamedContent getImage() {
-        byte[] imageInByteArray = point.getPic();
+    public StreamedContent getImage() throws IOException {
+        byte[] imageInByteArray;
+        if(point.getPic() != null){
+            imageInByteArray = point.getPic();
+        }else{
+            imageInByteArray = getBytesFile();
+        }
         return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray), "image/png/jpg");
+    }
+    
+    public byte[] getBytesFile() throws IOException{
+        InputStream iStream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/images/No-image-found.jpg");
+        Path path = Paths.get(iStream.toString());
+        byte[] data = Files.readAllBytes(path);
+        return data;
     }
     
     public void addMarkerP() {
 
-        
-        
         pillar.setLat(lat);
         pillar.setLng(lng);
         pillar.setMaterial(matheriallPillar);
@@ -201,16 +202,18 @@ public class GMapsController implements Serializable {
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }   
     public void addMarkerW() throws FileNotFoundException {
-        File file = new File("C:\\Users\\zekar\\Pictures\\Saved Pictures\\WJBG_WepKcc.jpg");
-        byte[] picInByte = new byte[(int) file.length()];
-        FileInputStream fileStream = new FileInputStream(file);
-        try {
-            fileStream.read(picInByte);
-            fileStream.close();
-            draw_well.setPic(picInByte);
-        } catch (IOException ex) {
-            System.out.println(ex);
-        }
+//        File file = new File("C:\\Users\\zekar\\Pictures\\Saved Pictures\\WJBG_WepKcc.jpg");
+//        byte[] picInByte = new byte[(int) file.length()];
+//        FileInputStream fileStream = new FileInputStream(file);
+//        try {
+//            fileStream.read(picInByte);
+//            fileStream.close();
+//            draw_well.setPic(picInByte);
+//        } catch (IOException ex) {
+//            System.out.println(ex);
+//        }
+
+        //draw_well.setPic(uplView.getImgByte());
         
         draw_well.setLat(lat);
         draw_well.setLng(lng);
@@ -225,6 +228,8 @@ public class GMapsController implements Serializable {
         init();
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }
+    
+    
     public void deleteMarker(){        
         //point = (MapPoint) marker.getData();
         System.out.println("Select id  " + point.getId());
@@ -511,7 +516,6 @@ public class GMapsController implements Serializable {
     public void setClutch(Clutch clutch) {
         this.clutch = clutch;
     }
-
     
 
 
