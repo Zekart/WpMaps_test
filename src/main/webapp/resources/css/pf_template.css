@@ -5,26 +5,6 @@ body{
     overflow: hidden;
 }
 
-.pageContent{
-    width: 100%;
-    min-height: 100%;
-}
-.ui-widget-content.pageContent {
-    border:0px;
-    border-radius: 0px;
-    padding: 0px;
-}
-
-.ui-panel.pageContent .ui-panel-content.pageContent{
-    padding: 0px;
-}
-
-.loginPanel{
-    position: fixed;
-    top: calc( 50% - 100px);
-    left: calc( 50% - 170px );
-}
-
 .mainMenuPanel{
     position:fixed;
     top:0px;
@@ -119,3 +99,49 @@ body{
     padding: 0px;
 }
 
+header{
+    
+    margin: 5px 10px;
+    width: 500px;
+    height: 50px;
+    background-color: red;
+    z-index:99999999;
+}
+
+div.container{
+    width: 100px;
+    height: 50px;
+    float: left;
+    -webkit-transition: height .4s;
+}
+div#one{
+    background-color: rgb(208,101,3);
+}
+div#two{
+    background-color: rgb(233,147,26);
+}
+div#three{
+    background-color: rgb(22,145,190);
+}
+div#four{
+    background-color: rgb(22,107,162);
+}
+div#five{
+    background-color: rgb(27,51,73);
+}
+img.icon{
+    display: block;
+    margin: 9px auto;
+    background-color: rgb(255,255,255,0.15);
+    width: 32px;
+    padding: 2px;
+    -webkit-border-radius: 50%;
+    -webkit-box-shadow: 0px 0px 0px 10px rgba(255,255,255,0);
+    -webkit-transition: box-shadow .4s;
+}
+div.container:hover{
+    height: 60px;
+}
+div.container:hover img.icon{
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(255,255,255,.6);
+}

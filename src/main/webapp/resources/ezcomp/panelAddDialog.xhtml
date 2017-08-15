@@ -27,13 +27,17 @@
                         <p:column>Транспортная подстанция </p:column>
                     </p:row>
                     <p:row>
-                        <p:inputText value="#{gMapsController.transportStation}" />                                           
+                        <p:inputText  id="pil_name" required="true" value="#{gMapsController.transportStation}" requiredMessage="Baad" >
+                            <f:validateLength minimum="1" />
+                        </p:inputText>                                           
                     </p:row>
                     <p:row>
                         <p:column>Номер подстанции </p:column>
                     </p:row>
                     <p:row>
-                        <p:inputText  value="#{gMapsController.numberStation}"/>
+                        <p:inputText  value="#{gMapsController.numberStation}">
+                            <f:validateLength minimum="1" />
+                        </p:inputText>
                     </p:row>        
                     <p:row>
                         <p:column><p:outputLabel for="pillar_owner" value="Балансодержатель опоры" /> </p:column>
@@ -72,7 +76,7 @@
                         <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                     </p:row>
                     <p:row>
-                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerP}" update="@all" />                        
+                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerP}"  validateClient="true" update="@all" />                        
                     </p:row>                  
                 </h:panelGrid>    
 
@@ -81,13 +85,17 @@
                         <p:column>Транспортная подстанция </p:column>
                     </p:row>
                     <p:row>
-                        <p:inputText value="#{gMapsController.transportStation}" />                                           
+                        <p:inputText value="#{gMapsController.transportStation}" >
+                            <f:validateLength minimum="1" />
+                        </p:inputText>                                           
                     </p:row>
                     <p:row>
                         <p:column>Номер подстанции </p:column>
                     </p:row>
                     <p:row>
-                        <p:inputText  value="#{gMapsController.numberStation}"/>
+                        <p:inputText  value="#{gMapsController.numberStation}">
+                            <f:validateLength minimum="1" />
+                        </p:inputText>
                     </p:row>        
                     <p:row>
                         <p:column><p:outputLabel for="house_type" value="Тип дома" /> </p:column>
@@ -112,7 +120,7 @@
                         <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                     </p:row>                    
                     <p:row>
-                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerH}" update="@all" />                        
+                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerH}" validateClient="true" update="@all" />                        
                     </p:row>
                 </h:panelGrid>
 
@@ -140,7 +148,7 @@
 
                     </p:row>                    
                     <p:row>
-                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerW}" update="gmap" ajax="false"  />                        
+                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerW}" validateClient="true" update="gmap" ajax="false"  />                        
                     </p:row>
 
                 </h:panelGrid>    

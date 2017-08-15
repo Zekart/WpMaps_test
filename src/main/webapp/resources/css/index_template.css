@@ -1,0 +1,33 @@
+ 
+body{
+    padding: 0px;
+    margin:0px;
+    text-align: center;
+    overflow: hidden;
+    
+    background-image: url("../resources/images/3.jpg");
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-attachment:fixed;   
+
+}
+
+.pageContent{
+    width: 100%;
+    min-height: 100%;
+}
+.ui-widget-content.pageContent {
+    border:0px;
+    border-radius: 0px;
+    padding: 0px;
+}
+
+.ui-panel.pageContent .ui-panel-content.pageContent{
+    padding: 0px;
+}
+
+.loginPanel{
+    position: fixed;
+    top: calc( 50% - 100px);
+    left: calc( 50% - 170px );
+}
