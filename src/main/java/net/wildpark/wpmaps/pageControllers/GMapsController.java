@@ -17,9 +17,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import net.wildpark.wpmaps.entitys.Cabel;
 import net.wildpark.wpmaps.entitys.Clutch;
@@ -45,6 +48,8 @@ import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
 import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
+import org.primefaces.event.CloseEvent;
+import org.primefaces.event.ToggleEvent;
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -93,9 +98,10 @@ public class GMapsController implements Serializable {
 
     private double lat;     
     private double lng;
+    private byte[] image;
     
-
-    
+    private boolean flag;
+   
     private List<MapPoint> list; 
      
     //Staff mappoint =  new Staff();
@@ -148,14 +154,15 @@ public class GMapsController implements Serializable {
     public StreamedContent getImage() throws IOException {
         byte[] imageInByteArray;
         if(point.getPic() != null){
-            imageInByteArray = point.getPic();
+            image = point.getPic();
         }else{
-            imageInByteArray = getBytesFile();
+            image = getBytesFile();
         }
-        return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray), "image/png/jpg");
+        return new DefaultStreamedContent(new ByteArrayInputStream(image), "image/png/jpg");
     }
     
     public byte[] getBytesFile() throws IOException{
+        
         InputStream iStream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/images/No-image-found.jpg");
         Path path = Paths.get(iStream.toString());
         byte[] data = Files.readAllBytes(path);
@@ -164,6 +171,8 @@ public class GMapsController implements Serializable {
     
     public void addMarkerP() {
 
+        
+        
         pillar.setLat(lat);
         pillar.setLng(lng);
         pillar.setMaterial(matheriallPillar);
@@ -228,8 +237,6 @@ public class GMapsController implements Serializable {
         init();
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }
-    
-    
     public void deleteMarker(){        
         //point = (MapPoint) marker.getData();
         System.out.println("Select id  " + point.getId());
@@ -247,7 +254,7 @@ public class GMapsController implements Serializable {
         marker = (Marker) event.getOverlay();   
         point = (MapPoint) marker.getData(); 
     }
-   
+    
     
 //    public void connectPillar(){
 //        Polyline polyline = new Polyline();
@@ -287,25 +294,25 @@ public class GMapsController implements Serializable {
 //        System.out.println("Id: " + id);             
 //    }
     
-    public void onStateChange(StateChangeEvent event){
-        
-        zoomMap = event.getZoomLevel();  
-        
-        System.out.println("zoom : " + zoomMap);
-        if(zoomMap >= 14){
-            showMarker = true;             
-        }else{
-            showMarker = false;
-          
-        }
-        for (Marker m : markers) {
-            m.setVisible(showMarker);
-
-        } 
-
-        System.out.println("marker" + markers);
-
-    }
+//    public void onStateChange(StateChangeEvent event){
+//        
+//        zoomMap = event.getZoomLevel();  
+//        
+//        System.out.println("zoom : " + zoomMap);
+//        if(zoomMap >= 14){
+//            showMarker = true;             
+//        }else{
+//            showMarker = false;
+//          
+//        }
+//        for (Marker m : markers) {
+//            m.setVisible(showMarker);
+//
+//        } 
+//
+//        System.out.println("marker" + markers);
+//
+//    }
     
     public HouseType[] getHouseType() {
         return HouseType.values();
@@ -515,11 +522,16 @@ public class GMapsController implements Serializable {
 
     public void setClutch(Clutch clutch) {
         this.clutch = clutch;
+    } 
+
+
+    public void setFlagToTrue() {
+        this.flag = true;
     }
-    
 
-
-
+    public boolean isFlag() {
+        return flag;
+    }
 
 
 

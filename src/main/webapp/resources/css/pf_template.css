@@ -64,8 +64,8 @@ body{
 
 .searchPanel{
     position: fixed;
-    bottom: -5px;
-    right: 190px;
+    top: -2px;
+    right: 220px;
     display: block;
     width: 170px;
 
@@ -94,6 +94,11 @@ body{
 }
 
 .ui-widget-content.clutchPanel {
+    border:0px;
+    border-radius: 0px;
+    padding: 0px;
+}
+.ui-widget-content.panelInfo {
     border:0px;
     border-radius: 0px;
     padding: 0px;
@@ -145,3 +150,33 @@ div.container:hover{
 div.container:hover img.icon{
     -webkit-box-shadow: 0px 0px 0px 0px rgba(255,255,255,.6);
 }
+
+.ui-button-text{
+   font-size:14px;
+   
+}
+.smallButton{
+    background-color: white;
+    height: 32px;
+    width: 65px;
+    text-align: center;
+}
+.smallButton .ui-button-text {
+   font-size:11px;
+}
+.withOutBorder{
+    border:0px;
+    border-radius: 0px;
+    padding: 0px;
+}
+
+.infoPointPanel{
+    position: fixed;
+    top: 95px;
+    left: 50px;
+    display: block;
+
+
+}
+
+

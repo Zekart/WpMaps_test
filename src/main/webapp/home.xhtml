@@ -7,7 +7,8 @@
       xmlns:piw="http://xmlns.jcp.org/jsf/composite/ezcomp"
       xmlns:addDialog="http://xmlns.jcp.org/jsf/composite/ezcomp"
       xmlns:tm="http://xmlns.jcp.org/jsf/composite/ezcomp"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> 
@@ -50,7 +51,7 @@
             <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}" update="clutch_panel" />    
             <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />
             <!--
-            <p:ajax event="stateChange" listener="#{gMapsController.onStateChange}" />
+            <p:ajax event="stateChange" listener="{gMapsController.onStateChange}" />
             -->
             
             <p:gmapInfoWindow id="infoWindow" maxWidth="300">
@@ -92,7 +93,16 @@
             </p:dataList>
 
             <p:graphicImage value="#{fileUploadView.file}" stream="false" />
-        </p:panel>        
+        </p:panel>   
+
+        <p:dialog widgetVar="dial">
+            <p:outputPanel id="toUpdate"    >
+                <p:panel id="myPanel" rendered="#{gMapsController.flag}" widgetVar="ww" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
+
+                </p:panel>
+            </p:outputPanel>             
+        </p:dialog>
+
 <!--            
         <p:dialog header="Pillar info" widgetVar="dlg1" modal="false" height="300" width="800">
             <p:dataTable var="pillar" value="{gMapsController.list}">
@@ -167,7 +177,16 @@
         function geocode() {
             PF('map').geocode(document.getElementById('address').value);
         }
-                
+
+google.maps.event.addListener(map, 'zoom_changed', function() {
+    var zoom = map.getZoom();
+
+    if (zoom &le; 9) {
+        currentMarker.setMap(null);
+    } else {
+        currentMarker.setMap(map);
+    }
+});                
     </script> 
 
     </h:body>

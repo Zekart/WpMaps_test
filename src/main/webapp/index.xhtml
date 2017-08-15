@@ -17,9 +17,9 @@
                 mapTypeControl="false" disableDoubleClickZoom="true" style="width: 100vw;height: 100vh;" /> -->
         <p:panel header="Авторизация" id="loginPanel" styleClass="loginPanel" >
             <h:form>
-                <h:panelGrid columns="1">
-                    <h:inputText value="#{userController.current.login}" id="login" />
-                    <h:inputSecret value="#{userController.current.password}" id="password" />
+                <h:panelGrid columns="1" >
+                    <h:inputText value="#{userController.current.login}" id="login" style="text-align: center;" />
+                    <h:inputSecret value="#{userController.current.password}" id="password" style="text-align: center;" />
                     <p:commandButton action="#{userController.login()}" value="Войти" />
                 </h:panelGrid>
                 <p:watermark for="login" value="Логин" />

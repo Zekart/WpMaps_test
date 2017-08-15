@@ -12,18 +12,21 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <p:outputPanel style="text-align: center; display: block; margin: auto">                   
-            <h:panelGrid columns="2" >
+        <p:outputPanel style="text-align: center; display: block; margin: auto" styleClass="withOutBorder">  
+            
+            
+                <!--
                 <p:row>
                     <p:lightBox styleClass="imagebox" id="lighbox1" > 
-                        <h:outputLink value="#{gMapsController.image}" title="#{gMapsController.point.decriminatorValue} #{gMapsController.point.owner}" >   
-                            <p:graphicImage value="#{gMapsController.image}" style="height: 100px; width: 100px" />
+                        <h:outputLink value="{gMapsController.image}" title="{gMapsController.point.decriminatorValue} {gMapsController.point.owner}" >   
+                            <p:graphicImage value="{gMapsController.image}" style="height: 100px; width: 100px" />
                         </h:outputLink>   
                     </p:lightBox>  
-                    
-                </p:row>                        
-                <p:row>
-                    <h:panelGrid columns="2" style="border: none; font: 8pt sans-serif;" >
+                 
+                </p:row>  
+                -->   
+
+                    <h:panelGrid columns="2" style="font: 8pt sans-serif;" styleClass="withOutBorder">
                         <p:row>
                             <h:outputLabel  value="Тип: " />
                         </p:row>
@@ -37,8 +40,7 @@
                             <p:outputLabel value="#{gMapsController.point.owner}"  />    
                         </p:row>
                         <p:row>
-                            <h:outputLabel  value="Муфта:" />
-                            
+                            <h:outputLabel  value="Муфта:" />                            
                         </p:row>     
                         <p:row>
                             <h:dataTable value="#{gMapsController.point.clutch}" var="points">
@@ -51,16 +53,13 @@
                         </p:row>                        
                                 
                     </h:panelGrid>
+                                              
 
-                </p:row>                  
-            </h:panelGrid>                               
-            <p:row>
-                <h:panelGrid columns="3" >
-                    <p:commandButton value="Удалить" actionListener="#{gMapsController.deleteMarker}" update=":gmap"/>
-
-                    <p:commandButton value="Соединить" actionListener="#{gMapsController.connectPillar}" update=":messages"/>
-                </h:panelGrid>                        
-            </p:row>                     
+                    <h:panelGrid columns="3" styleClass="withOutBorder">
+                        <p:commandButton id="mySmallButton" value="Удалить" actionListener="#{gMapsController.deleteMarker}" update=":gmap" styleClass="smallButton"/>
+                        <p:commandButton  value="Инф."  styleClass="smallButton" update="toUpdate" action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()"/>
+                    </h:panelGrid>                        
+                   
         </p:outputPanel>
     </cc:implementation>
 </html>
