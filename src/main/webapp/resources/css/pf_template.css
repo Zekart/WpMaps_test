@@ -46,10 +46,11 @@ body{
 }
 .legendPanel{
     position: fixed;
-    top: -5px;
+    bottom: 0px;
     right: 0px;
     display: block;
-    width: 170px;
+    width: 100vw;
+    text-align: left;
 
 }
 .ui-panel.legendPanel .ui-widget-content.legendPanel{
@@ -175,8 +176,9 @@ div.container:hover img.icon{
     top: 95px;
     left: 50px;
     display: block;
-
-
 }
 
+.legendPanels td,th {
+    border: 0px solid #dddddd;
+}
 

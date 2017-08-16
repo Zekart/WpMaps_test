@@ -27,41 +27,9 @@
                 <img class="icon" src="../resources/images/Developer.png"></img>
             </div>
             <div class="container" id="five">  
-                <img class="icon" src="../resources/images/Developer.png"></img>
+                <img class="icon" src="../resources/images/Information.png" onclick="openHistory()"></img>
             </div>
-        </header>             
-            <p:toolbar>
-                <f:facet name="left">
-                    <p:commandButton type="button" value="?" icon="ui-icon-arrowthickstop-1-n" />
-
-                    <p:commandButton type="button" value="?" icon="ui-icon-wrench" />
-
-                    <span class="ui-separator">
-                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
-                    </span>
-                    <p:commandButton type="button" title="Pillar" icon="ui-icon-arrowthickstop-1-n" />                 
-                    
-                    
-                    
-                    
-                </f:facet>
-
-                <f:facet name="right">
-                    <p:tieredMenu style="width:140px; height: 20px;">
-                        <p:submenu label="Option" icon="ui-icon-extlink" style="height: 10px; bottom: 5px;">
-                            <p:menuitem value="All Pillar"  onclick="PF('dlg1').show();" icon="ui-icon-disk"/>
-                            <p:menuitem value="Update" actionListener="#{toolbarView.update}"  icon="ui-icon-arrowrefresh-1-w" />
-                            <p:menuitem value="Delete" actionListener="#{toolbarView.delete}" ajax="false" icon="ui-icon-close" />
-                            <p:menuitem value="Admin panel" url="http://www.primefaces.org" icon="ui-icon-extlink" />
-                            <p:separator /> 
-                            <p:submenu label="Legend">
-                                <p:menuitem onclick="PF('testPanel').show()" value="Show" />
-                                <p:menuitem onclick="PF('testPanel').close()" value="Hide" /> 
-                            </p:submenu>                      
-                        </p:submenu>
-                    </p:tieredMenu>                    
-                </f:facet>
-            </p:toolbar>       
+        </header>                    
         </p:panel>
     </cc:implementation>
 </html>

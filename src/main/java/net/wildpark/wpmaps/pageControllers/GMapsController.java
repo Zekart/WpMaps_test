@@ -17,12 +17,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import net.wildpark.wpmaps.entitys.Cabel;
 import net.wildpark.wpmaps.entitys.Clutch;
@@ -48,10 +45,8 @@ import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
 import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
-import org.primefaces.event.CloseEvent;
-import org.primefaces.event.ToggleEvent;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.map.GeocodeEvent;
-import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.map.GeocodeResult;
@@ -170,23 +165,16 @@ public class GMapsController implements Serializable {
         return data;
     }
     
-    public void addMarkerP() {
-
-        
-        
+    public void addMarkerP() {       
         pillar.setLat(lat);
         pillar.setLng(lng);
         pillar.setMaterial(matheriallPillar);
         pillar.setNumberStation(numberStation);
         pillar.setTransportStation(transportStation);
         pillar.setType(typePillar);
-        pillar.setOwner(owner.toString());
-        pillar.setAddress(address.toString());
-        
-        clutch.setAddress("Vorona 4");
-        clutch.setCassetsCount(4);
-        
-        
+        pillar.setOwner(owner);
+        pillar.setAddress(address);
+  
         pillar.setClutch(Collections.singletonList(clutch));
         //pillar.setClutch(clutchs);
         
@@ -196,6 +184,8 @@ public class GMapsController implements Serializable {
         model.addOverlay(marker);
 //        //list.clear();
         init();
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("j_idt46");
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }
     public void addMarkerH() {
@@ -204,7 +194,7 @@ public class GMapsController implements Serializable {
         house.setLng(lng);
         house.setType_house(typeOfHouse);
         house.setOwner(ownerofHouse.toString());
-        house.setAddress(address.toString());
+        house.setAddress(address);
         
         houseFacade.create(house);
         id = house.getId();
@@ -230,9 +220,9 @@ public class GMapsController implements Serializable {
         
         draw_well.setLat(lat);
         draw_well.setLng(lng);
-        draw_well.setOwner(ownerDrawWell.toString());
+        draw_well.setOwner(owner);
         draw_well.setType_draw_well(type_drawWell);
-        draw_well.setAddress(address.toString());
+        draw_well.setAddress(address);
         
         drawWellFacade.create(draw_well);
         id = draw_well.getId();
@@ -250,7 +240,7 @@ public class GMapsController implements Serializable {
             mapFacade.remove(point);
             //list.clear();
             init();
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
+            //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
         }
     }
 //       

@@ -63,8 +63,19 @@
 
         <tm:topMenu/>
         
-        <p:panel id="button_panel" styleClass="legendPanel" visible="false" widgetVar="testPanel" closable="true" toggleable="true" >
-            <p:graphicImage height="130" width="130" value="../resources/marker/legend.png" />
+        <p:panel id="legend_panel" styleClass="legendPanel" visible="false" widgetVar="testPanel" closable="true" toggleable="true" >
+            <p:outputLabel value="Обозначения" />
+            <table style=" font: 8pt sans-serif; width: 17vw;" class="" >
+              <tr>
+                <th>Дом:</th>
+                <th><p:graphicImage height="27" width="27" value="../resources/marker/Дом_marker.png"  title="Дом/House"/></th>
+                <td>Колодец:</td>
+                <td><p:graphicImage height="27" width="27" value="../resources/marker/Колодец_marker.png" /></td>
+                <td>Столб:</td>
+                <td><p:graphicImage height="27" width="27" value="../resources/marker/Столб_marker.png" /></td>
+              </tr>                  
+            </table>            
+
         </p:panel>
 
         <p:dialog widgetVar="dial">
@@ -145,6 +156,7 @@
     <script type="text/javascript">
         var currentMarker = null;
         var map = new google.maps.Map(document.getElementById('gmap'));
+        var wind = null;
  
         function handlePointClick(event) {
             if(currentMarker === null) {
@@ -171,6 +183,21 @@
     
         function geocode() {
             PF('map').geocode(document.getElementById('address').value);
+        }
+        
+        function openHistory(){
+            var query = $('#legend_panel');
+            var isVisible = query.is(':visible');
+            if(isVisible === true){
+              PF('testPanel').close();
+            }else{
+              PF('testPanel').show(); 
+            }
+            
+        }
+        
+        function closeWizard(){
+            PF('wiz').close();
         }
               
     </script> 

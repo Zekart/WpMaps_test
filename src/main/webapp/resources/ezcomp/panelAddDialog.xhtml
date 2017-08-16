@@ -12,22 +12,28 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <p:panel widgetVar="test" id="test1">
-            <p:outputLabel>Выберите объект: </p:outputLabel>
-            <p:selectOneMenu id="object_type" value="#{gMapsController.obj_type}" style="width:150px" >
-                <f:selectItem itemValue="#{null}" 
-                itemLabel="-- select retailer --" noSelectionOption="true" />
-                <p:ajax update="gridContainer" />
-                <f:selectItems var="ot" value="#{gMapsController.objectType}" itemValue="#{ot}" itemLabel="#{ot.object_type}"/>
-            </p:selectOneMenu>
-            <p:panel id="gridContainer" style="border: 0 solid white" >
+        <p:wizard id="wiz"  widgetVar="wiz" style="width: 20vw; height: 20vh;" flowListener="#{pointWizard.onFlowProcess}">
+            <p:tab id="obj" title="Объект">
+                <p:panel>
+                    <p:messages />
+                        <p:selectOneMenu id="object_t" value="#{gMapsController.obj_type}" style="width:150px" >  
+                            <p:ajax update="gridPoint" />
+                            <f:selectItems var="so" value="#{gMapsController.objectType}" itemValue="#{so}" itemLabel="#{so.object_type}"/>
+                        </p:selectOneMenu>
+                </p:panel>
+                <p:commandLink id="ajax" onclick="return cancel()">
+                    <h:outputText value="Отмена" />
+                </p:commandLink>                
+            </p:tab>            
+            <p:tab id="point" title="Точка">
+            <p:panel id="gridPoint" style="border: 0 solid white" >
 
                 <h:panelGrid rendered="#{gMapsController.obj_type == 'PILLAR'}" columns="2"  >
                     <p:row>
                         <p:column>Транспортная подстанция </p:column>
                     </p:row>
                     <p:row>
-                        <p:inputText  id="pil_name" required="true" value="#{gMapsController.transportStation}" requiredMessage="Baad" >
+                        <p:inputText  id="pil_name" required="true" value="#{gMapsController.transportStation}" requiredMessage="Baad"  style="width: 140px;">
                             <f:validateLength minimum="1" />
                         </p:inputText>                                           
                     </p:row>
@@ -35,7 +41,7 @@
                         <p:column>Номер подстанции </p:column>
                     </p:row>
                     <p:row>
-                        <p:inputText  value="#{gMapsController.numberStation}">
+                        <p:inputText  value="#{gMapsController.numberStation}" style="width: 140px;">
                             <f:validateLength minimum="1" />
                         </p:inputText>
                     </p:row>  
@@ -43,15 +49,15 @@
                         <p:column>Адрес: </p:column>
                     </p:row>
                     <p:row>
-                        <p:inputText  value="#{gMapsController.address}">
+                        <p:inputText  value="#{gMapsController.address}" style="width: 140px;">
                             <f:validateLength minimum="1" />
                         </p:inputText>
                     </p:row>                     
                     <p:row>
-                        <p:column><p:outputLabel for="pillar_owner" value="Балансодержатель опоры" /> </p:column>
+                        <p:column>Балансодержатель опоры </p:column>
                     </p:row>
                     <p:row>
-                        <p:selectOneMenu id="pillar_owner" value="#{gMapsController.owner}" style="width:150px" >
+                        <p:selectOneMenu id="pillar_owner" value="#{gMapsController.owner}" style="width:140px;" >
                             <f:selectItems var="st" value="#{gMapsController.pillarOwner}" itemValue="#{st.ownerType}" itemLabel="#{st.ownerType}"/>
                         </p:selectOneMenu>        
                     </p:row>
@@ -59,23 +65,17 @@
                         <p:column>Материал столба </p:column>
                     </p:row>
                     <p:row>
-                        <p:selectOneMenu id="matheriall" value="#{gMapsController.matheriallPillar}" style="width:150px">
+                        <p:selectOneMenu id="matheriall" value="#{gMapsController.matheriallPillar}" style="width:140px;">
                             <f:selectItems var="mat"  value="#{gMapsController.pillarMaterial}" itemValue="#{mat}" itemLabel="#{mat.pillarMaterial}" />
                         </p:selectOneMenu>                     
-                        <!--
-                        <p:inputText value="#{gMapsController.matheriallPillar}" />
-                        -->
                     </p:row>   
                     <p:row>
                         <p:column>Тип столба</p:column>
                     </p:row> 
                     <p:row>
-                        <p:selectOneMenu id="pillar_type" value="#{gMapsController.typePillar}" style="width:150px">
-                            <f:selectItems var="pl" value="#{gMapsController.pillarType}" itemValue="#{pl}" itemLabel="#{pl.pilarType}" />
+                        <p:selectOneMenu id="pillar_type" value="#{gMapsController.typePillar}" style="width:140px">
+                            <f:selectItems var="pl" value="#{gMapsController.pillarType}" itemValue="#{pl}" itemLabel="#{pl.pilarType}"  />
                         </p:selectOneMenu>     
-                        <!--
-                        <p:inputText value="#{gMapsController.typePillar}" />
-                        -->
                     </p:row>
                     <p:row>
                         <p:column>Изображение</p:column>
@@ -85,7 +85,12 @@
                     </p:row>
                     <p:row>
                         <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerP}"  validateClient="true" update="@all" />                        
-                    </p:row>                  
+                    </p:row>  
+                    <p:row>
+                        <h:outputText value="Без муфты: " />
+                        <h:selectBooleanCheckbox value="#{pointWizard.skip}" />                        
+                    </p:row>
+
                 </h:panelGrid>    
 
                 <h:panelGrid rendered="#{gMapsController.obj_type == 'HOUSE'}" columns="2" >
@@ -109,7 +114,7 @@
                         <p:column>Адрес: </p:column>
                     </p:row>
                     <p:row>
-                        <p:inputText  value="#{gMapsController.address}">
+                        <p:inputText id="addressP" value="#{gMapsController.address}">
                             <f:validateLength minimum="1" />
                         </p:inputText>
                     </p:row>                     
@@ -125,7 +130,7 @@
                         <p:column>Владелец</p:column>
                     </p:row>         
                     <p:row>
-                        <p:selectOneMenu id="house_owner" value="#{gMapsController.ownerofHouse}" style="width:150px" >
+                        <p:selectOneMenu id="house_owner" value="#{gMapsController.owner}" style="width:150px" >
                             <f:selectItems var="ho" value="#{gMapsController.houseOwner}" itemValue="#{ho}" itemLabel="#{ho.houseOwner}"/>
                         </p:selectOneMenu>        
                     </p:row>
@@ -137,6 +142,10 @@
                     </p:row>                    
                     <p:row>
                         <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerH}" validateClient="true" update="@all" />                        
+                    </p:row>
+                    <p:row>
+                        <h:outputText value="Без муфты:: " />
+                        <h:selectBooleanCheckbox value="#{pointWizard.skip}" />                        
                     </p:row>
                 </h:panelGrid>
 
@@ -161,7 +170,7 @@
                         <p:column>Владелец</p:column>
                     </p:row>         
                     <p:row>
-                        <p:selectOneMenu id="drawWell_owner" value="#{gMapsController.ownerDrawWell}" style="width:150px" >
+                        <p:selectOneMenu id="drawWell_owner" value="#{gMapsController.owner}" style="width:150px" >
                             <f:selectItems var="ho" value="#{gMapsController.drawWellOwner}" itemValue="#{ho}" itemLabel="#{ho.drawWellOwner}"/>
                         </p:selectOneMenu>        
                     </p:row>
@@ -174,14 +183,76 @@
                     <p:row>
                         <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerW}" validateClient="true" update="gmap" ajax="false"  />                        
                     </p:row>
-
+                    <p:row>
+                        <h:outputText value="Без муфты:: " />
+                        <h:selectBooleanCheckbox value="#{pointWizard.skip}" />                        
+                    </p:row>
                 </h:panelGrid>    
+            </p:panel>                               
+            </p:tab>
+            <p:tab id="clutchInfo" title="Муфта">
+                <p:panel header="Добавление муфты">
+                    <p:messages />
+                    <h:panelGrid columns="2" columnClasses="label, value">
+                        <h:outputText value="Street: " />
+                        <p:inputText value="" />
+
+                        <h:outputText value="Postal Code: " />
+                        <p:inputText value="" />
+
+                        <h:outputText value="City: " />
+                        <p:inputText value="" />
+
+                        <h:outputText value="Skip to last: " />
+                        <h:selectBooleanCheckbox value="" />
+                    </h:panelGrid>
+                    <p:commandButton value="Submit" actionListener="#{userWizard.save}" process="@this"/>
+                </p:panel>
+                
+            </p:tab>  
+        <p:tab id="confirm" title="Добавление">
+            <p:panel header="Будет создано">
+                <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
+                    <h:panelGrid columns="2" columnClasses="label, value">
+                        <h:outputText value="Тип объекта: " />
+                        <h:outputText value="#{gMapsController.obj_type.object_type}" styleClass="outputLabel"/>
+ 
+                        <h:outputText value="Транспортная подстанция: " />
+                        <h:outputText value="#{gMapsController.transportStation}" styleClass="outputLabel"/>
+ 
+                        <h:outputText value="Номер подстанции: " />
+                        <h:outputText value="#{gMapsController.numberStation}" styleClass="outputLabel"/>
+                        
+                        <h:outputText value="Адрес: " />
+                        <h:outputText value="#{gMapsController.address}" styleClass="outputLabel"/>                        
+                        
+                        <h:outputText value="Балансодержатель: " />
+                        <h:outputText value="#{gMapsController.owner}" styleClass="outputLabel"/>
+                        
+                    </h:panelGrid>
+                    
+                </h:panelGrid>
+                <h:panelGrid rendered="#{gMapsController.obj_type == 'DRAW_WELL'}" columns="2" >
+                    <p:commandButton value="Подтвердить к" actionListener="#{gMapsController.addMarkerW()}" validateClient="true" update="gmap" resetValues="true"/>
+                </h:panelGrid> 
+                <h:panelGrid rendered="#{gMapsController.obj_type == 'HOUSE'}" columns="2" >
+                    <p:commandButton value="Подтвердить д" actionListener="#{gMapsController.addMarkerH()}" validateClient="true" >
+                    <p:ajax update="wiz" resetValues="true"/>
+                    </p:commandButton>
+                </h:panelGrid>
+                <h:panelGrid rendered="#{gMapsController.obj_type == 'PILLAR'}" columns="2" >
+                    <p:commandButton value="Подтвердить с" actionListener="#{gMapsController.addMarkerP()}" validateClient="true" update="gmap" onclick="closeWizard()" oncomplete="PF('wiz').loadStep('obj',false)">
+                    </p:commandButton>
+                </h:panelGrid> 
+                <!--
+                <p:commandButton value="Submit" actionListener="{gMapsController.addMarkerP()}" validateClient="true" update="@all">
+                    <f:setPropertyActionListener target="{pointWizard.data}" value="{gMapsController.obj_type}" />                                
+                </p:commandButton>
+                -->
             </p:panel>
-                    <p:column style="width:100%">
-                        <p:commandLink id="ajax" onclick="return cancel()">
-                                <h:outputText value="Отмена" />
-                            </p:commandLink>
-                    </p:column>
-        </p:panel>
+        </p:tab>            
+        </p:wizard>
+        
+
     </cc:implementation>
 </html>
