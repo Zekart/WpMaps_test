@@ -55,11 +55,11 @@ public class Clutch implements Serializable {
         this.cabel = cabel;
     }
     
-    
-    
-    @ManyToOne
-    @JoinColumn(name = "point_id")
-    private MapPoint mappoint;
+//    
+//    
+//    @ManyToOne
+//    @JoinColumn(name = "point_id")
+//    private MapPoint mappoint;
     
 
     public Long getId() {
@@ -117,17 +117,6 @@ public class Clutch implements Serializable {
     public void setCabel(List<Cabel> cabel) {
         this.cabel = cabel;
     }
-
-    public MapPoint getMappoint() {
-        return mappoint;
-    }
-
-    public void setMappoint(MapPoint mappoint) {
-        this.mappoint = mappoint;
-    }
-
-
-
 
     @Override
     public int hashCode() {

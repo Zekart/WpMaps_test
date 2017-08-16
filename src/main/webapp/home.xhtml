@@ -12,6 +12,7 @@
     <h:head>
         <meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> 
+        
         <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/images/favicon.ico" />
         <title>WP Maps</title>
         <h:outputStylesheet library="css" name="pf_template.css" />
@@ -48,7 +49,7 @@
         <p:gmap id ="gmap" center="#{gMapsController.centerGeoMap}" zoom="#{gMapsController.zoomMap}" type="terrain" model="#{gMapsController.model}"                 
                 style="width: 100vw;height: 100vh;" onPointClick="handlePointClick(event);" widgetVar="map" fitBounds="false">
             
-            <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}" update="clutch_panel" />    
+            <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}"  />    
             <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />
             <!--
             <p:ajax event="stateChange" listener="{gMapsController.onStateChange}" />
@@ -65,40 +66,34 @@
         <p:panel id="button_panel" styleClass="legendPanel" visible="false" widgetVar="testPanel" closable="true" toggleable="true" >
             <p:graphicImage height="130" width="130" value="../resources/marker/legend.png" />
         </p:panel>
-        <p:panel id="clutch_panel" styleClass="clutchPanel" visible="true" widgetVar="clutchPanel" closable="true" toggleable="true" >
-             
-            <p:dataList value="#{gMapsController.point.clutch}" var="car" type="definition" >
-                <table style=" font: 8pt sans-serif;">
-                  <tr>
-                    <th>Муфта:</th>
-                    <th>#{car.id}</th>
-                  </tr>
-                  <tr>
-                    <td>Адрес:</td>
-                    <td>#{car.address}</td>
-                  </tr>
-                  <tr>
-                    <td>Инфо:</td>
-                    <td>#{car.info}</td>
-                  </tr>
-                  <tr>
-                    <td>Входы:</td>
-                    <td>#{car.inputs}</td>
-                  </tr>
-                  <tr>
-                    <td>Кабель:</td>
-                    <td>#{car.cabel}</td>
-                  </tr>                    
-                </table>
-            </p:dataList>
-
-            <p:graphicImage value="#{fileUploadView.file}" stream="false" />
-        </p:panel>   
 
         <p:dialog widgetVar="dial">
-            <p:outputPanel id="toUpdate"    >
-                <p:panel id="myPanel" rendered="#{gMapsController.flag}" widgetVar="ww" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
-
+            <p:outputPanel id="toUpdate" style="width: 20vw;">
+                <p:panel id="myPanel" rendered="#{gMapsController.flag}" styleClass="withOutBorder" widgetVar="ww" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
+                    <p:dataList value="#{gMapsController.point.clutch}" var="car" type="definition" >
+                        <table style=" font: 10pt sans-serif;">
+                          <tr>
+                            <th>Муфта:</th>
+                            <th>#{car.id}</th>
+                          </tr>
+                          <tr>
+                            <td>Адрес:</td>
+                            <td>#{car.address}</td>
+                          </tr>
+                          <tr>
+                            <td>Инфо:</td>
+                            <td>#{car.info}</td>
+                          </tr>
+                          <tr>
+                            <td>Входы:</td>
+                            <td>#{car.inputs}</td>
+                          </tr>
+                          <tr>
+                            <td>Кабель:</td>
+                            <td>in progress</td>
+                          </tr>                    
+                        </table>
+                    </p:dataList>
                 </p:panel>
             </p:outputPanel>             
         </p:dialog>
@@ -177,16 +172,7 @@
         function geocode() {
             PF('map').geocode(document.getElementById('address').value);
         }
-
-google.maps.event.addListener(map, 'zoom_changed', function() {
-    var zoom = map.getZoom();
-
-    if (zoom &le; 9) {
-        currentMarker.setMap(null);
-    } else {
-        currentMarker.setMap(map);
-    }
-});                
+              
     </script> 
 
     </h:body>

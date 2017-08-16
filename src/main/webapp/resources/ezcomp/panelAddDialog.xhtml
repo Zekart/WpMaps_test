@@ -38,7 +38,15 @@
                         <p:inputText  value="#{gMapsController.numberStation}">
                             <f:validateLength minimum="1" />
                         </p:inputText>
-                    </p:row>        
+                    </p:row>  
+                    <p:row>
+                        <p:column>Адрес: </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:inputText  value="#{gMapsController.address}">
+                            <f:validateLength minimum="1" />
+                        </p:inputText>
+                    </p:row>                     
                     <p:row>
                         <p:column><p:outputLabel for="pillar_owner" value="Балансодержатель опоры" /> </p:column>
                     </p:row>
@@ -96,7 +104,15 @@
                         <p:inputText  value="#{gMapsController.numberStation}">
                             <f:validateLength minimum="1" />
                         </p:inputText>
-                    </p:row>        
+                    </p:row> 
+                    <p:row>
+                        <p:column>Адрес: </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:inputText  value="#{gMapsController.address}">
+                            <f:validateLength minimum="1" />
+                        </p:inputText>
+                    </p:row>                     
                     <p:row>
                         <p:column><p:outputLabel for="house_type" value="Тип дома" /> </p:column>
                     </p:row>
@@ -133,6 +149,14 @@
                             <f:selectItems var="ht" value="#{gMapsController.drawWellType}" itemValue="#{ht}" itemLabel="#{ht.drawWellType}"/>
                         </p:selectOneMenu>        
                     </p:row>
+                    <p:row>
+                        <p:column>Адрес: </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:inputText  value="#{gMapsController.address}">
+                            <f:validateLength minimum="1" />
+                        </p:inputText>
+                    </p:row>                     
                     <p:row>
                         <p:column>Владелец</p:column>
                     </p:row>         

@@ -80,6 +80,7 @@ public class GMapsController implements Serializable {
     private String transportStation;
     private int numberStation;
     private String owner;
+    private String address;
     private PillarMaterial matheriallPillar;
     private PillarType typePillar;
     private PillarCapacity capacityPillar;
@@ -117,7 +118,7 @@ public class GMapsController implements Serializable {
     
     List<LatLng> coord = new ArrayList<>();
     List<Marker> markers;  
-    List<Clutch> clutchs = new ArrayList<>();
+   // List<Clutch> clutchs = new ArrayList<>();
     List<Cabel> cabels = new ArrayList<>();
     
     private String centerGeoMap = "46.9422145,31.9990089";
@@ -180,12 +181,14 @@ public class GMapsController implements Serializable {
         pillar.setTransportStation(transportStation);
         pillar.setType(typePillar);
         pillar.setOwner(owner.toString());
+        pillar.setAddress(address.toString());
         
-        clutch.setAddress("sdfsdf");
+        clutch.setAddress("Vorona 4");
         clutch.setCassetsCount(4);
         
-        point.setClutch(Collections.singletonList(clutch));
-        pillar.setClutch(clutchs);
+        
+        pillar.setClutch(Collections.singletonList(clutch));
+        //pillar.setClutch(clutchs);
         
         pillarFacade.create(pillar);
         id = pillar.getId();
@@ -201,6 +204,7 @@ public class GMapsController implements Serializable {
         house.setLng(lng);
         house.setType_house(typeOfHouse);
         house.setOwner(ownerofHouse.toString());
+        house.setAddress(address.toString());
         
         houseFacade.create(house);
         id = house.getId();
@@ -228,6 +232,7 @@ public class GMapsController implements Serializable {
         draw_well.setLng(lng);
         draw_well.setOwner(ownerDrawWell.toString());
         draw_well.setType_draw_well(type_drawWell);
+        draw_well.setAddress(address.toString());
         
         drawWellFacade.create(draw_well);
         id = draw_well.getId();
@@ -531,6 +536,14 @@ public class GMapsController implements Serializable {
 
     public boolean isFlag() {
         return flag;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 

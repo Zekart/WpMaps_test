@@ -53,7 +53,7 @@ public  class MapPoint implements Serializable{
     
     @Column(name = "address")
     private String address;
-    
+        
     @Lob
     @Basic(fetch=LAZY)
     @Column(name = "pic")
@@ -62,7 +62,7 @@ public  class MapPoint implements Serializable{
     @Transient
     private String release_type;
                
-    @OneToMany(targetEntity = Clutch.class, mappedBy="mappoint", cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
+    @OneToMany(targetEntity = Clutch.class,  cascade= CascadeType.ALL, fetch=FetchType.EAGER)
     private List<Clutch> clutch;
     
     public String getDecriminatorValue() {
@@ -80,6 +80,7 @@ public  class MapPoint implements Serializable{
         this.address = address;
         this.clutch = clutch;
         this.pic = pic;
+        
         
     }
     
@@ -132,7 +133,6 @@ public  class MapPoint implements Serializable{
     public void setPic(byte[] pic) {
         this.pic = pic;
     }
-    
     
 
     public String getRelease_type() {
