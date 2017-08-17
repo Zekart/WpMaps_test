@@ -19,31 +19,11 @@ public class PointWizard implements Serializable {
     
     private String data;
     private boolean skip;
-    GMapsController gm = new GMapsController();
-     
+    
      
     public boolean isSkip() {
         return skip;
     }
- 
-    public void save(){
-        System.out.println("Data of " + data);
-        switch(data) {
-            case "PILLAR": 
-                    System.out.println("yes it`s a pillar ");
-                        break;
-            case "HOUSE": 
-                System.out.println("yes it`s a house ");
-                    break;
-            case "DRAW_WELL": 
-                System.out.println("yes it`s a house ");
-                    break;
-            default: 
-                System.out.println("no, it`s nothing ");
-                break;
-        }
-    }
-    
     
     public void setSkip(boolean skip) {
         this.skip = skip;

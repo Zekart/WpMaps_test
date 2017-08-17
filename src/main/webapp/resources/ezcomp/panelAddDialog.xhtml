@@ -11,8 +11,8 @@
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
-    <cc:implementation>
-        <p:wizard id="wiz"  widgetVar="wiz" style="width: 20vw; height: 20vh;" flowListener="#{pointWizard.onFlowProcess}">
+    <cc:implementation>                  
+        <p:wizard id="wiz"  widgetVar="wizp" style="width: 20vw; height: 20vh;" flowListener="#{pointWizard.onFlowProcess}">
             <p:tab id="obj" title="Объект">
                 <p:panel>
                     <p:messages />
@@ -84,9 +84,6 @@
                         <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                     </p:row>
                     <p:row>
-                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerP}"  validateClient="true" update="@all" />                        
-                    </p:row>  
-                    <p:row>
                         <h:outputText value="Без муфты: " />
                         <h:selectBooleanCheckbox value="#{pointWizard.skip}" />                        
                     </p:row>
@@ -140,11 +137,10 @@
                     <p:row>
                         <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                     </p:row>                    
-                    <p:row>
-                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerH}" validateClient="true" update="@all" />                        
+                    <p:row>                    
                     </p:row>
                     <p:row>
-                        <h:outputText value="Без муфты:: " />
+                        <h:outputText value="Без муфты:" />
                         <h:selectBooleanCheckbox value="#{pointWizard.skip}" />                        
                     </p:row>
                 </h:panelGrid>
@@ -180,11 +176,10 @@
                     <p:row>
 
                     </p:row>                    
-                    <p:row>
-                        <p:commandButton value="Add" actionListener="#{gMapsController.addMarkerW}" validateClient="true" update="gmap" ajax="false"  />                        
+                    <p:row>                       
                     </p:row>
                     <p:row>
-                        <h:outputText value="Без муфты:: " />
+                        <h:outputText value="Без муфты: " />
                         <h:selectBooleanCheckbox value="#{pointWizard.skip}" />                        
                     </p:row>
                 </h:panelGrid>    
@@ -194,19 +189,18 @@
                 <p:panel header="Добавление муфты">
                     <p:messages />
                     <h:panelGrid columns="2" columnClasses="label, value">
-                        <h:outputText value="Street: " />
-                        <p:inputText value="" />
+                        <h:outputText value="Адрес: " />
+                        <p:inputText value="#{gMapsController.clutch.address}" />
 
-                        <h:outputText value="Postal Code: " />
-                        <p:inputText value="" />
+                        <h:outputText value="Кол. кассет: " />
+                        <p:inputText value="#{gMapsController.clutch.cassetsCount}" />
 
-                        <h:outputText value="City: " />
-                        <p:inputText value="" />
+                        <h:outputText value="Состояние: " />
+                        <p:inputText value="#{gMapsController.clutch.conditions}" />
 
-                        <h:outputText value="Skip to last: " />
-                        <h:selectBooleanCheckbox value="" />
-                    </h:panelGrid>
-                    <p:commandButton value="Submit" actionListener="#{userWizard.save}" process="@this"/>
+                        <h:outputText value="Доп.инфо: " />
+                        <p:inputText value="#{gMapsController.clutch.info}" />
+                    </h:panelGrid>                    
                 </p:panel>
                 
             </p:tab>  
@@ -233,15 +227,18 @@
                     
                 </h:panelGrid>
                 <h:panelGrid rendered="#{gMapsController.obj_type == 'DRAW_WELL'}" columns="2" >
-                    <p:commandButton value="Подтвердить к" actionListener="#{gMapsController.addMarkerW()}" validateClient="true" update="gmap" resetValues="true"/>
+                    <p:commandButton value="Подтвердить к" actionListener="#{gMapsController.addMarkerW()}" validateClient="true" update="gmap">
+                        <p:ajax oncomplete="PF('wizp').loadStep('obj',false)" resetValues="true"/>
+                    </p:commandButton>
                 </h:panelGrid> 
                 <h:panelGrid rendered="#{gMapsController.obj_type == 'HOUSE'}" columns="2" >
-                    <p:commandButton value="Подтвердить д" actionListener="#{gMapsController.addMarkerH()}" validateClient="true" >
-                    <p:ajax update="wiz" resetValues="true"/>
+                    <p:commandButton value="Подтвердить д" actionListener="#{gMapsController.addMarkerH()}" validateClient="true" update="gmap">
+                        <p:ajax oncomplete="PF('wizp').loadStep('obj',false)" resetValues="true"/>
                     </p:commandButton>
                 </h:panelGrid>
                 <h:panelGrid rendered="#{gMapsController.obj_type == 'PILLAR'}" columns="2" >
-                    <p:commandButton value="Подтвердить с" actionListener="#{gMapsController.addMarkerP()}" validateClient="true" update="gmap" onclick="closeWizard()" oncomplete="PF('wiz').loadStep('obj',false)">
+                    <p:commandButton value="Подтвердить с" actionListener="#{gMapsController.addMarkerP()}" validateClient="true" update="gmap">
+                        <p:ajax oncomplete="PF('wizp').loadStep('obj',false)" resetValues="true"/>
                     </p:commandButton>
                 </h:panelGrid> 
                 <!--
@@ -252,7 +249,5 @@
             </p:panel>
         </p:tab>            
         </p:wizard>
-        
-
     </cc:implementation>
 </html>

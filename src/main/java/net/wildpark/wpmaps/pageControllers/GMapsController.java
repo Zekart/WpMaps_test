@@ -110,10 +110,11 @@ public class GMapsController implements Serializable {
     
     Clutch clutch = new Clutch();
     
+    PointWizard pz = new PointWizard();
     
     List<LatLng> coord = new ArrayList<>();
     List<Marker> markers;  
-   // List<Clutch> clutchs = new ArrayList<>();
+    List<Clutch> clutchs = new ArrayList<>();
     List<Cabel> cabels = new ArrayList<>();
     
     private String centerGeoMap = "46.9422145,31.9990089";
@@ -175,7 +176,10 @@ public class GMapsController implements Serializable {
         pillar.setOwner(owner);
         pillar.setAddress(address);
   
-        pillar.setClutch(Collections.singletonList(clutch));
+        if(pz.isSkip()!= true){
+            pillar.setClutch(Collections.singletonList(clutch));
+        }
+        //pillar.setClutch(Collections.singletonList(clutch));
         //pillar.setClutch(clutchs);
         
         pillarFacade.create(pillar);
@@ -184,17 +188,21 @@ public class GMapsController implements Serializable {
         model.addOverlay(marker);
 //        //list.clear();
         init();
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("j_idt46");
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
+//                      RequestContext requestContext = RequestContext.getCurrentInstance();  
+//                requestContext.execute("PF('wizp').hide()");
     }
     public void addMarkerH() {
 
         house.setLat(lat);
         house.setLng(lng);
         house.setType_house(typeOfHouse);
-        house.setOwner(ownerofHouse.toString());
+        house.setOwner(owner);
         house.setAddress(address);
+        
+        if(pz.isSkip()!= true){
+            house.setClutch(Collections.singletonList(clutch));
+        }
         
         houseFacade.create(house);
         id = house.getId();
@@ -202,6 +210,7 @@ public class GMapsController implements Serializable {
         model.addOverlay(marker);
 //        //list.clear();
         init();
+        
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }   
     public void addMarkerW() throws FileNotFoundException {
@@ -224,6 +233,10 @@ public class GMapsController implements Serializable {
         draw_well.setType_draw_well(type_drawWell);
         draw_well.setAddress(address);
         
+        if(pz.isSkip()!= true){
+            draw_well.setClutch(Collections.singletonList(clutch));
+        }        
+        
         drawWellFacade.create(draw_well);
         id = draw_well.getId();
         marker = new Marker(new LatLng(lat, lng), String.valueOf(id),draw_well,"../resources/marker/draw_marker.png" );
@@ -241,6 +254,7 @@ public class GMapsController implements Serializable {
             //list.clear();
             init();
             //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
+
         }
     }
 //       
@@ -534,6 +548,14 @@ public class GMapsController implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Clutch> getClutchs() {
+        return clutchs;
+    }
+
+    public void setClutchs(List<Clutch> clutchs) {
+        this.clutchs = clutchs;
     }
 
 

@@ -63,20 +63,7 @@
 
         <tm:topMenu/>
         
-        <p:panel id="legend_panel" styleClass="legendPanel" visible="false" widgetVar="testPanel" closable="true" toggleable="true" >
-            <p:outputLabel value="Обозначения" />
-            <table style=" font: 8pt sans-serif; width: 17vw;" class="" >
-              <tr>
-                <th>Дом:</th>
-                <th><p:graphicImage height="27" width="27" value="../resources/marker/Дом_marker.png"  title="Дом/House"/></th>
-                <td>Колодец:</td>
-                <td><p:graphicImage height="27" width="27" value="../resources/marker/Колодец_marker.png" /></td>
-                <td>Столб:</td>
-                <td><p:graphicImage height="27" width="27" value="../resources/marker/Столб_marker.png" /></td>
-              </tr>                  
-            </table>            
 
-        </p:panel>
 
         <p:dialog widgetVar="dial">
             <p:outputPanel id="toUpdate" style="width: 20vw;">
@@ -85,7 +72,7 @@
                         <table style=" font: 10pt sans-serif;">
                           <tr>
                             <th>Муфта:</th>
-                            <th>#{car.id}</th>
+                            
                           </tr>
                           <tr>
                             <td>Адрес:</td>
@@ -96,8 +83,8 @@
                             <td>#{car.info}</td>
                           </tr>
                           <tr>
-                            <td>Входы:</td>
-                            <td>#{car.inputs}</td>
+                            <td>Кол. кассет:</td>
+                            <td>#{car.cassetsCount}</td>
                           </tr>
                           <tr>
                             <td>Кабель:</td>
@@ -140,7 +127,7 @@
 -->        
 
         <p:dialog widgetVar="dlg" showEffect="fade" closable="false" >
-
+            
             <addDialog:panelAddDialog/>
              
             <h:inputHidden id="lat" value="#{gMapsController.lat}" />
@@ -152,7 +139,20 @@
                         <p:commandButton  icon="ui-icon-search" onclick="geocode()" type="button" />
                     </h:panelGrid>
     </h:form>
+        <p:panel id="legend_panel" styleClass="legendPanel" visible="false" widgetVar="testPanel" closable="true" toggleable="true" >
+            <p:outputLabel value="Обозначения" />
+            <table style=" font: 8pt sans-serif; width: 17vw;" class="" >
+              <tr>
+                <th>Дом:</th>
+                <th><p:graphicImage height="27" width="27" value="../resources/marker/Дом_marker.png"  title="Дом/House"/></th>
+                <td>Колодец:</td>
+                <td><p:graphicImage height="27" width="27" value="../resources/marker/Колодец_marker.png" /></td>
+                <td>Столб:</td>
+                <td><p:graphicImage height="27" width="27" value="../resources/marker/Столб_marker.png" /></td>
+              </tr>                  
+            </table>            
 
+        </p:panel>
     <script type="text/javascript">
         var currentMarker = null;
         var map = new google.maps.Map(document.getElementById('gmap'));

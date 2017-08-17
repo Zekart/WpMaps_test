@@ -51,6 +51,7 @@ body{
     display: block;
     width: 100vw;
     text-align: left;
+    z-index: 100000;
 
 }
 .ui-panel.legendPanel .ui-widget-content.legendPanel{
@@ -106,7 +107,7 @@ body{
 }
 
 header{
-    
+    position: relative;
     margin: 5px 10px;
     width: 500px;
     height: 50px;
