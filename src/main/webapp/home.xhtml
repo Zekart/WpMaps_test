@@ -126,7 +126,7 @@
         </p:dialog>
 -->        
 
-        <p:dialog widgetVar="dlg" showEffect="fade" closable="false" >
+        <p:dialog widgetVar="dlg" showEffect="fade" resizable="true" closable="true">
             
             <addDialog:panelAddDialog/>
              
@@ -139,19 +139,17 @@
                         <p:commandButton  icon="ui-icon-search" onclick="geocode()" type="button" />
                     </h:panelGrid>
     </h:form>
-        <p:panel id="legend_panel" styleClass="legendPanel" visible="false" widgetVar="testPanel" closable="true" toggleable="true" >
-            <p:outputLabel value="Обозначения" />
-            <table style=" font: 8pt sans-serif; width: 17vw;" class="" >
-              <tr>
-                <th>Дом:</th>
-                <th><p:graphicImage height="27" width="27" value="../resources/marker/Дом_marker.png"  title="Дом/House"/></th>
-                <td>Колодец:</td>
-                <td><p:graphicImage height="27" width="27" value="../resources/marker/Колодец_marker.png" /></td>
-                <td>Столб:</td>
-                <td><p:graphicImage height="27" width="27" value="../resources/marker/Столб_marker.png" /></td>
-              </tr>                  
+        <p:panel id="legend_panel" styleClass="legendPanel" visible="false" widgetVar="testPanel" closable="true" toggleable="true" >            
+            <table style=" font: 8pt sans-serif; width: 17vw; " >
+                <tr class="noBorder">                    
+                    <td>Дом:</td>
+                    <td><p:graphicImage height="27" width="27" value="../resources/marker/Дом_marker.png"  title="Дом/House"/></td>
+                    <td>Колодец:</td>
+                    <td><p:graphicImage height="27" width="27" value="../resources/marker/Колодец_marker.png" /></td>
+                    <td>Столб:</td>
+                    <td><p:graphicImage height="27" width="27" value="../resources/marker/Столб_marker.png" /></td>
+                </tr>                  
             </table>            
-
         </p:panel>
     <script type="text/javascript">
         var currentMarker = null;

@@ -13,23 +13,28 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>
         <p:panel id="historyMenuPanel" styleClass="historyMenuPanel" >   
-        <header>
-            <div class="container" id="one">  
-                <img class="icon" src="../resources/images/settings_1.png"></img> 
-            </div>
-            <div class="container" id="two">  
-                <img class="icon" src="../resources/images/Developer.png"></img>
-            </div>
-            <div class="container" id="three">  
-                <img class="icon" src="../resources/images/Developer.png"></img>
-            </div>
-            <div class="container" id="four">  
-                <img class="icon" src="../resources/images/Developer.png"></img>
-            </div>
-            <div class="container" id="five">  
-                <img class="icon" src="../resources/images/Information.png" onclick="openHistory()"></img>
-            </div>
-        </header>                    
+            <header>
+                <div class="container" id="one">  
+                    <img class="icon" src="../resources/images/settings_1.png"></img> 
+                </div>
+                <div class="container" id="two">  
+                    <img class="icon" src="../resources/images/Developer.png"></img>
+                </div>
+                <div class="container" id="three">
+                    <h:commandLink action="#{basicPageController.redirection}">
+                      <p:graphicImage class="icon"  value="../resources/images/Developer.png"/>
+                    </h:commandLink>                    
+                </div>
+                <div class="container" id="four">  
+                    <a href="#" id="basicPage" onclick="document.location=this.id+'.xhtml';return false;" >
+                        <img class="icon" src="../resources/images/basic.png"></img> 
+                    </a> 
+                </div>
+                <div class="container" id="five">  
+                    <img class="icon" src="../resources/images/Information.png" onclick="openHistory()"></img>
+                </div>
+            </header>                    
         </p:panel>
+          
     </cc:implementation>
 </html>

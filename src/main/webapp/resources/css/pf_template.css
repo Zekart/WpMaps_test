@@ -50,10 +50,16 @@ body{
     right: 0px;
     display: block;
     width: 100vw;
+    height: 5vh;
     text-align: left;
     z-index: 100000;
 
 }
+
+tr.noBorder td{
+    border: 0;
+}
+
 .ui-panel.legendPanel .ui-widget-content.legendPanel{
     padding: 0px;
 }
@@ -183,3 +189,6 @@ div.container:hover img.icon{
     border: 0px solid #dddddd;
 }
 
+.dialogAdd{
+    width: 500px;
+}

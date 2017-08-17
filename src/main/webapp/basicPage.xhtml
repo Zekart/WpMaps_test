@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html   xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:piw="http://xmlns.jcp.org/jsf/composite/ezcomp"
+        xmlns:addDialog="http://xmlns.jcp.org/jsf/composite/ezcomp"
+        xmlns:tm="http://xmlns.jcp.org/jsf/composite/ezcomp"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    
+    <h:head>
+        <meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> 
+        
+        <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/images/favicon.ico" />
+        <title>WP Maps</title>
+        <h:outputStylesheet library="css" name="pf_template.css" />
+        
+        <script src = "http://maps.google.com/maps/api/js?key=AIzaSyDzwk44zfDh3JQSN1ooK-SIXzvODeFo_dc"
+                type = "text/javascript" />
+                
+    </h:head>
+    <body>
+        <h:form id="form" prependId="false" enctype="multipart/form-data" >
+        
+        <p:growl id="messages" showDetail="true"  sticky="true" />
+        <p:gmap id ="gmap" center="46.9422145,31.9990089" zoom="7" type="terrain" model="#{basicPageController.basicModel}"                 
+                style="width: 100vw;height: 100vh;" onPointClick="handlePointClick(event);" widgetVar="map" fitBounds="false">
+            
+            <p:ajax event="overlaySelect" listener="#{basicPageController.onMarkerSelect}"  />    
+            <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />
+            <!--
+            <p:ajax event="stateChange" listener="{gMapsController.onStateChange}" />
+            -->
+            
+            <p:gmapInfoWindow id="infoWindow" maxWidth="300">
+                <piw:panelInfowindow/>
+            </p:gmapInfoWindow>  
+            
+        </p:gmap>
+            <tm:topMenu/>        
+        </h:form>
+    </body>
+</html>
