@@ -51,9 +51,9 @@
             
             <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}"  />    
             <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />
-            <!--
-            <p:ajax event="stateChange" listener="{gMapsController.onStateChange}" />
-            -->
+            
+            <p:ajax event="stateChange" listener="#{gMapsController.onStateChange}"  />
+            
             
             <p:gmapInfoWindow id="infoWindow" maxWidth="300">
                 <piw:panelInfowindow/>

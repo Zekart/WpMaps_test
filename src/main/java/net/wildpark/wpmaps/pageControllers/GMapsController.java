@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import net.wildpark.wpmaps.entitys.Cabel;
 import net.wildpark.wpmaps.entitys.Clutch;
@@ -47,6 +48,7 @@ import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.map.GeocodeEvent;
+import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.map.GeocodeResult;
@@ -86,7 +88,7 @@ public class GMapsController implements Serializable {
     private DrawWellType type_drawWell;
     
     private int id;
-    private Boolean capacityCabel;
+    private Boolean zoomPoint = false;
     
     private int zoomMap = 13;
     private boolean showMarker = false; 
@@ -120,8 +122,8 @@ public class GMapsController implements Serializable {
     private String centerGeoMap = "46.9422145,31.9990089";
     
 //
-    @PostConstruct
-    public void init() {
+    //@PostConstruct
+    public void initPoint() {
         model = new DefaultMapModel();
         list = mapFacade.findAll();   
                        
@@ -187,7 +189,7 @@ public class GMapsController implements Serializable {
         marker = new Marker(new LatLng(lat, lng), String.valueOf(id),pillar,"../resources/marker/pillar_marker.png" );
         model.addOverlay(marker);
 //        //list.clear();
-        init();
+        initPoint();
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
 //                      RequestContext requestContext = RequestContext.getCurrentInstance();  
 //                requestContext.execute("PF('wizp').hide()");
@@ -209,7 +211,7 @@ public class GMapsController implements Serializable {
         marker = new Marker(new LatLng(lat, lng), String.valueOf(id),house,"../resources/marker/house_marker.png" );
         model.addOverlay(marker);
 //        //list.clear();
-        init();
+        initPoint();
         
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }   
@@ -241,8 +243,9 @@ public class GMapsController implements Serializable {
         id = draw_well.getId();
         marker = new Marker(new LatLng(lat, lng), String.valueOf(id),draw_well,"../resources/marker/draw_marker.png" );
         model.addOverlay(marker);
+        
 //        //list.clear();
-        init();
+        initPoint();
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }
     public void deleteMarker(){        
@@ -252,7 +255,7 @@ public class GMapsController implements Serializable {
         if(point != null){            
             mapFacade.remove(point);
             //list.clear();
-            init();
+            initPoint();
             //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
 
         }
@@ -303,25 +306,47 @@ public class GMapsController implements Serializable {
 //        System.out.println("Id: " + id);             
 //    }
     
-//    public void onStateChange(StateChangeEvent event){
-//        
-//        zoomMap = event.getZoomLevel();  
-//        
-//        System.out.println("zoom : " + zoomMap);
-//        if(zoomMap >= 14){
-//            showMarker = true;             
-//        }else{
-//            showMarker = false;
-//          
-//        }
+    public void onStateChange(StateChangeEvent event){
+        
+        zoomMap = event.getZoomLevel(); 
+        LatLng center = event.getCenter();
+        centerGeoMap = center.getLat()+","+center.getLng();
+        
+        System.out.println("zoom : " + zoomMap);
+        if(zoomMap == 16){
+            
+            if(zoomPoint != true){
+                System.out.println("Show in");  
+                initPoint();
+                zoomPoint = true;
+                RequestContext.getCurrentInstance().update("gmap");
+                //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gmap");
+            }
+            
+            
+        }else{
+            if (zoomMap == 15) {
+                if(zoomPoint != false){
+                    System.out.println("Show out");  
+                    model.getMarkers().clear();
+                    RequestContext.getCurrentInstance().update("gmap");
+                    
+                }
+                
+                zoomPoint = false;
+                
+            }
+            
+            
+        }
 //        for (Marker m : markers) {
 //            m.setVisible(showMarker);
 //
 //        } 
 //
 //        System.out.println("marker" + markers);
-//
-//    }
+
+    }
     
     public HouseType[] getHouseType() {
         return HouseType.values();
@@ -432,14 +457,6 @@ public class GMapsController implements Serializable {
         this.typePillar = typePillar;
     }
 
-
-    public Boolean getCapacityCabel() {
-        return capacityCabel;
-    }
-
-    public void setCapacityCabel(Boolean capacityCabel) {
-        this.capacityCabel = capacityCabel;
-    }
 //
     public List<MapPoint> getList() {
         return list;
