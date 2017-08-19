@@ -21,8 +21,8 @@
                     <img class="icon" src="../resources/images/Developer.png"></img>
                 </div>
                 <div class="container" id="three">
-                    <h:commandLink action="#{basicPageController.redirection}">
-                      <p:graphicImage class="icon"  value="../resources/images/Developer.png"/>
+                    <h:commandLink action="#{topMenuController.linkAction(actionEvent)}" >
+                        <p:graphicImage class="icon"  value="../resources/images/#{topMenuController.imgName}.png"/>
                     </h:commandLink>                    
                 </div>
                 <div class="container" id="four">  

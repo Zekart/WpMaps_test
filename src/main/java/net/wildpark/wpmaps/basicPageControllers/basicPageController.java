@@ -5,11 +5,13 @@
  */
 package net.wildpark.wpmaps.basicPageControllers;
 
+
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import net.wildpark.wpmaps.entitys.MapPoint;
 import net.wildpark.wpmaps.facades.PointFacade;
@@ -29,9 +31,7 @@ import org.primefaces.model.map.Marker;
 public class basicPageController implements Serializable{
     @EJB
     private PointFacade mapFacade;
-    
-    private boolean redirection;
-    
+        
     private MapModel basicModel;
     private Marker marker;    
     private List<MapPoint> basicList;
@@ -47,11 +47,7 @@ public class basicPageController implements Serializable{
             basicModel.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/"+e.getDecriminatorValue()+"_marker.png"));                
         }   
     }
-    
-    public void goImage(){
         
-    }
-    
     public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();   
         point = (MapPoint) marker.getData(); 
@@ -81,13 +77,6 @@ public class basicPageController implements Serializable{
         this.basicList = basicList;
     }
 
-    public boolean isRedirection() {
-        return redirection;
-    }
-
-    public void setRedirection(boolean redirection) {
-        this.redirection = redirection;
-    }
 
 
     
