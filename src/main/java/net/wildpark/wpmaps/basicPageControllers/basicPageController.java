@@ -7,12 +7,14 @@ package net.wildpark.wpmaps.basicPageControllers;
 
 
 import java.io.Serializable;
+import java.util.Enumeration;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.event.ActionEvent;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+
 import net.wildpark.wpmaps.entitys.MapPoint;
 import net.wildpark.wpmaps.facades.PointFacade;
 import org.primefaces.event.map.OverlaySelectEvent;
@@ -37,7 +39,7 @@ public class basicPageController implements Serializable{
     private List<MapPoint> basicList;
     
     MapPoint point = new MapPoint();
-    
+        
     @PostConstruct
     public void init() {
         basicModel = new DefaultMapModel();
@@ -50,7 +52,7 @@ public class basicPageController implements Serializable{
         
     public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();   
-        point = (MapPoint) marker.getData(); 
+        point = (MapPoint) marker.getData();         
     }
 
     public PointFacade getMapFacade() {
