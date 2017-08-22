@@ -5,6 +5,7 @@
  */
 package net.wildpark.wpmaps.pageControllers;
 
+import java.awt.event.ActionEvent;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -176,7 +177,7 @@ public class GMapsController implements Serializable {
         pillar.setOwner(owner);
         pillar.setAddress(address);
   
-        if(pz.isSkip()!= true){
+        if(pz.isSkip()!= false){
             pillar.setClutch(Collections.singletonList(clutch));
         }
         //pillar.setClutch(Collections.singletonList(clutch));
@@ -200,7 +201,7 @@ public class GMapsController implements Serializable {
         house.setOwner(owner);
         house.setAddress(address);
         
-        if(pz.isSkip()!= true){
+        if(pz.isSkip()!= false){
             house.setClutch(Collections.singletonList(clutch));
         }
         
@@ -233,7 +234,7 @@ public class GMapsController implements Serializable {
         draw_well.setType_draw_well(type_drawWell);
         draw_well.setAddress(address);
         
-        if(pz.isSkip()!= true){
+        if(pz.isSkip()!= false){
             draw_well.setClutch(Collections.singletonList(clutch));
         }        
         
@@ -264,7 +265,10 @@ public class GMapsController implements Serializable {
         marker = (Marker) event.getOverlay();   
         point = (MapPoint) marker.getData(); 
     }
-    
+
+    public void connectObj(ActionEvent actionEvent) {
+        System.out.println("Fo");
+    }
     
 //    public void connectPillar(){
 //        Polyline polyline = new Polyline();

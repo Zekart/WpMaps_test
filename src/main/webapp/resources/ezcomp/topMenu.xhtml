@@ -25,10 +25,22 @@
                         <p:graphicImage class="icon"  value="../resources/images/#{topMenuController.imgName}.png"/>
                     </h:commandLink>                    
                 </div>
-                <div class="container" id="four">  
-                    <a href="#" id="basicPage" onclick="document.location=this.id+'.xhtml';return false;" >
-                        <img class="icon" src="../resources/images/basic.png"></img> 
-                    </a> 
+                <div class="container" id="four">                                               
+                    <nav>
+                        <ul class="topmenu">
+                            <li><img class="icon submenu-link" src="../resources/images/Developer.png"></img>
+                                <ul class="submenu">
+                                    <li>
+                                        <p:commandLink actionListener="#{gMapsController.connectObj(actionEvent)}" onclick="openConnect()">
+                                            <h:outputText value="Соединить" />
+                                        </p:commandLink>                                        
+                                    </li>
+                                    <li><a href="">Магазин</a></li>
+                                    <li><a href="">Сервис</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>                
                 </div>
                 <div class="container" id="five">  
                     <img class="icon" src="../resources/images/Information.png" onclick="openHistory()"></img>

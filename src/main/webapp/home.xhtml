@@ -126,7 +126,7 @@
         </p:dialog>
 -->        
 
-        <p:dialog widgetVar="dlg" showEffect="fade" resizable="true" closable="true">
+        <p:dialog widgetVar="dlg" showEffect="fade" resizable="false" closable="false" width="600" height="500">
             
             <addDialog:panelAddDialog/>
              
@@ -152,7 +152,19 @@
                         <p:commandButton  icon="ui-icon-search" onclick="geocode()" type="button" />
                     </h:panelGrid>
         </p:panel>
+        <p:panel id="connect_panel" widgetVar="con_pan" styleClass="connectPanel" visible="false" >
+            <table style=" font: 12pt sans-serif; width: 17vw; " >
+                <tr class="noBorder">  
+                    <td>Выберите 1-й объект:</td>
+                </tr>  
+                <tr class="noBorder">  
+                    <td><p:inputText id="first_item" value="#{gMapsController.point.id}"/></td>
+                </tr>         
+            </table>
+        </p:panel>
+
     </h:form>
+        
     <script type="text/javascript">
         var currentMarker = null;
         var map = new google.maps.Map(document.getElementById('gmap'));
@@ -192,6 +204,17 @@
               PF('testPanel').close();
             }else{
               PF('testPanel').show(); 
+            }
+            
+        }
+
+            function openConnect(){
+            var query = $('#connect_panel');
+            var isVisible = query.is(':visible');
+            if(isVisible === true){
+              PF('con_pan').close();
+            }else{
+              PF('con_pan').show(); 
             }
             
         }

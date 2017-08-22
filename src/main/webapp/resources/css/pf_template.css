@@ -55,7 +55,17 @@ body{
     z-index: 100000;
 
 }
+.connectPanel{
+    position: fixed;
+    bottom: 40vh;
+    right: 0px;
+    display: block;
+    width: 15vw;
+    height: 40vh;
+    text-align: left;
+    z-index: 100000;
 
+}
 tr.noBorder td{
     border: 0;
 }
@@ -190,5 +200,77 @@ div.container:hover img.icon{
 }
 
 .dialogAdd{
-    width: 500px;
+    width: 800px;
+}
+.ui-helper-reset {
+    width: auto;
+}
+#j_idt41:wiz.ui-wizard-content {
+    margin-bottom: 20px;
+}
+
+#j_idt40.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-hidden-container.wizDialog.ui-draggable{
+    width: 800px;
+    height: 500px; 
+}
+.ui-wizard-navbar{
+    position: relative;
+    bottom: 0px; 
+}
+
+nav {
+  display: table;
+  margin: 0 auto;
+}
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.topmenu > li {
+  width: 25%;
+  float: left;
+  position: relative;
+  font-family: 'Open Sans', sans-serif;
+}
+.topmenu > li > a {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  color: #404040;
+  padding: 15px 30px;
+}
+.topmenu > li:hover > a, .submenu li:hover a {
+    color: red;
+}
+
+.submenu-link:after {
+  content: "\f107";
+  font-family: "FontAwesome";
+  color: inherit;
+  margin-left: 1px;
+}
+.submenu {
+  background: #273037;
+  position: absolute;
+  left: -32px;
+  top: 100%;
+  z-index: 5;
+  width: 180px;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: 0 0;
+  transition: .2s ease-in-out;
+}
+.submenu a {
+  color: white;
+  text-align: left;
+  padding: 1px 15px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.submenu li:last-child a {border-bottom: none;}
+.topmenu > li:hover .submenu {
+  opacity: 1;
+  transform: scaleY(1);
 }
