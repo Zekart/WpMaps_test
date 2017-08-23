@@ -185,13 +185,7 @@
                 </h:panelGrid>    
             </p:panel>                               
             </p:tab>
-            <p:tab id="clutchInfo" title="Муфта">
-                <p:outputPanel>
-                    <p:spinner id="ajaxSpinner" value="#">
-                        <p:ajax update="ajaxSpinnerValue" process="@this" />
-                    </p:spinner>
-                    <h:outputText id="ajaxSpinnerValue" value="#" style="padding-left: 10px" />
-                </p:outputPanel>               
+            <p:tab id="clutchInfo" title="Муфта">           
 
                 <h:panelGrid columns="2" columnClasses="label, value">
                     <h:outputText value="Адрес: " />
@@ -209,7 +203,6 @@
                     <h:outputText value="Входы: " />
                     <p:inputText value="#{gMapsController.clutch.inputs}" ><f:validateLength minimum="1" /></p:inputText>                        
                 </h:panelGrid>                    
-
                 
             </p:tab> 
             <p:tab id="cabel" title="Кабель">
@@ -217,16 +210,14 @@
                     <p:messages />
                     <h:panelGrid columns="2" columnClasses="label, value">
                         <h:outputText value="Адрес: " />
-                        <p:inputText value="#{gMapsController.clutch.address}" />
+                        <p:inputText />
 
                         <h:outputText value="Кол. кассет: " />
-                        <p:inputText value="#{gMapsController.clutch.cassetsCount}" />
-
+                        <p:inputText  />
                         <h:outputText value="Состояние: " />
-                        <p:inputText value="#{gMapsController.clutch.conditions}" />
-
+                        <p:inputText  />
                         <h:outputText value="Доп.инфо: " />
-                        <p:inputText value="#{gMapsController.clutch.info}" />
+                        <p:inputText  />
                     </h:panelGrid>                    
                 </p:panel>
                 

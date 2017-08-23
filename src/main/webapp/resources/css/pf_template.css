@@ -200,7 +200,7 @@ div.container:hover img.icon{
 }
 
 .dialogAdd{
-    width: 800px;
+    width: 1120px;
 }
 .ui-helper-reset {
     width: auto;
@@ -210,12 +210,13 @@ div.container:hover img.icon{
 }
 
 #j_idt40.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-hidden-container.wizDialog.ui-draggable{
-    width: 800px;
-    height: 500px; 
+    width: 1120px;
+    height: 800px; 
 }
 .ui-wizard-navbar{
-    position: relative;
-    bottom: 0px; 
+    position: absolute;
+    bottom: 20px; 
+    width: 95%;
 }
 
 nav {

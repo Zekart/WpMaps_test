@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import net.wildpark.wpmaps.entitys.Cabel;
 import net.wildpark.wpmaps.entitys.Clutch;
@@ -51,6 +52,7 @@ import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.map.GeocodeResult;
+import org.primefaces.model.map.Polyline;
 
 
 /**
@@ -234,7 +236,8 @@ public class GMapsController implements Serializable {
         draw_well.setType_draw_well(type_drawWell);
         draw_well.setAddress(address);
         
-        if(pz.isSkip()!= false){
+        System.out.println("Skip  " + pz.isSkip());
+        if(pz.isSkip()!= true){
             draw_well.setClutch(Collections.singletonList(clutch));
         }        
         
@@ -248,9 +251,9 @@ public class GMapsController implements Serializable {
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }
     public void deleteMarker(){        
-        //point = (MapPoint) marker.getData();
-        System.out.println("Select id  " + point.getId());
-        point = mapFacade.find(point.getId());
+        System.out.println("Select id  " + id);
+        point = mapFacade.find(id);
+        //System.out.println("Point" + point);
         if(point != null){            
             mapFacade.remove(point);
             //list.clear();
@@ -264,6 +267,8 @@ public class GMapsController implements Serializable {
     public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();   
         point = (MapPoint) marker.getData(); 
+        System.out.println("Id" +  point.getId());
+        id = point.getId();
     }
 
     public void connectObj(ActionEvent actionEvent) {
@@ -277,7 +282,7 @@ public class GMapsController implements Serializable {
 //        polyline.setStrokeColor("#FF9900");
 //        polyline.setStrokeOpacity(1);
 //        
-//        coord.add(new LatLng(selectedMappoint.getLat(), selectedMappoint.getLng()));
+//        coord.add(new LatLng(point.getLat(), point.getLng()));
 //
 //        
 ////        LatLng  coord1 = new LatLng(selectedMappoint.getLat(), selectedMappoint.getLng());
@@ -291,12 +296,12 @@ public class GMapsController implements Serializable {
 //                System.out.println(en);
 //                polyline.getPaths().add(en);
 //            }
-//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Режим соединения", "Успешно"));
+//            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Режим соединения", "Успешно"));
 //            model.addOverlay(polyline);
 //            RequestContext.getCurrentInstance().update("gmap");
 //            coord.clear();                   
 //        }else{
-//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Режим добавления", "Выберите 2 маркер"));            
+//            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Режим добавления", "Выберите 2 маркер"));            
 //        }          
 //    }
     

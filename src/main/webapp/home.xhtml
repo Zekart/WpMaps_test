@@ -55,10 +55,10 @@
             <p:ajax event="stateChange" listener="#{gMapsController.onStateChange}"  />
             
             
+            
             <p:gmapInfoWindow id="infoWindow" maxWidth="300">
                 <piw:panelInfowindow/>
-            </p:gmapInfoWindow>  
-            
+            </p:gmapInfoWindow>              
         </p:gmap>
 
         <tm:topMenu/>
@@ -126,7 +126,7 @@
         </p:dialog>
 -->        
 
-        <p:dialog widgetVar="dlg" showEffect="fade" resizable="false" closable="false" width="600" height="500">
+        <p:dialog widgetVar="dlg" showEffect="fade" resizable="false" closable="false" width="1280" height="720">
             
             <addDialog:panelAddDialog/>
              
@@ -158,8 +158,17 @@
                     <td>Выберите 1-й объект:</td>
                 </tr>  
                 <tr class="noBorder">  
-                    <td><p:inputText id="first_item" value="#{gMapsController.point.id}"/></td>
-                </tr>         
+                    <td><p:outputLabel id="fristPointValue" value="#"/></td>
+                </tr>  
+                <tr class="noBorder">  
+                    <td>Выберите 2-й объект:</td>
+                </tr>  
+                <tr class="noBorder">  
+                    <td><p:outputLabel id="secondPointValue" value="#"/></td>                
+                </tr> 
+                <tr class="noBorder">  
+                    <td><p:commandButton value="Соединить"></p:commandButton></td>                
+                </tr>                
             </table>
         </p:panel>
 
