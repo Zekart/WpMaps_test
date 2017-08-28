@@ -329,6 +329,7 @@ public class GMapsController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Режим соединения", "Успешно"));
             connect_point.setToPoint(point.getId());            
             conFacade.create(connect_point);
+            initPoint();
             }            
         }else{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Режим соединения", "Выберите 2 маркер"));
