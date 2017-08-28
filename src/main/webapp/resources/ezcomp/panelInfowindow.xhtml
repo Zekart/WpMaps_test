@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 
@@ -13,8 +12,7 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>
         <p:outputPanel style="text-align: center; display: block; margin: auto" styleClass="withOutBorder">  
-            
-            
+                        
                 <!--
                 <p:row>
                     <p:lightBox styleClass="imagebox" id="lighbox1" > 
@@ -52,7 +50,7 @@
                             <h:dataTable value="#{gMapsController.point.clutch}" var="points">
                                 <h:column>
                                     <h:commandLink id="ajax"   action="#{gMapsController.buttonAction}" >
-                                        <h:outputText value="#{points.id}" />
+                                        <h:outputText value="#{points.id}"/>                                        
                                     </h:commandLink>
                                 </h:column>
                             </h:dataTable>
@@ -61,9 +59,14 @@
                     </h:panelGrid>
                                               
 
-                    <h:panelGrid columns="3" styleClass="withOutBorder">
-                        <p:commandButton id="mySmallButton" value="Удалить" actionListener="#{gMapsController.deleteMarker}" update=":gmap" styleClass="smallButton"/>
-                        <p:commandButton  value="Инф."  styleClass="smallButton" update="toUpdate" action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()"/>
+                    <h:panelGrid columns="1" styleClass="withOutBorder">
+                        <p:menuButton value="Действия" styleClass="smallButton">
+                            <p:menuitem value="Удалить" actionListener="#{gMapsController.deleteMarker}" update="gmap"/>
+                            <p:menuitem value="Информ." action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />
+                            <p:menuitem value="Соединить" action="#{gMapsController.connectPillar}"  />
+                            <p:menuitem value="Изменить" url="updatePoint.xhtml"  />
+                        </p:menuButton>
+
                     </h:panelGrid>                        
                    
         </p:outputPanel>

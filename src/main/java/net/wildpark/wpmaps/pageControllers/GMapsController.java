@@ -5,7 +5,6 @@
  */
 package net.wildpark.wpmaps.pageControllers;
 
-import java.awt.event.ActionEvent;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,6 +23,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import net.wildpark.wpmaps.entitys.Cabel;
 import net.wildpark.wpmaps.entitys.Clutch;
+import net.wildpark.wpmaps.entitys.ConnectPoint;
 import net.wildpark.wpmaps.entitys.DrawWell;
 import net.wildpark.wpmaps.entitys.House;
 import net.wildpark.wpmaps.entitys.MapPoint;
@@ -42,6 +42,7 @@ import org.primefaces.model.map.Marker;
 import net.wildpark.wpmaps.enums.PillarOwner;
 import net.wildpark.wpmaps.enums.PillarType;
 import net.wildpark.wpmaps.enums.PillarMaterial;
+import net.wildpark.wpmaps.facades.ConnectPointFacade;
 import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
 import net.wildpark.wpmaps.facades.DrawWellFacade;
@@ -70,7 +71,9 @@ public class GMapsController implements Serializable {
     @EJB
     private PillarFacade pillarFacade;
     @EJB
-    private PointFacade mapFacade;  
+    private PointFacade mapFacade;
+    @EJB
+    private ConnectPointFacade conFacade;
 
     
     private MapModel model;
@@ -97,11 +100,12 @@ public class GMapsController implements Serializable {
 
     private double lat;     
     private double lng;
-    private byte[] image;
-    
+    private byte[] image;    
     private boolean flag;
-   
+    private boolean selectOne;
+    private LatLng cord;
     private List<MapPoint> list; 
+    private List<ConnectPoint> listConnect;
      
     //Staff mappoint =  new Staff();
     
@@ -109,28 +113,39 @@ public class GMapsController implements Serializable {
     House house = new House();
     DrawWell draw_well = new DrawWell();
     MapPoint point = new MapPoint();
-    Cabel cabel = new Cabel();
+    ConnectPoint connect_point = new ConnectPoint();
+
     
-    Clutch clutch = new Clutch();
+    Clutch clutch = new Clutch();    
+    PointWizard pz = new PointWizard(); 
     
-    PointWizard pz = new PointWizard();
-    
-    List<LatLng> coord = new ArrayList<>();
-    List<Marker> markers;  
-    List<Clutch> clutchs = new ArrayList<>();
     List<Cabel> cabels = new ArrayList<>();
+    List<LatLng> coord = new ArrayList<LatLng>(); 
     
     private String centerGeoMap = "46.9422145,31.9990089";
     
-//
+
     //@PostConstruct
     public void initPoint() {
+        Polyline polyline = new Polyline();
+           
+        polyline.setStrokeWeight(2);
+        polyline.setStrokeColor("#FF9930");
+        polyline.setStrokeOpacity(1);
+        
+        
         model = new DefaultMapModel();
-        list = mapFacade.findAll();   
-                       
+        list = mapFacade.findAll();                          
         for (MapPoint e:list) {
             model.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/"+e.getDecriminatorValue()+"_marker.png"));                
-        }   
+        }  
+        listConnect = conFacade.findAll();
+        for (ConnectPoint c:listConnect) {            
+            polyline.getPaths().add(new LatLng(mapFacade.find(c.getFromPoint()).getLat(), mapFacade.find(c.getFromPoint()).getLng()));
+            polyline.getPaths().add(new LatLng(mapFacade.find(c.getToPoint()).getLat(), mapFacade.find(c.getToPoint()).getLng()));
+        }
+
+        model.addOverlay(polyline);
     }
         
     public void onGeocode(GeocodeEvent event) {
@@ -140,8 +155,7 @@ public class GMapsController implements Serializable {
         if (results != null && !results.isEmpty()) {
             LatLng center = results.get(0).getLatLng();
             centerGeoMap = center.getLat() + "," + center.getLng();
-            zoomMap = 17;
-             
+            zoomMap = 17;             
         }
     } 
     
@@ -179,11 +193,9 @@ public class GMapsController implements Serializable {
         pillar.setOwner(owner);
         pillar.setAddress(address);
   
-        if(pz.isSkip()!= false){
+        if(pz.isSkip()!= true){
             pillar.setClutch(Collections.singletonList(clutch));
         }
-        //pillar.setClutch(Collections.singletonList(clutch));
-        //pillar.setClutch(clutchs);
         
         pillarFacade.create(pillar);
         id = pillar.getId();
@@ -203,7 +215,7 @@ public class GMapsController implements Serializable {
         house.setOwner(owner);
         house.setAddress(address);
         
-        if(pz.isSkip()!= false){
+        if(pz.isSkip()!= true){
             house.setClutch(Collections.singletonList(clutch));
         }
         
@@ -211,7 +223,6 @@ public class GMapsController implements Serializable {
         id = house.getId();
         marker = new Marker(new LatLng(lat, lng), String.valueOf(id),house,"../resources/marker/house_marker.png" );
         model.addOverlay(marker);
-//        //list.clear();
         initPoint();
         
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
@@ -236,7 +247,6 @@ public class GMapsController implements Serializable {
         draw_well.setType_draw_well(type_drawWell);
         draw_well.setAddress(address);
         
-        System.out.println("Skip  " + pz.isSkip());
         if(pz.isSkip()!= true){
             draw_well.setClutch(Collections.singletonList(clutch));
         }        
@@ -251,59 +261,82 @@ public class GMapsController implements Serializable {
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }
     public void deleteMarker(){        
-        System.out.println("Select id  " + id);
-        point = mapFacade.find(id);
+        point = mapFacade.find(id); 
+            for (ConnectPoint b : listConnect) {
+                if (b.getFromPoint()== id ||  b.getToPoint() == id) {
+                    System.out.println(b.getId());
+                    conFacade.remove(b);
+                }
+            }         
         //System.out.println("Point" + point);
-        if(point != null){            
+        if(point != null){         
+           
             mapFacade.remove(point);
             //list.clear();
             initPoint();
-            //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
+            
 
         }
+
     }
 //       
 //
     public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();   
         point = (MapPoint) marker.getData(); 
-        System.out.println("Id" +  point.getId());
         id = point.getId();
-    }
+        
+        ss(point.getLat(),point.getLng());
+        
 
-    public void connectObj(ActionEvent actionEvent) {
-        System.out.println("Fo");
+        
+        
+        
     }
     
-//    public void connectPillar(){
-//        Polyline polyline = new Polyline();
-//        
-//        polyline.setStrokeWeight(2);
-//        polyline.setStrokeColor("#FF9900");
-//        polyline.setStrokeOpacity(1);
-//        
-//        coord.add(new LatLng(point.getLat(), point.getLng()));
-//
-//        
-////        LatLng  coord1 = new LatLng(selectedMappoint.getLat(), selectedMappoint.getLng());
-////        LatLng coord2 = new LatLng(selectedMappoint.getLat(), selectedMappoint.getLng());
-//        
-////        polyline.getPaths().add(coord1);
-////        polyline.getPaths().add(coord2);
-//
-//        if (coord.size()==2) {
-//            for (LatLng en : coord ){
-//                System.out.println(en);
-//                polyline.getPaths().add(en);
-//            }
-//            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Режим соединения", "Успешно"));
-//            model.addOverlay(polyline);
-//            RequestContext.getCurrentInstance().update("gmap");
-//            coord.clear();                   
-//        }else{
-//            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Режим добавления", "Выберите 2 маркер"));            
-//        }          
-//    }
+    private void ss(double lat, double lng){
+        cord = new LatLng(lat, lng);
+    } 
+    
+    public void connectPillar(){
+        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Режим добавления", "Выберите 2 маркер"));
+        Polyline polyline = new Polyline();
+           
+        polyline.setStrokeWeight(2);
+        polyline.setStrokeColor("#FF9900");
+        polyline.setStrokeOpacity(1);
+
+        coord.add(new LatLng(point.getLat(), point.getLng()));
+
+//        LatLng  coord1 = new LatLng(cord.getLat(), cord.getLng());
+//        LatLng coord2 = new LatLng(point.getLat(), point.getLng());
+       
+//        polyline.getPaths().add(coord1);
+//        polyline.getPaths().add(coord2);
+
+        if (coord.size()==2) {
+            if(coord.get(0).equals(coord.get(1))){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ошибка", "Попытка соединить один и тот же объект"));
+                coord.clear();
+            }else{
+            for (LatLng en : coord ){
+                polyline.getPaths().add(en);
+            }
+            model.addOverlay(polyline);
+            
+            RequestContext.getCurrentInstance().update("gmap");
+            coord.clear();            
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Режим соединения", "Успешно"));
+            connect_point.setToPoint(point.getId());            
+            conFacade.create(connect_point);
+            }            
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Режим соединения", "Выберите 2 маркер"));
+            connect_point.setFromPoint(point.getId());            
+        } 
+        
+        //point.getConnectToCollection().add();
+    }
     
 
 //    public void changePillar(){        
@@ -319,40 +352,23 @@ public class GMapsController implements Serializable {
         LatLng center = event.getCenter();
         centerGeoMap = center.getLat()+","+center.getLng();
         
-        System.out.println("zoom : " + zoomMap);
-        if(zoomMap == 16){
-            
-            if(zoomPoint != true){
-                System.out.println("Show in");  
+        if(zoomMap == 15){           
+            if(zoomPoint != true){ 
                 initPoint();
                 zoomPoint = true;
                 RequestContext.getCurrentInstance().update("gmap");
                 //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gmap");
-            }
-            
-            
+            }                       
         }else{
-            if (zoomMap == 15) {
+            if (zoomMap == 14) {
                 if(zoomPoint != false){
-                    System.out.println("Show out");  
                     model.getMarkers().clear();
-                    RequestContext.getCurrentInstance().update("gmap");
-                    
-                }
-                
-                zoomPoint = false;
-                
-            }
-            
-            
+                    model.getPolylines().clear();
+                    RequestContext.getCurrentInstance().update("gmap");                    
+                }                
+                zoomPoint = false;                
+            }           
         }
-//        for (Marker m : markers) {
-//            m.setVisible(showMarker);
-//
-//        } 
-//
-//        System.out.println("marker" + markers);
-
     }
     
     public HouseType[] getHouseType() {
@@ -541,14 +557,6 @@ public class GMapsController implements Serializable {
         this.cabels = cabels;
     }
 
-    public Cabel getCabel() {
-        return cabel;
-    }
-
-    public void setCabel(Cabel cabel) {
-        this.cabel = cabel;
-    }
-
     public Clutch getClutch() {
         return clutch;
     }
@@ -572,21 +580,16 @@ public class GMapsController implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }      
+
+    public int getId() {
+        return id;
     }
 
-    public List<Clutch> getClutchs() {
-        return clutchs;
+    public void setId(int id) {
+        this.id = id;
     }
-
-    public void setClutchs(List<Clutch> clutchs) {
-        this.clutchs = clutchs;
-    }
-
-
-
     
-    
-   
     
   
 }

@@ -45,17 +45,14 @@
      
         <h:form id="form" prependId="false" enctype="multipart/form-data" >
         
-        <p:growl id="messages" showDetail="true"  sticky="true" />
+        <p:growl id="messages" sticky="true" />
         <p:gmap id ="gmap" center="#{gMapsController.centerGeoMap}" zoom="#{gMapsController.zoomMap}" type="terrain" model="#{gMapsController.model}"                 
                 style="width: 100vw;height: 100vh;" onPointClick="handlePointClick(event);" widgetVar="map" fitBounds="false">
             
-            <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}"  />    
-            <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />
-            
+            <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}" />    
+            <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />           
             <p:ajax event="stateChange" listener="#{gMapsController.onStateChange}"  />
-            
-            
-            
+
             <p:gmapInfoWindow id="infoWindow" maxWidth="300">
                 <piw:panelInfowindow/>
             </p:gmapInfoWindow>              
@@ -126,7 +123,7 @@
         </p:dialog>
 -->        
 
-        <p:dialog widgetVar="dlg" showEffect="fade" resizable="false" closable="false" width="1280" height="720">
+        <p:dialog id="panelAdd" widgetVar="dlg" showEffect="fade" resizable="false" closable="false" width="1280" height="720" modal="true">
             
             <addDialog:panelAddDialog/>
              
@@ -155,19 +152,19 @@
         <p:panel id="connect_panel" widgetVar="con_pan" styleClass="connectPanel" visible="false" >
             <table style=" font: 12pt sans-serif; width: 17vw; " >
                 <tr class="noBorder">  
-                    <td>Выберите 1-й объект:</td>
+                    <td>1-й объект:</td>
                 </tr>  
                 <tr class="noBorder">  
-                    <td><p:outputLabel id="fristPointValue" value="#"/></td>
+                    <td><p:outputLabel id="firstPointValue" value="#{gMapsController.id}"/></td>
                 </tr>  
                 <tr class="noBorder">  
                     <td>Выберите 2-й объект:</td>
                 </tr>  
                 <tr class="noBorder">  
-                    <td><p:outputLabel id="secondPointValue" value="#"/></td>                
+                    <td><p:outputLabel id="secondPointValue" value="-"/></td>                
                 </tr> 
                 <tr class="noBorder">  
-                    <td><p:commandButton value="Соединить"></p:commandButton></td>                
+                    <td><p:commandButton value="Соединить" actionListener="#{gMapsController.connectObj}" update="messages"></p:commandButton></td>                
                 </tr>                
             </table>
         </p:panel>
@@ -197,7 +194,6 @@
             PF('dlg').hide();
             currentMarker.setMap(null);
             currentMarker = null;
-
             return false;
         }  
                     
@@ -213,17 +209,6 @@
               PF('testPanel').close();
             }else{
               PF('testPanel').show(); 
-            }
-            
-        }
-
-            function openConnect(){
-            var query = $('#connect_panel');
-            var isVisible = query.is(':visible');
-            if(isVisible === true){
-              PF('con_pan').close();
-            }else{
-              PF('con_pan').show(); 
             }
             
         }

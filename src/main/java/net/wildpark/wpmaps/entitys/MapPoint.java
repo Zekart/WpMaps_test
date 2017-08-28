@@ -6,7 +6,10 @@
 package net.wildpark.wpmaps.entitys;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,7 +23,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -64,7 +70,7 @@ public  class MapPoint implements Serializable{
                
     @OneToMany(targetEntity = Clutch.class,  cascade= CascadeType.ALL, fetch=FetchType.EAGER)
     private List<Clutch> clutch;
-    
+       
     public String getDecriminatorValue() {
         return this.getClass().getAnnotation(DiscriminatorValue.class).value();
     }
@@ -150,9 +156,6 @@ public  class MapPoint implements Serializable{
     public void setClutch(List<Clutch> clutch) {
         this.clutch = clutch;
     }
-
-
-
     
     @Override
     public String toString() {

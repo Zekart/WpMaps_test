@@ -8,11 +8,14 @@ package net.wildpark.wpmaps.facades;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import net.wildpark.wpmaps.entitys.MapPoint;
+import net.wildpark.wpmaps.entitys.ConnectPoint;
 
-
+/**
+ *
+ * @author zekart
+ */
 @Stateless
-public class PointFacade extends AbstractFacade<MapPoint> {
+public class ConnectPointFacade extends AbstractFacade<ConnectPoint> {
 
     @PersistenceContext(unitName = "net.wildpark.wpmaps_PU")
     private EntityManager em;
@@ -22,8 +25,8 @@ public class PointFacade extends AbstractFacade<MapPoint> {
         return em;
     }
 
-    public PointFacade() {
-        super(MapPoint.class);
+    public ConnectPointFacade() {
+        super(ConnectPoint.class);
     }
     
 }

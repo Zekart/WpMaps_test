@@ -9,7 +9,7 @@ and open the template in the editor.
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:p="http://primefaces.org/ui"
         xmlns:f="http://xmlns.jcp.org/jsf/core"
-        xmlns:piw="http://xmlns.jcp.org/jsf/composite/ezcomp"
+        xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp"
         xmlns:addDialog="http://xmlns.jcp.org/jsf/composite/ezcomp"
         xmlns:tm="http://xmlns.jcp.org/jsf/composite/ezcomp"
         xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
@@ -26,27 +26,137 @@ and open the template in the editor.
         
         <script src = "http://maps.google.com/maps/api/js?key=AIzaSyDzwk44zfDh3JQSN1ooK-SIXzvODeFo_dc"
                 type = "text/javascript" />
+        <style>
+            table {
+                font-family: "Times New Roman", Times, serif;
+                border-collapse: collapse;
+                width: 100%;
+                
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+                width: 50px;
+            }
+            .ui-datalist .ui-widget-content
+            {
+                border-style: none !important
+            }
+            
+        </style>        
                 
     </h:head>
     <body>
         <h:form id="form" prependId="false" enctype="multipart/form-data" >
         
         <p:growl id="messages" showDetail="true"  sticky="true" />
-        <p:gmap id ="gmap" center="46.9422145,31.9990089" zoom="7" type="terrain" model="#{basicPageController.basicModel}"                 
+        <p:gmap id ="gmap" center="#{gMapsController.centerGeoMap}" zoom="#{gMapsController.zoomMap}" type="terrain" model="#{gMapsController.model}"                 
                 style="width: 100vw;height: 100vh;" onPointClick="handlePointClick(event);" widgetVar="map" fitBounds="false">
             
-            <p:ajax event="overlaySelect" listener="#{basicPageController.onMarkerSelect}"  />    
+            <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}"  />    
             <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />
+            <p:ajax event="stateChange" listener="#{gMapsController.onStateChange}"  />
             <!--
             <p:ajax event="stateChange" listener="{gMapsController.onStateChange}" />
             -->
             
             <p:gmapInfoWindow id="infoWindow" maxWidth="300">
-                <piw:panelInfowindow/>
+                <ez:basicInfoWindow/>
             </p:gmapInfoWindow>  
             
         </p:gmap>
             <tm:topMenu/>        
+        <p:dialog widgetVar="dial">
+            <p:outputPanel id="toUpdate" style="width: 20vw;">
+                <p:panel id="myPanel" rendered="#{gMapsController.flag}" styleClass="withOutBorder" widgetVar="ww" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
+                    <p:dataList value="#{gMapsController.point.clutch}" var="car" type="definition" >
+                        <table style=" font: 10pt sans-serif;">
+                          <tr>
+                            <th>Муфта:</th>
+                            
+                          </tr>
+                          <tr>
+                            <td>Адрес:</td>
+                            <td>#{car.address}</td>
+                          </tr>
+                          <tr>
+                            <td>Инфо:</td>
+                            <td>#{car.info}</td>
+                          </tr>
+                          <tr>
+                            <td>Кол. кассет:</td>
+                            <td>#{car.cassetsCount}</td>
+                          </tr>
+                          <tr>
+                            <td>Кабель:</td>
+                            <td>in progress</td>
+                          </tr>                    
+                        </table>
+                    </p:dataList>
+                </p:panel>
+            </p:outputPanel>             
+        </p:dialog>
+        <p:panel id="legend_panel" styleClass="legendPanel" visible="false" widgetVar="testPanel" closable="true" toggleable="true" >            
+            <table style=" font: 8pt sans-serif; width: 17vw; " >
+                <tr class="noBorder">                    
+                    <td>Дом:</td>
+                    <td><p:graphicImage height="27" width="27" value="../resources/marker/Дом_marker.png"  title="Дом/House"/></td>
+                    <td>Колодец:</td>
+                    <td><p:graphicImage height="27" width="27" value="../resources/marker/Колодец_marker.png" /></td>
+                    <td>Столб:</td>
+                    <td><p:graphicImage height="27" width="27" value="../resources/marker/Столб_marker.png" /></td>
+                </tr>                  
+            </table>  
+                    <h:panelGrid styleClass="searchPanel" columns="3" style="margin-bottom:10px" cellpadding="5">
+                        <p:outputLabel for="address" value="Address:" />
+                        <p:inputText id="address" />
+                        <p:commandButton  icon="ui-icon-search" onclick="geocode()" type="button" />
+                    </h:panelGrid>
+        </p:panel>
+            <!--
+        <p:dialog header="Modal Dialog" widgetVar="passwordIn" modal="true" height="100">
+            <p:inputText value="#{topMenuController.password}"/>
+            <p:commandButton value="Save Edits"  /> 
+        </p:dialog>
+            -->            
         </h:form>
+    <script type="text/javascript">
+        var currentMarker = null;
+        var map = new google.maps.Map(document.getElementById('gmap'));
+        var wind = null;
+ 
+        function handlePointClick(event) {
+            if(currentMarker === null) {
+                document.getElementById('lat').value = event.latLng.lat();
+                document.getElementById('lng').value = event.latLng.lng();
+
+                currentMarker = new google.maps.Marker({
+                    position:new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+                });
+
+                PF('map').addOverlay(currentMarker);
+                PF('dlg').show();
+            }   
+        }                   
+    
+        function geocode() {
+            PF('map').geocode(document.getElementById('address').value);
+        }
+        
+        function openHistory(){
+            var query = $('#legend_panel');
+            var isVisible = query.is(':visible');
+            if(isVisible === true){
+              PF('testPanel').close();
+            }else{
+              PF('testPanel').show(); 
+            }
+            
+        }
+        
+              
+    </script>        
     </body>
 </html>

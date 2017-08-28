@@ -18,7 +18,7 @@ public class PointWizard implements Serializable {
  
     
     private String data;
-    private boolean skip;
+    private boolean skip = false;
     
      
     public boolean isSkip() {
@@ -31,7 +31,7 @@ public class PointWizard implements Serializable {
      
     public String onFlowProcess(FlowEvent event) {
         if(skip) {
-            skip = false;   //reset in case user goes back
+            skip = true;   //reset in case user goes back
             return "confirm";
         }
         else {

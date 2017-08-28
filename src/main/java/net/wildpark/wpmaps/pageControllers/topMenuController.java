@@ -7,7 +7,6 @@ package net.wildpark.wpmaps.pageControllers;
 
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedBean;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
@@ -18,6 +17,7 @@ public class topMenuController implements Serializable{
     
     private boolean redirection = false;
     private String imgName = "basic";
+    private String password;
     
     
     public String linkAction(ActionEvent actionEvent) {
@@ -27,19 +27,28 @@ public class topMenuController implements Serializable{
             redirection = true;            
             imgName = "powerfull";
             System.out.println(redirection);
-            return "basicPage?faces-redirect=true";
+            return "home?faces-redirect=true";
 
         }else{
             redirection = false;
             imgName = "basic";
             System.out.println(redirection);                
-
-            return "home?faces-redirect=true";             
+            return "basicPage?faces-redirect=true";             
         }
 
           
 
     }
+    
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
 
     public boolean isRedirection() {
         return redirection;

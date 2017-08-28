@@ -40,7 +40,7 @@ public class Cabel implements Serializable {
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY )
     private List<Fiber> fiber;
     @ManyToOne
-    @PrimaryKeyJoinColumn(name="CLUTCHID", referencedColumnName="ID")
+    @JoinColumn(name="CLUTCHID", referencedColumnName="ID")
     private Clutch clutch;
 
     public Long getId() {

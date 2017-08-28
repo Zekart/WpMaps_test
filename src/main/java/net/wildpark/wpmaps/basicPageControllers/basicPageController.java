@@ -40,15 +40,16 @@ public class basicPageController implements Serializable{
     
     MapPoint point = new MapPoint();
         
-    @PostConstruct
-    public void init() {
-        basicModel = new DefaultMapModel();
-        basicList = mapFacade.findAll();   
-                       
-        for (MapPoint e:basicList) {
-            basicModel.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/"+e.getDecriminatorValue()+"_marker.png"));                
-        }   
-    }
+//    @PostConstruct
+//    public void init() {
+//        
+//        basicModel = new DefaultMapModel();
+//        basicList = mapFacade.findAll();   
+//                       
+//        for (MapPoint e:basicList) {
+//            basicModel.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/"+e.getDecriminatorValue()+"_marker.png"));                
+//        }   
+//    }
         
     public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();   

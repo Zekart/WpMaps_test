@@ -71,7 +71,7 @@ public class UserController implements Serializable {
                     entered=true;
                     admin=user.getUserRole().equals(UserRole.ADMIN);
                     logFacade.create(new Log(current.getLogin()+" авторизовался в системе. IP:"+getIpRequest()));
-                    return"home.xhtml?faces-redirect=true";
+                    return"basicPage.xhtml?faces-redirect=true";
                 }else{
                     addMessage("Не верный пароль. Повторите попытку");
                     return"";

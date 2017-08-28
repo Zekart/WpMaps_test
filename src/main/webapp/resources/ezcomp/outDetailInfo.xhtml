@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:dialog widgetVar="dial">
+            <p:outputPanel id="toUpdate" style="width: 20vw;">
+                <p:panel id="myPanel" rendered="#{gMapsController.flag}" styleClass="withOutBorder" widgetVar="ww" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
+                    <p:dataList value="#{gMapsController.point.clutch}" var="car" type="definition" >
+                        <table style=" font: 10pt sans-serif;">
+                            <tr>
+                                <th>Муфта:</th>
+
+                            </tr>
+                            <tr>
+                                <td>Адрес:</td>
+                                <td>#{car.address}</td>
+                            </tr>
+                            <tr>
+                                <td>Инфо:</td>
+                                <td>#{car.info}</td>
+                            </tr>
+                            <tr>
+                                <td>Кол. кассет:</td>
+                                <td>#{car.cassetsCount}</td>
+                            </tr>
+                            <tr>
+                                <td>Кабель:</td>
+                                <td>in progress</td>
+                            </tr>                    
+                        </table>
+                    </p:dataList>
+                </p:panel>
+            </p:outputPanel>             
+        </p:dialog>
+    </cc:implementation>
+</html>
