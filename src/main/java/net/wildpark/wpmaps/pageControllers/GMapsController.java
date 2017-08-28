@@ -121,6 +121,7 @@ public class GMapsController implements Serializable {
     
     List<Cabel> cabels = new ArrayList<>();
     List<LatLng> coord = new ArrayList<LatLng>(); 
+    List<Clutch> cl_list = new ArrayList<>();
     
     private String centerGeoMap = "46.9422145,31.9990089";
     
@@ -589,6 +590,14 @@ public class GMapsController implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<Clutch> getCl_list() {
+        return cl_list;
+    }
+
+    public void setCl_list(List<Clutch> cl_list) {
+        this.cl_list = cl_list;
     }
     
     

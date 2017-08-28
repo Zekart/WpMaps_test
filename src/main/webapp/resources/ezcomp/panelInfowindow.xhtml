@@ -56,19 +56,15 @@
                             </h:dataTable>
                         </p:row>                        
                                 
-                    </h:panelGrid>
-                                              
-
-                    <h:panelGrid columns="1" styleClass="withOutBorder">
-                        <p:menuButton value="Действия" styleClass="smallButton">
-                            <p:menuitem value="Удалить" actionListener="#{gMapsController.deleteMarker}" update="gmap"/>
-                            <p:menuitem value="Информ." action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />
-                            <p:menuitem value="Соединить" action="#{gMapsController.connectPillar}"  />
-                            <p:menuitem value="Изменить" url="updatePoint.xhtml"  />
-                        </p:menuButton>
-
-                    </h:panelGrid>                        
-                   
+                    </h:panelGrid>                                                                                        
         </p:outputPanel>
+
+                <p:menuButton value="Действия" styleClass="selectFeatures">
+                    <p:menuitem value="Удалить" actionListener="#{gMapsController.deleteMarker}" update="gmap"/>
+                    <p:menuitem value="Информ." action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />
+                    <p:menuitem value="Соединить" action="#{gMapsController.connectPillar}"  />
+                    <p:menuitem value="Изменить" url="updatePoint.xhtml"  />
+                </p:menuButton>
+       
     </cc:implementation>
 </html>

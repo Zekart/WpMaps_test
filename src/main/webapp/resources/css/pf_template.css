@@ -173,6 +173,12 @@ div.container:hover img.icon{
    font-size:14px;
    
 }
+.selectFeatures{
+    padding-top: 6px;
+    background-color: white;
+    text-align: center;
+}
+
 .smallButton{
     background-color: white;
     height: 32px;
