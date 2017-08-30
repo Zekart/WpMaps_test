@@ -183,28 +183,32 @@
             </p:panel>                               
             </p:tab>
             <p:tab id="clutchInfo" title="Муфта">           
+                <p:dataTable var="line" value="#{gMapsController.clutc_rend}"
+                        id="dataTableSaisiePiece">
 
-                <p:dataTable var="first" value="#{gMapsController.clutch}">
                     <p:column headerText="Адрес">
-                        <p:inputText value="#{gMapsController.clutch.address}" ><f:validateLength minimum="1" /></p:inputText>
+                        <p:inputText value="#{line.address}" ><f:validateLength minimum="1" /></p:inputText>
                     </p:column>                    
                     <p:column headerText="Кол. кассет">
-                        <p:inputText value="#{gMapsController.clutch.cassetsCount}" ><f:validateLength minimum="1" /></p:inputText>
+                        <p:inputText value="#{line.cassetsCount}" ><f:validateLength minimum="1" /></p:inputText>
                     </p:column>
 
                     <p:column headerText="Состояние">
-                        <p:inputText value="#{gMapsController.clutch.conditions}" ><f:validateLength minimum="1" /></p:inputText>
+                        <p:inputText value="#{line.conditions}" ><f:validateLength minimum="1" /></p:inputText>
                     </p:column>
 
                     <p:column headerText="Доп.инфо">
-                        <p:inputText value="#{gMapsController.clutch.info}" ><f:validateLength minimum="1" /></p:inputText>
+                        <p:inputText value="#{line.info}" ><f:validateLength minimum="1" /></p:inputText>
                     </p:column>
 
                     <p:column headerText="Входы">
-                        <p:inputText value="#{gMapsController.clutch.inputs}" ><f:validateLength minimum="1" /></p:inputText>
-                    </p:column>                    
-                </p:dataTable>   
-                
+                        <p:inputText value="#{line.inputs}" ><f:validateLength minimum="1" /></p:inputText>
+                    </p:column>                         
+
+                    </p:dataTable>
+
+                <p:commandButton actionListener="#{gMapsController.newLine}"
+                    value="New" update="dataTableSaisiePiece" ajax="true" />
             </p:tab>             
         <p:tab id="confirm" title="Добавление">
             <p:panel header="Будет создано">

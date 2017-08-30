@@ -123,7 +123,7 @@
         </p:dialog>
 -->        
 
-        <p:dialog id="panelAdd" widgetVar="dlg" showEffect="fade" resizable="false" closable="false" width="1280" height="720" modal="true">
+        <p:dialog id="panelAdd" widgetVar="dlg" showEffect="fade" resizable="false" closable="false" width="1080" height="520" modal="true">
             
             <addDialog:panelAddDialog/>
              
@@ -216,6 +216,10 @@
         function closeWizard(){
             PF('wiz').close();
         }
+        
+        function addRowOnComplete() {
+            alert();
+        }         
               
     </script> 
 

@@ -16,8 +16,6 @@ import org.primefaces.event.FlowEvent;
 @SessionScoped
 public class PointWizard implements Serializable {
  
-    
-    private String data;
     private boolean skip = false;
     
      
@@ -39,13 +37,6 @@ public class PointWizard implements Serializable {
         }
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
     
     
 

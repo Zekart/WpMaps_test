@@ -26,18 +26,13 @@ public class topMenuController implements Serializable{
             
             redirection = true;            
             imgName = "powerfull";
-            System.out.println(redirection);
             return "home?faces-redirect=true";
 
         }else{
             redirection = false;
-            imgName = "basic";
-            System.out.println(redirection);                
+            imgName = "basic";               
             return "basicPage?faces-redirect=true";             
         }
-
-          
-
     }
     
 
@@ -49,7 +44,6 @@ public class topMenuController implements Serializable{
         this.password = password;
     }
     
-
     public boolean isRedirection() {
         return redirection;
     }

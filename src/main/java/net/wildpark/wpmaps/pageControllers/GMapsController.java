@@ -16,11 +16,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import net.wildpark.wpmaps.entitys.Cabel;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.ConnectPoint;
@@ -42,6 +42,7 @@ import org.primefaces.model.map.Marker;
 import net.wildpark.wpmaps.enums.PillarOwner;
 import net.wildpark.wpmaps.enums.PillarType;
 import net.wildpark.wpmaps.enums.PillarMaterial;
+import net.wildpark.wpmaps.facades.CableFacade;
 import net.wildpark.wpmaps.facades.ConnectPointFacade;
 import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
@@ -73,6 +74,8 @@ public class GMapsController implements Serializable {
     @EJB
     private PointFacade mapFacade;
     @EJB
+    private CableFacade cabFacade;
+    @EJB
     private ConnectPointFacade conFacade;
 
     
@@ -95,7 +98,6 @@ public class GMapsController implements Serializable {
     private Boolean zoomPoint = false;
     
     private int zoomMap = 13;
-    private boolean showMarker = false; 
     
 
     private double lat;     
@@ -113,28 +115,29 @@ public class GMapsController implements Serializable {
     House house = new House();
     DrawWell draw_well = new DrawWell();
     MapPoint point = new MapPoint();
+    Cabel cabel = new Cabel();
     ConnectPoint connect_point = new ConnectPoint();
 
     
     Clutch clutch = new Clutch();    
     PointWizard pz = new PointWizard(); 
     
+    List<Clutch> clutc_rend = new ArrayList<>();
     List<Cabel> cabels = new ArrayList<>();
     List<LatLng> coord = new ArrayList<LatLng>(); 
-    List<Clutch> cl_list = new ArrayList<>();
     
     private String centerGeoMap = "46.9422145,31.9990089";
     
-
+    
+    
     //@PostConstruct
     public void initPoint() {
         Polyline polyline = new Polyline();
-           
+                   
         polyline.setStrokeWeight(2);
         polyline.setStrokeColor("#FF9930");
         polyline.setStrokeOpacity(1);
-        
-        
+               
         model = new DefaultMapModel();
         list = mapFacade.findAll();                          
         for (MapPoint e:list) {
@@ -195,7 +198,7 @@ public class GMapsController implements Serializable {
         pillar.setAddress(address);
   
         if(pz.isSkip()!= true){
-            pillar.setClutch(Collections.singletonList(clutch));
+            pillar.setClutch(clutc_rend);
         }
         
         pillarFacade.create(pillar);
@@ -217,7 +220,7 @@ public class GMapsController implements Serializable {
         house.setAddress(address);
         
         if(pz.isSkip()!= true){
-            house.setClutch(Collections.singletonList(clutch));
+            house.setClutch(clutc_rend);
         }
         
         houseFacade.create(house);
@@ -240,7 +243,8 @@ public class GMapsController implements Serializable {
 //            System.out.println(ex);
 //        }
 
-        //draw_well.setPic(uplView.getImgByte());
+        //draw_well.setPic(uplView.getImgByte()); 
+
         
         draw_well.setLat(lat);
         draw_well.setLng(lng);
@@ -249,7 +253,7 @@ public class GMapsController implements Serializable {
         draw_well.setAddress(address);
         
         if(pz.isSkip()!= true){
-            draw_well.setClutch(Collections.singletonList(clutch));
+            draw_well.setClutch(clutc_rend);
         }        
         
         drawWellFacade.create(draw_well);
@@ -265,34 +269,28 @@ public class GMapsController implements Serializable {
         point = mapFacade.find(id); 
             for (ConnectPoint b : listConnect) {
                 if (b.getFromPoint()== id ||  b.getToPoint() == id) {
-                    System.out.println(b.getId());
                     conFacade.remove(b);
                 }
             }         
-        //System.out.println("Point" + point);
-        if(point != null){         
-           
+        if(point != null){                   
             mapFacade.remove(point);
             //list.clear();
-            initPoint();
-            
-
+            initPoint();            
         }
 
     }
-//       
-//
+
     public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();   
         point = (MapPoint) marker.getData(); 
         id = point.getId();
         
         ss(point.getLat(),point.getLng());
-        
-
-        
-        
-        
+         
+    }
+    
+    public void newLine(ActionEvent actionEvent) {
+        this.clutc_rend.add(new Clutch());
     }
     
     private void ss(double lat, double lng){
@@ -308,12 +306,6 @@ public class GMapsController implements Serializable {
         polyline.setStrokeOpacity(1);
 
         coord.add(new LatLng(point.getLat(), point.getLng()));
-
-//        LatLng  coord1 = new LatLng(cord.getLat(), cord.getLng());
-//        LatLng coord2 = new LatLng(point.getLat(), point.getLng());
-       
-//        polyline.getPaths().add(coord1);
-//        polyline.getPaths().add(coord2);
 
         if (coord.size()==2) {
             if(coord.get(0).equals(coord.get(1))){
@@ -336,8 +328,6 @@ public class GMapsController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Режим соединения", "Выберите 2 маркер"));
             connect_point.setFromPoint(point.getId());            
         } 
-        
-        //point.getConnectToCollection().add();
     }
     
 
@@ -591,15 +581,21 @@ public class GMapsController implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-
-    public List<Clutch> getCl_list() {
-        return cl_list;
+     public List<Clutch> getLignes() {
+        return this.clutc_rend;
     }
 
-    public void setCl_list(List<Clutch> cl_list) {
-        this.cl_list = cl_list;
+    public void setLignes(List<Clutch> clutc_rend) {
+        this.clutc_rend = clutc_rend;
+    }   
+
+    public Cabel getCabel() {
+        return cabel;
     }
-    
+
+    public void setCabel(Cabel cabel) {
+        this.cabel = cabel;
+    }
     
   
 }

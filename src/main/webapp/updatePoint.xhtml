@@ -24,11 +24,81 @@ and open the template in the editor.
         <h:outputStylesheet library="css" name="pf_template.css" />
     </h:head>
     <body>
-        <h:form id="form" prependId="false" enctype="multipart/form-data" >
+        <h:form id="formUpdate" prependId="false" enctype="multipart/form-data" >
             
-            <div>In progress</div>
+            #{updatePointController.findProfessor(gMapsController.id)}
+            #{gMapsController.point.owner}
+            <p:dataTable value="#{gMapsController.point}" editable="true">
+                <f:facet name="header">
+                    Столб
+                </f:facet>
+                <p:column headerText="Адрес">
+                    <h:outputText value="#{gMapsController.point.address}" />
+                </p:column>
+
+                <p:column headerText="Владелец">
+                    <h:outputText value="#{gMapsController.point.owner}" />
+                </p:column>
+
+                <p:column headerText="Тип">
+                    <h:outputText value="#{gMapsController.point.decriminatorValue}" />
+                </p:column>
+            </p:dataTable>
             
-            
+            <p:dataTable value="#{gMapsController.point.clutch}" var="clutchs" editable="true">
+                <f:facet name="header">
+                    Муфта
+                </f:facet>
+                <p:column headerText="Адрес">
+                    <h:outputText value="#{clutchs.address}" />
+                </p:column>
+
+                <p:column headerText="Кол. кассет">
+                    <h:outputText value="#{clutchs.cassetsCount}" />
+                </p:column>
+
+                <p:column headerText="Состояние">
+                    <h:outputText value="#{clutchs.conditions}" />
+                </p:column>
+                <p:column headerText="Инфо">
+                    <h:outputText value="#{clutchs.info}" />
+                </p:column>
+
+                <p:column headerText="Входы">
+                    <h:outputText value="#{clutchs.inputs}" />
+                </p:column>
+                
+            </p:dataTable>            
+ 
+            <p:dataTable value="#{gMapsController.clutch.cabel}" var="cabels" editable="true">
+                <f:facet name="header">
+                    Кабель
+                </f:facet>
+                <p:column headerText="Вместимость">
+                    <h:outputText value="#{cabels.capacity}" />
+                </p:column>
+
+                <p:column headerText="Введён в">
+                    <h:outputText value="#{cabels.inplace}" />
+                </p:column>
+
+                <p:column headerText="Выведен с">
+                    <h:outputText value="#{cabels.outPlace}" />
+                </p:column>
+                <p:column headerText="Длинна">
+                    <h:outputText value="#{cabels.lenthCable}" />
+                </p:column>
+
+                <p:column headerText="Маркировка">
+                    <h:outputText value="#{cabels.marking}" />
+                </p:column>
+                <p:column headerText="Кол. модулей">
+                    <h:outputText value="#{cabels.moduleCount}" />
+                </p:column>                
+                <p:column headerText="Производство">
+                    <h:outputText value="#{cabels.production}" />
+                </p:column>                
+            </p:dataTable>
         </h:form>
     </body>
 </html>
