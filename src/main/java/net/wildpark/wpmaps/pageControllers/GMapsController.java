@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -25,6 +26,7 @@ import net.wildpark.wpmaps.entitys.Cabel;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.ConnectPoint;
 import net.wildpark.wpmaps.entitys.DrawWell;
+import net.wildpark.wpmaps.entitys.Fiber;
 import net.wildpark.wpmaps.entitys.House;
 import net.wildpark.wpmaps.entitys.MapPoint;
 import net.wildpark.wpmaps.entitys.Pillar;
@@ -43,12 +45,16 @@ import net.wildpark.wpmaps.enums.PillarOwner;
 import net.wildpark.wpmaps.enums.PillarType;
 import net.wildpark.wpmaps.enums.PillarMaterial;
 import net.wildpark.wpmaps.facades.CableFacade;
+import net.wildpark.wpmaps.facades.ClutchFacade;
 import net.wildpark.wpmaps.facades.ConnectPointFacade;
 import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
 import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -74,17 +80,19 @@ public class GMapsController implements Serializable {
     @EJB
     private PointFacade mapFacade;
     @EJB
-    private CableFacade cabFacade;
+    private CableFacade cabFacade;   
+    @EJB
+    private ClutchFacade clutchFacade;
     @EJB
     private ConnectPointFacade conFacade;
 
     
     private MapModel model;
     private Marker marker;
-    private String transportStation;
-    private int numberStation;
+    private String transportStation = null;
+    private int numberStation = 0;
     private String owner;
-    private String address;
+    private String address = "";
     private PillarMaterial matheriallPillar;
     private PillarType typePillar;
     private PillarCapacity capacityPillar;
@@ -105,6 +113,7 @@ public class GMapsController implements Serializable {
     private byte[] image;    
     private boolean flag;
     private boolean selectOne;
+    private int idClutch;
     private LatLng cord;
     private List<MapPoint> list; 
     private List<ConnectPoint> listConnect;
@@ -116,6 +125,8 @@ public class GMapsController implements Serializable {
     DrawWell draw_well = new DrawWell();
     MapPoint point = new MapPoint();
     Cabel cabel = new Cabel();
+
+    
     ConnectPoint connect_point = new ConnectPoint();
 
     
@@ -125,6 +136,7 @@ public class GMapsController implements Serializable {
     List<Clutch> clutc_rend = new ArrayList<>();
     List<Cabel> cabels = new ArrayList<>();
     List<LatLng> coord = new ArrayList<LatLng>(); 
+    List<Fiber> fiber = new ArrayList<>();
     
     private String centerGeoMap = "46.9422145,31.9990089";
     
@@ -139,7 +151,8 @@ public class GMapsController implements Serializable {
         polyline.setStrokeOpacity(1);
                
         model = new DefaultMapModel();
-        list = mapFacade.findAll();                          
+        list = mapFacade.findAll();     
+        
         for (MapPoint e:list) {
             model.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/"+e.getDecriminatorValue()+"_marker.png"));                
         }  
@@ -162,9 +175,9 @@ public class GMapsController implements Serializable {
             zoomMap = 17;             
         }
     } 
+  
     
-    
-    public void buttonAction() {
+    public void checkFormAdd() {
         System.out.println("All right");
     }
         
@@ -254,17 +267,31 @@ public class GMapsController implements Serializable {
         
         if(pz.isSkip()!= true){
             draw_well.setClutch(clutc_rend);
+            
+//            Cabel cabl = new Cabel();
+//            
+//            cabl.setClutch(clutc_rend);
+//            cabels.add(cabl);
+//            
+//            cl.setCable(cabels);
+//            
+//            clutchFacade.create(cl);
+            
+            
+            //draw_well.setCable(cabels);
         }        
-        
+        System.out.println(cabels);
         drawWellFacade.create(draw_well);
         id = draw_well.getId();
         marker = new Marker(new LatLng(lat, lng), String.valueOf(id),draw_well,"../resources/marker/draw_marker.png" );
         model.addOverlay(marker);
-        
+
 //        //list.clear();
         initPoint();
+        clutc_rend.clear();
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }
+
     public void deleteMarker(){        
         point = mapFacade.find(id); 
             for (ConnectPoint b : listConnect) {
@@ -284,7 +311,6 @@ public class GMapsController implements Serializable {
         marker = (Marker) event.getOverlay();   
         point = (MapPoint) marker.getData(); 
         id = point.getId();
-        
         ss(point.getLat(),point.getLng());
          
     }
@@ -292,7 +318,12 @@ public class GMapsController implements Serializable {
     public void newLine(ActionEvent actionEvent) {
         this.clutc_rend.add(new Clutch());
     }
-    
+    public void newLineC(ActionEvent actionEvent) {
+        this.cabels.add(new Cabel());
+    }
+    public void newLineF(ActionEvent actionEvent) {
+        this.fiber.add(new Fiber());
+    }    
     private void ss(double lat, double lng){
         cord = new LatLng(lat, lng);
     } 
@@ -362,6 +393,17 @@ public class GMapsController implements Serializable {
             }           
         }
     }
+    
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+         
+        if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+ 
     
     public HouseType[] getHouseType() {
         return HouseType.values();
@@ -596,6 +638,33 @@ public class GMapsController implements Serializable {
     public void setCabel(Cabel cabel) {
         this.cabel = cabel;
     }
+
+    public List<Clutch> getClutc_rend() {
+        return clutc_rend;
+    }
+
+    public void setClutc_rend(List<Clutch> clutc_rend) {
+        this.clutc_rend = clutc_rend;
+    }
+
+    public List<Fiber> getFiber() {
+        return fiber;
+    }
+
+    public void setFiber(List<Fiber> fiber) {
+        this.fiber = fiber;
+    }
+
+    public int getIdClutch() {
+        return idClutch;
+    }
+
+    public void setIdClutch(int idClutch) {
+        this.idClutch = idClutch;
+    }
+
+
+    
     
   
 }

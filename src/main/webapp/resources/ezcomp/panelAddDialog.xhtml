@@ -11,7 +11,10 @@
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
-    <cc:implementation>                  
+    <cc:implementation>    
+<h:form>           
+ 
+</h:form>        
         <p:wizard id="wiz"  widgetVar="wizp" flowListener="#{pointWizard.onFlowProcess}" >
             <p:tab id="obj" title="Объект">
                 <p:panel>
@@ -182,34 +185,67 @@
                 </h:panelGrid>    
             </p:panel>                               
             </p:tab>
-            <p:tab id="clutchInfo" title="Муфта">           
-                <p:dataTable var="line" value="#{gMapsController.clutc_rend}"
-                        id="dataTableSaisiePiece">
+<!--            <p:tab id="clutchInfo" title="Муфта">           
+                <p:layout style="min-width:400px;min-height:200px;" >
+                    <p:layoutUnit position="west" resizable="true" size="500"  minSize="440" maxSize="700" collapsible="true">
+                        <p:dataTable var="line" value="{gMapsController.clutc_rend}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">
+                            <p:ajax event="cellEdit" listener="{gMapsController.onCellEdit}" update=":form:messages" />
+                                    <p:column headerText="Адрес">
+                                        <p:inputText value="{line.address}" ><f:validateLength minimum="1" /></p:inputText>
+                                    </p:column>                    
+                                    <p:column headerText="Кол. кассет">
+                                        <p:inputText value="{line.cassetsCount}" ><f:validateLength minimum="1" /></p:inputText>
+                                    </p:column>
 
-                    <p:column headerText="Адрес">
-                        <p:inputText value="#{line.address}" ><f:validateLength minimum="1" /></p:inputText>
+                                    <p:column headerText="Состояние">
+                                        <p:inputText value="{line.conditions}" ><f:validateLength minimum="1" /></p:inputText>
+                                    </p:column>
+
+                                    <p:column headerText="Доп.инфо">
+                                        <p:inputText value="{line.info}" ><f:validateLength minimum="1" /></p:inputText>
+                                    </p:column>
+
+                                    <p:column headerText="Входы">
+                                        <p:inputText value="{line.inputs}" ><f:validateLength minimum="1" /></p:inputText>
+                                    </p:column>                         
+                                </p:dataTable>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center">
+                        Center
+                    </p:layoutUnit>
+                </p:layout>
+                
+                <p:commandButton actionListener="{gMapsController.newLine}"
+                    value="New" update="dataTableSaisiePiece" ajax="true" />
+            </p:tab> 
+            <p:tab id="cabel_add" title="Кабель">           
+                <p:dataTable var="cabel" value="{gMapsController.cabels}"
+                        id="dataTableSaisieCabel">
+
+                    <p:column headerText="Вместимость">
+                        <p:inputText value="{cabel.capacity}" ><f:validateLength minimum="1" /></p:inputText>
                     </p:column>                    
-                    <p:column headerText="Кол. кассет">
-                        <p:inputText value="#{line.cassetsCount}" ><f:validateLength minimum="1" /></p:inputText>
+                    <p:column headerText="Введён в">
+                        <p:inputText value="{cabel.inplace}" ><f:validateLength minimum="1" /></p:inputText>
                     </p:column>
 
-                    <p:column headerText="Состояние">
-                        <p:inputText value="#{line.conditions}" ><f:validateLength minimum="1" /></p:inputText>
+                    <p:column headerText="Выведен с">
+                        <p:inputText value="{cabel.outPlace}" ><f:validateLength minimum="1" /></p:inputText>
                     </p:column>
 
-                    <p:column headerText="Доп.инфо">
-                        <p:inputText value="#{line.info}" ><f:validateLength minimum="1" /></p:inputText>
+                    <p:column headerText="Длинна">
+                        <p:inputText value="{cabel.lenthCable}" ><f:validateLength minimum="1" /></p:inputText>
                     </p:column>
 
-                    <p:column headerText="Входы">
-                        <p:inputText value="#{line.inputs}" ><f:validateLength minimum="1" /></p:inputText>
+                    <p:column headerText="Маркировка">
+                        <p:inputText value="{cabel.marking}" ><f:validateLength minimum="1" /></p:inputText>
                     </p:column>                         
 
                     </p:dataTable>
 
-                <p:commandButton actionListener="#{gMapsController.newLine}"
-                    value="New" update="dataTableSaisiePiece" ajax="true" />
-            </p:tab>             
+                <p:commandButton actionListener="{gMapsController.newLineC}"
+                    value="New" update="dataTableSaisieCabel" ajax="true" />
+            </p:tab>   -->         
         <p:tab id="confirm" title="Добавление">
             <p:panel header="Будет создано">
                 <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">

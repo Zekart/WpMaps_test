@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 /**
  *
@@ -27,7 +26,7 @@ public class Cabel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int capacity;
     private String inplace;
@@ -37,11 +36,26 @@ public class Cabel implements Serializable {
     private String outPlace;
     private String production;
     
+    public Cabel() {
+    }
+
+    public Cabel(int capacity, String inplace, int lenthCable, String marking, int moduleCount, String outPlace, String production) {
+        this.capacity = capacity;
+        this.inplace = inplace;
+        this.lenthCable = lenthCable;
+        this.marking = marking;
+        this.moduleCount = moduleCount;
+        this.outPlace = outPlace;
+        this.production = production;
+    }
+    
+
+    @ManyToOne
+    @JoinColumn(name = "clutch_id")  
+    private Clutch clutch;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY )
     private List<Fiber> fiber;
-    @ManyToOne
-    @JoinColumn(name="CLUTCHID", referencedColumnName="ID")
-    private Clutch clutch;
+    
 
     public Long getId() {
         return id;
@@ -122,8 +136,6 @@ public class Cabel implements Serializable {
     public void setClutch(Clutch clutch) {
         this.clutch = clutch;
     }
-    
-       
     
 
     @Override

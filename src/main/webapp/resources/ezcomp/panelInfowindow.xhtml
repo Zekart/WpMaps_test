@@ -49,7 +49,7 @@
                         <p:row>
                             <h:dataTable value="#{gMapsController.point.clutch}" var="points">
                                 <h:column>
-                                    <h:commandLink id="ajax"   action="#{gMapsController.buttonAction}" >
+                                    <h:commandLink id="false"  onclick="showCabel()" >
                                         <h:outputText value="#{points.id}"/>                                        
                                     </h:commandLink>
                                 </h:column>

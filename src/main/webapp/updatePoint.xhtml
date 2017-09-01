@@ -25,80 +25,143 @@ and open the template in the editor.
     </h:head>
     <body>
         <h:form id="formUpdate" prependId="false" enctype="multipart/form-data" >
-            
-            #{updatePointController.findProfessor(gMapsController.id)}
-            #{gMapsController.point.owner}
-            <p:dataTable value="#{gMapsController.point}" editable="true">
+           <p:growl id="msgs" />
+           
+           
+           <p:dataTable id="ob_table" value="#{gMapsController.point}" var="point" editable="true">
+                           <p:ajax event="rowEdit" listener="#{updatePointController.onRowEdit}" update=":formUpdate:msgs" />
+                           <p:ajax event="rowEditCancel" listener="#{updatePointController.onRowCancel}" update=":formUpdate:msgs" />
                 <f:facet name="header">
-                    Столб
+                    Объект
                 </f:facet>
+                           <p:column>
+                               <h:outputLabel value="#{point.id}" />
+                               <h:inputHidden value="#{point.id}" id="hiddenId" />
+                           </p:column>
+                    
+                         
                 <p:column headerText="Адрес">
-                    <h:outputText value="#{gMapsController.point.address}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{point.address}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="adr" value="#{updatePointController.c}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
                 </p:column>
 
                 <p:column headerText="Владелец">
-                    <h:outputText value="#{gMapsController.point.owner}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{point.owner}" /></f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu  style="width:100%">
+                                <f:selectItems value="#{gMapsController.pillarOwner}" var="p" itemLabel="#{p}" itemValue="#{p.ownerType}" />
+                                <f:selectItems value="#{gMapsController.drawWellOwner}" var="d" itemLabel="#{d}" itemValue="#{d.drawWellOwner}" />
+                                <f:selectItems value="#{gMapsController.houseOwner}" var="h" itemLabel="#{h}" itemValue="#{h.houseOwner}" />
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>                    
                 </p:column>
 
                 <p:column headerText="Тип">
-                    <h:outputText value="#{gMapsController.point.decriminatorValue}" />
+                    <p:outputLabel value="#{point.decriminatorValue}" ></p:outputLabel>                     
                 </p:column>
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>                 
             </p:dataTable>
             
             <p:dataTable value="#{gMapsController.point.clutch}" var="clutchs" editable="true">
+                <p:ajax event="rowEdit" listener="#{updatePointController.onRowEditClutch}" update=":formUpdate:msgs" />
+                <p:ajax event="rowEditCancel" listener="#{updatePointController.onRowCancel}" update=":formUpdate:msgs" />
                 <f:facet name="header">
                     Муфта
                 </f:facet>
+                <p:column headerText="ID">
+                    <h:outputText value="#{clutchs.id}" />
+                </p:column>                
                 <p:column headerText="Адрес">
-                    <h:outputText value="#{clutchs.address}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{clutchs.address}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="adrc" value="#{clutchs.address}" style="width:100%"/></f:facet>
+                    </p:cellEditor>                    
                 </p:column>
 
                 <p:column headerText="Кол. кассет">
-                    <h:outputText value="#{clutchs.cassetsCount}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{clutchs.cassetsCount}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="cl" value="#{clutchs.cassetsCount}" style="width:100%"/></f:facet>
+                    </p:cellEditor>                    
                 </p:column>
 
                 <p:column headerText="Состояние">
-                    <h:outputText value="#{clutchs.conditions}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{clutchs.conditions}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="cl_con" value="#{clutchs.conditions}" style="width:100%"/></f:facet>
+                    </p:cellEditor>                    
                 </p:column>
                 <p:column headerText="Инфо">
-                    <h:outputText value="#{clutchs.info}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{clutchs.info}" /></f:facet>
+                        <f:facet name="input"><p:inputText  value="#{clutchs.info}" style="width:100%"/></f:facet>
+                    </p:cellEditor>                     
                 </p:column>
 
                 <p:column headerText="Входы">
-                    <h:outputText value="#{clutchs.inputs}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{clutchs.inputs}" /></f:facet>
+                        <f:facet name="input"><p:inputText  value="#{clutchs.inputs}" style="width:100%"/></f:facet>
+                    </p:cellEditor>                    
                 </p:column>
-                
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>                
             </p:dataTable>            
- 
-            <p:dataTable value="#{gMapsController.clutch.cabel}" var="cabels" editable="true">
+            <p:tab id="cableInf" title="Муфта">           
+                <p:dataTable id="dataTableCable" value="#{gMapsController.clutch}" editable="true">
+                    <p:ajax event="rowEdit" listener="#{updatePointController.onRowEditCabel}" update=":formUpdate:msgs" />
+                    <p:ajax event="rowEditCancel" listener="#{updatePointController.onRowCancel}" update=":formUpdate:msgs" />
                 <f:facet name="header">
                     Кабель
                 </f:facet>
+                <p:column headerText="Муфта">
+                    <p:selectOneMenu id="clutch_check" value="#{gMapsController.clutch}" style="width:150px" >
+                        <f:selectItems var="cl" value="#{gMapsController.point.clutch}" itemValue="#{cl}" itemLabel="#{cl.id}"/>
+                    </p:selectOneMenu>
+                </p:column>                    
                 <p:column headerText="Вместимость">
-                    <h:outputText value="#{cabels.capacity}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{gMapsController.cabel.capacity}" /></f:facet>
+                        <f:facet name="input"><p:inputText  value="#{gMapsController.cabel.capacity}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
                 </p:column>
 
                 <p:column headerText="Введён в">
-                    <h:outputText value="#{cabels.inplace}" />
+                    <h:outputText value="#{gMapsController.cabel.inplace}" />
                 </p:column>
 
                 <p:column headerText="Выведен с">
-                    <h:outputText value="#{cabels.outPlace}" />
+                    <h:outputText value="#{gMapsController.cabel.outPlace}" />
                 </p:column>
                 <p:column headerText="Длинна">
-                    <h:outputText value="#{cabels.lenthCable}" />
+                    <h:outputText value="#{gMapsController.cabel.lenthCable}" />
                 </p:column>
 
                 <p:column headerText="Маркировка">
-                    <h:outputText value="#{cabels.marking}" />
+                    <h:outputText value="#{gMapsController.cabel.marking}" />
                 </p:column>
                 <p:column headerText="Кол. модулей">
-                    <h:outputText value="#{cabels.moduleCount}" />
+                    <h:outputText value="#{gMapsController.cabel.moduleCount}" />
                 </p:column>                
                 <p:column headerText="Производство">
-                    <h:outputText value="#{cabels.production}" />
-                </p:column>                
+                    <h:outputText value="#{gMapsController.cabel.production}" />
+                </p:column> 
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>  
             </p:dataTable>
+                    <p:commandButton actionListener="#{gMapsController.newLineC}"
+                    value="New" update="dataTableCable" ajax="true" />
+            </p:tab>     
+                <p:commandButton actionListener="#{gMapsController.newLineC}"
+                    value="Save" update=":formUpdate" ajax="true" />
         </h:form>
     </body>
 </html>

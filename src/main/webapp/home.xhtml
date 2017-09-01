@@ -42,7 +42,6 @@
         </style>
     </h:head>
     <h:body>
-     
         <h:form id="form" prependId="false" enctype="multipart/form-data" >
         
         <p:growl id="messages" sticky="true" />
@@ -126,12 +125,11 @@
         <p:dialog id="panelAdd" widgetVar="dlg" showEffect="fade" resizable="false" closable="false" width="1080" height="520" modal="true">
             
             <addDialog:panelAddDialog/>
-             
             <h:inputHidden id="lat" value="#{gMapsController.lat}" />
-            <h:inputHidden id="lng" value="#{gMapsController.lng}" />
-        </p:dialog>   
-
-    
+            <h:inputHidden id="lng" value="#{gMapsController.lng}" /> 
+            
+        </p:dialog> 
+   
         <p:panel id="legend_panel" styleClass="legendPanel" visible="false" widgetVar="testPanel" closable="true" toggleable="true" >            
             <table style=" font: 8pt sans-serif; width: 17vw; " >
                 <tr class="noBorder">                    
@@ -144,33 +142,15 @@
                 </tr>                  
             </table>  
                     <h:panelGrid styleClass="searchPanel" columns="3" style="margin-bottom:10px" cellpadding="5">
-                        <p:outputLabel for="address" value="Address:" />
                         <p:inputText id="address" />
                         <p:commandButton  icon="ui-icon-search" onclick="geocode()" type="button" />
                     </h:panelGrid>
         </p:panel>
-        <p:panel id="connect_panel" widgetVar="con_pan" styleClass="connectPanel" visible="false" >
-            <table style=" font: 12pt sans-serif; width: 17vw; " >
-                <tr class="noBorder">  
-                    <td>1-й объект:</td>
-                </tr>  
-                <tr class="noBorder">  
-                    <td><p:outputLabel id="firstPointValue" value="#{gMapsController.id}"/></td>
-                </tr>  
-                <tr class="noBorder">  
-                    <td>Выберите 2-й объект:</td>
-                </tr>  
-                <tr class="noBorder">  
-                    <td><p:outputLabel id="secondPointValue" value="-"/></td>                
-                </tr> 
-                <tr class="noBorder">  
-                    <td><p:commandButton value="Соединить" actionListener="#{gMapsController.connectObj}" update="messages"></p:commandButton></td>                
-                </tr>                
-            </table>
+        <p:panel id="cabel_panel" widgetVar="cab_pan" styleClass="connectPanel" visible="false" header="Кабель" >
+            
         </p:panel>
 
-    </h:form>
-        
+    </h:form>     
     <script type="text/javascript">
         var currentMarker = null;
         var map = new google.maps.Map(document.getElementById('gmap'));
@@ -180,17 +160,30 @@
             if(currentMarker === null) {
                 document.getElementById('lat').value = event.latLng.lat();
                 document.getElementById('lng').value = event.latLng.lng();
-
                 currentMarker = new google.maps.Marker({
                     position:new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
                 });
 
                 PF('map').addOverlay(currentMarker);
-                PF('dlg').show();
+                if(confirm('Расширеный режим добавления?')){
+                    var latN = event.latLng.lat();
+                    var LngN = event.latLng.lng();
+                    localStorage.setItem("lat",latN);
+                    localStorage.setItem("lng",LngN);
+                    window.location.href = 'pointAddPage.xhtml';
+                } else {
+                    PF('dlg').show();
+                    //currentMarker.setMap(null);
+                    //currentMarker = null;
+                }
+            
+                
+
             }   
         }
 
         function cancel() {
+            //PF('wizp').loadStep('obj', false);
             PF('dlg').hide();
             currentMarker.setMap(null);
             currentMarker = null;
@@ -214,12 +207,17 @@
         }
         
         function closeWizard(){
-            PF('wiz').close();
+            PF('dlg').hide();
+            return false;
         }
         
         function addRowOnComplete() {
             alert();
-        }         
+        } 
+        
+        function showCabel(){
+            PF('cab_pan').show();
+        }
               
     </script> 
 

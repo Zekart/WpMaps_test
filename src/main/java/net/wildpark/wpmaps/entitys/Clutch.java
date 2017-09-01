@@ -6,53 +6,48 @@
 package net.wildpark.wpmaps.entitys;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author Zekart
  */
 @Entity
+@Table(name = "clutch")
+
 public class Clutch implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="clutch_id")
     private Long id;
     private String address;
     private String conditions;
     private int cassetsCount;
     private String info;
     private int inputs;
-
-    @OneToMany(targetEntity = Cabel.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<Cabel> cabel;
+    
+    @OneToMany(mappedBy = "clutch", cascade = CascadeType.ALL)
+    private List<Cabel> cable;
 
     public Clutch() {
     }
     
     
 
-    public Clutch(Long id, String address, String conditions, int cassetsCount, String info, int inputs,List<Cabel> cabel) {
-        this.id = id;
-        this.address = address;
-        this.conditions = conditions;
-        this.cassetsCount = cassetsCount;
-        this.info = info;
-        this.inputs = inputs;
-        this.cabel = cabel;
+    public Clutch( List<Cabel> cable ) {
+        this.cable = cable;
     }
     
 //    
@@ -110,13 +105,14 @@ public class Clutch implements Serializable {
         this.inputs = inputs;
     }
 
-    public List<Cabel> getCabel() {
-        return cabel;
+    public List<Cabel> getCable() {
+        return cable;
     }
 
-    public void setCabel(List<Cabel> cabel) {
-        this.cabel = cabel;
+    public void setCable(List<Cabel> cable) {
+        this.cable = cable;
     }
+    
 
     @Override
     public int hashCode() {
@@ -146,7 +142,7 @@ public class Clutch implements Serializable {
                 ", Count of cassets='" + cassetsCount + '\'' +
                 ", Info='" + info + '\'' +
                 ", Inputs='" + inputs + '\'' +
-                ", Cabel='" + getCabel() + '\'' +
+                ", Cable='" + cable + '\'' +
                 
        '}';
     }

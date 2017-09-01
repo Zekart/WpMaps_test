@@ -6,10 +6,7 @@
 package net.wildpark.wpmaps.entitys;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,14 +20,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.swing.ImageIcon;
 
 @Entity
 @Table(name = "point")
@@ -70,7 +63,9 @@ public  class MapPoint implements Serializable{
                
     @OneToMany(targetEntity = Clutch.class,  cascade= CascadeType.ALL, fetch=FetchType.EAGER)
     private List<Clutch> clutch;
-       
+    private List<Cabel> cable;
+
+    
     public String getDecriminatorValue() {
         return this.getClass().getAnnotation(DiscriminatorValue.class).value();
     }
@@ -78,7 +73,7 @@ public  class MapPoint implements Serializable{
     public MapPoint() {
     }
 
-    protected MapPoint(int id, String owner,Double lat, Double lng,String address, byte[] pic, List<Clutch> clutch ) {
+    protected MapPoint(int id, String owner,Double lat, Double lng,String address, byte[] pic, List<Clutch> clutch) {
         this.id = id;
         this.owner = owner;
         this.lat = lat;
@@ -86,8 +81,7 @@ public  class MapPoint implements Serializable{
         this.address = address;
         this.clutch = clutch;
         this.pic = pic;
-        
-        
+
     }
     
 
@@ -156,6 +150,15 @@ public  class MapPoint implements Serializable{
     public void setClutch(List<Clutch> clutch) {
         this.clutch = clutch;
     }
+
+    public List<Cabel> getCable() {
+        return cable;
+    }
+
+    public void setCable(List<Cabel> cable) {
+        this.cable = cable;
+    }
+    
     
     @Override
     public String toString() {

@@ -30,7 +30,10 @@
                         <ul class="topmenu">
                             <li><img class="icon submenu-link" src="../resources/images/Developer.png"></img>
                                 <ul class="submenu">
-                                    <li><a href="">Магазин</a></li>
+                                    <li>
+                                        <h:commandLink value="LogOff" action="#{logOffController.logout()}" >
+                                        </h:commandLink>
+                                    </li>
                                     <li><a href="">Сервис</a></li>
                                 </ul>
                             </li>
@@ -40,6 +43,12 @@
                 <div class="container" id="five">  
                     <img class="icon" src="../resources/images/Information.png" onclick="openHistory()"></img>
                 </div>
+                <div class="container" id="six">  
+                    <h:panelGrid  columns="2" cellpadding="5">
+                        <p:inputText id="address" />
+                        <p:commandButton  icon="ui-icon-search" onclick="geocode()" type="button" />
+                    </h:panelGrid>
+                </div>                
             </header>                    
         </p:panel>
           
