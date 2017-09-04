@@ -39,7 +39,8 @@
             .ui-datalist .ui-widget-content
             {
                 border-style: none !important
-            }    
+            } 
+            
             
         </style>
     </h:head>
@@ -130,17 +131,17 @@
                 <h:inputHidden id="lng" value="#{gMapsController.lng}" /> 
         </p:dialog>
 
-        <p:dialog class="simple_add" showHeader="false" resizable="false" width="1020" modal="true" height="520" closable="false" widgetVar="selectPillar" >
+        <p:dialog class="simple_add" showHeader="false" resizable="false" width="1020" modal="true" height="520" closable="false" widgetVar="drawChange" >
             <p:wizard id="wi"  widgetVar="wi" flowListener="#{pointWizard.onFlowProcess}" >
 
                 <p:tab id="point" title="Точка">
                     <div class="parent">
                         <div class="div1">
-                            <p:panel id="gridPoint" style="background: red; border: none; " >
+                            <p:panel style="background: transparent; border: none; " >
                                 <table>
                                     <tr>
                                         <td>Адрес</td>
-                                        <td><h:inputText value="#{gMapsController.address}"/></td>
+                                        <td><p:inputText id="adrc" value="#{gMapsController.address}"/> </td>
                                     </tr>
                                     <tr>
                                         <td>Владелец</td>
@@ -170,15 +171,54 @@
 
                         </div>
                         <div class="short_point_info">
-                sdfsdf
                         </div>        
-
                     </div>        
-                    <p:commandButton value="save" action="#{gMapsController.updateDraw}" onclick="PF('selectPillar').hide()" class="butCancel"></p:commandButton>
+                    <p:commandButton value="save" action="#{gMapsController.updateDraw}" onclick="PF('drawChange').hide()" class="butCancel"></p:commandButton>
                 </p:tab>
         
-            <p:tab id="confirm" title="Добавление">
+            <p:tab id="confirm" title="Муфта">
+                <p:dataTable style=" bottom: 0;" value="#{gMapsController.point.clutch}" var="clutch" editable="true">
 
+                    <p:column style=" bottom: 0;" headerText="ID">
+                        <h:outputText value="#{clutch.id}" />
+                    </p:column>                
+                    <p:column style=" bottom: 0;" headerText="Адрес">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{clutch.address}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="adrc" value="#{clutch.address}" style="width:100%"/></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column style=" bottom: 0;" headerText="Кол. кассет">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{clutch.cassetsCount}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="cl" value="#{clutchs.cassetsCount}" style="width:100%"/></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column style=" bottom: 0;" headerText="Состояние">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{clutch.conditions}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="cl_con" value="#{clutch.conditions}" style="width:100%"/></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+                    <p:column style=" bottom: 0;" headerText="Инфо">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{clutch.info}" /></f:facet>
+                            <f:facet name="input"><p:inputText  value="#{clutch.info}" style="width:100%"/></f:facet>
+                        </p:cellEditor>                     
+                    </p:column>
+
+                    <p:column style=" bottom: 0;" headerText="Входы">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{clutch.inputs}" /></f:facet>
+                            <f:facet name="input"><p:inputText  value="#{clutch.inputs}" style="width:100%"/></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+                    <p:column style=" bottom: 0;width:32px">
+                        <p:rowEditor />
+                    </p:column>                
+                </p:dataTable> 
             </p:tab>  
 
             </p:wizard>
@@ -233,24 +273,6 @@
                 //}
             }   
         }
-        
-        function codeLatLng(lat, lng) {
-            var latlng = new google.maps.LatLng(lat, lng);
-            geocoder.geocode({
-              'latLng': latlng
-            }, function (results, status) {
-              if (status === google.maps.GeocoderStatus.OK) {
-                if (results[1]) {
-                  console.log(results[1]);
-                  alert(results[1]);
-                } else {
-                  alert('No results found');
-                }
-              } else {
-                alert('Geocoder failed due to: ' + status);
-              }
-            });
-          }
 
         function cancel() {
             //PF('wizp').loadStep('obj', false);
@@ -296,6 +318,7 @@
         function showCabel(){
             PF('cab_pan').show();
         }
+              
               
     </script> 
 

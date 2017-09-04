@@ -53,6 +53,7 @@ import net.wildpark.wpmaps.facades.PointFacade;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.map.GeocodeEvent;
+import org.primefaces.event.map.ReverseGeocodeEvent;
 import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -91,7 +92,7 @@ public class GMapsController implements Serializable {
     private String transportStation = "";
     private int numberStation = 0;
     private String owner = "";
-    private String address = "";
+    private String address;
     private PillarMaterial matheriallPillar;
     private PillarType typePillar;
     private PillarCapacity capacityPillar;
@@ -184,27 +185,27 @@ public class GMapsController implements Serializable {
     } 
   
     
-    public void checkFormAdd() {
-        System.out.println("All right");
-    }
-        
-    
-    public StreamedContent getImage() throws IOException {
-//        if(point.getPic() != null){
-//            image = point.getPic();
-//        }else{
-            image = getBytesFile();
-//        }
-        return new DefaultStreamedContent(new ByteArrayInputStream(image), "image/png/jpg");
-    }
-    
-    public byte[] getBytesFile() throws IOException{
-        
-        InputStream iStream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/images/No-image-found.jpg");
-        Path path = Paths.get(iStream.toString());
-        byte[] data = Files.readAllBytes(path);
-        return data;
-    }
+//    public void checkFormAdd() {
+//        System.out.println("All right");
+//    }
+//        
+//    
+//    public StreamedContent getImage() throws IOException {
+////        if(point.getPic() != null){
+////            image = point.getPic();
+////        }else{
+//            image = getBytesFile();
+////        }
+//        return new DefaultStreamedContent(new ByteArrayInputStream(image), "image/png/jpg");
+//    }
+//    
+//    public byte[] getBytesFile() throws IOException{
+//        
+//        InputStream iStream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/images/No-image-found.jpg");
+//        Path path = Paths.get(iStream.toString());
+//        byte[] data = Files.readAllBytes(path);
+//        return data;
+//    }
     
     public void addMarkerP() {       
         pillar.setLat(lat);
@@ -214,6 +215,7 @@ public class GMapsController implements Serializable {
         pillar.setTransportStation(transportStation);
         pillar.setType(typePillar);
         pillar.setOwner(owner);
+        
         pillar.setAddress(address);
   
         if(pz.isSkip()!= true){
@@ -276,16 +278,11 @@ public class GMapsController implements Serializable {
         if(pz.isSkip()!= true){
             draw_well.setClutch(clutc_rend);
             
-//            Cabel cabl = new Cabel();
-//            
+//            Cabel cabl = new Cabel();        
 //            cabl.setClutch(clutc_rend);
-//            cabels.add(cabl);
-//            
-//            cl.setCable(cabels);
-//            
+//            cabels.add(cabl);           
+//            cl.setCable(cabels);           
 //            clutchFacade.create(cl);
-            
-            
             //draw_well.setCable(cabels);
         }        
         System.out.println(cabels);
@@ -293,7 +290,6 @@ public class GMapsController implements Serializable {
         id = draw_well.getId();
         marker = new Marker(new LatLng(lat, lng), String.valueOf(id),draw_well,"../resources/marker/draw_marker.png" );
         model.addOverlay(marker);
-
 //        //list.clear();
         initPoint();
         clutc_rend.clear();
@@ -319,14 +315,11 @@ public class GMapsController implements Serializable {
         marker = (Marker) event.getOverlay();   
         point = (MapPoint) marker.getData(); 
         id = point.getId();
-        System.out.println(point.getDecriminatorValue());
-        ss(point.getLat(),point.getLng());     
-         
+        ss(point.getLat(),point.getLng());             
     }
     
     public void updateDraw(){
         select_draw_well = (DrawWell)drawWellFacade.find(id);
-        System.out.println("Draw");
         //select_draw_well = (DrawWell) drawWellFacade.find(id);
         select_draw_well.setAddress(address); 
         select_draw_well.setOwner(owner);
@@ -335,7 +328,6 @@ public class GMapsController implements Serializable {
     }
     public void updatePillar(){
         select_pillar = (Pillar)pillarFacade.find(id);
-        System.out.println("Draw");
         //select_draw_well = (DrawWell) drawWellFacade.find(id);
         select_pillar.setAddress(address); 
         select_pillar.setOwner(owner);
@@ -347,7 +339,6 @@ public class GMapsController implements Serializable {
     }
     public void updateHouse(){
         select_house = (House)houseFacade.find(id);
-        System.out.println("Draw");
         //select_draw_well = (DrawWell) drawWellFacade.find(id);
         select_house.setAddress(address); 
         select_house.setOwner(owner);
@@ -362,7 +353,10 @@ public class GMapsController implements Serializable {
     }
     public void newLineF(ActionEvent actionEvent) {
         this.fiber.add(new Fiber());
-    }    
+    } 
+    public void delLine(ActionEvent actionEvent) {
+        this.clutc_rend.clear();
+    }
     private void ss(double lat, double lng){
         cord = new LatLng(lat, lng);
     } 
