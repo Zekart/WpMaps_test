@@ -88,9 +88,9 @@ public class GMapsController implements Serializable {
     
     private MapModel model;
     private Marker marker;
-    private String transportStation = null;
+    private String transportStation = "";
     private int numberStation = 0;
-    private String owner;
+    private String owner = "";
     private String address = "";
     private PillarMaterial matheriallPillar;
     private PillarType typePillar;
