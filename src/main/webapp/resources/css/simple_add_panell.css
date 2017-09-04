@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+.simple_add{
+  height: 100%;
+  background: #222222;
+  font-family: 'Lato', sans-serif;
+}
+.parent{
+    width: 100%;
+    height: 100%;
+}
+.div1{    
+    width: 78%;
+    height: 95%;
+    min-height: 150px;
+    float: left;
+}
+.div_check_obj{
+    width: 100%;
+    height: 8%;
+    background: aqua;   
+}
+.div2{    
+    padding-left: 2px;
+    width: 20%;
+    height: 40%;
+    min-height: 150px;
+    background: transparent;   
+    margin-left: 80%;
+}
+.footer{
+    position: relative;
+    top: 50px;
+    clear: left;
+    height: 10%;
+    background: #000;
+    min-height: 50px;
+    width: 100%;
+}
+.button_add_pic{
+    margin-top: 10px;
+    width: 20%;
+    height: 6%;
+    background: antiquewhite;   
+    margin-left: 80%;
+}
+.short_point_info{
+    margin-top: 10px;
+    width: 20%;
+    height: 40%;
+    background: antiquewhite;   
+    margin-left: 80%;    
+}
+.parent_chenge{
+    width: 100%;
+    height: 100%;
+}
+.div_1_change{    
+    width: 100%;
+    height: 90%;
+    min-height: 150px;
+    float: left;
+}
+.div_check_obj{
+    width: 100%;
+    height: 8%;
+    background: aqua;   
+}
+.div_2_change{    
+    padding-left: 2px;
+    width: 20%;
+    height: 40%;
+    min-height: 150px;
+    background: transparent;   
+    margin-left: 80%;
+}
+.footer_change{
+    position: relative;
+    top: 0;
+    clear: left;
+    height: 10%;
+    background: #000;
+    min-height: 50px;
+    width: 100%;
+}
+.button_add_pic{
+    margin-top: 10px;
+    width: 20%;
+    height: 6%;
+    background: antiquewhite;   
+    margin-left: 80%;
+}
+.short_point_info{
+    margin-top: 10px;
+    width: 20%;
+    height: 40%;
+    background: antiquewhite;   
+    margin-left: 80%;    
+}
+.ui-fileupload-buttonbar .ui-button {
+    background: #c00;
+}
+.ui-fileupload-buttonbar .ui-fileupload-upload {
+    display: none;
+}
+.ui-fileupload-buttonbar .ui-fileupload-cancel {
+    display: none;
+}
+.ui-fileupload-progress{
+    display: none;
+}
+.ui-fileupload-files .ui-fileupload-cancel{
+    display: none;
+}

@@ -40,15 +40,23 @@
                         </ul>
                     </nav>                
                 </div>
-                <div class="container" id="five">  
-                    <img class="icon" src="../resources/images/Information.png" onclick="openHistory()"></img>
-                </div>
-                <div class="container" id="six">  
-                    <h:panelGrid  columns="2" cellpadding="5">
-                        <p:inputText id="address" />
-                        <p:commandButton  icon="ui-icon-search" onclick="geocode()" type="button" />
-                    </h:panelGrid>
-                </div>                
+                <div class="container" id="five"> 
+                    <nav>
+                        <ul class="topmenu">
+                            <li><img class="icon submenu-link" src="../resources/images/Information.png"></img>
+                                <ul class="submenu">
+                                    <li>
+                                        <p:outputLabel title="Показать легенду" onclick="openHistory()" value="Легенда"/>
+                                    </li>
+                                    <p:separator/>
+                                    <li>
+                                        <p:outputLabel title="Поиск по адресу" onclick="openSearch()" value="Поиск"/>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>                    
+                </div>              
             </header>                    
         </p:panel>
           

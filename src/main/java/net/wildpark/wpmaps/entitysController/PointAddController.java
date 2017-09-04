@@ -6,9 +6,10 @@
 package net.wildpark.wpmaps.entitysController;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import net.wildpark.wpmaps.entitys.DrawWell;
 import net.wildpark.wpmaps.entitys.House;
@@ -26,10 +27,6 @@ import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
-import net.wildpark.wpmaps.pageControllers.GMapsController;
-import org.primefaces.model.map.LatLng;
-import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
 
 /**
  *
@@ -48,86 +45,52 @@ public class PointAddController implements Serializable{
     @EJB
     private PointFacade mapFacade;  
     
-    private MapModel model;
-    private Marker marker;
-    private String transportStation;
-    private int numberStation;
-    private PillarOwner owner;
+    
+    private double lat;     
+    private double lng;
+    private String transportStation = null;
+    private int numberStation = 0;
+    private String owner;
+    private String address = "";
     private PillarMaterial matheriallPillar;
     private PillarType typePillar;
+    private PillarCapacity capacityPillar;
+    private ObjectType obj_type;
     private HouseType typeOfHouse;
     private HouseOwner ownerofHouse;
     private DrawWellOwner ownerDrawWell;
     private DrawWellType type_drawWell;
     
-    private ObjectType obj_type;
-        
-    GMapsController gControll = new GMapsController();
+    private ObjectType obj_typs;
     
+    private List<Pillar> listPillar = new ArrayList<>();
+    private List<House> listHouse = new ArrayList<>();
+    private List<DrawWell> listDrawWell = new ArrayList<>();
+           
     
     private int id;
-    private double lat = gControll.getLat();     
-    private double lng = gControll.getLng();
+
     
     Pillar pillar = new Pillar();
     House house = new House();
     DrawWell draw_well = new DrawWell();
 
     
-    public Pillar addPillar(Double lat, Double lng){
+
+    public void addMarkerP() {       
         pillar.setLat(lat);
         pillar.setLng(lng);
         pillar.setMaterial(matheriallPillar);
         pillar.setNumberStation(numberStation);
         pillar.setTransportStation(transportStation);
         pillar.setType(typePillar);
-        pillar.setOwner(owner.toString());
-
+        pillar.setOwner(owner);
+        pillar.setAddress(address);
+        
         pillarFacade.create(pillar);
-        return pillar;
- 
-//        id = pillar.getId();
-//        marker = new Marker(new LatLng(lat, lng), String.valueOf(id),pillar,"../resources/marker/EL_TRANCE/EMPTY.png" );
-//        model.addOverlay(marker);    
-//System.out.println(pillar);
-//FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
-    } 
-    
-    public House addHouse(Double lat, Double lng){
-        house.setLat(lat);
-        house.setLng(lng);
-        house.setType_house(typeOfHouse);
-        house.setOwner(ownerofHouse.toString());
-        
-        houseFacade.create(house);
-        
-//        id = house.getId();
-//        marker = new Marker(new LatLng(lat, lng), String.valueOf(id),house,"../resources/marker/EL_TRANCE/EMPTY.png" );
-//        model.addOverlay(marker); 
-        return house;
+        System.out.println(address);
     }
     
-    public void addDrawWell(){
-        draw_well.setLat(lat);
-        draw_well.setLng(lng);
-        draw_well.setOwner(ownerDrawWell.toString());
-        draw_well.setType_draw_well(type_drawWell);
-        
-        drawWellFacade.create(draw_well);
-        
-        id = draw_well.getId();
-        marker = new Marker(new LatLng(lat, lng), String.valueOf(id),draw_well,"../resources/marker/EL_TRANCE/EMPTY.png" );
-        model.addOverlay(marker);
-        
-    }
-    
-    public DrawWellOwner[] getDrawWellOwner(){
-        return DrawWellOwner.values();
-    }
-    
-    public DrawWellType[] getDrawWellType(){
-        return DrawWellType.values();
-    }    
     
     public HouseType[] getHouseType() {
         return HouseType.values();
@@ -151,7 +114,173 @@ public class PointAddController implements Serializable{
     }
     public PillarCapacity[] getPillarCapacity() {
         return PillarCapacity.values();
-    } 
+    }   
+    public DrawWellOwner[] getDrawWellOwner() {
+        return DrawWellOwner.values();
+    }
+    public DrawWellType[] getDrawWellType() {
+        return DrawWellType.values();
+    }  
+
+    public List<Pillar> getListPillar() {
+        return listPillar;
+    }
+
+    public void setListPillar(List<Pillar> listPillar) {
+        this.listPillar = listPillar;
+    }
+
+    public List<House> getListHouse() {
+        return listHouse;
+    }
+
+    public void setListHouse(List<House> listHouse) {
+        this.listHouse = listHouse;
+    }
+
+    public List<DrawWell> getListDrawWell() {
+        return listDrawWell;
+    }
+
+    public void setListDrawWell(List<DrawWell> listDrawWell) {
+        this.listDrawWell = listDrawWell;
+    }
+
+    public DrawWellFacade getDrawWellFacade() {
+        return drawWellFacade;
+    }
+
+    public void setDrawWellFacade(DrawWellFacade drawWellFacade) {
+        this.drawWellFacade = drawWellFacade;
+    }
+
+    public HouseFacade getHouseFacade() {
+        return houseFacade;
+    }
+
+    public void setHouseFacade(HouseFacade houseFacade) {
+        this.houseFacade = houseFacade;
+    }
+
+    public PillarFacade getPillarFacade() {
+        return pillarFacade;
+    }
+
+    public void setPillarFacade(PillarFacade pillarFacade) {
+        this.pillarFacade = pillarFacade;
+    }
+
+    public PointFacade getMapFacade() {
+        return mapFacade;
+    }
+
+    public void setMapFacade(PointFacade mapFacade) {
+        this.mapFacade = mapFacade;
+    }
+
+    public String getTransportStation() {
+        return transportStation;
+    }
+
+    public void setTransportStation(String transportStation) {
+        this.transportStation = transportStation;
+    }
+
+    public int getNumberStation() {
+        return numberStation;
+    }
+
+    public void setNumberStation(int numberStation) {
+        this.numberStation = numberStation;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public PillarMaterial getMatheriallPillar() {
+        return matheriallPillar;
+    }
+
+    public void setMatheriallPillar(PillarMaterial matheriallPillar) {
+        this.matheriallPillar = matheriallPillar;
+    }
+
+    public PillarType getTypePillar() {
+        return typePillar;
+    }
+
+    public void setTypePillar(PillarType typePillar) {
+        this.typePillar = typePillar;
+    }
+
+    public PillarCapacity getCapacityPillar() {
+        return capacityPillar;
+    }
+
+    public void setCapacityPillar(PillarCapacity capacityPillar) {
+        this.capacityPillar = capacityPillar;
+    }
+
+    public ObjectType getObj_type() {
+        return obj_type;
+    }
+
+    public void setObj_type(ObjectType obj_type) {
+        this.obj_type = obj_type;
+    }
+
+    public HouseType getTypeOfHouse() {
+        return typeOfHouse;
+    }
+
+    public void setTypeOfHouse(HouseType typeOfHouse) {
+        this.typeOfHouse = typeOfHouse;
+    }
+
+    public HouseOwner getOwnerofHouse() {
+        return ownerofHouse;
+    }
+
+    public void setOwnerofHouse(HouseOwner ownerofHouse) {
+        this.ownerofHouse = ownerofHouse;
+    }
+
+    public DrawWellOwner getOwnerDrawWell() {
+        return ownerDrawWell;
+    }
+
+    public void setOwnerDrawWell(DrawWellOwner ownerDrawWell) {
+        this.ownerDrawWell = ownerDrawWell;
+    }
+
+    public DrawWellType getType_drawWell() {
+        return type_drawWell;
+    }
+
+    public void setType_drawWell(DrawWellType type_drawWell) {
+        this.type_drawWell = type_drawWell;
+    }
+
+    public ObjectType getObj_typs() {
+        return obj_typs;
+    }
+
+    public void setObj_typs(ObjectType obj_typs) {
+        this.obj_typs = obj_typs;
+    }
 
     public int getId() {
         return id;
@@ -177,94 +306,32 @@ public class PointAddController implements Serializable{
         this.lng = lng;
     }
 
-    public ObjectType getObj_type() {
-        return obj_type;
+    public Pillar getPillar() {
+        return pillar;
     }
 
-    public void setObj_type(ObjectType obj_type) {
-        this.obj_type = obj_type;
+    public void setPillar(Pillar pillar) {
+        this.pillar = pillar;
     }
+
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
+    }
+
+    public DrawWell getDraw_well() {
+        return draw_well;
+    }
+
+    public void setDraw_well(DrawWell draw_well) {
+        this.draw_well = draw_well;
+    }
+
+
     
-
-    public DrawWellOwner getOwnerDrawWell() {
-        return ownerDrawWell;
-    }
-
-    public void setOwnerDrawWell(DrawWellOwner ownerDrawWell) {
-        this.ownerDrawWell = ownerDrawWell;
-    }
-
-    public HouseOwner getOwnerofHouse() {
-        return ownerofHouse;
-    }
-
-    public void setOwnerofHouse(HouseOwner ownerofHouse) {
-        this.ownerofHouse = ownerofHouse;
-    }
-
-    public DrawWellType getType_drawWell() {
-        return type_drawWell;
-    }
-
-    public void setType_drawWell(DrawWellType type_drawWell) {
-        this.type_drawWell = type_drawWell;
-    }
-
-    public PillarOwner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(PillarOwner owner) {
-        this.owner = owner;
-    }
-
-    public PillarType getTypePillar() {
-        return typePillar;
-    }
-
-    public void setTypePillar(PillarType typePillar) {
-        this.typePillar = typePillar;
-    }
-
-    public HouseType getTypeOfHouse() {
-        return typeOfHouse;
-    }
-
-    public void setTypeOfHouse(HouseType typeOfHouse) {
-        this.typeOfHouse = typeOfHouse;
-    }
-
-    public String getTransportStation() {
-        return transportStation;
-    }
-
-    public void setTransportStation(String transportStation) {
-        this.transportStation = transportStation;
-    }
-
-    public int getNumberStation() {
-        return numberStation;
-    }
-
-    public void setNumberStation(int numberStation) {
-        this.numberStation = numberStation;
-    }
-
-    public PillarMaterial getMatheriallPillar() {
-        return matheriallPillar;
-    }
-
-    public void setMatheriallPillar(PillarMaterial matheriallPillar) {
-        this.matheriallPillar = matheriallPillar;
-    }
-
-    public MapModel getModel() {
-        return model;
-    }
-
-    public void setModel(MapModel model) {
-        this.model = model;
-    }
     
     
     

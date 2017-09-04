@@ -114,52 +114,52 @@ and open the template in the editor.
                     <p:rowEditor />
                 </p:column>                
             </p:dataTable>            
-            <p:tab id="cableInf" title="Муфта">           
-                <p:dataTable id="dataTableCable" value="#{gMapsController.clutch}" editable="true">
-                    <p:ajax event="rowEdit" listener="#{updatePointController.onRowEditCabel}" update=":formUpdate:msgs" />
-                    <p:ajax event="rowEditCancel" listener="#{updatePointController.onRowCancel}" update=":formUpdate:msgs" />
+<!--            <p:tab id="cableInf" title="Муфта">           
+            <p:dataTable id="dataTableCable" value="{gMapsController.clutch}" editable="true">
+                    <p:ajax event="rowEdit" listener="{updatePointController.onRowEditCabel}" update=":formUpdate:msgs" />
+                    <p:ajax event="rowEditCancel" listener="{updatePointController.onRowCancel}" update=":formUpdate:msgs" />
                 <f:facet name="header">
                     Кабель
                 </f:facet>
                 <p:column headerText="Муфта">
-                    <p:selectOneMenu id="clutch_check" value="#{gMapsController.clutch}" style="width:150px" >
-                        <f:selectItems var="cl" value="#{gMapsController.point.clutch}" itemValue="#{cl}" itemLabel="#{cl.id}"/>
+                    <p:selectOneMenu id="clutch_check" value="{gMapsController.clutch}" style="width:150px" >
+                        <f:selectItems var="cl" value="{gMapsController.point.clutch}" itemValue="{cl}" itemLabel="{cl.id}"/>
                     </p:selectOneMenu>
                 </p:column>                    
                 <p:column headerText="Вместимость">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{gMapsController.cabel.capacity}" /></f:facet>
-                        <f:facet name="input"><p:inputText  value="#{gMapsController.cabel.capacity}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="{gMapsController.cabel.capacity}" /></f:facet>
+                        <f:facet name="input"><p:inputText  value="{gMapsController.cabel.capacity}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
                 <p:column headerText="Введён в">
-                    <h:outputText value="#{gMapsController.cabel.inplace}" />
+                    <h:outputText value="{gMapsController.cabel.inplace}" />
                 </p:column>
 
                 <p:column headerText="Выведен с">
-                    <h:outputText value="#{gMapsController.cabel.outPlace}" />
+                    <h:outputText value="{gMapsController.cabel.outPlace}" />
                 </p:column>
                 <p:column headerText="Длинна">
-                    <h:outputText value="#{gMapsController.cabel.lenthCable}" />
+                    <h:outputText value="{gMapsController.cabel.lenthCable}" />
                 </p:column>
 
                 <p:column headerText="Маркировка">
-                    <h:outputText value="#{gMapsController.cabel.marking}" />
+                    <h:outputText value="{gMapsController.cabel.marking}" />
                 </p:column>
                 <p:column headerText="Кол. модулей">
-                    <h:outputText value="#{gMapsController.cabel.moduleCount}" />
+                    <h:outputText value="{gMapsController.cabel.moduleCount}" />
                 </p:column>                
                 <p:column headerText="Производство">
-                    <h:outputText value="#{gMapsController.cabel.production}" />
+                    <h:outputText value="{gMapsController.cabel.production}" />
                 </p:column> 
                 <p:column style="width:32px">
                     <p:rowEditor />
                 </p:column>  
-            </p:dataTable>
-                    <p:commandButton actionListener="#{gMapsController.newLineC}"
+            </p:dataTable> 
+                    <p:commandButton actionListener="{gMapsController.newLineC}"
                     value="New" update="dataTableCable" ajax="true" />
-            </p:tab>     
+            </p:tab>     -->
                 <p:commandButton actionListener="#{gMapsController.newLineC}"
                     value="Save" update=":formUpdate" ajax="true" />
         </h:form>

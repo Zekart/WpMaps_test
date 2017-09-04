@@ -15,7 +15,6 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -53,8 +52,6 @@ import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -86,6 +83,8 @@ public class GMapsController implements Serializable {
     @EJB
     private ConnectPointFacade conFacade;
 
+    private boolean pillarflag = false;
+    
     
     private MapModel model;
     private Marker marker;
@@ -117,6 +116,11 @@ public class GMapsController implements Serializable {
     private LatLng cord;
     private List<MapPoint> list; 
     private List<ConnectPoint> listConnect;
+    
+    private DrawWell select_draw_well =null;
+    private Pillar select_pillar = null;
+    private House select_house = null;
+    private Clutch select_clutch = null;
      
     //Staff mappoint =  new Staff();
     
@@ -128,19 +132,22 @@ public class GMapsController implements Serializable {
 
     
     ConnectPoint connect_point = new ConnectPoint();
-
     
     Clutch clutch = new Clutch();    
     PointWizard pz = new PointWizard(); 
     
+    List<Pillar> pillarList = new ArrayList<>();
     List<Clutch> clutc_rend = new ArrayList<>();
     List<Cabel> cabels = new ArrayList<>();
-    List<LatLng> coord = new ArrayList<LatLng>(); 
+    List<LatLng> coord = new ArrayList<>(); 
     List<Fiber> fiber = new ArrayList<>();
+    List<DrawWell> drawList = new ArrayList<>();
     
     private String centerGeoMap = "46.9422145,31.9990089";
     
-    
+    public void setCon(){
+        pillarflag = true;
+    }
     
     //@PostConstruct
     public void initPoint() {
@@ -183,12 +190,11 @@ public class GMapsController implements Serializable {
         
     
     public StreamedContent getImage() throws IOException {
-        byte[] imageInByteArray;
-        if(point.getPic() != null){
-            image = point.getPic();
-        }else{
+//        if(point.getPic() != null){
+//            image = point.getPic();
+//        }else{
             image = getBytesFile();
-        }
+//        }
         return new DefaultStreamedContent(new ByteArrayInputStream(image), "image/png/jpg");
     }
     
@@ -220,6 +226,7 @@ public class GMapsController implements Serializable {
         model.addOverlay(marker);
 //        //list.clear();
         initPoint();
+        clutc_rend.clear();
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
 //                      RequestContext requestContext = RequestContext.getCurrentInstance();  
 //                requestContext.execute("PF('wizp').hide()");
@@ -241,6 +248,7 @@ public class GMapsController implements Serializable {
         marker = new Marker(new LatLng(lat, lng), String.valueOf(id),house,"../resources/marker/house_marker.png" );
         model.addOverlay(marker);
         initPoint();
+        clutc_rend.clear();
         
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }   
@@ -311,10 +319,41 @@ public class GMapsController implements Serializable {
         marker = (Marker) event.getOverlay();   
         point = (MapPoint) marker.getData(); 
         id = point.getId();
-        ss(point.getLat(),point.getLng());
+        System.out.println(point.getDecriminatorValue());
+        ss(point.getLat(),point.getLng());     
          
     }
     
+    public void updateDraw(){
+        select_draw_well = (DrawWell)drawWellFacade.find(id);
+        System.out.println("Draw");
+        //select_draw_well = (DrawWell) drawWellFacade.find(id);
+        select_draw_well.setAddress(address); 
+        select_draw_well.setOwner(owner);
+        select_draw_well.setType_draw_well(type_drawWell);
+        drawWellFacade.merge(select_draw_well);
+    }
+    public void updatePillar(){
+        select_pillar = (Pillar)pillarFacade.find(id);
+        System.out.println("Draw");
+        //select_draw_well = (DrawWell) drawWellFacade.find(id);
+        select_pillar.setAddress(address); 
+        select_pillar.setOwner(owner);
+        select_pillar.setMaterial(matheriallPillar);
+        select_pillar.setNumberStation(numberStation);
+        select_pillar.setTransportStation(transportStation);
+        select_pillar.setType(typePillar);
+        pillarFacade.merge(select_pillar);
+    }
+    public void updateHouse(){
+        select_house = (House)houseFacade.find(id);
+        System.out.println("Draw");
+        //select_draw_well = (DrawWell) drawWellFacade.find(id);
+        select_house.setAddress(address); 
+        select_house.setOwner(owner);
+        select_house.setType_house(typeOfHouse);
+        houseFacade.merge(select_house);
+    }
     public void newLine(ActionEvent actionEvent) {
         this.clutc_rend.add(new Clutch());
     }
@@ -661,6 +700,46 @@ public class GMapsController implements Serializable {
 
     public void setIdClutch(int idClutch) {
         this.idClutch = idClutch;
+    }
+
+    public List<Pillar> getPillarList() {
+        return pillarList;
+    }
+
+    public void setPillarList(List<Pillar> pillarList) {
+        this.pillarList = pillarList;
+    }
+
+    public boolean isPillarflag() {
+        return pillarflag;
+    }
+
+    public void setPillarflag(boolean pillarflag) {
+        this.pillarflag = pillarflag;
+    }
+
+    public List<DrawWell> getDrawList() {
+        return drawList;
+    }
+
+    public void setDrawList(List<DrawWell> drawList) {
+        this.drawList = drawList;
+    }
+
+    public DrawWell getSelect_draw_well() {
+        return select_draw_well;
+    }
+
+    public void setSelect_draw_well(DrawWell select_draw_well) {
+        this.select_draw_well = select_draw_well;
+    }
+
+    public DrawWell getDraw_well() {
+        return draw_well;
+    }
+
+    public void setDraw_well(DrawWell draw_well) {
+        this.draw_well = draw_well;
     }
 
 

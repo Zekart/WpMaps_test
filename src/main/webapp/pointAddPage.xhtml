@@ -307,8 +307,6 @@
                 <h:commandLink value="Back"  actionListener="#{AddController.goBack()}" action="#{AddController.setSelectObj('select')}" >
                 </h:commandLink>                
             </p:panel> 
-                <h:inputHidden id="lat" value="#{gMapsController.lat}" />
-                <h:inputHidden id="lng" value="#{gMapsController.lng}" /> 
         </h:form>     
     <script type="text/javascript">
         document.getElementById('lat').value = localStorage.getItem("lat");

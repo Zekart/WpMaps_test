@@ -32,11 +32,14 @@ public class UpdatePointController implements Serializable{
        
     private MapPoint a_point;
     
+    private int id;
     private String c ;
     private String hid;
     private int index;
 
     private MapPoint addr;
+    
+    GMapsController gm = new GMapsController();
     
     
     @PostConstruct
@@ -46,6 +49,7 @@ public class UpdatePointController implements Serializable{
         hid = value;
         FacesMessage msg = new FacesMessage("hiden " + hid);
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        System.out.println(index);
     }
     
     private String getId(){
@@ -55,9 +59,9 @@ public class UpdatePointController implements Serializable{
     }
     
     public void onRowEdit(RowEditEvent event) {
-        int id = 1;
+        
 
-        a_point = (MapPoint) mapFacade.find(id);
+        a_point = (MapPoint) mapFacade.find(index);
         a_point.setAddress(c);
         
         mapFacade.merge(a_point);
@@ -97,6 +101,7 @@ public class UpdatePointController implements Serializable{
     
     
 
+    
     public String getC() {
         return c;
     }
