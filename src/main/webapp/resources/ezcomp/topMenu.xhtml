@@ -15,7 +15,7 @@
         <p:panel id="historyMenuPanel" styleClass="historyMenuPanel" >   
             <header>
                 <div class="container" id="one">  
-                    <img class="icon" src="../resources/images/settings_1.png"></img> 
+                    <img class="icon" src="../resources/images/file.png"></img> 
                 </div>
                 <div class="container" id="two">  
                     <img class="icon" src="../resources/images/Developer.png"></img>
@@ -28,13 +28,12 @@
                 <div class="container" id="four">                                               
                     <nav>
                         <ul class="topmenu">
-                            <li><img class="icon submenu-link" src="../resources/images/Developer.png"></img>
+                            <li><img class="icon submenu-link" src="../resources/images/profile.png"></img>
                                 <ul class="submenu">
                                     <li>
                                         <h:commandLink value="LogOff" action="#{logOffController.logout()}" >
                                         </h:commandLink>
                                     </li>
-                                    <li><a href="">Сервис</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -43,20 +42,24 @@
                 <div class="container" id="five"> 
                     <nav>
                         <ul class="topmenu">
-                            <li><img class="icon submenu-link" src="../resources/images/Information.png"></img>
+                            <li><img class="icon submenu-link" src="../resources/images/Help.ico"></img>
                                 <ul class="submenu">
-                                    <li>
-                                        <p:outputLabel title="Показать легенду" onclick="openHistory()" value="Легенда"/>
+                                    <li style=" padding-top: 15px;">
+                                        <p:outputLabel  title="Показать легенду" onclick="openHistory()" value="Легенда"/>
+                                    </li>
+                                        <p:separator/>
+                                    <li style=" padding-top: 15px;">
+                                        <p:outputLabel style="padding-bottom: 12px;" title="Поиск по адресу" onclick="openSearch()" value="Поиск"/>
                                     </li>
                                     <p:separator/>
-                                    <li>
-                                        <p:outputLabel title="Поиск по адресу" onclick="openSearch()" value="Поиск"/>
-                                    </li>
+                                    <li style=" padding-top: 15px;">
+                                        <p:outputLabel style="padding-bottom: 12px;" title="Подсказка" onclick="PF('helpDialog').show()" value="Подсказка"/>
+                                    </li>                                        
                                 </ul>
                             </li>
                         </ul>
                     </nav>                    
-                </div>              
+                </div>                 
             </header>                    
         </p:panel>
           

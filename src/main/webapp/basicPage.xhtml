@@ -53,7 +53,7 @@ and open the template in the editor.
         
         <p:growl id="messages" showDetail="true"  sticky="true" />
         <p:gmap id ="gmap" center="#{gMapsController.centerGeoMap}" zoom="#{gMapsController.zoomMap}" type="terrain" model="#{gMapsController.model}"                 
-                style="width: 100vw;height: 100vh;" onPointClick="handlePointClick(event);" widgetVar="map" fitBounds="false">
+                style="width: 100vw;height: 100vh;" widgetVar="map" fitBounds="false">
             
             <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}"  />    
             <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />
@@ -126,20 +126,7 @@ and open the template in the editor.
         var currentMarker = null;
         var map = new google.maps.Map(document.getElementById('gmap'));
         var wind = null;
- 
-        function handlePointClick(event) {
-            if(currentMarker === null) {
-                document.getElementById('lat').value = event.latLng.lat();
-                document.getElementById('lng').value = event.latLng.lng();
-
-                currentMarker = new google.maps.Marker({
-                    position:new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
-                });
-
-                PF('map').addOverlay(currentMarker);
-                PF('dlg').show();
-            }   
-        }                   
+               
     
         function geocode() {
             PF('map').geocode(document.getElementById('address').value);

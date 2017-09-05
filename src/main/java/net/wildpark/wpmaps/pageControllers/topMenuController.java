@@ -16,23 +16,23 @@ import javax.inject.Named;
 public class topMenuController implements Serializable{
     
     private boolean redirection = false;
-    private String imgName = "basic";
+    private String imgName = "engineering-projects";
     private String password;
     
     
     public String linkAction(ActionEvent actionEvent) {
         
-        if(redirection != true){    
-            
-            redirection = true;            
-            imgName = "powerfull";
-            return "home?faces-redirect=true";
+            if(redirection != true){    
 
-        }else{
-            redirection = false;
-            imgName = "basic";               
-            return "basicPage?faces-redirect=true";             
-        }
+                redirection = true;            
+                imgName = "engineering-projects";
+                return "home?faces-redirect=true";
+
+            }else{
+                redirection = false;
+                imgName = "engineering";               
+                return "basicPage?faces-redirect=true";             
+            }
     }
     
 

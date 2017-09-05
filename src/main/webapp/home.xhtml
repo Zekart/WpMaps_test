@@ -130,6 +130,9 @@
                 <h:inputHidden id="lng" value="#{gMapsController.lng}" /> 
         </p:dialog>
 
+        <tm:user_info/>
+        
+    
         <p:dialog class="simple_add" showHeader="false" resizable="false" width="1020" modal="true" height="520" closable="false" widgetVar="drawChange" >
             <p:wizard id="wi"  widgetVar="wi" flowListener="#{pointWizard.onFlowProcess}" >
             <p:tab id="point" title="Точка" >
@@ -290,8 +293,8 @@
 
                     </div >                                                       
                 </div>        
-            <p:commandButton value="Отмена" onclick="return cancel()" class="butCancel"></p:commandButton>
-            <p:commandButton value="save" action="#{gMapsController.updateDraw}" onclick="PF('drawChange').hide()" class="butCancel"></p:commandButton>
+            <p:commandButton value="Отмена" onclick="PF('drawChange').hide()" class="butCancel"></p:commandButton>
+            <p:commandButton value="save" action="#{gMapsController.updateDraw}" onclick="PF('drawChange').hide()" class="butAdd"></p:commandButton>
             </p:tab>        
                            
             <p:tab id="clutch" title="Муфта">
@@ -386,8 +389,7 @@
                 <p:commandButton  icon="ui-icon-search" onclick="geocode()" type="button" />
             </h:panelGrid>            
         </p:panel>
-
-    </h:form>     
+    </h:form>  
     <script type="text/javascript">
         var currentMarker = null;
         var map = new google.maps.Map(document.getElementById('gmap'));
@@ -462,8 +464,7 @@
         function showCabel(){
             PF('cab_pan').show();
         }
-              
-              
+               
     </script> 
 
     </h:body>

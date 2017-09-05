@@ -23,8 +23,8 @@
                 position: relative;
             }
             .butCancel{
-                top: 0;
-                right: 0;
+                top: 13px;
+                right: 15px;
                 position: absolute;
 
             }
@@ -48,7 +48,9 @@
             }
             
         </style>
+        <p:commandButton value="Отмена" onclick="return cancel()" class="butCancel"></p:commandButton>
         <p:wizard id="wiz"  widgetVar="wizp" flowListener="#{pointWizard.onFlowProcess}"  >
+            
             <p:tab id="obj" title="Объект">
                 <p:panel style="background: transparent; border: none; ">
                     <p:messages />
@@ -58,7 +60,6 @@
                         </p:selectOneMenu>
 
                 </p:panel>  
-                <p:commandButton value="Отмена" onclick="return cancel()" class="butCancel"></p:commandButton>
             </p:tab> 
             
             <p:tab id="point" title="Точка" >
@@ -181,7 +182,7 @@
                                 </p:row>                    
                             </h:panelGrid>
 
-                            <h:panelGrid style="background: transparent; border: none; " rendered="#{gMapsController.obj_type == 'DRAW_WELL'}" columns="2" >
+                            <h:panelGrid style="background: transparent; border: none; "  rendered="#{gMapsController.obj_type == 'DRAW_WELL'}" columns="2" >
                                 <p:row>
                                     <p:column>Транспортная подстанция </p:column>
                                 </p:row>
@@ -235,7 +236,6 @@
 
                     </div >                                                       
                 </div>        
-            <p:commandButton value="Отмена" onclick="return cancel()" class="butCancel"></p:commandButton>
             </p:tab>
             <p:tab id="clutchInfo" title="Муфта">      
         <div class="parent">
@@ -268,7 +268,6 @@
             </div>
 
         </div>
-                <p:commandButton value="Отмена" onclick="return cancel()" class="butCancel"></p:commandButton>
             </p:tab> 
 <!--            <p:tab id="cabel_add" title="Кабель">           
                 <p:dataTable var="cabel" value="{gMapsController.cabels}"
@@ -344,8 +343,7 @@
                         <p:ajax oncomplete="PF('wizp').loadStep('obj',false);" resetValues="true"/>
                     </p:commandButton>
             </div>
-        </p:tab>  
-
+        </p:tab>                  
         </p:wizard>       
     </h:form>
     </cc:implementation>

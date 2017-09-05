@@ -93,13 +93,13 @@ public class GMapsController implements Serializable {
     
     private MapModel model;
     private Marker marker;
-    private String transportStation = "";
-    private int numberStation = 0;
-    private String pillar_owner = "";
-    private String house_owner = "";
-    private String draw_owner = "";
+    private String transportStation;
+    private int numberStation;
+    private String pillar_owner ;
+    private String house_owner;
+    private String draw_owner ;
     private String address;
-    private String decriminatorValue="";
+    private String decriminatorValue;
     private PillarMaterial matheriallPillar;
     private PillarType typePillar;
     private PillarCapacity capacityPillar;
@@ -145,7 +145,7 @@ public class GMapsController implements Serializable {
     Clutch clutch = new Clutch();    
     PointWizard pz = new PointWizard(); 
 
-    
+    List<DrawWell> draw_list = new ArrayList<>();
     List<Pillar> pillarList = new ArrayList<>();
     List<Clutch> clutc_rend = new ArrayList<>();
     List<Cabel> cabels = new ArrayList<>();
@@ -155,6 +155,8 @@ public class GMapsController implements Serializable {
     
  
     private String centerGeoMap = "46.9422145,31.9990089";
+    
+    
   
     //@PostConstruct
     public void initPoint() {
@@ -772,6 +774,14 @@ public class GMapsController implements Serializable {
 
     public void setSel_drawWell(DrawWell sel_drawWell) {
         this.sel_drawWell = sel_drawWell;
+    }
+
+    public List<DrawWell> getDraw_list() {
+        return draw_list;
+    }
+
+    public void setDraw_list(List<DrawWell> draw_list) {
+        this.draw_list = draw_list;
     }
 
 

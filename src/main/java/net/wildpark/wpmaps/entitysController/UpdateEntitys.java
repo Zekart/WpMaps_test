@@ -36,7 +36,7 @@ import net.wildpark.wpmaps.pageControllers.GMapsController;
  * @author zekart
  */
 @Named(value = "updateEntController")
-@SessionScoped
+
 
 public class UpdateEntitys implements Serializable{
     @EJB
@@ -48,10 +48,10 @@ public class UpdateEntitys implements Serializable{
     
     
     private PointFacade mapFacade;
-    private DrawWell select_draw_well =null;
-    private Pillar select_pillar = null;
-    private House select_house = null;
-    private Clutch select_clutch = null;
+    private DrawWell select_draw_well ;
+    private Pillar select_pillar ;
+    private House select_house ;
+    private Clutch select_clutch ;
     
     
     private String p_address = "";
@@ -78,18 +78,24 @@ public class UpdateEntitys implements Serializable{
     private HouseOwner ownerofHouse;
     private DrawWellOwner ownerDrawWell;
     private DrawWellType type_drawWell;
-     
+    
+    
+    
     
     public void updateDraw(int id){
 
         System.out.println("ID" + id);
         select_draw_well = (DrawWell)drawWellFacade.find(id);
         //select_draw_well = (DrawWell) drawWellFacade.find(id);
+        select_draw_well.setTransportStation(d_station);
+        select_draw_well.setNumberStation(d_nstation);
         select_draw_well.setAddress(d_address); 
         select_draw_well.setOwner(draw_owner);
         select_draw_well.setType_draw_well(type_drawWell);
         
-        drawWellFacade.merge(select_draw_well);
+        
+        System.out.println("Draw Well " + select_draw_well);
+        //drawWellFacade.merge(select_draw_well);
     }
     public void updatePillar(int id){
         select_pillar = (Pillar)pillarFacade.find(id);
@@ -109,7 +115,8 @@ public class UpdateEntitys implements Serializable{
         select_house.setAddress(h_address); 
         select_house.setOwner(house_owner);
         select_house.setType_house(typeOfHouse);
-  
+        select_draw_well.setTransportStation(d_station);
+        select_draw_well.setNumberStation(d_nstation);
         houseFacade.merge(select_house);
     } 
     
