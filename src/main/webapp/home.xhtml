@@ -33,7 +33,6 @@
                 border: 1px solid #dddddd;
                 text-align: left;
                 padding: 8px;
-                width: 50px;
                 color: green;
             }
             .ui-datalist .ui-widget-content
@@ -133,50 +132,169 @@
 
         <p:dialog class="simple_add" showHeader="false" resizable="false" width="1020" modal="true" height="520" closable="false" widgetVar="drawChange" >
             <p:wizard id="wi"  widgetVar="wi" flowListener="#{pointWizard.onFlowProcess}" >
+            <p:tab id="point" title="Точка" >
+                <div class="parent">
+                    <div class="div1">
+                        <p:panel id="changePoint" style="background: transparent; border: none; " >
 
-                <p:tab id="point" title="Точка">
-                    <div class="parent">
-                        <div class="div1">
-                            <p:panel style="background: transparent; border: none; " >
-                                <table>
-                                    <tr>
-                                        <td>Адрес</td>
-                                        <td><p:inputText id="adrc" value="#{gMapsController.address}"/> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Владелец</td>
-                                        <td>                        
-                                            <p:selectOneMenu id="drawWell_owner" value="#{gMapsController.owner}" style="width:150px" >
-                                                <f:selectItems var="hot" value="#{gMapsController.drawWellOwner}" itemValue="#{hot}" itemLabel="#{hot.drawWellOwner}"/>
-                                            </p:selectOneMenu> 
-                                        </td>
-                                    </tr>  
-                                    <tr>
-                                        <td>Тип</td>
-                                        <td>
-                                            <p:selectOneMenu id="drawWell_type" value="#{gMapsController.type_drawWell}" style="width:150px" >
-                                                <f:selectItems var="htt" value="#{gMapsController.drawWellType}" itemValue="#{htt}" itemLabel="#{htt.drawWellType}"/>
-                                            </p:selectOneMenu> 
-                                        </td>
-                                    </tr>                                     
-                                </table>
-   
-                            </p:panel>
+                            <h:panelGrid style="background: transparent; border: none; " rendered="#{gMapsController.decriminatorValue == 'Столб'}" columns="2"  >
+                                <p:row>
+                                    <p:column>Транспортная подстанция </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:inputText  id="pil_name" class="add_inputfield" required="true" value="#{gMapsController.transportStation}" requiredMessage="Пустые поля" >
+                                    </p:inputText>                                           
+                                </p:row>
+                                <p:row>
+                                    <p:column>Номер подстанции </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:inputText required="true" class="add_inputfield" requiredMessage="Пустые поля" value="#{gMapsController.numberStation}" >
+                                    </p:inputText>
+                                </p:row>  
+                                <p:row>
+                                    <p:column>Адрес: </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:inputText required="true" class="add_inputfield" requiredMessage="Пустые поля" value="#{gMapsController.point.address}">
+                                    </p:inputText>
+                                </p:row>                     
+                                <p:row>
+                                    <p:column>Балансодержатель опоры </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:selectOneMenu id="p_owner" class="add_select" value="#{gMapsController.pillar_owner}" >
+                                        <f:selectItems var="st" value="#{gMapsController.pillarOwner}" itemValue="#{st.ownerType}" itemLabel="#{st.ownerType}"/>
+                                    </p:selectOneMenu>        
+                                </p:row>
+                                <p:row>
+                                    <p:column>Материал столба </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:selectOneMenu id="matheriall" class="add_select" value="#{gMapsController.matheriallPillar}">
+                                        <f:selectItems var="mat"  value="#{gMapsController.pillarMaterial}" itemValue="#{mat}" itemLabel="#{mat.pillarMaterial}" />
+                                    </p:selectOneMenu>                     
+                                </p:row>   
+                                <p:row>
+                                    <p:column>Тип столба</p:column>
+                                </p:row> 
+                                <p:row>
+                                    <p:selectOneMenu id="pillar_type" class="add_select" value="#{gMapsController.typePillar}" >
+                                        <f:selectItems var="pl" value="#{gMapsController.pillarType}" itemValue="#{pl}" itemLabel="#{pl.pilarType}"  />
+                                    </p:selectOneMenu>     
+                                </p:row>
+                                <p:row>
+                                    <p:column>Изображение</p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:fileUpload value="#{fileUploadView.image}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                </p:row>                  
+                            </h:panelGrid>    
 
-                        </div>
-                        <div class="div2">
-                            <p:graphicImage width="195" height="180" value="../resources/images/No-image-found.jpg"/>
-                        </div>
-                        <div class="button_add_pic">
+                            <h:panelGrid style="background: transparent; border: none; " rendered="#{gMapsController.decriminatorValue == 'Дом'}" columns="2" >
+                                <p:row>
+                                    <p:column>Транспортная подстанция </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:inputText value="#{gMapsController.transportStation}" class="add_inputfield" >
+                                        <f:validateLength minimum="1" />
+                                    </p:inputText>                                           
+                                </p:row>
+                                <p:row>
+                                    <p:column>Номер подстанции </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:inputText  value="#{gMapsController.numberStation}" class="add_inputfield">
+                                        <f:validateLength minimum="1" />
+                                    </p:inputText>
+                                </p:row> 
+                                <p:row>
+                                    <p:column>Адрес: </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:inputText id="addressP" value="#{gMapsController.point.address}" class="add_inputfield">
+                                        <f:validateLength minimum="1" />
+                                    </p:inputText>
+                                </p:row>                     
+                                <p:row>
+                                    <p:column><p:outputLabel for="house_type" value="Тип дома" /> </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:selectOneMenu id="house_type" class="add_select" value="#{gMapsController.typeOfHouse}" >
+                                        <f:selectItems var="ht" value="#{gMapsController.houseType}" itemValue="#{ht}" itemLabel="#{ht.houseType}"/>
+                                    </p:selectOneMenu>        
+                                </p:row>
+                                <p:row>
+                                    <p:column>Владелец</p:column>
+                                </p:row>         
+                                <p:row>
+                                    <p:selectOneMenu id="house_owner" class="add_select" value="#{gMapsController.house_owner}" >
+                                        <f:selectItems var="ho" value="#{gMapsController.houseOwner}" itemValue="#{ho}" itemLabel="#{ho.houseOwner}"/>
+                                    </p:selectOneMenu>        
+                                </p:row>
+                                <p:row>
+                                    <p:column>Изображение</p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:fileUpload value="#{fileUploadView.image}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                </p:row>                     
+                            </h:panelGrid>
 
-                        </div>
-                        <div class="short_point_info">
-                        </div>        
-                    </div>        
-                    <p:commandButton value="save" action="#{gMapsController.updateDraw}" onclick="PF('drawChange').hide()" class="butCancel"></p:commandButton>
-                </p:tab>
-        
-            <p:tab id="confirm" title="Муфта">
+                            <h:panelGrid style="background: transparent; border: none; " rendered="#{gMapsController.decriminatorValue == 'Колодец'}" columns="2" >                          
+                                <p:row>
+                                    <p:column>Транспортная подстанция </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:inputText  id="dr_name" class="add_inputfield" required="true" value="#{gMapsController.transportStation}" requiredMessage="Пустые поля" >
+                                    </p:inputText>                                           
+                                </p:row>
+                                <p:row>
+                                    <p:column>Номер подстанции </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:inputText required="true" class="add_inputfield" requiredMessage="Пустые поля" value="#{gMapsController.numberStation}" >
+                                    </p:inputText>
+                                </p:row>                                
+                                <p:row>
+                                    <p:column>Тип</p:column>
+                                </p:row> 
+                                <p:row>                    
+                                    <p:selectOneMenu id="d_type" class="add_select" value="#{gMapsController.type_drawWell}" >
+                                        <f:selectItems var="ht" value="#{gMapsController.drawWellType}" itemValue="#{ht}" itemLabel="#{ht.drawWellType}"/>
+                                    </p:selectOneMenu>        
+                                </p:row>
+                                <p:row>
+                                    <p:column>Адрес: </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:inputText  value="#{gMapsController.address}" class="add_inputfield">
+                                        <f:validateLength minimum="1" />
+                                    </p:inputText>
+                                </p:row>                     
+                                <p:row>
+                                    <p:column>Владелец</p:column>
+                                </p:row>         
+                                <p:row>
+                                    <p:selectOneMenu id="dl_owner" class="add_select" value="#{gMapsController.draw_owner}"  >
+                                        <f:selectItems var="hos" value="#{gMapsController.drawWellOwner}" itemValue="#{hos}" itemLabel="#{hos.drawWellOwner}"/>
+                                    </p:selectOneMenu>        
+                                </p:row>
+                                <p:row>
+                                    <p:column>Изображение</p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:fileUpload value="#{fileUploadView.image}" mode="simple"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                </p:row>                         
+                            </h:panelGrid>    
+                        </p:panel>
+
+                    </div >                                                       
+                </div>        
+            <p:commandButton value="Отмена" onclick="return cancel()" class="butCancel"></p:commandButton>
+            <p:commandButton value="save" action="#{gMapsController.updateDraw}" onclick="PF('drawChange').hide()" class="butCancel"></p:commandButton>
+            </p:tab>        
+                           
+            <p:tab id="clutch" title="Муфта">
                 <p:dataTable style=" bottom: 0;" value="#{gMapsController.point.clutch}" var="clutch" editable="true">
 
                     <p:column style=" bottom: 0;" headerText="ID">
@@ -188,7 +306,6 @@
                             <f:facet name="input"><p:inputText id="adrc" value="#{clutch.address}" style="width:100%"/></f:facet>
                         </p:cellEditor>                    
                     </p:column>
-
                     <p:column style=" bottom: 0;" headerText="Кол. кассет">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{clutch.cassetsCount}" /></f:facet>
@@ -219,7 +336,34 @@
                         <p:rowEditor />
                     </p:column>                
                 </p:dataTable> 
-            </p:tab>  
+            </p:tab>
+            <p:tab id="confirm" title="Добавление">
+                <div class="parent">
+                    <h:panelGrid class="butAdd"  rendered="#{gMapsController.decriminatorValue == 'Колодец'}"  >
+                        <p:commandButton value="Подтвердить" style="margin-left: 86%;" actionListener="#{gMapsController.updateDraw()}"  validateClient="true" update="gmap">
+                            <p:ajax oncomplete="PF('wizp').loadStep('obj',false);" resetValues="true"/>
+                        </p:commandButton>
+                    </h:panelGrid> 
+                    <h:panelGrid class="butAdd"  rendered="#{gMapsController.decriminatorValue == 'Дом'}"  >
+                        <p:commandButton value="Подтвердить" style="margin-left: 86%;" actionListener="#{gMapsController.updateHouse()}"  validateClient="true" update="gmap">
+                            <p:ajax oncomplete="PF('wizp').loadStep('obj',false);" resetValues="true"/>
+                        </p:commandButton>
+                    </h:panelGrid>
+                    <h:panelGrid class="butAdd"  rendered="#{gMapsController.decriminatorValue == 'Столб'}"  >
+                        <p:commandButton value="Подтвердить" style="margin-left: 86%;" actionListener="#{gMapsController.updatePillar()}"  validateClient="true" update="gmap">
+                            <p:ajax oncomplete="PF('wizp').loadStep('obj',false);" resetValues="true"/>
+                        </p:commandButton>
+                    </h:panelGrid> 
+                            <!--
+                            <p:commandButton value="Submit" actionListener="{gMapsController.addMarkerP()}" validateClient="true" update="@all">
+                                <f:setPropertyActionListener target="{pointWizard.data}" value="{gMapsController.obj_type}" />                                
+                            </p:commandButton>
+                            -->
+                        <p:commandButton value="Отмена" onclick="return cancel()" class="butCancel">
+                            <p:ajax oncomplete="PF('wizp').loadStep('obj',false);" resetValues="true"/>
+                        </p:commandButton>
+                </div>
+            </p:tab>                
 
             </p:wizard>
         </p:dialog>
@@ -236,7 +380,7 @@
                 </tr>                  
             </table>  
         </p:panel>
-        <p:panel id="search_panel" widgetVar="search_pan" styleClass="legendPanel" visible="false" >
+        <p:panel id="search_panel" widgetVar="search_pan"  visible="false" >
             <h:panelGrid styleClass="searchPanel" columns="3" style="margin-bottom:10px" cellpadding="5">
                 <p:inputText id="address" />
                 <p:commandButton  icon="ui-icon-search" onclick="geocode()" type="button" />

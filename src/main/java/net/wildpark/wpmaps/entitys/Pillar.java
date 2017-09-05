@@ -20,13 +20,7 @@ import net.wildpark.wpmaps.enums.PillarType;
 @Table(name = "pillar")
 @DiscriminatorValue("Столб")
 //@AttributeOverride(name = "numberOfTracks", column = @Column(name = "cd_release_number_of_tracks"))
-public class Pillar extends MapPoint implements Serializable{
-
-    @Column(name = "transportstation")
-    private String transportStation;
-    
-    @Column(name = "numberstation")
-    private int numberStation;    
+public class Pillar extends MapPoint implements Serializable{  
     
     @Column(name = "material")
     @Enumerated(EnumType.STRING)
@@ -42,9 +36,8 @@ public class Pillar extends MapPoint implements Serializable{
     }
 
     public Pillar(int id, String owner,Double lat,Double lng,String address,String transportStation,int numberStation,PillarMaterial material, PillarType type,byte[] pic,List<Clutch> clutch) {
-        super(id, owner,lat,lng,address,pic,clutch);
+        super(id, owner,lat,lng,address,transportStation,numberStation,pic,clutch);
         this.material = material;
-        this.numberStation = numberStation;
         this.material = material;
         this.type = type;
     }
@@ -55,22 +48,6 @@ public class Pillar extends MapPoint implements Serializable{
 
     public void setType(PillarType type) {
         this.type = type;
-    }
-
-    public String getTransportStation() {
-        return transportStation;
-    }
-
-    public void setTransportStation(String transportStation) {
-        this.transportStation = transportStation;
-    }
-
-    public int getNumberStation() {
-        return numberStation;
-    }
-
-    public void setNumberStation(int numberStation) {
-        this.numberStation = numberStation;
     }
 
     public PillarMaterial getMaterial() {

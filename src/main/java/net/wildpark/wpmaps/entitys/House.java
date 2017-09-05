@@ -30,8 +30,8 @@ public class House extends MapPoint implements Serializable{
 
     }
 
-    public House(int id, String owner, Double lat, Double lng,String address,byte[] pic,List<Clutch> clutch) {
-        super(id, owner,lat,lng,address,pic,clutch);
+    public House(int id, String owner, Double lat, Double lng,String address,String transportStation,int numberStation,byte[] pic,List<Clutch> clutch) {
+        super(id, owner,lat,lng,address,transportStation,numberStation,pic,clutch);
         this.type_house = type_house;
     }
 

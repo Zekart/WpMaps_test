@@ -17,8 +17,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import net.wildpark.wpmaps.entitys.Cabel;
@@ -29,6 +31,7 @@ import net.wildpark.wpmaps.entitys.Fiber;
 import net.wildpark.wpmaps.entitys.House;
 import net.wildpark.wpmaps.entitys.MapPoint;
 import net.wildpark.wpmaps.entitys.Pillar;
+import net.wildpark.wpmaps.entitysController.UpdateEntitys;
 import net.wildpark.wpmaps.enums.DrawWellOwner;
 import net.wildpark.wpmaps.enums.DrawWellType;
 import net.wildpark.wpmaps.enums.HouseOwner;
@@ -85,14 +88,18 @@ public class GMapsController implements Serializable {
     private ConnectPointFacade conFacade;
 
     private boolean pillarflag = false;
-    
+    ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+    Map<String, Object> sessionMap = externalContext.getSessionMap();
     
     private MapModel model;
     private Marker marker;
     private String transportStation = "";
     private int numberStation = 0;
-    private String owner = "";
+    private String pillar_owner = "";
+    private String house_owner = "";
+    private String draw_owner = "";
     private String address;
+    private String decriminatorValue="";
     private PillarMaterial matheriallPillar;
     private PillarType typePillar;
     private PillarCapacity capacityPillar;
@@ -110,7 +117,7 @@ public class GMapsController implements Serializable {
 
     private double lat;     
     private double lng;
-    private byte[] image;    
+   
     private boolean flag;
     private boolean selectOne;
     private int idClutch;
@@ -122,12 +129,13 @@ public class GMapsController implements Serializable {
     private Pillar select_pillar = null;
     private House select_house = null;
     private Clutch select_clutch = null;
-     
+    
     //Staff mappoint =  new Staff();
     
     Pillar pillar = new Pillar();
     House house = new House();
     DrawWell draw_well = new DrawWell();
+    DrawWell sel_drawWell = new DrawWell();
     MapPoint point = new MapPoint();
     Cabel cabel = new Cabel();
 
@@ -136,6 +144,7 @@ public class GMapsController implements Serializable {
     
     Clutch clutch = new Clutch();    
     PointWizard pz = new PointWizard(); 
+
     
     List<Pillar> pillarList = new ArrayList<>();
     List<Clutch> clutc_rend = new ArrayList<>();
@@ -144,12 +153,9 @@ public class GMapsController implements Serializable {
     List<Fiber> fiber = new ArrayList<>();
     List<DrawWell> drawList = new ArrayList<>();
     
+ 
     private String centerGeoMap = "46.9422145,31.9990089";
-    
-    public void setCon(){
-        pillarflag = true;
-    }
-    
+  
     //@PostConstruct
     public void initPoint() {
         Polyline polyline = new Polyline();
@@ -201,21 +207,21 @@ public class GMapsController implements Serializable {
 //    
 //    public byte[] getBytesFile() throws IOException{
 //        
-//        InputStream iStream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/images/No-image-found.jpg");
+//        InputStream iStream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("../resources/marker/Столб_marker.png");
 //        Path path = Paths.get(iStream.toString());
 //        byte[] data = Files.readAllBytes(path);
 //        return data;
 //    }
     
-    public void addMarkerP() {       
+    public void addMarkerP() throws IOException {       
         pillar.setLat(lat);
         pillar.setLng(lng);
         pillar.setMaterial(matheriallPillar);
         pillar.setNumberStation(numberStation);
         pillar.setTransportStation(transportStation);
         pillar.setType(typePillar);
-        pillar.setOwner(owner);
-        
+        pillar.setOwner(pillar_owner);
+        //pillar.setPic(getBytesFile());
         pillar.setAddress(address);
   
         if(pz.isSkip()!= true){
@@ -233,14 +239,16 @@ public class GMapsController implements Serializable {
 //                      RequestContext requestContext = RequestContext.getCurrentInstance();  
 //                requestContext.execute("PF('wizp').hide()");
     }
-    public void addMarkerH() {
+    public void addMarkerH() throws IOException {
 
         house.setLat(lat);
         house.setLng(lng);
         house.setType_house(typeOfHouse);
-        house.setOwner(owner);
+        house.setOwner(house_owner);
         house.setAddress(address);
-        
+        house.setNumberStation(numberStation);
+        house.setTransportStation(transportStation);
+        //house.setPic(fUpload.getFileContents());
         if(pz.isSkip()!= true){
             house.setClutch(clutc_rend);
         }
@@ -255,26 +263,15 @@ public class GMapsController implements Serializable {
         //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("@all");
     }   
     public void addMarkerW() throws FileNotFoundException {
-//        File file = new File("C:\\Users\\zekar\\Pictures\\Saved Pictures\\WJBG_WepKcc.jpg");
-//        byte[] picInByte = new byte[(int) file.length()];
-//        FileInputStream fileStream = new FileInputStream(file);
-//        try {
-//            fileStream.read(picInByte);
-//            fileStream.close();
-//            draw_well.setPic(picInByte);
-//        } catch (IOException ex) {
-//            System.out.println(ex);
-//        }
 
-        //draw_well.setPic(uplView.getImgByte()); 
-
-        
         draw_well.setLat(lat);
         draw_well.setLng(lng);
-        draw_well.setOwner(owner);
+        draw_well.setOwner(draw_owner);
         draw_well.setType_draw_well(type_drawWell);
         draw_well.setAddress(address);
-        
+        draw_well.setNumberStation(numberStation);
+        draw_well.setTransportStation(transportStation);
+        //draw_well.setPic(fUpload.getFileContents());
         if(pz.isSkip()!= true){
             draw_well.setClutch(clutc_rend);
             
@@ -315,34 +312,42 @@ public class GMapsController implements Serializable {
         marker = (Marker) event.getOverlay();   
         point = (MapPoint) marker.getData(); 
         id = point.getId();
-        ss(point.getLat(),point.getLng());             
+
+        decriminatorValue = point.getDecriminatorValue();
+        ss(point.getLat(),point.getLng());  
     }
     
     public void updateDraw(){
+        
         select_draw_well = (DrawWell)drawWellFacade.find(id);
         //select_draw_well = (DrawWell) drawWellFacade.find(id);
+        select_draw_well.setTransportStation(transportStation);
+        select_draw_well.setNumberStation(numberStation);
         select_draw_well.setAddress(address); 
-        select_draw_well.setOwner(owner);
+        select_draw_well.setOwner(draw_owner);
         select_draw_well.setType_draw_well(type_drawWell);
+        
         drawWellFacade.merge(select_draw_well);
     }
     public void updatePillar(){
         select_pillar = (Pillar)pillarFacade.find(id);
         //select_draw_well = (DrawWell) drawWellFacade.find(id);
         select_pillar.setAddress(address); 
-        select_pillar.setOwner(owner);
+        select_pillar.setOwner(pillar_owner);
         select_pillar.setMaterial(matheriallPillar);
         select_pillar.setNumberStation(numberStation);
         select_pillar.setTransportStation(transportStation);
         select_pillar.setType(typePillar);
+        
         pillarFacade.merge(select_pillar);
     }
     public void updateHouse(){
         select_house = (House)houseFacade.find(id);
         //select_draw_well = (DrawWell) drawWellFacade.find(id);
         select_house.setAddress(address); 
-        select_house.setOwner(owner);
+        select_house.setOwner(house_owner);
         select_house.setType_house(typeOfHouse);
+  
         houseFacade.merge(select_house);
     }
     public void newLine(ActionEvent actionEvent) {
@@ -426,7 +431,6 @@ public class GMapsController implements Serializable {
             }           
         }
     }
-    
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
@@ -515,13 +519,31 @@ public class GMapsController implements Serializable {
         this.numberStation = numberStation;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getPillar_owner() {
+        return pillar_owner;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setPillar_owner(String pillar_owner) {
+        this.pillar_owner = pillar_owner;
     }
+
+    public String getHouse_owner() {
+        return house_owner;
+    }
+
+    public void setHouse_owner(String house_owner) {
+        this.house_owner = house_owner;
+    }
+
+    public String getDraw_owner() {
+        return draw_owner;
+    }
+
+    public void setDraw_owner(String draw_owner) {
+        this.draw_owner = draw_owner;
+    }
+
+
 
     public PillarCapacity getCapacityPillar() {
         return capacityPillar;
@@ -734,6 +756,22 @@ public class GMapsController implements Serializable {
 
     public void setDraw_well(DrawWell draw_well) {
         this.draw_well = draw_well;
+    }
+
+    public String getDecriminatorValue() {
+        return decriminatorValue;
+    }
+
+    public void setDecriminatorValue(String decriminatorValue) {
+        this.decriminatorValue = decriminatorValue;
+    }
+
+    public DrawWell getSel_drawWell() {
+        return sel_drawWell;
+    }
+
+    public void setSel_drawWell(DrawWell sel_drawWell) {
+        this.sel_drawWell = sel_drawWell;
     }
 
 

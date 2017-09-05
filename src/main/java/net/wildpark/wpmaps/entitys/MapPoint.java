@@ -52,7 +52,13 @@ public  class MapPoint implements Serializable{
     
     @Column(name = "address")
     private String address;
-        
+    
+    @Column(name = "transportstation")
+    private String transportStation;
+    
+    @Column(name = "numberstation")
+    private int numberStation;  
+    
     @Lob
     @Basic(fetch=LAZY)
     @Column(name = "pic")
@@ -63,7 +69,7 @@ public  class MapPoint implements Serializable{
                
     @OneToMany(targetEntity = Clutch.class,  cascade= CascadeType.ALL, fetch=FetchType.EAGER)
     private List<Clutch> clutch;
-    private List<Cabel> cable;
+
 
     
     public String getDecriminatorValue() {
@@ -73,16 +79,19 @@ public  class MapPoint implements Serializable{
     public MapPoint() {
     }
 
-    protected MapPoint(int id, String owner,Double lat, Double lng,String address, byte[] pic, List<Clutch> clutch) {
+    protected MapPoint(int id, String owner,Double lat, Double lng,String address,String transportStation,int numberStation, byte[] pic, List<Clutch> clutch) {
         this.id = id;
         this.owner = owner;
         this.lat = lat;
         this.lng = lng;
         this.address = address;
+        this.transportStation = transportStation;
+        this.numberStation = numberStation;
         this.clutch = clutch;
         this.pic = pic;
 
     }
+    
     
 
 
@@ -151,12 +160,20 @@ public  class MapPoint implements Serializable{
         this.clutch = clutch;
     }
 
-    public List<Cabel> getCable() {
-        return cable;
+    public String getTransportStation() {
+        return transportStation;
     }
 
-    public void setCable(List<Cabel> cable) {
-        this.cable = cable;
+    public void setTransportStation(String transportStation) {
+        this.transportStation = transportStation;
+    }
+
+    public int getNumberStation() {
+        return numberStation;
+    }
+
+    public void setNumberStation(int numberStation) {
+        this.numberStation = numberStation;
     }
     
     
