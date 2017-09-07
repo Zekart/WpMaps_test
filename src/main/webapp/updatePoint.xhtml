@@ -28,7 +28,7 @@ and open the template in the editor.
            <p:growl id="msgs" />
            
            
-           <p:dataTable id="ob_table" value="#{gMapsController.point}" var="point" editable="true">
+           <p:dataTable id="ob_table" value="#{gMapsController.selected_point}" var="point" editable="true">
                            <p:ajax event="rowEdit" listener="#{updatePointController.onRowEdit}" update=":formUpdate:msgs" />
                            <p:ajax event="rowEditCancel" listener="#{updatePointController.onRowCancel}" update=":formUpdate:msgs" />
                 <f:facet name="header">
@@ -68,7 +68,7 @@ and open the template in the editor.
                 </p:column>                 
             </p:dataTable>
             
-            <p:dataTable value="#{gMapsController.point.clutch}" var="clutchs" editable="true">
+            <p:dataTable value="#{gMapsController.selected_point.clutch}" var="clutchs" editable="true">
                 <p:ajax event="rowEdit" listener="#{updatePointController.onRowEditClutch}" update=":formUpdate:msgs" />
                 <p:ajax event="rowEditCancel" listener="#{updatePointController.onRowCancel}" update=":formUpdate:msgs" />
                 <f:facet name="header">

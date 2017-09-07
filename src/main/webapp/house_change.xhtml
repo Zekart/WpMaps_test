@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Редактирование дома </title>
+    </h:head>    
+    <h:body>
+        <h:form id="f_h">
+            <p:growl id="msgs" showDetail="true"/>
+            <p:dataTable id="houseEditTable" var="house"  value="#{gMapsController.sel_house_list}" editable="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                   Столб
+                </f:facet>
+                <p:ajax event="rowEdit" listener="#{gMapsController.onRowEdit}" update="f_h:msgs" />
+                <p:ajax event="rowEditCancel" listener="#{gMapsController.onRowCancel}" update="f_h:msgs"   />
+
+                <p:column headerText="Станция">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{house.transportStation}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="modelInput" value="#{house.transportStation}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="№ станции">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{house.numberStation}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{house.numberStation}" style="width:100%" label="Year"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Адрес">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{house.address}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{house.address}" style="width:100%" label="Year"/></f:facet>
+                    </p:cellEditor>
+                </p:column>                 
+                <p:column headerText="Тип">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{house.type_house}" /></f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu value="#{house.type_house}" style="width:100%">
+                                <f:selectItems value="#{houseController.houseType}" var="type" itemLabel="#{type.houseType}" itemValue="#{type}" />
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Владелец">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{house.owner}" /></f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu value="#{house.owner}" style="width:100%">
+                                <f:selectItems value="#{houseController.houseOwner}" var="owner" itemLabel="#{owner.houseOwner}" itemValue="#{type}" />
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>                 
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable> 
+            <p:contextMenu for="houseEditTable" widgetVar="cMenu">   
+                <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellCars').showCellEditor();return false;"/>  
+                <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('cMenu').hide()"/>  
+            </p:contextMenu>             
+        </h:form>
+    </h:body>
+</html>

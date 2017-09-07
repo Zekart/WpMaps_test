@@ -71,7 +71,7 @@ and open the template in the editor.
         <p:dialog widgetVar="dial">
             <p:outputPanel id="toUpdate" style="width: 20vw;">
                 <p:panel id="myPanel" rendered="#{gMapsController.flag}" styleClass="withOutBorder" widgetVar="ww" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
-                    <p:dataList value="#{gMapsController.point.clutch}" var="car" type="definition" >
+                    <p:dataList value="#{gMapsController.selected_point.clutch}" var="car" type="definition" >
                         <table style=" font: 10pt sans-serif;">
                           <tr>
                             <th>Муфта:</th>
@@ -117,7 +117,7 @@ and open the template in the editor.
         </p:panel>
             <!--
         <p:dialog header="Modal Dialog" widgetVar="passwordIn" modal="true" height="100">
-            <p:inputText value="#{topMenuController.password}"/>
+            <p:inputText value="{topMenuController.password}"/>
             <p:commandButton value="Save Edits"  /> 
         </p:dialog>
             -->            

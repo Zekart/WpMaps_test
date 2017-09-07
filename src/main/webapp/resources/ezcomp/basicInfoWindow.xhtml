@@ -30,23 +30,35 @@
                     <h:outputLabel  value="Тип: " />
                 </p:row>
                 <p:row>
-                    <h:outputLabel  value="#{gMapsController.point.decriminatorValue}" />
+                    <h:outputLabel  value="#{gMapsController.selected_point.decriminatorValue}" />
                 </p:row>
                 <p:row>
                     <h:outputLabel  value="Владелец:" />
                 </p:row>
                 <p:row>                            
-                    <p:outputLabel value="#{gMapsController.point.owner}"  />    
+                    <p:outputLabel value="#{gMapsController.selected_point.owner}"  />    
                 </p:row>
                 <p:row>
                     <h:outputLabel  value="Адрес:" />
                 </p:row>
                 <p:row>                            
-                    <p:outputLabel value="#{gMapsController.point.address}"  />    
+                    <p:outputLabel value="#{gMapsController.selected_point.address}"  />    
                 </p:row> 
+                <p:row>
+                    <h:outputLabel  value="№ станц.:" />
+                </p:row>
+                <p:row>                            
+                    <p:outputLabel value="#{gMapsController.selected_point.numberStation}"  />    
+                </p:row>     
+                <p:row>
+                    <h:outputLabel  value="Муфта:" />
+                </p:row>
+                <p:row>                            
+                    <p:outputLabel value="Есть" rendered="#{not empty gMapsController.selected_point.clutch}" />    
+                </p:row>                
             </h:panelGrid>
                     <p:menuButton value="Действия" styleClass="smallButton">
-                        <p:menuitem value="Информ." action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />
+                        <p:menuitem value="Муфта." action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />
                     </p:menuButton>
         </p:outputPanel>
     </cc:implementation>

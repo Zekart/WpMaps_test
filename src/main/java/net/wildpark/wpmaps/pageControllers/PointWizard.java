@@ -8,7 +8,6 @@ package net.wildpark.wpmaps.pageControllers;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import org.primefaces.event.FlowEvent;
 
  
@@ -30,11 +29,14 @@ public class PointWizard implements Serializable {
     public String onFlowProcess(FlowEvent event) {
         if(skip) {
             skip = true;   //reset in case user goes back
+            System.out.println(skip);
             return "confirm";
         }
         else {
+            System.out.println(skip);
             return event.getNewStep();
         }
+        
     }
 
     

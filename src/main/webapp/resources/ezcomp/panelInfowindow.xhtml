@@ -24,47 +24,7 @@
                 </p:row>  
                 -->   
 
-                    <h:panelGrid  columns="2" style="font: 8pt sans-serif; " styleClass="withOutBorder">
-                        <p:row>
-                            <h:outputLabel value="Тип: " />
-                        </p:row>
-                        <p:row>
-                            <h:outputLabel  value="#{gMapsController.point.decriminatorValue}" />
-                        </p:row>
-                        <p:row>
-                            <h:outputLabel  value="Владелец:" />
-                        </p:row>
-                        <p:row>                            
-                            <p:outputLabel value="#{gMapsController.point.owner}"  />    
-                        </p:row>                        
-                        <p:row>
-                            <h:outputLabel  value="Адрес:" />
-                        </p:row>
-                        <p:row>                            
-                            <p:outputLabel value="#{gMapsController.point.address}"  />    
-                        </p:row>                        
-                        <p:row>
-                            <h:outputLabel  value="Муфта:" />                            
-                        </p:row>     
-                        <p:row>
-                            <h:dataTable value="#{gMapsController.point.clutch}" var="points">
-                                <h:column>
-                                    <h:commandLink id="false"  onclick="showCabel()" >
-                                        <h:outputText value="#{points.id}"/>                                        
-                                    </h:commandLink>
-                                </h:column>
-                            </h:dataTable>
-                        </p:row>                        
-                                
-                    </h:panelGrid>                                                                                        
 
-
-                <p:menuButton value="Действия" styleClass="selectFeatures">
-                    <p:menuitem value="Удалить" actionListener="#{gMapsController.deleteMarker}" update="gmap"/>
-                    <p:menuitem value="Информ." action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />
-                    <p:menuitem value="Соединить" action="#{gMapsController.connectPillar}"  />
-                    <p:menuitem value="Изменить"  onclick="PF('drawChange').show()" update="changePoint" />
-                </p:menuButton>
-       
+ 
     </cc:implementation>
 </html>

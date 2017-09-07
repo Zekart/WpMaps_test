@@ -55,7 +55,47 @@
             <p:ajax event="stateChange" listener="#{gMapsController.onStateChange}"  />
 
             <p:gmapInfoWindow id="infoWindow"   maxWidth="300">
-                <piw:panelInfowindow/>
+                                    <h:panelGrid  columns="2" style="font: 8pt sans-serif; " styleClass="withOutBorder">
+                        <p:row>
+                            <h:outputLabel value="Тип: " />
+                        </p:row>
+                        <p:row>
+                            <h:outputLabel  value="#{gMapsController.selected_point.decriminatorValue}" />
+                        </p:row>
+                        <p:row>
+                            <h:outputLabel  value="Владелец:" />
+                        </p:row>
+                        <p:row>                            
+                            <p:outputLabel value="#{gMapsController.selected_point.owner}"  />    
+                        </p:row>                        
+                        <p:row>
+                            <h:outputLabel  value="Адрес:" />
+                        </p:row>
+                        <p:row>                            
+                            <p:outputLabel value="#{gMapsController.selected_point.address}"  />    
+                        </p:row>                        
+                        <p:row>
+                            <h:outputLabel  value="Муфта:" />                            
+                        </p:row>     
+                        <p:row>
+                        <h:dataTable value="#{gMapsController.selected_point.clutch}" var="points">
+                            <h:column>
+                                <h:commandLink id="false"  onclick="showCabel()" >
+                                    <h:outputText value="#{points.id}"/>                                        
+                                </h:commandLink>
+                            </h:column>
+                        </h:dataTable>
+                        </p:row>                        
+                                
+                    </h:panelGrid>                                                                                        
+
+
+                <p:menuButton value="Действия" styleClass="selectFeatures">
+                    <p:menuitem value="Удалить" actionListener="#{gMapsController.deleteMarker()}" update="gmap"/>
+                    <p:menuitem value="Информ." action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />
+                    <p:menuitem value="Соединить" action="#{gMapsController.connectPillar}"  />
+                    <p:menuitem value="Изменить"  actionListener="#{gMapsController.viewCarsCustomized()}" />
+                </p:menuButton>
             </p:gmapInfoWindow>              
         </p:gmap>
 
@@ -66,7 +106,7 @@
         <p:dialog widgetVar="dial">
             <p:outputPanel id="toUpdate" style="width: 20vw;">
                 <p:panel id="myPanel" rendered="#{gMapsController.flag}" styleClass="withOutBorder" widgetVar="ww" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
-                    <p:dataList value="#{gMapsController.point.clutch}" var="car" type="definition" >
+                    <p:dataList value="#{gMapsController.selected_point.clutch}" var="car" type="definition" >
                         <table style=" font: 10pt sans-serif;">
                           <tr>
                             <th>Муфта:</th>
@@ -92,42 +132,12 @@
                     </p:dataList>
                 </p:panel>
             </p:outputPanel>             
-        </p:dialog>
-
-<!--            
-        <p:dialog header="Pillar info" widgetVar="dlg1" modal="false" height="300" width="800">
-            <p:dataTable var="pillar" value="{gMapsController.list}">
-                    <p:column headerText="Id">
-                        <h:outputText value="{pillar.id}" />
-                    </p:column>
-
-                    <p:column headerText="Station">
-                        <h:outputText value="{pillar.transportstation}" />
-                    </p:column>
-
-                    <p:column headerText="Number">
-                        <h:outputText value="{pillar.numbertranspotrstation}" />
-                    </p:column>
-
-                    <p:column headerText="Owner">
-                        <h:outputText value="{pillar.owner}" />
-                    </p:column>
-
-                    <p:column headerText="Type">
-                        <h:outputText value="{pillar.type}" />
-                    </p:column>
-
-                    <p:column headerText="Matherial">
-                        <h:outputText value="{pillar.matheriallPillar}" />
-                    </p:column>
-                </p:dataTable>
-        </p:dialog>
--->        
+        </p:dialog>       
 
         <p:dialog class="simple_add" showHeader="false" id="panelAdd" widgetVar="dlg" showEffect="fade" resizable="false" closable="false" width="1020" height="560" modal="true">           
             <addDialog:panelAddDialog/> 
-                <h:inputHidden id="lat" value="#{gMapsController.lat}" />
-                <h:inputHidden id="lng" value="#{gMapsController.lng}" /> 
+            <h:inputHidden id="lat" value="#{mapObjController.lat}" />
+            <h:inputHidden id="lng" value="#{mapObjController.lng}" /> 
         </p:dialog>
 
         <tm:user_info/>
@@ -145,45 +155,45 @@
                                     <p:column>Транспортная подстанция </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:inputText  id="pil_name" class="add_inputfield" required="true" value="#{gMapsController.transportStation}" requiredMessage="Пустые поля" >
+                                    <p:inputText  id="pil_name" class="add_inputfield" required="true" value="#{pillarController.p.transportStation}" requiredMessage="Пустые поля" >
                                     </p:inputText>                                           
                                 </p:row>
                                 <p:row>
                                     <p:column>Номер подстанции </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:inputText required="true" class="add_inputfield" requiredMessage="Пустые поля" value="#{gMapsController.numberStation}" >
+                                    <p:inputText required="true" class="add_inputfield" requiredMessage="Пустые поля" value="#{pillarController.p.numberStation}" >
                                     </p:inputText>
                                 </p:row>  
                                 <p:row>
                                     <p:column>Адрес: </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:inputText required="true" class="add_inputfield" requiredMessage="Пустые поля" value="#{gMapsController.point.address}">
+                                    <p:inputText required="true" class="add_inputfield" requiredMessage="Пустые поля" value="#{pillarController.p.address}">
                                     </p:inputText>
                                 </p:row>                     
                                 <p:row>
                                     <p:column>Балансодержатель опоры </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:selectOneMenu id="p_owner" class="add_select" value="#{gMapsController.pillar_owner}" >
-                                        <f:selectItems var="st" value="#{gMapsController.pillarOwner}" itemValue="#{st.ownerType}" itemLabel="#{st.ownerType}"/>
+                                    <p:selectOneMenu id="p_owner" class="add_select" value="#{pillarController.p.owner}" >
+                                        <f:selectItems var="st" value="#{pillarController.pillarOwner}" itemValue="#{st.ownerType}" itemLabel="#{st.ownerType}"/>
                                     </p:selectOneMenu>        
                                 </p:row>
                                 <p:row>
                                     <p:column>Материал столба </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:selectOneMenu id="matheriall" class="add_select" value="#{gMapsController.matheriallPillar}">
-                                        <f:selectItems var="mat"  value="#{gMapsController.pillarMaterial}" itemValue="#{mat}" itemLabel="#{mat.pillarMaterial}" />
+                                    <p:selectOneMenu id="matheriall" class="add_select" value="#{pillarController.p.material}">
+                                        <f:selectItems var="mat"  value="#{pillarController.pillarMaterial}" itemValue="#{mat}" itemLabel="#{mat.pillarMaterial}" />
                                     </p:selectOneMenu>                     
                                 </p:row>   
                                 <p:row>
                                     <p:column>Тип столба</p:column>
                                 </p:row> 
                                 <p:row>
-                                    <p:selectOneMenu id="pillar_type" class="add_select" value="#{gMapsController.typePillar}" >
-                                        <f:selectItems var="pl" value="#{gMapsController.pillarType}" itemValue="#{pl}" itemLabel="#{pl.pilarType}"  />
+                                    <p:selectOneMenu id="pillar_type" class="add_select" value="#{pillarController.p.type}" >
+                                        <f:selectItems var="pl" value="#{pillarController.pillarType}" itemValue="#{pl}" itemLabel="#{pl.pilarType}"  />
                                     </p:selectOneMenu>     
                                 </p:row>
                                 <p:row>
@@ -199,7 +209,7 @@
                                     <p:column>Транспортная подстанция </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:inputText value="#{gMapsController.transportStation}" class="add_inputfield" >
+                                    <p:inputText value="{gMapsController.transportStation}" class="add_inputfield" >
                                         <f:validateLength minimum="1" />
                                     </p:inputText>                                           
                                 </p:row>
@@ -207,7 +217,7 @@
                                     <p:column>Номер подстанции </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:inputText  value="#{gMapsController.numberStation}" class="add_inputfield">
+                                    <p:inputText  value="{gMapsController.numberStation}" class="add_inputfield">
                                         <f:validateLength minimum="1" />
                                     </p:inputText>
                                 </p:row> 
@@ -215,7 +225,7 @@
                                     <p:column>Адрес: </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:inputText id="addressP" value="#{gMapsController.point.address}" class="add_inputfield">
+                                    <p:inputText id="addressP" value="{gMapsController.selected_point.address}" class="add_inputfield">
                                         <f:validateLength minimum="1" />
                                     </p:inputText>
                                 </p:row>                     
@@ -223,16 +233,16 @@
                                     <p:column><p:outputLabel for="house_type" value="Тип дома" /> </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:selectOneMenu id="house_type" class="add_select" value="#{gMapsController.typeOfHouse}" >
-                                        <f:selectItems var="ht" value="#{gMapsController.houseType}" itemValue="#{ht}" itemLabel="#{ht.houseType}"/>
+                                    <p:selectOneMenu id="house_type" class="add_select" value="{gMapsController.typeOfHouse}" >
+                                        <f:selectItems var="ht" value="{gMapsController.houseType}" itemValue="{ht}" itemLabel="{ht.houseType}"/>
                                     </p:selectOneMenu>        
                                 </p:row>
                                 <p:row>
                                     <p:column>Владелец</p:column>
                                 </p:row>         
                                 <p:row>
-                                    <p:selectOneMenu id="house_owner" class="add_select" value="#{gMapsController.house_owner}" >
-                                        <f:selectItems var="ho" value="#{gMapsController.houseOwner}" itemValue="#{ho}" itemLabel="#{ho.houseOwner}"/>
+                                    <p:selectOneMenu id="house_owner" class="add_select" value="{gMapsController.house_owner}" >
+                                        <f:selectItems var="ho" value="{gMapsController.houseOwner}" itemValue="{ho}" itemLabel="{ho.houseOwner}"/>
                                     </p:selectOneMenu>        
                                 </p:row>
                                 <p:row>
@@ -243,34 +253,34 @@
                                 </p:row>                     
                             </h:panelGrid>
 
-                            <h:panelGrid style="background: transparent; border: none; " rendered="#{gMapsController.decriminatorValue == 'Колодец'}" columns="2" >                          
+                            <h:panelGrid style="background: transparent; border: none; " rendered="{gMapsController.decriminatorValue == 'Колодец'}" columns="2" >                          
                                 <p:row>
                                     <p:column>Транспортная подстанция </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:inputText  id="dr_name" class="add_inputfield" required="true" value="#{gMapsController.transportStation}" requiredMessage="Пустые поля" >
+                                    <p:inputText  id="dr_name" class="add_inputfield" required="true" value="{gMapsController.transportStation}" requiredMessage="Пустые поля" >
                                     </p:inputText>                                           
                                 </p:row>
                                 <p:row>
                                     <p:column>Номер подстанции </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:inputText required="true" class="add_inputfield" requiredMessage="Пустые поля" value="#{gMapsController.numberStation}" >
+                                    <p:inputText required="true" class="add_inputfield" requiredMessage="Пустые поля" value="{gMapsController.numberStation}" >
                                     </p:inputText>
                                 </p:row>                                
                                 <p:row>
                                     <p:column>Тип</p:column>
                                 </p:row> 
                                 <p:row>                    
-                                    <p:selectOneMenu id="d_type" class="add_select" value="#{gMapsController.type_drawWell}" >
-                                        <f:selectItems var="ht" value="#{gMapsController.drawWellType}" itemValue="#{ht}" itemLabel="#{ht.drawWellType}"/>
+                                    <p:selectOneMenu id="d_type" class="add_select" value="{gMapsController.type_drawWell}" >
+                                        <f:selectItems var="ht" value="{gMapsController.drawWellType}" itemValue="{ht}" itemLabel="{ht.drawWellType}"/>
                                     </p:selectOneMenu>        
                                 </p:row>
                                 <p:row>
                                     <p:column>Адрес: </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:inputText  value="#{gMapsController.address}" class="add_inputfield">
+                                    <p:inputText  value="{gMapsController.address}" class="add_inputfield">
                                         <f:validateLength minimum="1" />
                                     </p:inputText>
                                 </p:row>                     
@@ -278,8 +288,8 @@
                                     <p:column>Владелец</p:column>
                                 </p:row>         
                                 <p:row>
-                                    <p:selectOneMenu id="dl_owner" class="add_select" value="#{gMapsController.draw_owner}"  >
-                                        <f:selectItems var="hos" value="#{gMapsController.drawWellOwner}" itemValue="#{hos}" itemLabel="#{hos.drawWellOwner}"/>
+                                    <p:selectOneMenu id="dl_owner" class="add_select" value="{gMapsController.draw_owner}"  >
+                                        <f:selectItems var="hos" value="{gMapsController.drawWellOwner}" itemValue="{hos}" itemLabel="{hos.drawWellOwner}"/>
                                     </p:selectOneMenu>        
                                 </p:row>
                                 <p:row>
@@ -298,7 +308,7 @@
             </p:tab>        
                            
             <p:tab id="clutch" title="Муфта">
-                <p:dataTable style=" bottom: 0;" value="#{gMapsController.point.clutch}" var="clutch" editable="true">
+                <p:dataTable style=" bottom: 0;" value="#{gMapsController.selected_point.clutch}" var="clutch" editable="true">
 
                     <p:column style=" bottom: 0;" headerText="ID">
                         <h:outputText value="#{clutch.id}" />
@@ -389,6 +399,8 @@
                 <p:commandButton  icon="ui-icon-search" onclick="geocode()" type="button" />
             </h:panelGrid>            
         </p:panel>
+       
+        
     </h:form>  
     <script type="text/javascript">
         var currentMarker = null;
@@ -455,12 +467,7 @@
         function closeWizard(){
             PF('dlg').hide();
             return false;
-        }
-        
-        function addRowOnComplete() {
-            alert();
-        } 
-        
+        }        
         function showCabel(){
             PF('cab_pan').show();
         }

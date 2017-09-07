@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Редактирование столба </title>
+    </h:head>
+    <h:body>
+        <h:form id="f_s">
+            <p:growl id="msgs" showDetail="true"/>
+            <p:dataTable id="pillarEditTable" var="pillar"  value="#{gMapsController.sel_pillar_list}" editable="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                   Столб
+                </f:facet>
+                <p:ajax event="rowEdit" listener="#{gMapsController.onRowEdit}" update="f_s:msgs" />
+                <p:ajax event="rowEditCancel" listener="#{gMapsController.onRowCancel}" update="f_s:msgs"   />
+
+                <p:column headerText="Станция">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{pillar.transportStation}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="modelInput" value="#{pillar.transportStation}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="№ станции">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{pillar.numberStation}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{pillar.numberStation}" style="width:100%" label="Year"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Адрес">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{pillar.address}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{pillar.address}" style="width:100%" label="Year"/></f:facet>
+                    </p:cellEditor>
+                </p:column>  
+                <p:column headerText="Материал">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{pillar.material}" /></f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu value="#{pillar.material}" style="width:100%">
+                                <f:selectItems value="#{pillarController.pillarMaterial}" var="material" itemLabel="#{material.pillarMaterial}" itemValue="#{material}" />
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>                
+                <p:column headerText="Тип">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{pillar.type}" /></f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu value="#{pillar.type}" style="width:100%">
+                                <f:selectItems value="#{pillarController.pillarType}" var="type" itemLabel="#{type.pilarType}" itemValue="#{type}" />
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Владелец">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{pillar.owner}" /></f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu value="#{pillar.owner}" style="width:100%">
+                                <f:selectItems value="#{pillarController.pillarOwner}" var="owner" itemLabel="#{owner.ownerType}" itemValue="#{type}" />
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>                
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+            <p:contextMenu for="pillarEditTable" widgetVar="cMenu">   
+                <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellCars').showCellEditor();return false;"/>  
+                <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('cMenu').hide()"/>  
+            </p:contextMenu> 
+            <p:dataTable value="#{gMapsController.selected_point.clutch}" var="clutchs" editable="true">
+                <f:facet name="header">
+                    Муфта
+                </f:facet>
+                <p:column headerText="ID">
+                    <h:outputText value="#{clutchs.id}" />
+                </p:column>                
+                <p:column headerText="Адрес">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{clutchs.address}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="adrc" value="#{clutchs.address}" style="width:100%"/></f:facet>
+                    </p:cellEditor>                    
+                </p:column>
+
+                <p:column headerText="Кол. кассет">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{clutchs.cassetsCount}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="cl" value="#{clutchs.cassetsCount}" style="width:100%"/></f:facet>
+                    </p:cellEditor>                    
+                </p:column>
+
+                <p:column headerText="Состояние">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{clutchs.conditions}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="cl_con" value="#{clutchs.conditions}" style="width:100%"/></f:facet>
+                    </p:cellEditor>                    
+                </p:column>
+                <p:column headerText="Инфо">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{clutchs.info}" /></f:facet>
+                        <f:facet name="input"><p:inputText  value="#{clutchs.info}" style="width:100%"/></f:facet>
+                    </p:cellEditor>                     
+                </p:column>
+
+                <p:column headerText="Входы">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{clutchs.inputs}" /></f:facet>
+                        <f:facet name="input"><p:inputText  value="#{clutchs.inputs}" style="width:100%"/></f:facet>
+                    </p:cellEditor>                    
+                </p:column>
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>                
+            </p:dataTable>            
+        </h:form>
+    </h:body>
+</html>
+

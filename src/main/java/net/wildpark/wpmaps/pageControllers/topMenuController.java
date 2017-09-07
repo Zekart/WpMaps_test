@@ -16,7 +16,7 @@ import javax.inject.Named;
 public class topMenuController implements Serializable{
     
     private boolean redirection = false;
-    private String imgName = "engineering-projects";
+    private String imgName = "engineering";
     private String password;
     
     
