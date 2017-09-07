@@ -242,11 +242,7 @@
             <p:tab id="clutchInfo" title="Муфта">      
         <div class="parent">
             <div class="div1" style="width: 100%">
-                <p:dataTable style=" bottom: 0;" var="line" value="#{mapObjController.clutch}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">
-                    <p:ajax event="cellEdit" listener="#{mapObjController.onCellEdit(event)}" update=":form:messages" />
-                    <p:column style="bottom: 0;" headerText="Адрес">
-                        <p:inputText value="#{line.address}" ><f:validateLength minimum="1" /></p:inputText>
-                    </p:column>                    
+                <p:dataTable style=" bottom: 0;" var="line" value="#{mapObjController.clutch}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">                   
                     <p:column style="bottom: 0;" headerText="Кол. кассет">
                         <p:inputText value="#{line.cassetsCount}" ><f:validateLength minimum="1" /></p:inputText>
                     </p:column>

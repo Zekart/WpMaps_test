@@ -8,12 +8,8 @@ package net.wildpark.wpmaps.entitysController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import net.wildpark.wpmaps.entitys.Clutch;
@@ -25,11 +21,7 @@ import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
-import net.wildpark.wpmaps.pageControllers.GMapsController;
 import net.wildpark.wpmaps.pageControllers.PointWizard;
-import org.primefaces.event.CellEditEvent;
-import org.primefaces.event.RowEditEvent;
-import sun.print.resources.serviceui;
 
 /**
  *
@@ -69,9 +61,6 @@ public class MapObjController implements Serializable{
     DrawWell drawWell = new DrawWell();
     MapPoint point = new MapPoint();
     
-
-    
-
     PointWizard pz = new PointWizard();
     
 
@@ -116,14 +105,7 @@ public class MapObjController implements Serializable{
         return pillar_list;
     }
     
-    public void deletePoint(int id){
-//        point = pointFacade.find(id);
-//        pointFacade.remove(point);
-            System.out.println("point id is :" + id);
-    }
-        
 
-    
     public List<Pillar> getTemp_pillar_list() {
         return temp_pillar_list;
     }

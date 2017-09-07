@@ -87,13 +87,6 @@ and open the template in the editor.
                 <p:column headerText="ID">
                     <h:outputText value="#{clutchs.id}" />
                 </p:column>                
-                <p:column headerText="Адрес">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{clutchs.address}" /></f:facet>
-                        <f:facet name="input"><p:inputText id="adrc" value="#{clutchs.address}" style="width:100%"/></f:facet>
-                    </p:cellEditor>                    
-                </p:column>
-
                 <p:column headerText="Кол. кассет">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{clutchs.cassetsCount}" /></f:facet>

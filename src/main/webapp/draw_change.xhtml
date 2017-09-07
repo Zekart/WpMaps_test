@@ -20,7 +20,7 @@ and open the template in the editor.
             <p:growl id="msgs" showDetail="true"/>
             <p:dataTable id="drawEditTable" var="draw"  value="#{gMapsController.sel_draw_list}" editable="true" style="margin-bottom:20px">
                 <f:facet name="header">
-                   Столб
+                    Колодец Id : #{gMapsController.id}
                 </f:facet>
                 <p:ajax event="rowEdit" listener="#{gMapsController.onRowEdit}" update="f_d:msgs" />
                 <p:ajax event="rowEditCancel" listener="#{gMapsController.onRowCancel}" update="f_d:msgs"   />

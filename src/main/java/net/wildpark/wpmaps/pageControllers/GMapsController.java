@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import net.wildpark.wpmaps.entitys.ConnectPoint;
@@ -22,7 +21,6 @@ import net.wildpark.wpmaps.entitys.DrawWell;
 import net.wildpark.wpmaps.entitys.House;
 import net.wildpark.wpmaps.entitys.MapPoint;
 import net.wildpark.wpmaps.entitys.Pillar;
-import net.wildpark.wpmaps.entitysController.MapObjController;
 import net.wildpark.wpmaps.entitysController.PointController;
 import net.wildpark.wpmaps.enums.ObjectType;
 import net.wildpark.wpmaps.facades.ClutchFacade;
@@ -39,7 +37,6 @@ import net.wildpark.wpmaps.facades.PointFacade;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
-import org.primefaces.event.SelectEvent;
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.map.GeocodeResult;
@@ -66,10 +63,6 @@ public class GMapsController implements Serializable {
     private PointFacade mapFacade;
     @EJB
     private ConnectPointFacade conFacade;
-    
-    
-    @ManagedProperty("#{mapObjController}")
-    private MapObjController service;
     
     //private boolean pillarflag = false;
     ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -104,6 +97,8 @@ public class GMapsController implements Serializable {
     private List<DrawWell> sel_draw_list = new ArrayList<>();
     DrawWell draw = new DrawWell();
     
+    
+    List<LatLng> coord = new ArrayList<>(); 
     List<House> h_temp = new ArrayList<>();
     House house_point = new House();
     
@@ -111,7 +106,6 @@ public class GMapsController implements Serializable {
        
     PointWizard pz = new PointWizard(); 
 
-    List<LatLng> coord = new ArrayList<>(); 
 
     private String centerGeoMap = "46.9422145,31.9990089";
     

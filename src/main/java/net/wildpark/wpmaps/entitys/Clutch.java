@@ -32,7 +32,6 @@ public class Clutch implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="clutch_id")
     private Long id;
-    private String address;
     private String conditions;
     private int cassetsCount;
     private String info;
@@ -63,14 +62,6 @@ public class Clutch implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getConditions() {
@@ -137,7 +128,6 @@ public class Clutch implements Serializable {
     @Override
     public String toString() {
         return "Clutch :)[ id=" + id +        
-                ", Address='" + address + '\'' +
                 ", Conditions='" + conditions + '\'' +
                 ", Count of cassets='" + cassetsCount + '\'' +
                 ", Info='" + info + '\'' +
