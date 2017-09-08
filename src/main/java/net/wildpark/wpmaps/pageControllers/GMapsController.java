@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.ConnectPoint;
 import net.wildpark.wpmaps.entitys.DrawWell;
 import net.wildpark.wpmaps.entitys.House;
@@ -69,6 +70,7 @@ public class GMapsController implements Serializable {
     
     private MapModel model;
     private Marker marker;
+    private Polyline selectPolyLine;
 
     private String decriminatorValue;
 
@@ -96,7 +98,8 @@ public class GMapsController implements Serializable {
     House house = new House();
     private List<DrawWell> sel_draw_list = new ArrayList<>();
     DrawWell draw = new DrawWell();
-    
+    private List<Clutch> select_clutch = new ArrayList<>();
+    private Clutch clutch = new Clutch();
     
     List<LatLng> coord = new ArrayList<>(); 
     List<House> h_temp = new ArrayList<>();
@@ -181,50 +184,18 @@ public class GMapsController implements Serializable {
         selected_point =  mapFacade.find(id);
         temp.add(selected_point);
 
-    }
-    public void viewCarsCustomized() {
-        this.sel_pillar_list.clear();
-        this.sel_house_list.clear();
-        this.sel_draw_list.clear();
-
-        Map<String,Object> options = new HashMap<>();
-        options.put("modal", true);
-        options.put("width", 840);
-        options.put("height", 340);
-        options.put("contentWidth", "100%");
-        options.put("contentHeight", "100%");
-        options.put("headerElement", "customheader");
-        
-        switch(decriminatorValue) {
-        case "Столб": 
-            pillar = pillarFacade.find(id);
-            this.sel_pillar_list.add(pillar);
-	    RequestContext.getCurrentInstance().openDialog("pillar_change", options, null);
-		break;
-	case "Колодец": 
-            draw = drawWellFacade.find(id);
-            this.sel_draw_list.add(draw);
-	    RequestContext.getCurrentInstance().openDialog("draw_change", options, null);
-		break;
-	case "Дом": 
-            house = houseFacade.find(id);
-            this.sel_house_list.add(house);
-	    RequestContext.getCurrentInstance().openDialog("house_change", options, null);
-		break;
-	default: 
-	        System.err.println("error");
-	    break;
-        }
-    }    
+    }  
 
     public void onMarkerSelect(OverlaySelectEvent event) {
+       // selectPolyLine = (Polyline) event.getOverlay();
         marker = (Marker) event.getOverlay();   
+                
         selected_point = (MapPoint) marker.getData(); 
         id = selected_point.getId();
         decriminatorValue = selected_point.getDecriminatorValue();
         //ss(selected_point.getLat(),selected_point.getLng());  
     }
-    
+   
     
     public void connectPillar(){
         //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Режим добавления", "Выберите 2 маркер"));
@@ -285,11 +256,61 @@ public class GMapsController implements Serializable {
             }           
         }
     }
-    
+    public void viewCarsCustomized() {
+        this.sel_pillar_list.clear();
+        this.sel_house_list.clear();
+        this.sel_draw_list.clear();
+        this.select_clutch.clear();
+
+        
+        Map<String,Object> options = new HashMap<>();
+        options.put("modal", true);
+        options.put("width", 840);
+        options.put("height", 340);
+        options.put("contentWidth", "100%");
+        options.put("contentHeight", "100%");
+        options.put("headerElement", "customheader");
+        
+        switch(decriminatorValue) {
+        case "Столб": 
+            pillar = pillarFacade.find(id);  
+            
+           // select_clutch = clutchFacade.findAll();
+//            clutch = (Clutch) clutchFacade.findAll();
+//            for (Clutch cl : pillar.getClutch()) {
+//                if (cl.getId() != null) {
+//                    System.err.println("Error, cant find clutch");
+//                }
+//                else{
+//                   this.select_clutch.add(cl);
+//                }
+//            }            
+            this.sel_pillar_list.add(pillar);
+            for (Pillar idClutchFromPilalr : sel_pillar_list) {
+                //select_clutch.add();
+            }
+
+	    RequestContext.getCurrentInstance().openDialog("pillar_change", options, null);
+		break;
+	case "Колодец": 
+            draw = drawWellFacade.find(id);
+            this.sel_draw_list.add(draw);
+	    RequestContext.getCurrentInstance().openDialog("draw_change", options, null);
+		break;
+	case "Дом": 
+            house = houseFacade.find(id);
+            this.sel_house_list.add(house);
+	    RequestContext.getCurrentInstance().openDialog("house_change", options, null);
+		break;
+	default: 
+	        System.err.println("error");
+	    break;
+        }
+    }      
     public void onRowEdit(RowEditEvent event) {
         switch(decriminatorValue) {
         case "Столб": 
-	    pillarFacade.merge(pillar);
+	    pillarFacade.merge(pillar);           
 		break;
 	case "Колодец": 
 	    drawWellFacade.merge(draw);
@@ -302,7 +323,7 @@ public class GMapsController implements Serializable {
 	    break;
         }        
         
-        FacesMessage msg = new FacesMessage("Edited", ( event.getObject().toString()));
+        FacesMessage msg = new FacesMessage("Edited");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         
     }
@@ -322,9 +343,21 @@ public class GMapsController implements Serializable {
         }
     }    
 
+    public List<Clutch> getSelect_clutch() {
+        return select_clutch;
+    }
+
+    public void setSelect_clutch(List<Clutch> select_clutch) {
+        this.select_clutch = select_clutch;
+    }
+    
+    
+    
+    
     public List<Pillar> getSel_pillar_list() {
         return sel_pillar_list;
     }
+
 
     public void setSel_pillar_list(List<Pillar> sel_pillar_list) {
         this.sel_pillar_list = sel_pillar_list;

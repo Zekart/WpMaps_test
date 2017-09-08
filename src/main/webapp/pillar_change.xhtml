@@ -71,7 +71,15 @@ and open the template in the editor.
                             </h:selectOneMenu>
                         </f:facet>
                     </p:cellEditor>
-                </p:column>                
+                </p:column>
+
+
+                <p:column>
+                                       
+                </p:column>    
+                
+                
+                
                 <p:column style="width:32px">
                     <p:rowEditor />
                 </p:column>
@@ -86,7 +94,8 @@ and open the template in the editor.
                 </f:facet>
                 <p:column headerText="ID">
                     <h:outputText value="#{clutchs.id}" />
-                </p:column>                
+                </p:column>  
+                
                 <p:column headerText="Кол. кассет">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{clutchs.cassetsCount}" /></f:facet>
@@ -100,6 +109,7 @@ and open the template in the editor.
                         <f:facet name="input"><p:inputText id="cl_con" value="#{clutchs.conditions}" style="width:100%"/></f:facet>
                     </p:cellEditor>                    
                 </p:column>
+                
                 <p:column headerText="Инфо">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{clutchs.info}" /></f:facet>
@@ -112,11 +122,11 @@ and open the template in the editor.
                         <f:facet name="output"><h:outputText value="#{clutchs.inputs}" /></f:facet>
                         <f:facet name="input"><p:inputText  value="#{clutchs.inputs}" style="width:100%"/></f:facet>
                     </p:cellEditor>                    
-                </p:column>
+                </p:column>               
                 <p:column style="width:32px">
                     <p:rowEditor />
                 </p:column>                
-            </p:dataTable>            
+            </p:dataTable>
         </h:form>
     </h:body>
 </html>
