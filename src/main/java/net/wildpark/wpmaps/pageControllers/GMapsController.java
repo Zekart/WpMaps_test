@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.ConnectPoint;
 import net.wildpark.wpmaps.entitys.DrawWell;
@@ -35,9 +36,11 @@ import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
 import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.map.GeocodeResult;
@@ -52,8 +55,7 @@ import org.primefaces.model.map.Polyline;
 public class GMapsController implements Serializable {
 
     @EJB
-    private ClutchFacade clutchFacade;
-    
+    private ClutchFacade clutchFacade;    
     @EJB
     private DrawWellFacade drawWellFacade;
     @EJB
@@ -100,6 +102,7 @@ public class GMapsController implements Serializable {
     DrawWell draw = new DrawWell();
     private List<Clutch> select_clutch = new ArrayList<>();
     private Clutch clutch = new Clutch();
+    private Clutch selected_clutch_toGet_id;
     
     List<LatLng> coord = new ArrayList<>(); 
     List<House> h_temp = new ArrayList<>();
@@ -116,12 +119,7 @@ public class GMapsController implements Serializable {
   
     //@PostConstruct
     public void initPoint() {
-        Polyline polyline = new Polyline();
-                   
-        polyline.setStrokeWeight(2);
-        polyline.setStrokeColor("#FF9930");
-        polyline.setStrokeOpacity(1);
-               
+        
         model = new DefaultMapModel();
         
         list = mapFacade.findAll();     
@@ -129,13 +127,26 @@ public class GMapsController implements Serializable {
         for (MapPoint e:list) {
             model.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/"+e.getDecriminatorValue()+"_marker.png"));                
 
-        }             
+        }      
+        
         listConnect = conFacade.findAll();
-        for (ConnectPoint c:listConnect) {            
-            polyline.getPaths().add(new LatLng(mapFacade.find(c.getFromPoint()).getLat(), mapFacade.find(c.getFromPoint()).getLng()));
+        for (ConnectPoint c:listConnect) {  
+            Polyline polyline = new Polyline();
+                   
+            polyline.setStrokeWeight(2);
+            polyline.setStrokeColor("#FF9930");
+            polyline.setStrokeOpacity(1);
+            
             polyline.getPaths().add(new LatLng(mapFacade.find(c.getToPoint()).getLat(), mapFacade.find(c.getToPoint()).getLng()));
+            polyline.getPaths().add(new LatLng(mapFacade.find(c.getFromPoint()).getLat(), mapFacade.find(c.getFromPoint()).getLng()));
+//            if (polyline.getPaths().size() == 2){
+            System.out.println(polyline.getPaths().size());
+//                continue;
+//            }
+            model.addOverlay(polyline);
+            
         }
-        model.addOverlay(polyline);
+        
     }
         
     public void onGeocode(GeocodeEvent event) {
@@ -187,7 +198,6 @@ public class GMapsController implements Serializable {
     }  
 
     public void onMarkerSelect(OverlaySelectEvent event) {
-       // selectPolyLine = (Polyline) event.getOverlay();
         marker = (Marker) event.getOverlay();   
                 
         selected_point = (MapPoint) marker.getData(); 
@@ -195,6 +205,7 @@ public class GMapsController implements Serializable {
         decriminatorValue = selected_point.getDecriminatorValue();
         //ss(selected_point.getLat(),selected_point.getLng());  
     }
+    
    
     
     public void connectPillar(){
@@ -212,19 +223,18 @@ public class GMapsController implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ошибка", "Попытка соединить один и тот же объект"));
                 coord.clear();
             }else{
-                System.out.println(coord);
-            for (LatLng en : coord ){
-                polyline.getPaths().add(en);
-            }
-            model.addOverlay(polyline);
-            
-            RequestContext.getCurrentInstance().update("gmap");
-            coord.clear();            
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Режим соединения", "Успешно"));
-            connect_point.setToPoint(selected_point.getId());            
-            conFacade.create(connect_point);
-            coord.clear();
-            initPoint();
+                for (LatLng en : coord ){
+                    polyline.getPaths().add(en);
+                    System.out.println(polyline.getPaths());
+                }
+                model.addOverlay(polyline);
+
+                RequestContext.getCurrentInstance().update("gmap");           
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Режим соединения", "Успешно"));
+                connect_point.setToPoint(selected_point.getId());            
+                conFacade.create(connect_point);
+                coord.clear();
+                //initPoint();
             }            
         }else{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Режим соединения", "Выберите 2 маркер"));
@@ -273,33 +283,21 @@ public class GMapsController implements Serializable {
         
         switch(decriminatorValue) {
         case "Столб": 
-            pillar = pillarFacade.find(id);  
-            
-           // select_clutch = clutchFacade.findAll();
-//            clutch = (Clutch) clutchFacade.findAll();
-//            for (Clutch cl : pillar.getClutch()) {
-//                if (cl.getId() != null) {
-//                    System.err.println("Error, cant find clutch");
-//                }
-//                else{
-//                   this.select_clutch.add(cl);
-//                }
-//            }            
+            pillar = pillarFacade.find(id);              
             this.sel_pillar_list.add(pillar);
-            for (Pillar idClutchFromPilalr : sel_pillar_list) {
-                //select_clutch.add();
-            }
-
+            this.select_clutch = pillar.getClutch();
 	    RequestContext.getCurrentInstance().openDialog("pillar_change", options, null);
 		break;
 	case "Колодец": 
             draw = drawWellFacade.find(id);
             this.sel_draw_list.add(draw);
+            this.select_clutch = draw.getClutch();
 	    RequestContext.getCurrentInstance().openDialog("draw_change", options, null);
 		break;
 	case "Дом": 
             house = houseFacade.find(id);
             this.sel_house_list.add(house);
+            this.select_clutch = house.getClutch();
 	    RequestContext.getCurrentInstance().openDialog("house_change", options, null);
 		break;
 	default: 
@@ -310,7 +308,7 @@ public class GMapsController implements Serializable {
     public void onRowEdit(RowEditEvent event) {
         switch(decriminatorValue) {
         case "Столб": 
-	    pillarFacade.merge(pillar);           
+    	    pillarFacade.merge(pillar);           
 		break;
 	case "Колодец": 
 	    drawWellFacade.merge(draw);
@@ -323,7 +321,7 @@ public class GMapsController implements Serializable {
 	    break;
         }        
         
-        FacesMessage msg = new FacesMessage("Edited");
+        FacesMessage msg = new FacesMessage("Сохранено");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         
     }
@@ -336,12 +334,23 @@ public class GMapsController implements Serializable {
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
-         
+        
+        DataTable s = (DataTable) event.getSource();
+        String m = s.getRowData().toString();
+        String ms = m.substring(m.indexOf('=')+ 1, m.indexOf(','));
+        int ids = Integer.parseInt(ms);
+
+        selected_clutch_toGet_id = (Clutch)s.getRowData();
+
+        clutchFacade.merge(selected_clutch_toGet_id);
+        
         if(newValue != null && !newValue.equals(oldValue)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Сохранено", "Old: " + oldValue + ", New:" + newValue );
             FacesContext.getCurrentInstance().addMessage(null, msg);
+
         }
-    }    
+    }   
+    
 
     public List<Clutch> getSelect_clutch() {
         return select_clutch;
@@ -468,4 +477,13 @@ public class GMapsController implements Serializable {
     public void setDecriminatorValue(String decriminatorValue) {
         this.decriminatorValue = decriminatorValue;
     }
+
+    public Clutch getSelected_clutch_toGet_id() {
+        return selected_clutch_toGet_id;
+    }
+
+    public void setSelected_clutch_toGet_id(Clutch selected_clutch_toGet_id) {
+        this.selected_clutch_toGet_id = selected_clutch_toGet_id;
+    }
+    
 }

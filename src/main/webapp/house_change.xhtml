@@ -68,19 +68,19 @@ and open the template in the editor.
                 <p:column style="width:32px">
                     <p:rowEditor />
                 </p:column>
-            </p:dataTable> 
-            <p:contextMenu for="houseEditTable" widgetVar="cMenu">   
-                <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellCars').showCellEditor();return false;"/>  
-                <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('cMenu').hide()"/>  
-            </p:contextMenu>          
+            </p:dataTable>         
               
-            <p:dataTable value="#{gMapsController.selected_point.clutch}" var="clutchs" editable="true">
+            <p:dataTable id="clutchEditTable" value="#{gMapsController.select_clutch}" selection="#{gMapsController.selected_clutch_toGet_id}"  rowKey="#{clutchs.id}" var="clutchs" widgetVar="cellClutch" editable="true" editMode="cell">
                 <f:facet name="header">
                     Муфта
                 </f:facet>
-                <p:column headerText="ID">
-                    <h:outputText value="#{clutchs.id}" />
-                </p:column>                
+                <p:ajax event="cellEdit" listener="#{gMapsController.onCellEdit}" update="f_h:msgs" />
+                
+                <p:column id="ids" headerText="ID">
+                    <h:outputText value="#{clutchs.id}" >
+                    </h:outputText>
+                </p:column>  
+                
                 <p:column headerText="Кол. кассет">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{clutchs.cassetsCount}" /></f:facet>
@@ -94,6 +94,7 @@ and open the template in the editor.
                         <f:facet name="input"><p:inputText id="cl_con" value="#{clutchs.conditions}" style="width:100%"/></f:facet>
                     </p:cellEditor>                    
                 </p:column>
+                
                 <p:column headerText="Инфо">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{clutchs.info}" /></f:facet>
@@ -106,11 +107,12 @@ and open the template in the editor.
                         <f:facet name="output"><h:outputText value="#{clutchs.inputs}" /></f:facet>
                         <f:facet name="input"><p:inputText  value="#{clutchs.inputs}" style="width:100%"/></f:facet>
                     </p:cellEditor>                    
-                </p:column>
-                <p:column style="width:32px">
-                    <p:rowEditor />
-                </p:column>                
-            </p:dataTable>            
+                </p:column>                               
+            </p:dataTable>
+            <p:contextMenu for="clutchEditTable" widgetVar="cMenu">   
+                <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellClutch').showCellEditor();return false;"/>  
+                <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('cMenu').hide()"/>  
+            </p:contextMenu>            
         </h:form>
     </h:body>
 </html>

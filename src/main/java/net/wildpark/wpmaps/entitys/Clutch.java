@@ -31,7 +31,7 @@ public class Clutch implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="clutch_id")
-    private Long id;
+    private int id;
     private String conditions;
     private int cassetsCount;
     private String info;
@@ -54,15 +54,15 @@ public class Clutch implements Serializable {
 //    @ManyToOne
 //    @JoinColumn(name = "point_id")
 //    private MapPoint mappoint;
-    
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
+    
 
     public String getConditions() {
         return conditions;
@@ -102,27 +102,6 @@ public class Clutch implements Serializable {
 
     public void setCable(List<Cabel> cable) {
         this.cable = cable;
-    }
-    
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Clutch)) {
-            return false;
-        }
-        Clutch other = (Clutch) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
     }
 
     @Override

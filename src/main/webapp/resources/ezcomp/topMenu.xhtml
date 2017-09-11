@@ -15,20 +15,20 @@
         <p:panel id="historyMenuPanel" styleClass="historyMenuPanel" >   
             <header>
                 <div class="container" id="one">  
-                    <img class="icon" src="../resources/images/file.png"></img> 
+                    <img class="icon" src="../resources/images/file.png" title="Файл"></img> 
                 </div>
                 <div class="container" id="two">  
-                    <img class="icon" src="../resources/images/Developer.png"></img>
+                    <img class="icon" src="../resources/images/Developer.png" title="Разработка"></img>
                 </div>
                 <div class="container" id="three">
                     <h:commandLink action="#{topMenuController.linkAction(actionEvent)}" >
-                        <p:graphicImage class="icon"  value="../resources/images/#{topMenuController.imgName}.png"/>
+                        <p:graphicImage class="icon"  value="../resources/images/#{topMenuController.imgName}.png" title="Режим работы"/>
                     </h:commandLink>                    
                 </div>
                 <div class="container" id="four">                                               
                     <nav>
                         <ul class="topmenu">
-                            <li><img class="icon submenu-link" src="../resources/images/profile.png"></img>
+                            <li><img class="icon submenu-link" src="../resources/images/profile.png" title="Профиль"></img>
                                 <ul class="submenu">
                                     <li>
                                         <h:commandLink value="LogOff" action="#{logOffController.logout()}" >
@@ -42,7 +42,7 @@
                 <div class="container" id="five"> 
                     <nav>
                         <ul class="topmenu">
-                            <li><img class="icon submenu-link" src="../resources/images/Help.ico"></img>
+                            <li><img class="icon submenu-link" src="../resources/images/info.png" title="Информация"></img>
                                 <ul class="submenu">
                                     <li style=" padding-top: 15px;">
                                         <p:outputLabel  title="Показать легенду" onclick="openHistory()" value="Легенда"/>

@@ -16,7 +16,7 @@
         <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/images/favicon.ico" />
         <title>WP Maps</title>
         <h:outputStylesheet library="css" name="pf_template.css" />
-       <h:outputStylesheet library="css" name="simple_add_panell.css" /> 
+        <h:outputStylesheet library="css" name="simple_add_panell.css" /> 
         
         <script src = "http://maps.google.com/maps/api/js?key=AIzaSyDzwk44zfDh3JQSN1ooK-SIXzvODeFo_dc"
                 type = "text/javascript" />
@@ -50,7 +50,7 @@
         <p:gmap id ="gmap" center="#{gMapsController.centerGeoMap}" zoom="#{gMapsController.zoomMap}" type="terrain" model="#{gMapsController.model}"                 
                 style="width: 100vw;height: 100vh;" onPointClick="handlePointClick(event);" widgetVar="map" fitBounds="false">
             
-            <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}" />    
+            <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}" /> 
             <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />           
             <p:ajax event="stateChange" listener="#{gMapsController.onStateChange}"  />
 
@@ -297,7 +297,6 @@
                     </div >                                                       
                 </div>        
             <p:commandButton value="Отмена" onclick="PF('drawChange').hide()" class="butCancel"></p:commandButton>
-            <p:commandButton value="save" action="#{gMapsController.updateDraw}" onclick="PF('drawChange').hide()" class="butAdd"></p:commandButton>
             </p:tab>        
                            
             <p:tab id="clutch" title="Муфта">

@@ -36,15 +36,6 @@ public class ClutchController implements Serializable {
         return this.added_clutch;
     }
     
-    public void onCellEdit(CellEditEvent event) {
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-         
-        if(newValue != null && !newValue.equals(oldValue)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
     public void delLine(ActionEvent actionEvent) {
         this.added_clutch.clear();
     }
