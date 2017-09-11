@@ -266,6 +266,38 @@ public class GMapsController implements Serializable {
             }           
         }
     }
+    
+    
+    public void viewBugCustomized() {
+
+        
+        Map<String,Object> optionsBugPage = new HashMap<>();
+        optionsBugPage.put("modal", true);
+        optionsBugPage.put("width", 840);
+        optionsBugPage.put("height", 340);
+        optionsBugPage.put("contentWidth", "100%");
+        optionsBugPage.put("contentHeight", "100%");
+        optionsBugPage.put("headerElement", "customheader");
+        
+	RequestContext.getCurrentInstance().openDialog("bugReportPage", optionsBugPage, null);
+
+    }    
+    public void viewBugListCustomized() {
+
+        
+        Map<String,Object> optionsBugList = new HashMap<>();
+        optionsBugList.put("modal", true);
+        optionsBugList.put("width", 840);
+        optionsBugList.put("height", 340);
+        optionsBugList.put("contentWidth", "100%");
+        optionsBugList.put("contentHeight", "100%");
+        optionsBugList.put("headerElement", "customheader");
+        
+	RequestContext.getCurrentInstance().openDialog("bugListPage", optionsBugList, null);
+
+    }    
+    
+    
     public void viewCarsCustomized() {
         this.sel_pillar_list.clear();
         this.sel_house_list.clear();

@@ -18,7 +18,24 @@
                     <img class="icon" src="../resources/images/file.png" title="Файл"></img> 
                 </div>
                 <div class="container" id="two">  
-                    <img class="icon" src="../resources/images/Developer.png" title="Разработка"></img>
+                    <nav>
+                        <ul class="topmenu">
+                            <li><img class="icon" src="../resources/images/Developer.png" title="Разработка"></img>
+                                <ul class="submenu">
+                                    <li>
+                                        <h:commandButton value="Создать репорт"  actionListener="#{gMapsController.viewBugCustomized}" >
+                                            <f:ajax  render="f_br" />
+                                        </h:commandButton>
+                                    </li>
+                                    <li>
+                                        <h:commandLink value="Просмотр репортов"  action="#{gMapsController.viewBugListCustomized()}" >
+                                            <f:ajax  render="f_br" />
+                                        </h:commandLink>
+                                    </li>                                    
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>                    
                 </div>
                 <div class="container" id="three">
                     <h:commandLink action="#{topMenuController.linkAction(actionEvent)}" >
