@@ -33,9 +33,15 @@ public class UserController implements Serializable {
     @EJB
     private LogFacade logFacade;
     private User current=new User();
+    private User newUser = new User();
     private List<User> users=new ArrayList<>();
     private boolean entered=false;
     private boolean admin=false;
+    
+    private String new_password = "";
+    private String new_login = "";
+    private String new_info = "";
+    
     
     public UserController() {
     }
@@ -48,6 +54,7 @@ public class UserController implements Serializable {
             admin.setAbout("I`m first user. I`m admin");
             admin.setPassword("156456851");
             admin.getMessages().add("Created automaticly by system");
+            admin.setActive(true);
             userFacade.create(admin);
             users.add(admin);
             
@@ -58,6 +65,7 @@ public class UserController implements Serializable {
             admin2.setAbout("I`m first user. I`m admin");
             admin2.setPassword("12344321");
             admin2.getMessages().add("Created automaticly by system");
+            admin.setActive(true);
             userFacade.create(admin2);
             users.add(admin2);           
             
@@ -81,6 +89,21 @@ public class UserController implements Serializable {
         addMessage("Совпадений не найдено");
         return "";
     }
+    
+    public void registration(){
+
+            User new_user=new User();
+            new_user.setLogin(newUser.getLogin());
+            new_user.setEmail("informer@mksat.net");
+            new_user.setAbout(newUser.getAbout());
+            new_user.setPassword(newUser.getPassword());
+            new_user.setActive(true);
+            new_user.setUserRole(UserRole.USER);
+            new_user.getMessages().add("Created automaticly by system");
+            userFacade.create(newUser);
+            users.add(new_user);              
+
+    }
 
     public User getCurrent() {
         return current;
@@ -90,6 +113,15 @@ public class UserController implements Serializable {
         this.current = current;
     }
 
+    public User getNewUser() {
+        return newUser;
+    }
+
+    public void setNewUser(User newUser) {
+        this.newUser = newUser;
+    }
+
+    
     public List<User> getUsers() {
         return users;
     }
@@ -97,6 +129,31 @@ public class UserController implements Serializable {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+
+    public String getNew_login() {
+        return new_login;
+    }
+
+    public void setNew_login(String new_login) {
+        this.new_login = new_login;
+    }
+
+    public String getNew_password() {
+        return new_password;
+    }
+
+    public void setNew_password(String new_password) {
+        this.new_password = new_password;
+    }
+
+    public String getNew_info() {
+        return new_info;
+    }
+
+    public void setNew_info(String new_info) {
+        this.new_info = new_info;
+    }
+    
     
     
     private String getIpRequest(){

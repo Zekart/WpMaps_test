@@ -309,8 +309,8 @@
 
                     </div>
                     <h:panelGrid class="butAdd"  rendered="#{gMapsController.obj_type == 'DRAW_WELL'}"  >
-                        <p:commandButton value="Подтвердить" style="margin-left: 86%;margin-top: 25px;" actionListener="#{mapObjController.saveDrawWell()}" action="#{gMapsController.initPoint()}"  validateClient="true" update="gmap">
-                            <p:ajax oncomplete="PF('wizp').loadStep('obj',false);" resetValues="true"/>
+                        <p:commandButton value="Подтвердить" style="margin-left: 86%;margin-top: 25px;" actionListener="#{mapObjController.saveDrawWell()}" action="#{gMapsController.initPoint()}" validateClient="true" update="gmap">
+                            <p:ajax oncomplete="PF('wizp').loadStep('obj',false);"/>
                         </p:commandButton>
                     </h:panelGrid> 
                     <h:panelGrid class="butAdd"  rendered="#{gMapsController.obj_type == 'HOUSE'}"  >
@@ -319,7 +319,7 @@
                         </p:commandButton>
                     </h:panelGrid>
                     <h:panelGrid class="butAdd"  rendered="#{gMapsController.obj_type == 'PILLAR'}"  >
-                        <p:commandButton value="Подтвердить" style="margin-left: 86%;margin-top: 25px;" actionListener="#{mapObjController.savePillar()}" action="#{gMapsController.initPoint()}"  validateClient="true" update="gmap">
+                        <p:commandButton value="Подтвердить" style="margin-left: 86%;margin-top: 25px;" actionListener="#{mapObjController.savePillar()}" action="#{gMapsController.initPoint()}"   validateClient="true" update="gmap">
                             <p:ajax oncomplete="PF('wizp').loadStep('obj',false);"  resetValues="true"/>
                         </p:commandButton>
                     </h:panelGrid> 

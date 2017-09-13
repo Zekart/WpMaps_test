@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import net.wildpark.wpmaps.entitys.Clutch;
@@ -22,6 +24,7 @@ import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
 import net.wildpark.wpmaps.pageControllers.PointWizard;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -95,16 +98,20 @@ public class MapObjController implements Serializable{
         }
         drawWellFacade.create(drawWell);
         clutch.clear();
+        closeAddPanell();
     }    
     
     public List<Pillar> findPillar(int id){
         pillar_list.clear();
         pillar = pillarFacade.find(id);
         pillar_list.add(pillar);
-        System.out.println("1");
         return pillar_list;
     }
     
+    
+    public void closeAddPanell(){
+        RequestContext.getCurrentInstance().execute("alert('peek-a-boo');");      
+    }
 
     public List<Pillar> getTemp_pillar_list() {
         return temp_pillar_list;

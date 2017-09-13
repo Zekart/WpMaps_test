@@ -28,10 +28,11 @@ public class User implements Serializable {
     private Long id;
     private String login="";
     private String password="";
-    private String email="";
+    private String email;
     private UserRole userRole=UserRole.USER;
     private List<String> messages=new ArrayList<>();
     private String about;
+    private boolean active; 
     
     public Long getId() {
         return id;
@@ -88,6 +89,15 @@ public class User implements Serializable {
     public void setAbout(String about) {
         this.about = about;
     }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
     
     
     

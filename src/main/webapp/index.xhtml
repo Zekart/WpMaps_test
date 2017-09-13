@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>WP Maps</title>
-        <h:outputStylesheet library="css" name="index_template.css" />
+        <h:outputStylesheet library="css" name="login_page.css" />
         <script src = "http://maps.google.com/maps/api/js?key=AIzaSyDzwk44zfDh3JQSN1ooK-SIXzvODeFo_dc"
                 type = "text/javascript" />
     </h:head>
@@ -15,20 +15,47 @@
 <!--        <p:gmap center="46.968687,31.9790294" zoom="17" type="terrain" model="{gMapsController.model}" 
                 draggable="false" navigationControl="false" disableDefaultUI="true" scrollWheel="false"
                 mapTypeControl="false" disableDoubleClickZoom="true" style="width: 100vw;height: 100vh;" /> -->
-        <p:panel header="Авторизация" id="loginPanel" styleClass="loginPanel" >
+
             <h:form>
-                <h:panelGrid columns="1" >
-                    <h:inputText value="#{userController.current.login}" id="login" style="text-align: center;" />
-                    <h:inputSecret value="#{userController.current.password}" id="password" style="text-align: center;" />
-                    <p:commandButton action="#{userController.login()}" value="Войти" />
-                </h:panelGrid>
-                <p:watermark for="login" value="Логин" />
-                <p:watermark for="password" value="Пароль" />
+                <div id="login-box" class="wraper">
+                    
+              <div class="left">
+                <h1>Авторизация</h1>
+
+                <h:inputText id="log" value="#{userController.current.login}"/>
+
+                <h:inputSecret id="pass" value="#{userController.current.password}" />
+
+                <p:watermark for="log" value="Логин" />
+                <p:watermark for="pass" value="Пароль" />
+                <p:commandButton styleClass="social-signin google" action="#{userController.login()}" value="Войти" /> 
+              </div>
+
+            <div class="right" id="searchCollapse">
+                <span class="loginwith">Регистрация<br />пользователя</span>
+
+                <h:inputText id="new_log" value="#{userController.newUser.login}"/>
+                <h:inputSecret id="new_pass" value="#{userController.newUser.password}"/>
+                <h:inputText id="new_about" value="#{userController.newUser.about}"/>
+                <p:commandButton styleClass="social-signin twitter" action="#{userController.registration()}" value="регистрация" /> 
+                <p:watermark for="new_log" value="Логин" />
+                <p:watermark for="new_pass" value="Пароль" />
+                <p:watermark for="new_about" value="ФИО" />
+            </div>
+              <div class="or">ИЛИ
+              
+                    <a class="search-toggle" href="#">Клик</a>
+              </div>
+            </div>            
             </h:form>
-        </p:panel>
-        <p:draggable for="loginPanel" />
-
-
     </h:body>
+    <script>
+        $(".search-toggle").click(function () {
+            var effect = 'slide';
+            var options = { direction: 'right' };
+            var duration = 700;
+            $('#searchCollapse').toggle(effect, options, duration);
+        });
+    </script>
 </html>
 

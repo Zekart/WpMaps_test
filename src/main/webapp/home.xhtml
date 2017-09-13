@@ -190,7 +190,7 @@
         }
 
         function cancel() {
-            //PF('wizp').loadStep('obj', false);
+            PF('wizp').loadStep('obj', false);
             PF('dlg').hide();
             currentMarker.setMap(null);
             currentMarker = null;
@@ -222,8 +222,8 @@
             
         }        
         function closeWizard(){
+            PF('wizp').loadStep('obj', false);
             PF('dlg').hide();
-            return false;
         }        
         function showCabel(){
             PF('cab_pan').show();

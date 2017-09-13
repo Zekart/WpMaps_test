@@ -16,7 +16,6 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.ConnectPoint;
 import net.wildpark.wpmaps.entitys.DrawWell;
@@ -40,7 +39,6 @@ import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
-import org.primefaces.event.SelectEvent;
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.map.GeocodeResult;
@@ -68,7 +66,7 @@ public class GMapsController implements Serializable {
     private ConnectPointFacade conFacade;
     
     //private boolean pillarflag = false;
-    ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+
     
     private MapModel model;
     private Marker marker;
@@ -139,10 +137,7 @@ public class GMapsController implements Serializable {
             
             polyline.getPaths().add(new LatLng(mapFacade.find(c.getToPoint()).getLat(), mapFacade.find(c.getToPoint()).getLng()));
             polyline.getPaths().add(new LatLng(mapFacade.find(c.getFromPoint()).getLat(), mapFacade.find(c.getFromPoint()).getLng()));
-//            if (polyline.getPaths().size() == 2){
-            System.out.println(polyline.getPaths().size());
-//                continue;
-//            }
+            
             model.addOverlay(polyline);
             
         }
@@ -224,8 +219,7 @@ public class GMapsController implements Serializable {
                 coord.clear();
             }else{
                 for (LatLng en : coord ){
-                    polyline.getPaths().add(en);
-                    System.out.println(polyline.getPaths());
+                    polyline.getPaths().add(en);                    
                 }
                 model.addOverlay(polyline);
 
