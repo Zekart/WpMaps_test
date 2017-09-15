@@ -15,47 +15,45 @@
 <!--        <p:gmap center="46.968687,31.9790294" zoom="17" type="terrain" model="{gMapsController.model}" 
                 draggable="false" navigationControl="false" disableDefaultUI="true" scrollWheel="false"
                 mapTypeControl="false" disableDoubleClickZoom="true" style="width: 100vw;height: 100vh;" /> -->
-
-            <h:form>
-                <div id="login-box" class="wraper">
-                    
-              <div class="left">
-                <h1>Авторизация</h1>
-
-                <h:inputText id="log" value="#{userController.current.login}"/>
-
-                <h:inputSecret id="pass" value="#{userController.current.password}" />
-
-                <p:watermark for="log" value="Логин" />
-                <p:watermark for="pass" value="Пароль" />
-                <p:commandButton styleClass="social-signin google" action="#{userController.login()}" value="Войти" /> 
-              </div>
-
-            <div class="right" id="searchCollapse">
-                <span class="loginwith">Регистрация<br />пользователя</span>
-
-                <h:inputText id="new_log" value="#{userController.newUser.login}"/>
-                <h:inputSecret id="new_pass" value="#{userController.newUser.password}"/>
-                <h:inputText id="new_about" value="#{userController.newUser.about}"/>
-                <p:commandButton styleClass="social-signin twitter" action="#{userController.registration()}" value="регистрация" /> 
-                <p:watermark for="new_log" value="Логин" />
-                <p:watermark for="new_pass" value="Пароль" />
-                <p:watermark for="new_about" value="ФИО" />
-            </div>
-              <div class="or">ИЛИ
-              
-                    <a class="search-toggle" href="#">Клик</a>
-              </div>
+        <h:form id="authorizationForm" >
+            <div id="login-box" class="wraper">      
+                <div class="left">
+                    <h1>Авторизация</h1>
+                    <h:inputText id="log" value="#{userController.current.login}"/>
+                    <h:inputSecret id="pass" value="#{userController.current.password}" />
+                    <p:watermark for="log" value="Логин" />
+                    <p:watermark for="pass" value="Пароль" />
+                    <p:commandButton styleClass="social-signin google" action="#{userController.login()}" value="Войти" /> 
+                    <div class="or">+</div>
+                </div>
+                <div class="right" id="registrationCollapse">
+                    <span class="loginwith">Регистрация<br />пользователя</span>
+                    <h:inputText id="new_log" value="#{userController.newUser.login}"/>
+                    <h:inputSecret id="new_pass" value="#{userController.newUser.password}"/>
+                    <h:inputText id="new_about" value="#{userController.newUser.about}"/>
+                    <p:commandButton id="confirmRegistration" onclick="hideRegistrationForm()" styleClass="social-signin twitter" action="#{userController.registration()}" value="регистрация" />
+                    <p:watermark for="new_log" value="Логин" />
+                    <p:watermark for="new_pass" value="Пароль" />
+                    <p:watermark for="new_about" value="ФИО" />
+                </div>
             </div>            
-            </h:form>
+        </h:form>
     </h:body>
     <script>
-        $(".search-toggle").click(function () {
-            var effect = 'slide';
-            var options = { direction: 'right' };
-            var duration = 700;
-            $('#searchCollapse').toggle(effect, options, duration);
-        });
+        $('.or').click(function(){
+            if($(this).hasClass('active')) {
+                $('#registrationCollapse').animate({left: '50%'}, 200);
+                $(this).removeClass("active");
+            } else {
+                $('#registrationCollapse').animate({left: '0%'}, 200);
+                $(this).toggleClass("active");
+            }
+        }); 
+        function hideRegistrationForm(){
+            //$('#registrationCollapse').animate({left: '0%'}, 200);  
+            //$(this).toggleClass("active");
+        }
+        
     </script>
 </html>
 

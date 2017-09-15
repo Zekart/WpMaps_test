@@ -8,9 +8,10 @@ package net.wildpark.wpmaps.enums;
 public enum PillarOwner{
     OBL_ENERGO("Облэнерго"),
     EL_TRANCE("Электротранс"),
-    GOR_SVET("ГОРСВЕТ"),
+    GOR_SVET("Горсвет"),
     UKR_TELECOM("Укртелеком"),
-    PRIVATE_USER("Частник");
+    PRIVATE_USER("Частное лицо"),
+    NOT_ALL("н/о");
     
     private String owner_type;
 

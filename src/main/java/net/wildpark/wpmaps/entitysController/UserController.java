@@ -65,7 +65,7 @@ public class UserController implements Serializable {
             admin2.setAbout("I`m first user. I`m admin");
             admin2.setPassword("12344321");
             admin2.getMessages().add("Created automaticly by system");
-            admin.setActive(true);
+            admin2.setActive(true);
             userFacade.create(admin2);
             users.add(admin2);           
             
@@ -99,12 +99,12 @@ public class UserController implements Serializable {
             new_user.setPassword(newUser.getPassword());
             new_user.setActive(true);
             new_user.setUserRole(UserRole.USER);
-            new_user.getMessages().add("Created automaticly by system");
+            new_user.setEmail("Created automaticly by system");
             userFacade.create(newUser);
-            users.add(new_user);              
+            users.add(new_user);    
 
     }
-
+    
     public User getCurrent() {
         return current;
     }

@@ -29,17 +29,24 @@ public class Pillar extends MapPoint implements Serializable{
     @Column(name = "pillar_type")
     @Enumerated(EnumType.STRING)
     private PillarType type;
-        
+    
+    @Column(name = "fidr")
+    private String fidr;    
+    
+    @Column(name = "form")
+    private String form;
 
     public Pillar() {
 
     }
 
-    public Pillar(int id, String owner,Double lat,Double lng,String address,String transportStation,int numberStation,PillarMaterial material, PillarType type,byte[] pic,List<Clutch> clutch) {
+    public Pillar(int id, String owner,Double lat,Double lng,String address,String transportStation,int numberStation,PillarMaterial material,String fidr,String form, PillarType type,byte[] pic,List<Clutch> clutch) {
         super(id, owner,lat,lng,address,transportStation,numberStation,pic,clutch);
         this.material = material;
-        this.material = material;
+        this.fidr = fidr;
+        this.form = form;
         this.type = type;
+        
     }
 
     public PillarType getType() {
@@ -57,7 +64,22 @@ public class Pillar extends MapPoint implements Serializable{
     public void setMaterial(PillarMaterial material) {
         this.material = material;
     }   
-   
+
+    public String getFidr() {
+        return fidr;
+    }
+
+    public void setFidr(String fidr) {
+        this.fidr = fidr;
+    }
+
+    public String getForm() {
+        return form;
+    }
+
+    public void setForm(String form) {
+        this.form = form;
+    }
     
 
     @Override
@@ -71,6 +93,8 @@ public class Pillar extends MapPoint implements Serializable{
                 ", numberStation='" + getNumberStation() + '\'' +
                 ", material=" + getMaterial() +
                 ", type=" + type +
+                ", fidr=" + fidr +
+                ", form=" + form +
                 ", type=" + getRelease_type() +
                 ", clutch=" + getClutch().size() +
                 '}';
