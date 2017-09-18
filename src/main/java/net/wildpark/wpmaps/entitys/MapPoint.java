@@ -89,10 +89,25 @@ public  class MapPoint implements Serializable{
         this.numberStation = numberStation;
         this.clutch = clutch;
         this.pic = pic;
-
     }
     
+    protected  MapPoint(int id, Double lat,Double lng, byte[] pic,List<Clutch> clutch){
+        this.id = id;
+        this.lat = lat;
+        this.lng = lng;
+        this.pic = pic;
+        this.clutch = clutch;
+    }
     
+    protected  MapPoint(int id,String owner, Double lat,Double lng,String address, byte[] pic,List<Clutch> clutch){
+        this.id = id;
+        this.lat = lat;
+        this.lng = lng;
+        this.owner = owner;
+        this.address = address;
+        this.pic = pic;
+        this.clutch = clutch;
+    }    
 
 
     public int getId() {

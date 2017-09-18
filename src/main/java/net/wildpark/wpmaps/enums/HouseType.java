@@ -12,6 +12,7 @@ package net.wildpark.wpmaps.enums;
 public enum HouseType {
     
     SINGLE("Частный"),
+    COMMUNAL_APPARTMENT("Жилкоп"),
     MULTYAPARTMENTS("Многоквартирный");
     
     private String house_type;

@@ -24,15 +24,28 @@ public class House extends MapPoint implements Serializable{
     @Column(name = "house_type")
     @Enumerated(EnumType.STRING)
     private HouseType type_house;
+    
+    @Column(name = "count_floor")
+    private int count_floor;    
+    
+    @Column(name = "count_entrance")
+    private int count_entrance;
        
+    @Column(name = "big_box")
+    private boolean bigBox;
+    
 
+    
     public House() {
 
     }
 
-    public House(int id, String owner, Double lat, Double lng,String address,String transportStation,int numberStation,byte[] pic,List<Clutch> clutch) {
-        super(id, owner,lat,lng,address,transportStation,numberStation,pic,clutch);
+    public House(int id, String owner, Double lat, Double lng,HouseType type_house,int count_floor,String address,int count_entrance,boolean bigBox,byte[] pic,List<Clutch> clutch) {
+        super(id, owner,lat,lng,address,pic,clutch);
         this.type_house = type_house;
+        this.count_floor = count_floor;
+        this.count_entrance = count_entrance;
+        this.bigBox = bigBox;
     }
 
     public HouseType getType_house() {
@@ -42,6 +55,32 @@ public class House extends MapPoint implements Serializable{
     public void setType_house(HouseType type_house) {
         this.type_house = type_house;
     }
+
+    public int getCount_floor() {
+        return count_floor;
+    }
+
+    public void setCount_floor(int count_floor) {
+        this.count_floor = count_floor;
+    }
+
+
+    public int getCount_entrance() {
+        return count_entrance;
+    }
+
+    public void setCount_entrance(int count_entrance) {
+        this.count_entrance = count_entrance;
+    }
+
+    public boolean isBigBox() {
+        return bigBox;
+    }
+
+    public void setBigBox(boolean bigBox) {
+        this.bigBox = bigBox;
+    }
+    
     
 
     @Override

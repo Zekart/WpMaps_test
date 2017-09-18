@@ -5,28 +5,15 @@
  */
 package net.wildpark.wpmaps.pageControllers;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import net.wildpark.wpmaps.entitys.Clutch;
-import net.wildpark.wpmaps.entitys.DrawWell;
-import net.wildpark.wpmaps.enums.DrawWellOwner;
-import net.wildpark.wpmaps.enums.DrawWellType;
-import net.wildpark.wpmaps.facades.DrawWellFacade;
-import net.wildpark.wpmaps.facades.HouseFacade;
-import net.wildpark.wpmaps.facades.PillarFacade;
-import net.wildpark.wpmaps.facades.PointFacade;
-import org.primefaces.model.map.LatLng;
-import org.primefaces.model.map.Marker;
 
 @Named(value = "AddController")
 @SessionScoped
@@ -62,17 +49,7 @@ public class pointAddController implements Serializable{
         }else{
             menuIndex--;
         }
-    }
-    
-
-    
-    
-    public DrawWellOwner[] getDrawWellOwner() {
-        return DrawWellOwner.values();
-    }
-    public DrawWellType[] getDrawWellType() {
-        return DrawWellType.values();
-    }      
+    } 
 
     public double getLat() {
         return lat;

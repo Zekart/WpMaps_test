@@ -10,10 +10,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
-import net.wildpark.wpmaps.enums.DrawWellType;
 
 /**
  *
@@ -25,27 +22,39 @@ import net.wildpark.wpmaps.enums.DrawWellType;
 //@AttributeOverride(name = "numberOfTracks", column = @Column(name = "mp3_release_number_of_tracks"))
 public class DrawWell extends MapPoint implements Serializable{
 
-    @Column(name = "draw_well_type")
-    @Enumerated(EnumType.STRING)
-    private DrawWellType type_draw_well;
+    @Column(name = "pit")
+    private Boolean pit;  
     
+    @Column(name = "chanel_number")
+    private int chanel_number; 
 
     public DrawWell() {
 
     }
 
-    public DrawWell(int id, String owner,Double lat,Double lng,String address,String transportStation,int numberStation, byte[] pic,List<Clutch> clutch) {
-        super(id, owner,lat,lng,address,address, id, pic, clutch);
-        this.type_draw_well = type_draw_well;
+    public DrawWell(int id,Double lat,Double lng,Boolean pit,int chanel_number, byte[] pic,List<Clutch> clutch) {
+        super(id, lat, lng,pic, clutch);
+        this.pit = pit;
+        this.chanel_number = chanel_number;
+        
     }
 
-    public DrawWellType getType_draw_well() {
-        return type_draw_well;
+    public Boolean getPit() {
+        return pit;
     }
 
-    public void setType_draw_well(DrawWellType type_draw_well) {
-        this.type_draw_well = type_draw_well;
+    public void setPit(Boolean pit) {
+        this.pit = pit;
     }
+
+    public int getChanel_number() {
+        return chanel_number;
+    }
+
+    public void setChanel_number(int chanel_number) {
+        this.chanel_number = chanel_number;
+    }
+    
 
 
     @Override
@@ -53,7 +62,8 @@ public class DrawWell extends MapPoint implements Serializable{
         return "DrawWell{" +
                 "id=" + getId() +
                 ", name='" + getOwner() + '\'' +
-                ", type draw well=" + type_draw_well +
+                ", pit=" + pit +
+                ", chanel number=" + chanel_number +
                 '}';
     }
 }

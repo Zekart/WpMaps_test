@@ -11,7 +11,7 @@ package net.wildpark.wpmaps.enums;
  */
 public enum HouseOwner {
     
-    GKX("ЖКХ"),
+    GKX("ЖЭК"),
     OSMD("ОСМД");
     
     private String house_owner;

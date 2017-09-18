@@ -11,8 +11,6 @@ import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import net.wildpark.wpmaps.entitys.DrawWell;
-import net.wildpark.wpmaps.enums.DrawWellOwner;
-import net.wildpark.wpmaps.enums.DrawWellType;
 import net.wildpark.wpmaps.facades.DrawWellFacade;
 
 /**
@@ -26,9 +24,6 @@ public class DrawWellController implements Serializable {
     @EJB
     private DrawWellFacade drawWellFacade;
     private DrawWell d = new DrawWell();
-
-    private DrawWellOwner ownerDrawWell;
-    private DrawWellType type_drawWell;
 
     public DrawWellController() {
     }
@@ -52,29 +47,6 @@ public class DrawWellController implements Serializable {
 
     public void setD(DrawWell d) {
         this.d = d;
-    }
-
-    public DrawWellOwner[] getDrawWellOwner() {
-        return DrawWellOwner.values();
-    }
-    public DrawWellType[] getDrawWellType() {
-        return DrawWellType.values();
-    }  
-
-    public DrawWellOwner getOwnerDrawWell() {
-        return ownerDrawWell;
-    }
-
-    public void setOwnerDrawWell(DrawWellOwner ownerDrawWell) {
-        this.ownerDrawWell = ownerDrawWell;
-    }
-
-    public DrawWellType getType_drawWell() {
-        return type_drawWell;
-    }
-
-    public void setType_drawWell(DrawWellType type_drawWell) {
-        this.type_drawWell = type_drawWell;
     }
     
 }

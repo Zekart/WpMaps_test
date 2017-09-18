@@ -6,18 +6,12 @@
 package net.wildpark.wpmaps.entitysController;
 
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedProperty;
 import javax.inject.Named;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.DrawWell;
 import net.wildpark.wpmaps.entitys.House;
 import net.wildpark.wpmaps.entitys.Pillar;
-import net.wildpark.wpmaps.enums.DrawWellOwner;
-import net.wildpark.wpmaps.enums.DrawWellType;
 import net.wildpark.wpmaps.enums.HouseOwner;
 import net.wildpark.wpmaps.enums.HouseType;
 import net.wildpark.wpmaps.enums.ObjectType;
@@ -29,7 +23,6 @@ import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
-import net.wildpark.wpmaps.pageControllers.GMapsController;
 
 /**
  *
@@ -68,7 +61,6 @@ public class UpdateEntitys implements Serializable{
     
     private String pillar_owner = "";
     private String house_owner = "";
-    private String draw_owner = "";
     
     private PillarMaterial matheriallPillar;
     private PillarType typePillar;
@@ -76,8 +68,7 @@ public class UpdateEntitys implements Serializable{
     private ObjectType obj_type;
     private HouseType typeOfHouse;
     private HouseOwner ownerofHouse;
-    private DrawWellOwner ownerDrawWell;
-    private DrawWellType type_drawWell;
+
     
     
     
@@ -90,8 +81,6 @@ public class UpdateEntitys implements Serializable{
         select_draw_well.setTransportStation(d_station);
         select_draw_well.setNumberStation(d_nstation);
         select_draw_well.setAddress(d_address); 
-        select_draw_well.setOwner(draw_owner);
-        select_draw_well.setType_draw_well(type_drawWell);
         
         
         System.out.println("Draw Well " + select_draw_well);
@@ -151,13 +140,7 @@ public class UpdateEntitys implements Serializable{
     }
     public PillarCapacity[] getPillarCapacity() {
         return PillarCapacity.values();
-    }   
-    public DrawWellOwner[] getDrawWellOwner() {
-        return DrawWellOwner.values();
-    }
-    public DrawWellType[] getDrawWellType() {
-        return DrawWellType.values();
-    }    
+    }     
     public DrawWell getSelect_draw_well() {
         return select_draw_well;
     }
@@ -341,23 +324,7 @@ public class UpdateEntitys implements Serializable{
     public void setOwnerofHouse(HouseOwner ownerofHouse) {
         this.ownerofHouse = ownerofHouse;
     }
-
-    public DrawWellOwner getOwnerDrawWell() {
-        return ownerDrawWell;
-    }
-
-    public void setOwnerDrawWell(DrawWellOwner ownerDrawWell) {
-        this.ownerDrawWell = ownerDrawWell;
-    }
-
-    public DrawWellType getType_drawWell() {
-        return type_drawWell;
-    }
-
-    public void setType_drawWell(DrawWellType type_drawWell) {
-        this.type_drawWell = type_drawWell;
-    }
-
+    
     public String getPillar_owner() {
         return pillar_owner;
     }
@@ -373,19 +340,5 @@ public class UpdateEntitys implements Serializable{
     public void setHouse_owner(String house_owner) {
         this.house_owner = house_owner;
     }
-
-    public String getDraw_owner() {
-        return draw_owner;
-    }
-
-    public void setDraw_owner(String draw_owner) {
-        this.draw_owner = draw_owner;
-    }
-
-
-    
-    
-    
-    
     
 }

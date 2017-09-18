@@ -130,6 +130,22 @@
 
                             <h:panelGrid style="background: transparent; border: none; " rendered="#{gMapsController.obj_type == 'HOUSE'}" columns="2" >
                                 <p:row>
+                                    <p:column>Тип дома </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:selectOneMenu id="h_type" class="add_select" value="#{mapObjController.house.type_house}" >
+                                        <f:selectItems var="h_type" value="#{houseController.houseType}" itemValue="#{h_type}" itemLabel="#{h_type.houseType}"  />
+                                    </p:selectOneMenu>        
+                                </p:row>
+                                <h:panelGrid style="background: transparent; border: none; "   >
+                                    <p:row>
+                                        <p:column>Тип дома </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>Тип дома </p:column>        
+                                    </p:row>   
+                                </h:panelGrid>                                    
+                                <p:row>
                                     <p:column>Транспортная подстанция </p:column>
                                 </p:row>
                                 <p:row>
@@ -154,14 +170,6 @@
                                     </p:inputText>
                                 </p:row>                     
                                 <p:row>
-                                    <p:column>Тип дома </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:selectOneMenu id="h_type" class="add_select" value="#{mapObjController.house.type_house}" >
-                                        <f:selectItems var="h_type" value="#{houseController.houseType}" itemValue="#{h_type}" itemLabel="#{h_type.houseType}"  />
-                                    </p:selectOneMenu>        
-                                </p:row>
-                                <p:row>
                                     <p:column>Владелец</p:column>
                                 </p:row>         
                                 <p:row>
@@ -184,55 +192,41 @@
                             </h:panelGrid>
 
                             <h:panelGrid style="background: transparent; border: none; "  rendered="#{gMapsController.obj_type == 'DRAW_WELL'}" columns="2" >
+ 
                                 <p:row>
-                                    <p:column>Транспортная подстанция </p:column>
+                                    <p:column>№ колодца: </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:inputText  id="d_station" class="add_inputfield" required="true" value="#{mapObjController.drawWell.transportStation}" requiredMessage="Пустые поля" >
-                                    </p:inputText>                                           
-                                </p:row>
-                                <p:row>
-                                    <p:column>Номер подстанции </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:inputText required="true" class="add_inputfield" requiredMessage="Пустые поля" value="#{mapObjController.drawWell.numberStation}" >
-                                    </p:inputText>
-                                </p:row> 
-                                <p:row>
-                                    <p:column>Адрес: </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:inputText  value="#{mapObjController.drawWell.address}" class="add_inputfield">
+                                    <p:inputText  value="#{mapObjController.drawWell.numberStation}" class="add_inputfield">
                                         <f:validateLength minimum="1" />
                                     </p:inputText>
                                 </p:row>
                                 <p:row>
-                                    <p:column>Владелец</p:column>
-                                </p:row>         
-                                <p:row>
-                                    <p:selectOneMenu id="d_owner" class="add_select" value="#{mapObjController.drawWell.owner}"  >
-                                        <f:selectItems var="d_owner" value="#{drawWellController.drawWellOwner}" itemValue="#{d_owner}" itemLabel="#{d_owner.drawWellOwner}"/>
-                                    </p:selectOneMenu>        
-                                </p:row>                                
-                                <p:row>
-                                    <p:column>Тип</p:column>
-                                </p:row> 
-                                <p:row>                    
-                                    <p:selectOneMenu id="d_type" class="add_select" value="#{mapObjController.drawWell.type_draw_well}" >
-                                        <f:selectItems var="d_type" value="#{drawWellController.drawWellType}" itemValue="#{d_type}" itemLabel="#{d_type.drawWellType}"/>
-                                    </p:selectOneMenu>        
+                                    <p:column>№ канала: </p:column>
                                 </p:row>
-                   
+                                <p:row>
+                                    <p:inputText  value="#{mapObjController.drawWell.chanel_number}" class="add_inputfield">
+                                        <f:validateLength minimum="1" />
+                                    </p:inputText>
+                                </p:row> 
+                                <p:row>
+                                    <h:outputText value="Приямок: " />
+                                </p:row>
+                                <p:row>
+                                    <p:selectBooleanCheckbox value="#{mapObjController.drawWell.pit}" />
+                                </p:row>                                                                                        
+                                <p:row>
+                                    <h:outputText value="Без муфты: " />                      
+                                </p:row>        
+                                <p:row>
+                                    <p:selectBooleanCheckbox value="#{pointWizard.skip}" />                        
+                                </p:row>    
                                 <p:row>
                                     <p:column>Изображение</p:column>
                                 </p:row>
                                 <p:row>
                                     <p:fileUpload value="#{fileUploadView.image}" mode="simple"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                                </p:row>     
-                                <p:row>
-                                    <h:outputText value="Без муфты: " />
-                                    <h:selectBooleanCheckbox value="#{pointWizard.skip}" />                        
-                                </p:row>                     
+                                </p:row>                                
                             </h:panelGrid>    
                         </p:panel>
 

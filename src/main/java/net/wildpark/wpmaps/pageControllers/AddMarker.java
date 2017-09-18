@@ -19,8 +19,6 @@ import net.wildpark.wpmaps.entitys.DrawWell;
 import net.wildpark.wpmaps.entitys.House;
 import net.wildpark.wpmaps.entitys.MapPoint;
 import net.wildpark.wpmaps.entitys.Pillar;
-import net.wildpark.wpmaps.enums.DrawWellOwner;
-import net.wildpark.wpmaps.enums.DrawWellType;
 import net.wildpark.wpmaps.enums.HouseOwner;
 import net.wildpark.wpmaps.enums.HouseType;
 import net.wildpark.wpmaps.enums.ObjectType;
@@ -145,14 +143,7 @@ public class AddMarker implements Serializable {
     public void setObj_type(ObjectType obj_type) {
         this.obj_type = obj_type;
     }
-    
-    
-    public DrawWellOwner[] getDrawWellOwner() {
-        return DrawWellOwner.values();
-    }
-    public DrawWellType[] getDrawWellType() {
-        return DrawWellType.values();
-    }     
+      
     public HouseType[] getHouseType() {
         return HouseType.values();
     }
