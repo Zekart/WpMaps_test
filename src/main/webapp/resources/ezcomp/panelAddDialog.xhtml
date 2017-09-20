@@ -129,24 +129,17 @@
                             </h:panelGrid>    
 
                             <h:panelGrid style="background: transparent; border: none; " rendered="#{gMapsController.obj_type == 'HOUSE'}" columns="2" >
-                                <p:row>
+                                <p:row >
                                     <p:column>Тип дома </p:column>
                                 </p:row>
                                 <p:row>
                                     <p:selectOneMenu id="h_type" class="add_select" value="#{mapObjController.house.type_house}" >
-                                        <f:selectItems var="h_type" value="#{houseController.houseType}" itemValue="#{h_type}" itemLabel="#{h_type.houseType}"  />
+                                        <f:selectItems var="h_type" value="#{houseController.houseType}" itemValue="#{h_type}" itemLabel="#{h_type.houseType}" />
+                                        <p:ajax update="type_house_panel" />
                                     </p:selectOneMenu>        
                                 </p:row>
                                 <p:row>
-                                    
-                                    <h:panelGrid style="background: transparent; border: none; "   >
-                                        <p:row>
-                                            <p:column>Тип дома </p:column>
-                                        </p:row>
-                                        <p:row>
-                                            <p:column>Тип дома </p:column>        
-                                        </p:row>   
-                                    </h:panelGrid>                                    
+
                                 </p:row>
                                 <p:row>
                                     
@@ -176,14 +169,9 @@
                                         <f:validateLength minimum="1" />
                                     </p:inputText>
                                 </p:row>                     
-                                <p:row>
-                                    <p:column>Владелец</p:column>
-                                </p:row>         
-                                <p:row>
-                                    <p:selectOneMenu id="h_owner" class="add_select" value="#{mapObjController.house.owner}" >
-                                        <f:selectItems var="h_owner" value="#{houseController.houseOwner}" itemValue="#{h_owner}" itemLabel="#{h_owner.houseOwner}"/>
-                                    </p:selectOneMenu>        
-                                </p:row>
+
+                                
+                                
                                 <p:row>
                                     <p:column>Изображение</p:column>
                                 </p:row>
@@ -195,7 +183,29 @@
                                 <p:row>
                                     <h:outputText value="Без муфты: " />
                                     <h:selectBooleanCheckbox value="#{pointWizard.skip}" />                        
-                                </p:row>                    
+                                </p:row>  
+                                <f:facet name="footer">
+                                    <h:panelGroup id="type_house_panel" style="display:block;text-align:left"  >
+                                        <p:outputPanel  rendered="#{mapObjController.house.type_house == 'SINGLE'}" autoUpdate="true">
+                                            <p:outputLabel value="Частный"/>
+                                        </p:outputPanel>
+                                        <p:outputPanel  rendered="#{mapObjController.house.type_house == 'COMMUNAL_APPARTMENT'}" autoUpdate="true">
+                                            <p:outputLabel value="Коммуналка"/>
+                                        </p:outputPanel>
+                                        <p:outputPanel  rendered="#{mapObjController.house.type_house == 'MULTYAPARTMENTS'}" autoUpdate="true">
+                                            <div class="ui-g">
+                                                <div class="ui-g-12 ui-g-nopad" style="padding: 0;">
+                                                    <div class="ui-g-5" style="padding: 0;">Владелец</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 40px;">
+                                                        <p:selectOneMenu id="h_owner" class="add_select" value="#{mapObjController.house.owner}" >
+                                                            <f:selectItems var="h_owner" value="#{houseController.houseOwner}" itemValue="#{h_owner}" itemLabel="#{h_owner.houseOwner}"/>
+                                                        </p:selectOneMenu>                                                                                                                
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p:outputPanel>                        
+                                    </h:panelGroup>
+                                </f:facet>                                
                             </h:panelGrid>
 
                             <h:panelGrid style="background: transparent; border: none; "  rendered="#{gMapsController.obj_type == 'DRAW_WELL'}" columns="2" >
