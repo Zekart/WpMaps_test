@@ -85,7 +85,7 @@ public class MapObjController implements Serializable{
         if(pz.isSkip()!= true){
             house.setClutch(clutch);
         }
-        houseFacade.create(house);
+        houseFacade.create(house);     
         clutch.clear();
     }
     public void saveDrawWell(){
@@ -106,9 +106,21 @@ public class MapObjController implements Serializable{
         return pillar_list;
     }
     
-    
     public void closeAddPanell(){
         RequestContext.getCurrentInstance().execute("alert('peek-a-boo');");      
+    }
+        public void reset() {
+        
+            try {
+                if (this.pillar == null) {
+                    System.out.println("Pillar have not address");
+                }else{
+                    System.out.println(this.pillar.getAddress());
+                }
+            } catch (Exception ex) {
+                System.out.println("Pillar addres = " + ex);
+            }
+        RequestContext.getCurrentInstance().reset("form:panelAdd");
     }
 
     public List<Pillar> getTemp_pillar_list() {

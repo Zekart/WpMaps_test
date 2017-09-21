@@ -28,6 +28,11 @@
                 position: absolute;
 
             }
+            .butReset{
+                top: 13px;
+                right: 45px;
+                position: absolute;                
+            }
             .add_inputfield{
                 width: 225px;
             }
@@ -71,6 +76,7 @@
 
                                 <p:row>
                                     <p:column>Транспортная подстанция </p:column>
+
                                 </p:row>
                                 <p:row>
                                     <p:inputText  id="pil_station" class="add_inputfield" required="true" value="#{mapObjController.pillar.transportStation}" requiredMessage="Пустые поля" >
@@ -120,7 +126,8 @@
                                 <p:row>
                                     <p:fileUpload value="#{fileUploadView.image}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                                 </p:row>
-                                <p:row>                    
+                                <p:row>
+                                    <p:commandButton value="Reset Code" update="gridPoint" process="@this" action="#{mapObjController.reset()}"  style="margin-right:20px;" />                                    
                                 </p:row>
                                 <p:row>
                                     <h:outputText value="Без муфты: " />
@@ -139,29 +146,6 @@
                                     </p:selectOneMenu>        
                                 </p:row>
                                 <p:row>
-
-                                </p:row>
-                                <p:row>
-                                    
-                                </p:row>
-                                    
-                                <p:row>
-                                    <p:column>Транспортная подстанция </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:inputText id="h_station" value="#{mapObjController.house.transportStation}" class="add_inputfield" >
-                                        <f:validateLength minimum="1" />
-                                    </p:inputText>                                           
-                                </p:row>
-                                <p:row>
-                                    <p:column>Номер подстанции </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:inputText id="h_nStation"  value="#{mapObjController.house.numberStation}" class="add_inputfield">
-                                        <f:validateLength minimum="1" />
-                                    </p:inputText>
-                                </p:row> 
-                                <p:row>
                                     <p:column>Адрес: </p:column>
                                 </p:row>
                                 <p:row>
@@ -169,25 +153,29 @@
                                         <f:validateLength minimum="1" />
                                     </p:inputText>
                                 </p:row>                     
-
-                                
-                                
                                 <p:row>
                                     <p:column>Изображение</p:column>
                                 </p:row>
                                 <p:row>
                                     <p:fileUpload value="#{fileUploadView.image}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                                </p:row>  
-                                <p:row>                    
+                                </p:row>                              
+                                <p:row> 
+                                    <h:outputText value="Без муфты: " />                                       
                                 </p:row>
-                                <p:row>
-                                    <h:outputText value="Без муфты: " />
-                                    <h:selectBooleanCheckbox value="#{pointWizard.skip}" />                        
+                                <p:row>      
+                                    <p:selectBooleanCheckbox value="#{pointWizard.skip}" />                                     
                                 </p:row>  
                                 <f:facet name="footer">
                                     <h:panelGroup id="type_house_panel" style="display:block;text-align:left"  >
                                         <p:outputPanel  rendered="#{mapObjController.house.type_house == 'SINGLE'}" autoUpdate="true">
-                                            <p:outputLabel value="Частный"/>
+                                            <h:panelGrid style="background: transparent; border: none; " columns="2" >
+                                                <p:row> 
+                                                    <h:outputText value="Б.Я: " />                                       
+                                                </p:row>
+                                                <p:row>      
+                                                    <p:selectBooleanCheckbox value="#{mapObjController.house.bigBox}" />                                     
+                                                </p:row>                                                
+                                            </h:panelGrid>
                                         </p:outputPanel>
                                         <p:outputPanel  rendered="#{mapObjController.house.type_house == 'COMMUNAL_APPARTMENT'}" autoUpdate="true">
                                             <p:outputLabel value="Коммуналка"/>
@@ -202,6 +190,24 @@
                                                         </p:selectOneMenu>                                                                                                                
                                                     </div>
                                                 </div>
+                                                <div class="ui-g-12 ui-g-nopad">
+                                                    <div class="ui-g-5" style="padding: 0;">Название</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 40px;">
+                                                        <p:inputText id="h_name" value="#{mapObjController.house.house_name}" class="add_inputfield"/>                                                                                                               
+                                                    </div>
+                                                </div> 
+                                                <div class="ui-g-12 ui-g-nopad" >
+                                                    <div class="ui-g-5" style="padding: 0;">Этажность</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 40px;">
+                                                        <p:inputText id="h_floor" value="#{mapObjController.house.count_floor}" class="add_inputfield"/>                                                                                                              
+                                                    </div>
+                                                </div> 
+                                                <div class="ui-g-12 ui-g-nopad">
+                                                    <div class="ui-g-5" style="padding: 0;">Кол-во подъездов </div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 40px;">
+                                                        <p:inputText id="h_entrance" value="#{mapObjController.house.count_entrance}" class="add_inputfield"/>                                                                                                             
+                                                    </div>
+                                                </div>                                                
                                             </div>
                                         </p:outputPanel>                        
                                     </h:panelGroup>
@@ -339,8 +345,8 @@
                                 <f:setPropertyActionListener target="{pointWizard.data}" value="{gMapsController.obj_type}" />                                
                             </p:commandButton>
                             -->
-                    <p:commandButton value="Отмена" onclick="return cancel()" class="butCancel">
-                        <p:ajax oncomplete="PF('wizp').loadStep('obj',false);" resetValues="true"/>
+                    <p:commandButton value="Отмена"  onclick="return cancel()" class="butCancel">
+                        <p:ajax oncomplete="PF('wizp').loadStep('obj',false);" />
                     </p:commandButton>
                 </div>
             </p:tab>                  
