@@ -78,6 +78,7 @@ public class MapObjController implements Serializable{
         }
         this.pillarFacade.create(pillar);
         clutch.clear();
+        pillar = new Pillar();
     }
     public void saveHouse(){
         house.setLat(this.lat);
@@ -87,6 +88,7 @@ public class MapObjController implements Serializable{
         }
         houseFacade.create(house);     
         clutch.clear();
+        house = new House();
     }
     public void saveDrawWell(){
         drawWell.setLat(this.lat);
@@ -96,7 +98,8 @@ public class MapObjController implements Serializable{
         }
         drawWellFacade.create(drawWell);
         clutch.clear();
-        closeAddPanell();
+        drawWell = new DrawWell();
+        //closeAddPanell();
     }    
     
     public List<Pillar> findPillar(int id){
@@ -211,6 +214,7 @@ public class MapObjController implements Serializable{
     public List<Clutch> getClutch() {
         return clutch;
     }
+    
 
     public void setClutch(List<Clutch> clutch) {
         this.clutch = clutch;
