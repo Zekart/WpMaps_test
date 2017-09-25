@@ -36,6 +36,9 @@
             .add_inputfield{
                 width: 225px;
             }
+            .add_inputfield_number_house{
+                width: 40px !important
+            }
             .add_select{
                 width: 200px;
             }
@@ -149,7 +152,12 @@
                                     <p:column>Адрес: </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:inputText id="h_address" value="#{mapObjController.house.address}" class="add_inputfield">
+                                    Ул. 
+                                    <p:inputText id="h_street" value="#{mapObjController.house.address}" class="add_inputfield">
+                                        <f:validateLength minimum="1" />
+                                    </p:inputText>
+                                    № 
+                                    <p:inputText id="h_number" value="#{mapObjController.house.house_number}" class="add_inputfield_number_house" >
                                         <f:validateLength minimum="1" />
                                     </p:inputText>
                                 </p:row>                     

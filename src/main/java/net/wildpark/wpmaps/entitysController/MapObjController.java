@@ -48,6 +48,7 @@ public class MapObjController implements Serializable{
 
     private double lat;
     private double lng;
+    private String number_house;
     
     private List<Clutch> clutch = new ArrayList<>();
     private List<House> house_list = new ArrayList<>();
@@ -86,6 +87,8 @@ public class MapObjController implements Serializable{
         if(pz.isSkip()!= true){
             house.setClutch(clutch);
         }
+        number_house.concat(house.getAddress());
+        house.setAddress(number_house);
         houseFacade.create(house);     
         clutch.clear();
         house = new House();
@@ -183,6 +186,14 @@ public class MapObjController implements Serializable{
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    public String getNumber_house() {
+        return number_house;
+    }
+
+    public void setNumber_house(String number_house) {
+        this.number_house = number_house;
     }
     
     

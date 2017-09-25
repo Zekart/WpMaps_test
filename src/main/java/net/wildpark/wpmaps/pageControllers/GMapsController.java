@@ -117,14 +117,20 @@ public class GMapsController implements Serializable {
   
     //@PostConstruct
     public void initPoint() {
-        
+        String market_type;
         model = new DefaultMapModel();
         
-        list = mapFacade.findAll();     
+        list = mapFacade.findAll();   
+        
 
         for (MapPoint e:list) {
-            model.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/"+e.getDecriminatorValue()+"_marker.png"));                
-
+            if (e.getClutch().isEmpty() == true) {
+                market_type = "_marker_empty.png";
+            }else{
+                market_type = "_marker.png";
+            }
+            model.addOverlay(new Marker(new LatLng(e.getLat(), e.getLng()),String.valueOf(e.getId()),e,"../resources/marker/"+e.getDecriminatorValue()+market_type)); 
+               
         }      
         
         listConnect = conFacade.findAll();
