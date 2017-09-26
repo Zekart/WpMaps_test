@@ -14,54 +14,19 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>    
         <h:form id="ff" enctype="multipart/form-data">
-        <style>
-            .butAdd td, th {
-                width: 17%;
-                bottom: -283px;
-                border: none;
-                right: 0;
-                position: relative;
-            }
-            .butCancel{
-                top: 13px;
-                right: 15px;
-                position: absolute;
-
-            }
-            .butReset{
-                top: 13px;
-                right: 45px;
-                position: absolute;                
-            }
-            .add_inputfield{
-                width: 225px;
-            }
-            .add_inputfield_number_house{
-                width: 40px !important
-            }
-            .add_select{
-                width: 200px;
-            }
-            .ui-helper-reset {
-                border-bottom: 1px red solid;
-            }
-            #upload_button{
-                border: 1px solid red;
-                width: 100px;
-                height: 100px;
-            }
-            #upload_button input[type='file']{
-                width: 100%;
-                height: 100%;
-            }
-            
-        </style>
         <p:commandButton value="Отмена" onclick="return cancel()" class="butCancel"></p:commandButton>
         <p:wizard id="wiz"  widgetVar="wizp" flowListener="#{pointWizard.onFlowProcess}"  >
             
             <p:tab id="obj" title="Объект">
                 <p:panel style="background: transparent; border: none; ">
                     <p:messages />
+<div class="galleryCategoryMenu">
+  <ul>
+    <li class="portraits">
+        <a href="/gallery-portraits">PORTRAITS<span></span></a>
+    </li>
+  </ul>
+</div>                    
                         <p:selectOneMenu id="object_t" value="#{gMapsController.obj_type}" style="width:150px" >  
                             <p:ajax update="gridPoint" />
                             <f:selectItems var="so" value="#{gMapsController.objectType}" itemValue="#{so}" itemLabel="#{so.object_type}"/>
@@ -70,12 +35,12 @@
                 </p:panel>  
             </p:tab> 
             
-            <p:tab id="point" title="Точка" >
+            <p:tab id="point" title="Точка" class="step" >
                 <div class="parent">
                     <div class="div1">
                         <p:panel id="gridPoint" style="background: transparent; border: none; " >
-
-                            <h:panelGrid style="background: transparent; border: none; " rendered="#{gMapsController.obj_type == 'PILLAR'}" columns="2"  >
+                            <div class="panelAddPillar">
+                            <h:panelGrid style="background: transparent; border: none; " class="tableAddHome" rendered="#{gMapsController.obj_type == 'PILLAR'}" columns="2"  >
 
                                 <p:row>
                                     <p:column>Транспортная подстанция </p:column>
@@ -137,7 +102,7 @@
                                     <h:selectBooleanCheckbox value="#{pointWizard.skip}" />                        
                                 </p:row>                    
                             </h:panelGrid>    
-
+</div>
                             <h:panelGrid style="background: transparent; border: none; " rendered="#{gMapsController.obj_type == 'HOUSE'}" columns="2" >
                                 <p:row >
                                     <p:column>Тип дома </p:column>
@@ -190,29 +155,29 @@
                                         </p:outputPanel>
                                         <p:outputPanel  rendered="#{mapObjController.house.type_house == 'MULTYAPARTMENTS'}" autoUpdate="true">
                                             <div class="ui-g">
-                                                <div class="ui-g-12 ui-g-nopad" style="padding: 0;">
-                                                    <div class="ui-g-5" style="padding: 0;">Владелец</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 40px;">
+                                                <div class="ui-g-12">
+                                                    <div class="ui-g-3" style="padding: 0;">Владелец</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;">
                                                         <p:selectOneMenu id="h_owner" class="add_select" value="#{mapObjController.house.owner}" >
                                                             <f:selectItems var="h_owner" value="#{houseController.houseOwner}" itemValue="#{h_owner}" itemLabel="#{h_owner.houseOwner}"/>
                                                         </p:selectOneMenu>                                                                                                                
                                                     </div>
                                                 </div>
-                                                <div class="ui-g-12 ui-g-nopad">
-                                                    <div class="ui-g-5" style="padding: 0;">Название</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 40px;">
+                                                <div class="ui-g-12">
+                                                    <div class="ui-g-3" style="padding: 0;">Название</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;">
                                                         <p:inputText id="h_name" value="#{mapObjController.house.house_name}" class="add_inputfield"/>                                                                                                               
                                                     </div>
                                                 </div> 
-                                                <div class="ui-g-12 ui-g-nopad" >
-                                                    <div class="ui-g-5" style="padding: 0;">Этажность</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 40px;">
+                                                <div class="ui-g-12" >
+                                                    <div class="ui-g-3" style="padding: 0;">Этажность</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;">
                                                         <p:inputText id="h_floor" value="#{mapObjController.house.count_floor}" class="add_inputfield"/>                                                                                                              
                                                     </div>
                                                 </div> 
-                                                <div class="ui-g-12 ui-g-nopad">
-                                                    <div class="ui-g-5" style="padding: 0;">Кол-во подъездов </div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 40px;">
+                                                <div class="ui-g-12">
+                                                    <div class="ui-g-3" style="padding: 0;">Кол-во подъездов </div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;">
                                                         <p:inputText id="h_entrance" value="#{mapObjController.house.count_entrance}" class="add_inputfield"/>                                                                                                             
                                                     </div>
                                                 </div>                                                
