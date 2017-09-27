@@ -20,18 +20,23 @@
             <p:tab id="obj" title="Объект">
                 <p:panel style="background: transparent; border: none; ">
                     <p:messages />
-<div class="galleryCategoryMenu">
-  <ul>
-    <li class="portraits">
-        <a href="/gallery-portraits">PORTRAITS<span></span></a>
-    </li>
-  </ul>
-</div>                    
-                        <p:selectOneMenu id="object_t" value="#{gMapsController.obj_type}" style="width:150px" >  
+                        <div class="buttons">  
+                            <p:commandLink class="twitter" actionListener="#{gMapsController.setObj_type('PILLAR')}">
+                                <img src="../resources/marker/Столб_marker.png" />
+                            </p:commandLink>
+                            <p:commandLink class="facebook" actionListener="#{gMapsController.setObj_type('HOUSE')}">
+                                <img src="../resources/marker/Дом_marker.png" />
+                            </p:commandLink>
+                            <p:commandLink class="dribble" actionListener="#{gMapsController.setObj_type('DRAW_WELL')}">
+                                <img  src="../resources/marker/Колодец_marker.png" />
+                            </p:commandLink>    
+                        </div>    
+                    <!--
+                        <p:selectOneMenu id="object_t" value="{gMapsController.obj_type}" style="width:150px" >  
                             <p:ajax update="gridPoint" />
-                            <f:selectItems var="so" value="#{gMapsController.objectType}" itemValue="#{so}" itemLabel="#{so.object_type}"/>
+                            <f:selectItems var="so" value="{gMapsController.objectType}" itemValue="{so}" itemLabel="{so.object_type}"/>
                         </p:selectOneMenu>
-
+-->
                 </p:panel>  
             </p:tab> 
             
