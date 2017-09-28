@@ -17,8 +17,9 @@
 
 .tableAddHome {
     font-family: "Times New Roman", Times, serif;
-    border-collapse: collapse;
-    width: 100%;
+    width: 80%;
+    margin: 40px;
+    margin-left: 190px;
 
 }   
 
@@ -50,6 +51,16 @@
     width: 80%;
     height: 8%;
     background: aqua;   
+}
+.div1 .ui-inputfield {
+    background: transparent !important;
+    color: #FFFFFF !important;
+    font-family: "Times New Roman", Times, serif !important;
+}
+.div1 .ui-selectonemenu {
+    background: transparent !important;
+    color: #FFFFFF !important;
+    font-family: "Times New Roman", Times, serif !important;
 }
 .div2{    
     padding-left: 2px;
@@ -195,6 +206,9 @@
     border: 2px solid #ffffff;
     background: rgba(0, 0, 0, 0) -webkit-gradient(linear,left top,left bottom,from(rgb(25, 255, 0)),to(rgba(0, 255, 92, 0.23)));
 }
+.ui-state-default, .ui-widget-content .ui-state-default{
+    text-shadow: none;
+}
 
 .buttons {
 	margin-top: 10%;
@@ -264,7 +278,7 @@
 }
 
 .twitter img {
-	vertical-align: -7px;
+	vertical-align: -12px;
 }
  
 .dribble img {

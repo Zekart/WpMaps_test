@@ -13,6 +13,9 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>    
+        <script>
+
+        </script>
         <h:form id="ff" enctype="multipart/form-data">
         <p:commandButton value="Отмена" onclick="return cancel()" class="butCancel"></p:commandButton>
         <p:wizard id="wiz"  widgetVar="wizp" flowListener="#{pointWizard.onFlowProcess}"  >
@@ -22,13 +25,13 @@
                     <p:messages />
                         <div class="buttons">  
                             <p:commandLink class="twitter" actionListener="#{gMapsController.setObj_type('PILLAR')}">
-                                <img src="../resources/marker/Столб_marker.png" />
+                                <img src="../resources/marker/panell_add/pillar_add.png" />
                             </p:commandLink>
                             <p:commandLink class="facebook" actionListener="#{gMapsController.setObj_type('HOUSE')}">
-                                <img src="../resources/marker/Дом_marker.png" />
+                                <img src="../resources/marker/panell_add/house_add.png" />
                             </p:commandLink>
                             <p:commandLink class="dribble" actionListener="#{gMapsController.setObj_type('DRAW_WELL')}">
-                                <img  src="../resources/marker/Колодец_marker.png" />
+                                <img  src="../resources/marker/panell_add/drawWell_add.png" />
                             </p:commandLink>    
                         </div>    
                     <!--
@@ -36,7 +39,9 @@
                             <p:ajax update="gridPoint" />
                             <f:selectItems var="so" value="{gMapsController.objectType}" itemValue="{so}" itemLabel="{so.object_type}"/>
                         </p:selectOneMenu>
+                    
 -->
+
                 </p:panel>  
             </p:tab> 
             
@@ -45,14 +50,14 @@
                     <div class="div1">
                         <p:panel id="gridPoint" style="background: transparent; border: none; " >
                             <div class="panelAddPillar">
-                            <h:panelGrid style="background: transparent; border: none; " class="tableAddHome" rendered="#{gMapsController.obj_type == 'PILLAR'}" columns="2"  >
+                            <h:panelGrid style="background: transparent; border: none;" class="tableAddHome" rendered="#{gMapsController.obj_type == 'PILLAR'}" columns="2"  >
 
                                 <p:row>
                                     <p:column>Транспортная подстанция </p:column>
 
                                 </p:row>
                                 <p:row>
-                                    <p:inputText  id="pil_station" class="add_inputfield" required="true" value="#{mapObjController.pillar.transportStation}" requiredMessage="Пустые поля" >
+                                    <p:inputText style="background: transparent; color: #FFFFFF !important;" id="pil_station" class="add_inputfield" required="true" value="#{mapObjController.pillar.transportStation}" requiredMessage="Пустые поля" >
                                     </p:inputText>                                           
                                 </p:row>
                                 <p:row>
