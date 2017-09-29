@@ -26,6 +26,10 @@
 .panelAddPillar{
     text-align: left; 
 }
+.type_house_panel{
+    color: red;
+    text-align:left
+}
 
 .ui-wizard-step-title {
     width: 20%;
@@ -257,6 +261,11 @@
 	-webkit-border-radius: 140px;
 	border-radius: 140px;
 	opacity: 0.5;		
+}
+#pillar_link:target, #house_link:target, #draw_link:target{
+  background: #fff;
+  color: #fff;
+  border-radius: 5px;
 }
 .buttons a:active::before {
 	top: -9px;
