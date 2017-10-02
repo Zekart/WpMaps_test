@@ -327,3 +327,10 @@
     font-size: 14px !important;;
     font-weight: 200 !important;
 }
+
+.ui-selectonemenu.with-placeholder .ui-selectonemenu-label {
+    color: #ccc;
+}
+.ui-selectonemenu-panel.hide-disabled .ui-selectonemenu-list-item.ui-state-disabled {
+    display: none;
+}

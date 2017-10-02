@@ -39,13 +39,16 @@ public class House extends MapPoint implements Serializable{
  
     @Column(name = "house_number")
     private String house_number;
+    
+    @Column(name = "user_conection")
+    private String user_connection;
 
     
     public House() {
 
     }
 
-    public House(int id, String owner, Double lat, Double lng,HouseType type_house,String house_name,String house_number,int count_floor,String address,int count_entrance,boolean bigBox,byte[] pic,List<Clutch> clutch) {
+    public House(int id, String owner, Double lat, Double lng,HouseType type_house,String user_connection,String house_name,String house_number,int count_floor,String address,int count_entrance,boolean bigBox,byte[] pic,List<Clutch> clutch) {
         super(id, owner,lat,lng,address,pic,clutch);
         this.house_name = house_name;
         this.type_house = type_house;
@@ -53,6 +56,7 @@ public class House extends MapPoint implements Serializable{
         this.count_floor = count_floor;
         this.count_entrance = count_entrance;
         this.bigBox = bigBox;
+        this.user_connection = user_connection;
     }
 
     public HouseType getType_house() {
@@ -103,7 +107,14 @@ public class House extends MapPoint implements Serializable{
     public void setHouse_number(String house_number) {
         this.house_number = house_number;
     }
-    
+
+    public String getUser_connection() {
+        return user_connection;
+    }
+
+    public void setUser_connection(String user_connection) {
+        this.user_connection = user_connection;
+    }   
     
 
     @Override

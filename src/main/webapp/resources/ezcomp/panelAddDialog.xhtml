@@ -120,6 +120,7 @@
                                 </p:row>
                                 <p:row>
                                     <p:selectOneMenu id="h_type" class="add_select" value="#{mapObjController.house.type_house}" >
+                                        <f:selectItem itemLabel="Выберите тип" itemDisabled="true" />
                                         <f:selectItems var="h_type" value="#{houseController.houseType}" itemValue="#{h_type}" itemLabel="#{h_type.houseType}" />
                                         <p:ajax update="type_house_panel" />
                                     </p:selectOneMenu>        
@@ -151,16 +152,29 @@
                                 </p:row>  
                                 <f:facet name="footer">
                                     <h:panelGroup id="type_house_panel" style="display:block;text-align:left; margin-left: -10px;"  >
-                                        <p:outputPanel  rendered="#{mapObjController.house.type_house == 'SINGLE'}" autoUpdate="true">                                            
-                                            <p:row> 
-                                                <h:outputText value="Б.Я: " />                                       
-                                            </p:row>
-                                            <p:row>      
-                                                <p:selectBooleanCheckbox value="#{mapObjController.house.bigBox}" />                                     
-                                            </p:row>                                                                                           
+                                        <p:outputPanel  rendered="#{mapObjController.house.type_house == 'SINGLE'}" autoUpdate="true">                                              
+                                            <div class="ui-g">
+                                                <div class="ui-g-12">
+                                                    <div class="ui-g-3" style="padding: 0;">Б.Я:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;">
+                                                        <p:selectBooleanCheckbox value="#{mapObjController.house.bigBox}" />                                                                                                                 
+                                                    </div>
+                                                </div>
+                                            </div>                                            
                                         </p:outputPanel>
-                                        <p:outputPanel  rendered="#{mapObjController.house.type_house == 'COMMUNAL_APPARTMENT'}" autoUpdate="true">
-                                            <p:outputLabel value="Коммуналка"/>
+                                        <p:outputPanel rendered="#{mapObjController.house.type_house == 'COMMUNAL_APPARTMENT'}" autoUpdate="true">
+                                            <div class="ui-g">
+                                                <div class="ui-g-12">
+                                                    <div class="ui-g-3" style="padding: 0;">Тип подключения абонентов:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;">
+                                                        <p:selectOneMenu id="type_connection" class="add_select" value="#{mapObjController.house.user_connection}" >
+                                                            <f:selectItem itemValue="Оптика" itemLabel="Оптика"/>
+                                                            <f:selectItem itemValue="Витая пара" itemLabel="Витая пара"/>
+                                                            <f:selectItem itemValue="Оптика и витая пара" itemLabel="Оптика и витая пара"/>
+                                                        </p:selectOneMenu>                                                                                                                
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </p:outputPanel>
                                         <p:outputPanel  rendered="#{mapObjController.house.type_house == 'MULTYAPARTMENTS'}" autoUpdate="true">
                                             <div class="ui-g">
@@ -196,7 +210,7 @@
                                 </f:facet>                                
                             </h:panelGrid>
                             </div>
-                            <h:panelGrid style="background: transparent; border: none; "  rendered="#{gMapsController.obj_type == 'DRAW_WELL'}" columns="2" >
+                            <h:panelGrid style="background: transparent; border: none; text-align: left " class="tableAddHome"  rendered="#{gMapsController.obj_type == 'DRAW_WELL'}" columns="2" >
  
                                 <p:row>
                                     <p:column>№ колодца: </p:column>

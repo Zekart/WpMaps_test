@@ -49,6 +49,7 @@ public class MapObjController implements Serializable{
     private double lat;
     private double lng;
     private String number_house;
+    private String user_connection;
     
     private List<Clutch> clutch = new ArrayList<>();
     private List<House> house_list = new ArrayList<>();
@@ -87,8 +88,6 @@ public class MapObjController implements Serializable{
         if(pz.isSkip()!= true){
             house.setClutch(clutch);
         }
-        number_house.concat(house.getAddress());
-        house.setAddress(number_house);
         houseFacade.create(house);     
         clutch.clear();
         house = new House();
@@ -237,6 +236,14 @@ public class MapObjController implements Serializable{
 
     public void setSelect_pillar(Pillar select_pillar) {
         this.select_pillar = select_pillar;
+    }
+
+    public String getUser_connection() {
+        return user_connection;
+    }
+
+    public void setUser_connection(String user_connection) {
+        this.user_connection = user_connection;
     }
     
     

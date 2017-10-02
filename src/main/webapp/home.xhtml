@@ -58,24 +58,21 @@
                             <h:outputLabel  value="Муфта:" />                            
                         </p:row>     
                         <p:row>
-                        <h:dataTable value="#{gMapsController.selected_point.clutch}" var="points">
-                            <h:column>
-                                <h:commandLink id="false"  onclick="showCabel()" >
-                                    <h:outputText value="#{points.id}"/>                                        
-                                </h:commandLink>
-                            </h:column>
-                        </h:dataTable>
-                        </p:row>                        
-                                
+                            <h:dataTable value="#{gMapsController.selected_point.clutch}" var="points">
+                                <h:column>
+                                    <h:commandLink id="false"  onclick="showCabel()" >
+                                        <h:outputText value="#{points.id}"/>                                        
+                                    </h:commandLink>
+                                </h:column>
+                            </h:dataTable>
+                        </p:row>                                                        
                     </h:panelGrid>                                                                                        
-
-
-                <p:menuButton value="Действия" styleClass="selectFeatures">
-                    <p:menuitem value="Удалить" actionListener="#{gMapsController.deleteMarker()}" update="gmap"/>
-                    <p:menuitem value="Информ." action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />
-                    <p:menuitem value="Соединить" action="#{gMapsController.connectPillar}"  />
-                    <p:menuitem value="Изменить"  actionListener="#{gMapsController.viewCarsCustomized()}" />
-                </p:menuButton>
+                    <p:menuButton value="Действия" styleClass="selectFeatures">
+                        <p:menuitem value="Удалить" actionListener="#{gMapsController.deleteMarker()}" update="gmap"/>
+                        <p:menuitem value="Информ." action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />
+                        <p:menuitem value="Соединить" action="#{gMapsController.connectPillar}"  />
+                        <p:menuitem value="Изменить"  actionListener="#{gMapsController.viewCarsCustomized()}" />
+                    </p:menuButton>
             </p:gmapInfoWindow>              
         </p:gmap>
 
