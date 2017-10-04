@@ -1,0 +1,9 @@
+.map-info-window tr, td{
+    color: #ffffff;
+}
+ 
+.gm-style-iw {
+  background: #000;
+  box-shadow: -14px 0px 0px #000, -14px 9px 0px #000, -14px -8px 0px #000, 15px -8px 0px #000, 15px 9px 0px #000;
+  border-radius:4px;
+}

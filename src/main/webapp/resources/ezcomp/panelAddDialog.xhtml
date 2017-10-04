@@ -128,15 +128,15 @@
                                 <p:row>
                                     <p:column>Адрес: </p:column>
                                 </p:row>
-                                <p:row>
-                                    Ул. 
+                                <p:row>                                    
                                     <p:inputText id="h_street" value="#{mapObjController.house.address}" class="add_inputfield">
                                         <f:validateLength minimum="1" />
                                     </p:inputText>
-                                    № 
+                                    <p:watermark for="h_street" value="Улица" />
                                     <p:inputText id="h_number" value="#{mapObjController.house.house_number}" class="add_inputfield_number_house" >
                                         <f:validateLength minimum="1" />
                                     </p:inputText>
+                                    <p:watermark for="h_number" value="№" />
                                 </p:row>                     
                                 <p:row>
                                     <p:column>Изображение</p:column>
@@ -155,7 +155,7 @@
                                         <p:outputPanel  rendered="#{mapObjController.house.type_house == 'SINGLE'}" autoUpdate="true">                                              
                                             <div class="ui-g">
                                                 <div class="ui-g-12">
-                                                    <div class="ui-g-3" style="padding: 0;">Б.Я:</div>
+                                                    <div class="ui-g-7" style="padding: 0;">Б.Я:</div>
                                                     <div class="ui-g-5" style=" padding: 0 0 0 0px;">
                                                         <p:selectBooleanCheckbox value="#{mapObjController.house.bigBox}" />                                                                                                                 
                                                     </div>
