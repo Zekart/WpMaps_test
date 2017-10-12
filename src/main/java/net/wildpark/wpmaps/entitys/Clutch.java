@@ -34,6 +34,7 @@ public class Clutch implements Serializable {
     private int cassetsCount;
     private String info;
     private int inputs;
+    private String mark;
     
     @OneToMany(mappedBy = "clutch", cascade = CascadeType.ALL)
     private List<Cabel> cable;
@@ -102,6 +103,15 @@ public class Clutch implements Serializable {
         this.cable = cable;
     }
 
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
+
+    
     @Override
     public String toString() {
         return "Clutch :)[ id=" + id +        

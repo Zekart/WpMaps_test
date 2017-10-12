@@ -35,10 +35,10 @@
             <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />           
             <p:ajax event="stateChange" listener="#{gMapsController.onStateChange}"  />
 
-            <p:gmapInfoWindow id="infoWindow" class="map-info-window"  maxWidth="300">
-                    <h:panelGrid  columns="2" style="font: 8pt sans-serif; " styleClass="withOutBorder">
+            <p:gmapInfoWindow id="infoWindow" class="map-info-window"  maxWidth="300">                
+                    <h:panelGrid  columns="2" style="font: 9pt sans-serif; width: 100%; " styleClass="withOutBorder">
                         <p:row>
-                            <h:outputLabel value="Типсти: " />
+                            <h:outputLabel value="Тип: " />
                         </p:row>
                         <p:row>
                             <h:outputLabel  value="#{gMapsController.selected_point.decriminatorValue}" />
@@ -66,14 +66,19 @@
                                     </h:commandLink>
                                 </h:column>
                             </h:dataTable>
-                        </p:row>                                                        
-                    </h:panelGrid>                                                                                        
-                    <p:menuButton value="Действия" styleClass="selectFeatures">
-                        <p:menuitem value="Удалить" actionListener="#{gMapsController.deleteMarker()}" update="gmap"/>
-                        <p:menuitem value="Информ." action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />
-                        <p:menuitem value="Соединить" action="#{gMapsController.connectPillar}"  />
-                        <p:menuitem value="Изменить"  actionListener="#{gMapsController.viewCarsCustomized()}" />
-                    </p:menuButton>
+                        </p:row>
+                    </h:panelGrid>  
+                    <h:panelGrid style="padding-top: 10px;">
+                        <p:row>
+                            <p:menuButton value="Доп. действия" style="background: transparent;" class="ui-menu">
+                                <p:menuitem value="Удалить" actionListener="#{gMapsController.deleteMarker()}" update="gmap"/>
+                                <p:menuitem value="Информ." action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />
+                                <p:menuitem value="Соединить" action="#{gMapsController.connectPillar}"  />
+                                <p:menuitem value="Изменить"  actionListener="#{gMapsController.viewCarsCustomized()}" />
+                            </p:menuButton>                       
+                        </p:row>                    
+                    </h:panelGrid>
+
             </p:gmapInfoWindow>              
         </p:gmap>
 

@@ -16,9 +16,12 @@
         <script>
          
         </script>
+        <style>
+
+        </style>
         <h:form id="ff" enctype="multipart/form-data">
         <p:commandButton value="Отмена" onclick="return cancel()" class="butCancel"></p:commandButton>
-        <p:wizard id="wiz"  widgetVar="wizp" flowListener="#{pointWizard.onFlowProcess}"  >
+        <p:wizard id="wiz"  widgetVar="wizp" flowListener="#{pointWizard.onFlowProcess}" backLabel="Назад" nextLabel="Далее" >
             
             <p:tab id="obj" title="Объект">
                 <p:panel style="background: transparent; border: none; ">
@@ -52,27 +55,6 @@
                             <div class="panelAddPillar">
                                 <h:panelGrid style="background: transparent; border: none;" class="tableAddHome" rendered="#{gMapsController.obj_type == 'PILLAR'}" columns="2"  >
                                     <p:row>
-                                        <p:column>Транспортная подстанция </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:inputText style="background: transparent; color: #FFFFFF !important;" id="pil_station" class="add_inputfield" required="true" value="#{mapObjController.pillar.transportStation}" requiredMessage="Пустые поля" >
-                                        </p:inputText>                                           
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>Номер подстанции </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:inputText id="pil_numbSration" required="true" class="add_inputfield" requiredMessage="Пустые поля" value="#{mapObjController.pillar.numberStation}" >
-                                        </p:inputText>
-                                    </p:row>  
-                                    <p:row>
-                                        <p:column>Адрес: </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:inputText id="pil_address" required="true" class="add_inputfield" requiredMessage="Пустые поля" value="#{mapObjController.pillar.address}">
-                                        </p:inputText>
-                                    </p:row>                     
-                                    <p:row>
                                         <p:column>Балансодержатель опоры </p:column>
                                     </p:row>
                                     <p:row>
@@ -81,43 +63,112 @@
                                         </p:selectOneMenu>        
                                     </p:row>
                                     <p:row>
-                                        <p:column>Материал столба </p:column>
+                                        <p:column>Трансформаторная подстанция  </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:watermark for="pil_station" value="-" />
+                                        <p:inputText style="background: transparent; color: #FFFFFF !important;" id="pil_station" class="add_inputfield" required="true" value="#{mapObjController.pillar.transportStation}" requiredMessage="Пустые поля" >
+                                        </p:inputText>                                           
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>Фидр  </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:watermark for="pil_fidr" value="-" />
+                                        <p:inputText style="background: transparent; color: #FFFFFF !important;" id="pil_fidr" class="add_inputfield" required="true" value="#{mapObjController.pillar.fidr}" requiredMessage="Пустые поля" >
+                                        </p:inputText>                                           
+                                    </p:row>                                    
+                                    <p:row>
+                                        <p:column>Номер опоры </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:watermark for="pil_numbSration" value="-" />
+                                        <p:inputText id="pil_numbSration" required="true" class="add_inputfield" requiredMessage="Пустые поля" value="#{mapObjController.pillar.numberStation}" >
+                                        </p:inputText>
+                                    </p:row>                      
+                                    <p:row>
+                                        <p:column>Материал опоры </p:column>
                                     </p:row>
                                     <p:row>
                                         <p:selectOneMenu id="pil_matheriall" class="add_select" value="#{mapObjController.pillar.material}">
+                                            <f:selectItem itemLabel="-" itemDisabled="true" />
                                             <f:selectItems var="pil_mat"  value="#{pillarController.pillarMaterial}" itemValue="#{pil_mat}" itemLabel="#{pil_mat.pillarMaterial}" />
+                                            <p:ajax update="type_pillar_panel" />
                                         </p:selectOneMenu>                     
                                     </p:row>   
-                                    <p:row>
-                                        <p:column>Тип столба</p:column>
-                                    </p:row> 
-                                    <p:row>
-                                        <p:selectOneMenu id="pil_type" class="add_select" value="#{mapObjController.pillar.type}" >
-                                            <f:selectItems var="pil_type" value="#{pillarController.pillarType}" itemValue="#{pil_type}" itemLabel="#{pil_type.pilarType}"  />
-                                        </p:selectOneMenu>     
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>Изображение</p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:fileUpload value="#{fileUploadView.image}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                                    </p:row>
-                                    <p:row>
-                                        <h:outputText value="Без муфты: " />                       
-                                    </p:row> 
-                                    <p:row>
-                                        <p:selectBooleanCheckbox value="#{pointWizard.skip}" />                                     
-                                    </p:row>
-                                    <p:row>
-                                        <p:commandButton value="Очистить информацию" update="gridPoint" process="@this" action="#{mapObjController.reset()}"  style="margin-right:20px;" />                                    
-                                    </p:row>                                
+                                <f:facet name="footer">
+                                    <h:panelGroup id="type_pillar_panel" style="display:block;text-align:left; margin-left: -10px;"  >
+                                        <p:outputPanel  rendered="#{mapObjController.pillar.material == 'CONCRETE'}" autoUpdate="true">                                              
+                                            <div class="ui-g">
+                                                <div class="ui-g-12">
+                                                    <div class="ui-g-6" style="padding: 0;">Форма опоры:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                        <p:selectOneMenu id="pil_type_concrete" class="add_select" value="#{mapObjController.pillar.form}" >
+                                                            <f:selectItem itemValue="Квадратный" itemLabel="Квадратный"/>
+                                                            <f:selectItem itemValue="Шестигранный" itemLabel="Шестигранный"/>
+                                                            <f:selectItem itemValue="Круглый" itemLabel="Круглый"/>
+                                                            <f:selectItem itemValue="С подпоркой" itemLabel="C подпоркой"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="ui-g-12">
+                                                    <div class="ui-g-6" style="padding: 0;">Высоковольтный:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                        <p:selectBooleanCheckbox value="#{mapObjController.pillar.high_voltage}" />
+                                                    </div>
+                                                </div>                                                
+                                                <div class="ui-g-12">
+                                                    <div class="ui-g-6" style="padding: 0;">Без муфты:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                        <p:selectBooleanCheckbox value="#{pointWizard.skip}" />
+                                                    </div>
+                                                </div>   
+                                                <div class="ui-g-12">
+                                                    <div class="ui-g-6" style="padding: 0;">Примечание:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                        <p:inputText id="pil_info_concrete" class="add_inputfield" value="#{mapObjController.pillar.pillar_info}"/>
+                                                    </div>
+                                                </div>                                                
+                                            </div>                                           
+                                        </p:outputPanel>
+                                        <p:outputPanel rendered="#{mapObjController.pillar.material == 'METALLIC'}" autoUpdate="true">
+                                            <div class="ui-g">
+                                                <div class="ui-g-12">
+                                                    <div class="ui-g-6" style="padding: 0;">Форма опоры:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                        <p:selectOneMenu id="pil_type_metalic" class="add_select" value="#{mapObjController.pillar.form}" >
+                                                            <f:selectItem itemValue="Металлоконструкция" itemLabel="Металлоконструкция"/>
+                                                            <f:selectItem itemValue="Мачта" itemLabel="Мачта"/>
+                                                            <f:selectItem itemValue="Круглый" itemLabel="Круглый"/>
+                                                        </p:selectOneMenu>                                                        
+                                                    </div>
+                                                </div>   
+                                                <div class="ui-g-12">
+                                                    <div class="ui-g-6" style="padding: 0;">Без муфты:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                        <p:selectBooleanCheckbox value="#{pointWizard.skip}" />
+                                                    </div>
+                                                </div>                                                 
+                                                <div class="ui-g-12">
+                                                    <div class="ui-g-6" style="padding: 0;">Примечание:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                        <p:inputText id="pil_info_metalic" class="add_inputfield" value="#{mapObjController.pillar.pillar_info}"/>
+                                                    </div>
+                                                </div>                                                
+                                            </div>
+                                        </p:outputPanel>                                          
+                                    </h:panelGroup>
+                                </f:facet>                                    
+ 
+                                   
                                 </h:panelGrid>    
                             </div>
                             <div class="panelAddPillar">
-                            <h:panelGrid style="background: transparent; border: none; " class="tableAddHome" rendered="#{gMapsController.obj_type == 'HOUSE'}" columns="2" >
+                            <h:panelGrid style="background: transparent; border: none; padding-left: 40px; " class="tableAddHome" rendered="#{gMapsController.obj_type == 'HOUSE'}" columns="2" >
                                 <p:row >
                                     <p:column>Тип дома </p:column>
                                 </p:row>
+                                
                                 <p:row>
                                     <p:selectOneMenu id="h_type" class="add_select" value="#{mapObjController.house.type_house}" >
                                         <f:selectItem itemLabel="Выберите тип" itemDisabled="true" />
@@ -133,17 +184,11 @@
                                         <f:validateLength minimum="1" />
                                     </p:inputText>
                                     <p:watermark for="h_street" value="Улица" />
-                                    <p:inputText id="h_number" value="#{mapObjController.house.house_number}" class="add_inputfield_number_house" >
+                                    <p:inputText id="h_number" value="#{mapObjController.number_house}" class="add_inputfield_number_house" >
                                         <f:validateLength minimum="1" />
                                     </p:inputText>
                                     <p:watermark for="h_number" value="№" />
-                                </p:row>                     
-                                <p:row>
-                                    <p:column>Изображение</p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:fileUpload value="#{fileUploadView.image}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                                </p:row>                              
+                                </p:row>                                                  
                                 <p:row> 
                                     <h:outputText value="Без муфты: " />                                       
                                 </p:row>
@@ -155,8 +200,8 @@
                                         <p:outputPanel  rendered="#{mapObjController.house.type_house == 'SINGLE'}" autoUpdate="true">                                              
                                             <div class="ui-g">
                                                 <div class="ui-g-12">
-                                                    <div class="ui-g-7" style="padding: 0;">Б.Я:</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;">
+                                                    <div class="ui-g-2" style="padding: 0;">Б.Я:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px; padding-left: 50px;">
                                                         <p:selectBooleanCheckbox value="#{mapObjController.house.bigBox}" />                                                                                                                 
                                                     </div>
                                                 </div>
@@ -165,8 +210,8 @@
                                         <p:outputPanel rendered="#{mapObjController.house.type_house == 'COMMUNAL_APPARTMENT'}" autoUpdate="true">
                                             <div class="ui-g">
                                                 <div class="ui-g-12">
-                                                    <div class="ui-g-3" style="padding: 0;">Тип подключения абонентов:</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;">
+                                                    <div class="ui-g-2" style="padding: 0;">Тип подключения абонентов:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 50px;">
                                                         <p:selectOneMenu id="type_connection" class="add_select" value="#{mapObjController.house.user_connection}" >
                                                             <f:selectItem itemValue="Оптика" itemLabel="Оптика"/>
                                                             <f:selectItem itemValue="Витая пара" itemLabel="Витая пара"/>
@@ -254,28 +299,34 @@
             </p:tab>
             <p:tab id="clutchInfo" title="Муфта">      
         <div class="parent">
-            <div class="div1" style="width: 100%">
-                <p:dataTable style=" bottom: 0;" var="line" value="#{mapObjController.clutch}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">                   
-                    <p:column style="bottom: 0;" headerText="Кол. кассет">
-                        <p:inputText value="#{line.cassetsCount}" ><f:validateLength minimum="1" /></p:inputText>
+            <div class="div1" style="width: 100%; color: black;">
+                <p:dataTable  style=" bottom: 0; border: none;" var="line" value="#{mapObjController.clutch}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">    
+                    
+                    <p:column style="bottom: 0;border-color: transparent;" headerText="Кол-во вводов">
+                        <p:inputText class="input_clutch" style="background: transparent;" value="#{line.inputs}" ><f:validateLength minimum="1" /></p:inputText>
+                    </p:column>
+                    
+                    <p:column style="bottom: 0;border-color: transparent;" headerText="Кол-во. кассет">
+                        <p:inputText class="input_clutch" style="background: transparent;" value="#{line.cassetsCount}" ><f:validateLength minimum="1" /></p:inputText>
                     </p:column>
 
-                    <p:column style="bottom: 0;" headerText="Состояние">
-                        <p:inputText value="#{line.conditions}" ><f:validateLength minimum="1" /></p:inputText>
+                    <p:column style="bottom: 0;border-color: transparent;" headerText="Состояние">
+                        <p:inputText class="input_clutch" value="#{line.conditions}" ><f:validateLength minimum="1" /></p:inputText>
                     </p:column>
 
-                    <p:column style="bottom: 0;" headerText="Доп.инфо">
-                        <p:inputText value="#{line.info}" ><f:validateLength minimum="1" /></p:inputText>
+                    <p:column style="bottom: 0; border-color: transparent;" headerText="Доп. Инфо">
+                        <p:inputText class="input_clutch" value="#{line.info}" ><f:validateLength minimum="1" /></p:inputText>
                     </p:column>
 
-                    <p:column style="bottom: 0;" headerText="Входы">
-                        <p:inputText value="#{line.inputs}" ><f:validateLength minimum="1" /></p:inputText>
-                    </p:column>                         
+                    <p:column style="bottom: 0; border-color: transparent" headerText="Маркировка">
+                        <p:inputText class="input_clutch" value="#{line.mark}" ></p:inputText>
+                    </p:column>    
+                    
                 </p:dataTable>              
                 <p:commandButton actionListener="#{mapObjController.newLine(actionEvent)}"
-                    value="New" update="dataTableSaisiePiece" ajax="true" />
+                    value="Добавить" update="dataTableSaisiePiece" ajax="true" />
                 <p:commandButton actionListener="#{mapObjController.delLine(actionEvent)}"
-                    value="delete" update="dataTableSaisiePiece" ajax="true" />
+                    value="Удалить" update="dataTableSaisiePiece" ajax="true" />
             </div>
 
         </div>
@@ -322,17 +373,17 @@
 
                     </div>
                     <h:panelGrid class="butAdd"  rendered="#{gMapsController.obj_type == 'DRAW_WELL'}"  >
-                        <p:commandButton value="Подтвердить" style="margin-left: 86%;margin-top: 25px;" actionListener="#{mapObjController.saveDrawWell()}" action="#{gMapsController.initPoint()}" validateClient="true" update="gmap">
+                        <p:commandButton value="Подтвердить" class="button_accept_add" actionListener="#{mapObjController.saveDrawWell()}" action="#{gMapsController.initPoint()}" validateClient="true" update="gmap">
                             <p:ajax oncomplete="PF('wizp').loadStep('obj',false);"/>
                         </p:commandButton>
                     </h:panelGrid> 
                     <h:panelGrid class="butAdd"  rendered="#{gMapsController.obj_type == 'HOUSE'}"  >
-                        <p:commandButton value="Подтвердить" style="margin-left: 86%;margin-top: 25px;" actionListener="#{mapObjController.saveHouse()}" action="#{gMapsController.initPoint()}"  validateClient="true" update="gmap">
+                        <p:commandButton value="Подтвердить" class="button_accept_add" actionListener="#{mapObjController.saveHouse()}" action="#{gMapsController.initPoint()}"  validateClient="true" update="gmap">
                             <p:ajax oncomplete="PF('wizp').loadStep('obj',false);" resetValues="true"/>
                         </p:commandButton>
                     </h:panelGrid>
                     <h:panelGrid class="butAdd"  rendered="#{gMapsController.obj_type == 'PILLAR'}"  >
-                        <p:commandButton value="Подтвердить" style="margin-left: 86%;margin-top: 25px;" actionListener="#{mapObjController.savePillar()}" action="#{gMapsController.initPoint()}"   validateClient="true" update="gmap">
+                        <p:commandButton value="Подтвердить" class="button_accept_add" actionListener="#{mapObjController.savePillar()}" action="#{gMapsController.initPoint()}"   validateClient="true" update="gmap">
                             <p:ajax oncomplete="PF('wizp').loadStep('obj',false);"  resetValues="true"/>
                         </p:commandButton>
                     </h:panelGrid> 

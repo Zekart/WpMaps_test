@@ -36,16 +36,24 @@ public class Pillar extends MapPoint implements Serializable{
     @Column(name = "form")
     private String form;
 
+    @Column(name = "info")
+    private String pillar_info;
+    
+    @Column(name = "highvoltage")
+    private Boolean high_voltage;
+    
     public Pillar() {
 
     }
 
-    public Pillar(int id, String owner,Double lat,Double lng,String address,String transportStation,int numberStation,PillarMaterial material,String fidr,String form, PillarType type,byte[] pic,List<Clutch> clutch) {
+    public Pillar(int id, String owner,Double lat,Double lng,String address,String transportStation,int numberStation,PillarMaterial material,String fidr,String form,String pillar_info,Boolean high_voltage, PillarType type,byte[] pic,List<Clutch> clutch) {
         super(id, owner,lat,lng,address,transportStation,numberStation,pic,clutch);
         this.material = material;
         this.fidr = fidr;
         this.form = form;
         this.type = type;
+        this.pillar_info = pillar_info;
+        this.high_voltage = high_voltage;
         
     }
 
@@ -79,6 +87,22 @@ public class Pillar extends MapPoint implements Serializable{
 
     public void setForm(String form) {
         this.form = form;
+    }
+
+    public String getPillar_info() {
+        return pillar_info;
+    }
+
+    public void setPillar_info(String pillar_info) {
+        this.pillar_info = pillar_info;
+    }
+
+    public Boolean getHigh_voltage() {
+        return high_voltage;
+    }
+
+    public void setHigh_voltage(Boolean high_voltage) {
+        this.high_voltage = high_voltage;
     }
     
 

@@ -40,6 +40,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.map.GeocodeEvent;
+import org.primefaces.event.map.ReverseGeocodeEvent;
 import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.map.GeocodeResult;
 import org.primefaces.model.map.Polyline;
@@ -151,15 +152,17 @@ public class GMapsController implements Serializable {
     }
         
     public void onGeocode(GeocodeEvent event) {
-
-        List<GeocodeResult> results = event.getResults();
-         
-        if (results != null && !results.isEmpty()) {
-            LatLng center = results.get(0).getLatLng();
-            centerGeoMap = center.getLat() + "," + center.getLng();
-            zoomMap = 17;             
-        }
+        
     } 
+    
+    public void onRevers( ReverseGeocodeEvent event){
+        List<String> address = event.getAddresses();
+        LatLng coord = event.getLatlng();
+        if (address !=null && !address.isEmpty()) {
+            System.out.println("Address"+ address.size());
+        }
+        
+    }
 //    public void checkFormAdd() {
 //        System.out.println("All right");
 //    }

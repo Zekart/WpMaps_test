@@ -45,6 +45,12 @@ and open the template in the editor.
             {
                 border-style: none !important
             }
+            .gm-style-iw {
+                background: #000;
+                box-shadow: -14px 0px 0px #000, -14px 9px 0px #000, -14px -8px 0px #000, 15px -8px 0px #000, 15px 9px 0px #000;
+                border-radius:4px;
+                padding-top: 15px;
+              }
             
         </style>        
                 
@@ -58,6 +64,7 @@ and open the template in the editor.
             
             <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}"  />    
             <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />
+            <p:ajax event="reverseGeocode" listener="#{gMapsController.onRevers(event)}" update="@this" />
             <p:ajax event="stateChange" listener="#{gMapsController.onStateChange}"  />
             <!--
             <p:ajax event="stateChange" listener="{gMapsController.onStateChange}" />
@@ -153,8 +160,7 @@ and open the template in the editor.
             }
             
         }  
-        
-              
+    
     </script>        
     </body>
 </html>

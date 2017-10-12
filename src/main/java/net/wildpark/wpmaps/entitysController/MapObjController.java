@@ -85,6 +85,10 @@ public class MapObjController implements Serializable{
     public void saveHouse(){
         house.setLat(this.lat);
         house.setLng(this.lng);
+        
+        house.setAddress(house.getAddress().concat(" " + number_house));
+        
+        
         if(pz.isSkip()!= true){
             house.setClutch(clutch);
         }
@@ -113,19 +117,6 @@ public class MapObjController implements Serializable{
     
     public void closeAddPanell(){
         RequestContext.getCurrentInstance().execute("alert('peek-a-boo');");      
-    }
-        public void reset() {
-        
-            try {
-                if (this.pillar == null) {
-                    System.out.println("Pillar have not address");
-                }else{
-                    System.out.println(this.pillar.getAddress());
-                }
-            } catch (Exception ex) {
-                System.out.println("Pillar addres = " + ex);
-            }
-        RequestContext.getCurrentInstance().reset("form:panelAdd");
     }
 
     public List<Pillar> getTemp_pillar_list() {

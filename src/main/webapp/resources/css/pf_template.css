@@ -16,6 +16,7 @@ body{
 .ui-widget-content {
     border: 1px solid #a8a8a8;
     color: #000000;
+    background: transparent;
 }
 
 .ui-widget .ui-widget {
@@ -198,7 +199,6 @@ div.container:hover img.icon{
 
 .selectFeatures{
     padding-top: 6px;
-    background-color: white;
     text-align: center;
 }
 
@@ -215,6 +215,7 @@ div.container:hover img.icon{
     border:0px;
     border-radius: 0px;
     padding: 0px;
+    text-align: left;
 }
 
 .infoPointPanel{
@@ -311,4 +312,8 @@ nav ul {
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
     font-weight: 300;
+}
+.div1 .ui-datatable tbody td {
+    border-color: inherit;
+    border-color: transparent;
 }
