@@ -70,7 +70,7 @@
                     </h:panelGrid>  
                     <h:panelGrid style="padding-top: 10px;">
                         <p:row>
-                            <p:menuButton value="Доп. действия" style="background: transparent;" class="ui-menu">
+                            <p:menuButton id="features_point" value="Доп. действия" style="background: transparent;" class="ui-menu">
                                 <p:menuitem value="Удалить" actionListener="#{gMapsController.deleteMarker()}" update="gmap"/>
                                 <p:menuitem value="Информ." action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />
                                 <p:menuitem value="Соединить" action="#{gMapsController.connectPillar}"  />

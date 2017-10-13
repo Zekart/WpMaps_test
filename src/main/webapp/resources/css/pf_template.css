@@ -19,6 +19,12 @@ body{
     background: transparent;
 }
 
+#j_idt30_menu .ui-widget-content{
+        border: 1px solid #a8a8a8;
+    color: #000000;
+    background: red;
+}
+
 .ui-widget .ui-widget {
     font-size: 1em;
     font-family: Times New Roman,sans-serif;
