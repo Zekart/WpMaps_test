@@ -67,7 +67,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:watermark for="pil_station" value="-" />
-                                        <p:inputText style="background: transparent; color: #FFFFFF !important;" id="pil_station" class="add_inputfield" required="true" value="#{mapObjController.pillar.transportStation}" requiredMessage="Пустые поля" >
+                                        <p:inputText style="background: transparent; color: #FFFFFF !important;" id="pil_station" class="add_inputfield" value="#{mapObjController.pillar.transportStation}" >
                                         </p:inputText>                                           
                                     </p:row>
                                     <p:row>
@@ -75,7 +75,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:watermark for="pil_fidr" value="-" />
-                                        <p:inputText style="background: transparent; color: #FFFFFF !important;" id="pil_fidr" class="add_inputfield" required="true" value="#{mapObjController.pillar.fidr}" requiredMessage="Пустые поля" >
+                                        <p:inputText style="background: transparent; color: #FFFFFF !important;" id="pil_fidr" class="add_inputfield"  value="#{mapObjController.pillar.fidr}" >
                                         </p:inputText>                                           
                                     </p:row>                                    
                                     <p:row>
@@ -83,14 +83,14 @@
                                     </p:row>
                                     <p:row>
                                         <p:watermark for="pil_numbSration" value="-" />
-                                        <p:inputText id="pil_numbSration" required="true" class="add_inputfield" requiredMessage="Пустые поля" value="#{mapObjController.pillar.numberStation}" >
+                                        <p:inputText id="pil_numbSration" class="add_inputfield" value="#{mapObjController.pillar.numberStation}" >
                                         </p:inputText>
                                     </p:row>                      
                                     <p:row>
                                         <p:column>Материал опоры </p:column>
                                     </p:row>
                                     <p:row>
-                                        <p:selectOneMenu id="pil_matheriall" class="add_select" value="#{mapObjController.pillar.material}">
+                                        <p:selectOneMenu id="pil_matheriall" class="add_select" styleClass="add_select" value="#{mapObjController.pillar.material}">
                                             <f:selectItem itemLabel="-" itemDisabled="true" />
                                             <f:selectItems var="pil_mat"  value="#{pillarController.pillarMaterial}" itemValue="#{pil_mat}" itemLabel="#{pil_mat.pillarMaterial}" />
                                             <p:ajax update="type_pillar_panel" />
@@ -101,8 +101,8 @@
                                         <p:outputPanel  rendered="#{mapObjController.pillar.material == 'CONCRETE'}" autoUpdate="true">                                              
                                             <div class="ui-g">
                                                 <div class="ui-g-12">
-                                                    <div class="ui-g-6" style="padding: 0;">Форма опоры:</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                    <div class="ui-g-5" style="padding: 0;">Форма опоры:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 44px;">
                                                         <p:selectOneMenu id="pil_type_concrete" class="add_select" value="#{mapObjController.pillar.form}" >
                                                             <f:selectItem itemValue="Квадратный" itemLabel="Квадратный"/>
                                                             <f:selectItem itemValue="Шестигранный" itemLabel="Шестигранный"/>
@@ -112,20 +112,20 @@
                                                     </div>
                                                 </div>
                                                 <div class="ui-g-12">
-                                                    <div class="ui-g-6" style="padding: 0;">Высоковольтный:</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                    <div class="ui-g-5" style="padding: 0;">Высоковольтный:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 48px;">
                                                         <p:selectBooleanCheckbox value="#{mapObjController.pillar.high_voltage}" />
                                                     </div>
                                                 </div>                                                
                                                 <div class="ui-g-12">
-                                                    <div class="ui-g-6" style="padding: 0;">Без муфты:</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                    <div class="ui-g-5" style="padding: 0;">Без муфты:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 48px;">
                                                         <p:selectBooleanCheckbox value="#{pointWizard.skip}" />
                                                     </div>
                                                 </div>   
                                                 <div class="ui-g-12">
-                                                    <div class="ui-g-6" style="padding: 0;">Примечание:</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                    <div class="ui-g-5" style="padding: 0;">Примечание:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 48px;">
                                                         <p:inputText id="pil_info_concrete" class="add_inputfield" value="#{mapObjController.pillar.pillar_info}"/>
                                                     </div>
                                                 </div>                                                
@@ -134,8 +134,8 @@
                                         <p:outputPanel rendered="#{mapObjController.pillar.material == 'METALLIC'}" autoUpdate="true">
                                             <div class="ui-g">
                                                 <div class="ui-g-12">
-                                                    <div class="ui-g-6" style="padding: 0;">Форма опоры:</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                    <div class="ui-g-5" style="padding: 0;">Форма опоры:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 48px;">
                                                         <p:selectOneMenu id="pil_type_metalic" class="add_select" value="#{mapObjController.pillar.form}" >
                                                             <f:selectItem itemValue="Металлоконструкция" itemLabel="Металлоконструкция"/>
                                                             <f:selectItem itemValue="Мачта" itemLabel="Мачта"/>
@@ -144,14 +144,14 @@
                                                     </div>
                                                 </div>   
                                                 <div class="ui-g-12">
-                                                    <div class="ui-g-6" style="padding: 0;">Без муфты:</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                    <div class="ui-g-5" style="padding: 0;">Без муфты:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 48px;">
                                                         <p:selectBooleanCheckbox value="#{pointWizard.skip}" />
                                                     </div>
                                                 </div>                                                 
                                                 <div class="ui-g-12">
-                                                    <div class="ui-g-6" style="padding: 0;">Примечание:</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
+                                                    <div class="ui-g-5" style="padding: 0;">Примечание:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 48px;">
                                                         <p:inputText id="pil_info_metalic" class="add_inputfield" value="#{mapObjController.pillar.pillar_info}"/>
                                                     </div>
                                                 </div>                                                
@@ -200,8 +200,8 @@
                                         <p:outputPanel  rendered="#{mapObjController.house.type_house == 'SINGLE'}" autoUpdate="true">                                              
                                             <div class="ui-g">
                                                 <div class="ui-g-12">
-                                                    <div class="ui-g-2" style="padding: 0;">Б.Я:</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px; padding-left: 50px;">
+                                                    <div class="ui-g-3" style="padding: 0;">Б.Я:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px; padding-left: 3px;">
                                                         <p:selectBooleanCheckbox value="#{mapObjController.house.bigBox}" />                                                                                                                 
                                                     </div>
                                                 </div>
@@ -210,8 +210,8 @@
                                         <p:outputPanel rendered="#{mapObjController.house.type_house == 'COMMUNAL_APPARTMENT'}" autoUpdate="true">
                                             <div class="ui-g">
                                                 <div class="ui-g-12">
-                                                    <div class="ui-g-2" style="padding: 0;">Тип подключения абонентов:</div>
-                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 50px;">
+                                                    <div class="ui-g-3" style="padding: 0;">Тип подключения абонентов:</div>
+                                                    <div class="ui-g-5" style=" padding: 0 0 0 0px;padding-left: 5px;">
                                                         <p:selectOneMenu id="type_connection" class="add_select" value="#{mapObjController.house.user_connection}" >
                                                             <f:selectItem itemValue="Оптика" itemLabel="Оптика"/>
                                                             <f:selectItem itemValue="Витая пара" itemLabel="Витая пара"/>

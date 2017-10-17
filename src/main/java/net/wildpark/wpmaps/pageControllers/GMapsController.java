@@ -93,6 +93,9 @@ public class GMapsController implements Serializable {
     List<MapPoint> temp = new ArrayList<>();
     MapPoint selected_point = new MapPoint();
     
+    
+    
+    
     private List<Pillar> sel_pillar_list = new ArrayList<>();
     Pillar pillar = new Pillar();
     private List<House> sel_house_list = new ArrayList<>();
@@ -205,6 +208,7 @@ public class GMapsController implements Serializable {
         marker = (Marker) event.getOverlay();   
                 
         selected_point = (MapPoint) marker.getData(); 
+                
         id = selected_point.getId();
         decriminatorValue = selected_point.getDecriminatorValue();
         //ss(selected_point.getLat(),selected_point.getLng());  

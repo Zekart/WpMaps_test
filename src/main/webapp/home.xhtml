@@ -20,6 +20,7 @@
         <h:outputStylesheet library="css" name="pf_template.css" />
         <h:outputStylesheet library="css" name="simple_add_panell.css" /> 
         <h:outputStylesheet library="css" name="info_panel.css" />
+        <h:outputStylesheet library="css" name="panel_detail_info.css" />
         
         <script src = "http://maps.google.com/maps/api/js?key=AIzaSyDzwk44zfDh3JQSN1ooK-SIXzvODeFo_dc"
                 type = "text/javascript" />
@@ -47,13 +48,13 @@
                             <h:outputLabel  value="Владелец:" />
                         </p:row>
                         <p:row>                            
-                            <p:outputLabel value="#{gMapsController.selected_point.owner}"  />    
+                            <p:outputLabel value="#{gMapsController.selected_point.owner != null ? gMapsController.selected_point.owner : '-'}"  />    
                         </p:row>                        
                         <p:row>
                             <h:outputLabel  value="Адрес:" />
                         </p:row>
                         <p:row>                            
-                            <p:outputLabel value="#{gMapsController.selected_point.address}"  />    
+                            <p:outputLabel value="#{gMapsController.selected_point.address != null ? gMapsController.selected_point.address : '-'}"  />    
                         </p:row>                        
                         <p:row>
                             <h:outputLabel  value="Муфта:" />                            
@@ -68,9 +69,9 @@
                             </h:dataTable>
                         </p:row>
                     </h:panelGrid>  
-                    <h:panelGrid style="padding-top: 10px;">
+                <h:panelGrid style="padding-top: 10px;">
                         <p:row>
-                            <p:menuButton id="features_point" value="Доп. действия" style="background: transparent;" class="ui-menu">
+                            <p:menuButton id="pos" value="Доп. действия" style="background: transparent;">
                                 <p:menuitem value="Удалить" actionListener="#{gMapsController.deleteMarker()}" update="gmap"/>
                                 <p:menuitem value="Информ." action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />
                                 <p:menuitem value="Соединить" action="#{gMapsController.connectPillar}"  />
@@ -84,10 +85,10 @@
 
         <tm:topMenu/>
 
-        <p:dialog widgetVar="dial">
-            <p:outputPanel id="toUpdate" style="width: 20vw;">
-                <p:panel id="myPanel" rendered="#{gMapsController.flag}" styleClass="withOutBorder" widgetVar="ww" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
-                    <p:dataList value="#{gMapsController.selected_point.clutch}" var="cl" type="definition" >
+        <p:dialog widgetVar="dial" id="panel_detail" resizable="no" height="350" header="Детальная информация">
+            <p:outputPanel id="toUpdate" style="width: 400px; border: none;" >
+                <p:panel id="myPanel" rendered="#{gMapsController.flag}"  styleClass="withOutBorder" widgetVar="ww" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
+                    <p:dataList id="detail_table" value="#{gMapsController.selected_point.clutch}" var="cl" type="definition" >
                         <table style=" font: 10pt sans-serif;">
                             <tr>
                                 <th>Муфта: #{cl.id}</th>                            
@@ -102,7 +103,7 @@
                             </tr>
                             <tr>
                                 <td>Кабель:</td>
-                                <td>in progress</td>
+                                <td>in </td>
                             </tr>                    
                         </table>
                     </p:dataList>

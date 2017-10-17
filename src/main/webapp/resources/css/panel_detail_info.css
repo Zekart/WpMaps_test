@@ -1,0 +1,9 @@
+#panel_detail{
+    background: black;
+}
+#detail_table_content{
+    border: none !important;
+}
+#info_panel_base td,tr{
+    border: none !important;
+}

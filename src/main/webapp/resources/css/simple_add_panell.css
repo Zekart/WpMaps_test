@@ -13,6 +13,7 @@
 
 .simple_add tr, td{
     color: #ffffff;
+    padding-left: 10px;
 }
 
 .tableAddHome {
@@ -177,8 +178,9 @@
 .add_inputfield_number_house{
     width: 40px !important
 }
-.add_select{
-    width: 200px;
+.ui-selectonemenu-items-wrapper{
+    width: auto;
+    background: white;
 }
 .ui-helper-reset {
     border-bottom: 1px red solid;

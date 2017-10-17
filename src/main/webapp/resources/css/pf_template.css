@@ -19,10 +19,21 @@ body{
     background: transparent;
 }
 
+#pos_menu{
+    background: black;
+    width: 130px;
+    text-align: center;
+    color: white;  
+}
+
 #j_idt30_menu .ui-widget-content{
         border: 1px solid #a8a8a8;
     color: #000000;
     background: red;
+}
+
+#j_idt67:j_idt68{
+    background: black! important;
 }
 
 .ui-widget .ui-widget {

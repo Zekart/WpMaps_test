@@ -10,7 +10,8 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <p:dialog widgetVar="dial">
+        
+        <p:dialog widgetVar="dial" id="panel_detail">
             <p:outputPanel id="toUpdate" style="width: 20vw;">
                 <p:panel id="myPanel" rendered="#{gMapsController.flag}" styleClass="withOutBorder" widgetVar="ww" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
                     <p:dataList value="#{gMapsController.selected_point.clutch}" var="car" type="definition" >
