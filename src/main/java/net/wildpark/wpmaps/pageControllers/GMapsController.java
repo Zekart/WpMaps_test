@@ -86,6 +86,7 @@ public class GMapsController implements Serializable {
     private boolean flag;
     private boolean selectOne;
 
+    private String hrefToPictureObj;
 
     private List<MapPoint> list; 
     private List<ConnectPoint> listConnect;
@@ -205,15 +206,47 @@ public class GMapsController implements Serializable {
     }  
 
     public void onMarkerSelect(OverlaySelectEvent event) {
+        sel_draw_list.clear();
+        sel_house_list.clear();
+        sel_pillar_list.clear();
+        
         marker = (Marker) event.getOverlay();   
                 
         selected_point = (MapPoint) marker.getData(); 
-                
-        id = selected_point.getId();
+        id = selected_point.getId();                    
+            
         decriminatorValue = selected_point.getDecriminatorValue();
-        //ss(selected_point.getLat(),selected_point.getLng());  
+
+        selectObj(id);
+        
+        house = new House();
+        pillar = new Pillar();
+        draw = new DrawWell();        
     }
     
+    
+    private List selectObj(int id){
+        System.out.println(decriminatorValue);
+        if (decriminatorValue.equals("Столб")) {
+            pillar = (Pillar) pillarFacade.find(id);
+            sel_pillar_list.add(pillar);
+            hrefToPictureObj = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/ABC_TQ3157_073.JPG/200px-ABC_TQ3157_073.JPG";
+            return sel_pillar_list;
+        }else if(decriminatorValue.equals("Дом")){
+            house = (House) houseFacade.find(id);
+            sel_house_list.add(house);
+            hrefToPictureObj = "http://www.dnepr.com/uploads/posts/2011-07/1309506941_62.jpg";
+            return sel_house_list;
+        }else if(decriminatorValue.equals("Колодец")){
+            draw = (DrawWell) drawWellFacade.find(id);
+            sel_draw_list.add(draw);
+            hrefToPictureObj = "http://gbi11.ru/d/157229/d/kkc-4-2.jpg";
+            return sel_draw_list;
+        }else{
+            return null;
+        }
+        
+    }
    
     
     public void connectPillar(){
@@ -524,5 +557,15 @@ public class GMapsController implements Serializable {
     public void setSelected_clutch_toGet_id(Clutch selected_clutch_toGet_id) {
         this.selected_clutch_toGet_id = selected_clutch_toGet_id;
     }
+
+    public String getHrefToPictureObj() {
+        return hrefToPictureObj;
+    }
+
+    public void setHrefToPictureObj(String hrefToPictureObj) {
+        this.hrefToPictureObj = hrefToPictureObj;
+    }
+    
+    
     
 }

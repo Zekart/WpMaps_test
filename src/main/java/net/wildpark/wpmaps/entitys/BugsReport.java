@@ -29,14 +29,16 @@ public class BugsReport implements Serializable{
     private String text;
     private String status;
     private String added;
+    private String user;
 
     public BugsReport() {
     }
 
-    public BugsReport(String text, String status, String added) {
+    public BugsReport(String text, String status,String user, String added) {
         this.text = text;
         this.status = status;
         this.added = added;
+        this.user = user;
     }
 
 
@@ -73,6 +75,15 @@ public class BugsReport implements Serializable{
         this.added = added;
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    
 
 
 }

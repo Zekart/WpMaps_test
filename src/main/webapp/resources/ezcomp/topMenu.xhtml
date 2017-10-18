@@ -21,14 +21,14 @@
                     <nav>
                         <ul class="topmenu">
                             <li><img class="icon" src="../resources/images/Developer.png" title="Разработка"></img>
-                                <ul class="submenu">
-                                    <li>
-                                        <h:commandButton value="Создать репорт"  actionListener="#{gMapsController.viewBugCustomized}" >
+                                <ul class="submenu" style="width: 150px !important;" >
+                                    <li >
+                                        <h:commandLink style=" color: white; font: 9pt sans-serif;" value="Создать репорт"  actionListener="#{gMapsController.viewBugCustomized}" >
                                             <f:ajax  render="f_br" />
-                                        </h:commandButton>
+                                        </h:commandLink>
                                     </li>
                                     <li>
-                                        <h:commandLink value="Просмотр репортов"  action="#{gMapsController.viewBugListCustomized()}" >
+                                        <h:commandLink style=" color: white; font: 9pt sans-serif;" value="Просмотр репортов"  action="#{gMapsController.viewBugListCustomized()}" >
                                             <f:ajax  render="f_br" />
                                         </h:commandLink>
                                     </li>                                    
@@ -48,8 +48,7 @@
                             <li><img class="icon submenu-link" src="../resources/images/profile.png" title="Профиль"></img>
                                 <ul class="submenu">
                                     <li>
-                                        <h:commandLink value="LogOff" action="#{logOffController.logout()}" >
-                                        </h:commandLink>
+                                        <h:commandLink style=" color: white; font: 9pt sans-serif;" value="Выйти" action="#{logOffController.logout()}" />                                   
                                     </li>
                                 </ul>
                             </li>
@@ -62,15 +61,15 @@
                             <li><img class="icon submenu-link" src="../resources/images/info.png" title="Информация"></img>
                                 <ul class="submenu">
                                     <li>
-                                        <p:outputLabel style=" color: red" title="Показать легенду" onclick="openHistory()" value="Легенда"/>
+                                        <p:outputLabel style="color: white; font: 9pt sans-serif;" title="Показать легенду" onclick="openHistory()" value="Легенда"/>
                                     </li>
                                         <p:separator/>
                                     <li>
-                                        <p:outputLabel style="padding-bottom: 1px; color: red" title="Поиск по адресу" onclick="openSearch()" value="Поиск"/>
+                                        <p:outputLabel style="color: white; padding-bottom: 1px; font: 9pt sans-serif;" title="Поиск по адресу" onclick="openSearch()" value="Поиск"/>
                                     </li>
                                     <p:separator/>
                                     <li>
-                                        <p:outputLabel style="color: red" title="Подсказка" onclick="PF('helpDialog').show()" value="Подсказка"/>
+                                        <p:outputLabel style="color: white; font: 9pt sans-serif;" title="Подсказка" onclick="PF('helpDialog').show()" value="Подсказка"/>
                                     </li>                                        
                                 </ul>
                             </li>

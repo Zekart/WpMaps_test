@@ -3,14 +3,22 @@
 }
  
 .gm-style-iw {
-  background: #000;
-  box-shadow: -14px 0px 0px #000, -14px 9px 0px #000, -14px -8px 0px #000, 15px -8px 0px #000, 15px 9px 0px #000;
-  border-radius:4px;
-  padding-top: 15px;
+  background: #0d6fb7b3;
+  box-shadow: none;
+  border-radius:0;
+  padding-top: 9px;
 }
 .ui-menu {
-    width: 7em;
-    padding: .3em;
+    
+    padding: 0;
     position: relative;
     outline: 0 none;
 }
+.gm-style .gm-style-iw {
+    font-weight: 300;
+    font-size: 13px;
+    overflow: hidden;
+    background: #0d6fb7b3;
+    box-shadow: transparent;
+}
+

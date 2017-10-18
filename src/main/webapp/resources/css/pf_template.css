@@ -308,7 +308,7 @@ nav ul {
   left: -32px;
   top: 100%;
   z-index: 5;
-  width: 150px;
+  width: 100px;
   opacity: 0;
   transform: scaleY(0);
   transform-origin: 0 0;

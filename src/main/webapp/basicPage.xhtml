@@ -71,10 +71,10 @@ and open the template in the editor.
             <p:ajax event="stateChange" listener="{gMapsController.onStateChange}" />
             -->
             <p:gmapInfoWindow id="infoWindow" class="map-info-window"  maxWidth="300"> 
-                <p:panelGrid id="info_panel_base" style="margin-top:-5px; font: 9pt sans-serif; width: 100%; border: 0px; " styleClass="withOutBorder"> 
+                <p:panelGrid id="info_panel_base" style=" font: 9pt sans-serif; text-align: left;" styleClass="withOutBorder"> 
                     <p:row>
                         <p:column colspan="5" rowspan="7" style="font-weight: bold;">
-                            <p:graphicImage height="150" width="150"  url="https://images.ua.prom.st/596293689_w640_h640_010.jpg"/>
+                            <p:graphicImage height="150" width="150"  url="#{gMapsController.hrefToPictureObj}"/>
                         </p:column>
                         <p:column rowspan="1" >Тип</p:column> 
                         <p:column rowspan="1" >:</p:column>
@@ -109,96 +109,92 @@ and open the template in the editor.
                     </p:row>   
                     <p:row>
                         <p:column rowspan="1">
-                            <p:commandLink  style="color: red;font: 9pt sans-serif;" value="Подробно" action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />                            
+                            <p:commandLink  style="color: white;font: 12pt sans-serif;"  value="Подробно" action="#{gMapsController.setFlagToTrue()}" onclick="PF('dial').show()" update="toUpdate" />                            
                         </p:column>                        
                     </p:row>                    
                 </p:panelGrid>                
-            </p:gmapInfoWindow>   
-            
+            </p:gmapInfoWindow>               
         </p:gmap>
             <tm:topMenu/>  
             <tm:user_info/>
-            <p:dialog widgetVar="dial" style="background: black;" resizable="no" width="700" height="300">
-            <p:outputPanel id="toUpdate" style="width: 660px; background: black;">
-                <p:panel id="myPanel" rendered="#{gMapsController.flag}" widgetVar="ww" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
-                    <h:panelGrid style="margin-top:-5px; font: 9pt sans-serif; width: 100%; " rendered="#{gMapsController.selected_point.decriminatorValue == 'Дом'}">
-                                <f:facet name="header">
-                                <p:row>
-                                    <p:column colspan="12">Объект</p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column colspan="2">Тип</p:column>
-                                    <p:column colspan="2">Кол. кассет</p:column>
-                                    <p:column colspan="2">Состояние</p:column>
-                                    <p:column colspan="2">Кол. вводов</p:column>
-                                    <p:column colspan="2">Маркировка</p:column>
-                                    <p:column colspan="2">Информация</p:column>            
-                                </p:row>
-
-                            </f:facet>
-                                <p:row>
-                                    <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.decriminatorValue}</p:column>
-                                    <p:column rowspan="1" colspan="2">#{gMapsController.selecte}</p:column>
-                                    <p:column rowspan="1" colspan="2">#</p:column>
-                                    <p:column rowspan="1" colspan="2">#</p:column>
-                                    <p:column rowspan="1" colspan="2">#</p:column>
-                                    <p:column rowspan="1" colspan="2">#</p:column> 
-                                </p:row> 
+            <p:dialog widgetVar="dial" style="background: black; border-color: black;" resizable="no" width="800" height="300" >
+            <p:outputPanel id="toUpdate" style="width: 750px; background: black; border-color: black;" >
+                <p:panel id="myPanel" rendered="#{gMapsController.flag}" widgetVar="ww" toggleable="true" closable="true" style=" border-color: black;"  toggleSpeed="500" closeSpeed="500">
+                    <h:panelGrid style="margin-top:-50px; font: 9pt sans-serif; width: 100%; border-color: black; " rendered="#{gMapsController.selected_point.decriminatorValue == 'Дом'}">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="12">Объект</p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">Тип</p:column>
+                                <p:column colspan="2">Кол. кассет</p:column>
+                                <p:column colspan="2">Состояние</p:column>
+                                <p:column colspan="2">Кол. вводов</p:column>
+                                <p:column colspan="2">Маркировка</p:column>
+                                <p:column colspan="2">Информация</p:column>            
+                            </p:row>
+                        </f:facet>
+                            <p:row>
+                                <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.decriminatorValue}</p:column>                                                                           
+                                <p:column rowspan="1" colspan="2">#</p:column>
+                                <p:column rowspan="1" colspan="2">#{gMapsController.decriminatorValue}</p:column>
+                                <p:column rowspan="1" colspan="2">#</p:column>
+                                <p:column rowspan="1" colspan="2">#</p:column>
+                                <p:column rowspan="1" colspan="2">#</p:column> 
+                            </p:row> 
                     </h:panelGrid>
-                        <p:panelGrid  style="margin-top:-5px; font: 9pt sans-serif; width: 100%; " rendered="#{gMapsController.selected_point.decriminatorValue == 'Столб'}">  
-                                <f:facet name="header">
-                                <p:row>
-                                    <p:column colspan="14">Объект</p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column colspan="1">Тип</p:column>
-                                    <p:column colspan="2">Балансодержатель опоры</p:column>
-                                    <p:column colspan="2">Трансформаторная подстанция</p:column>
-                                    <p:column colspan="2">Фидр</p:column>
-                                    <p:column colspan="2">Номер опоры</p:column>
-                                    <p:column colspan="2">Материал опоры</p:column>   
-                                    <p:column colspan="2">Форма опоры:</p:column>                                    
-                                </p:row>
-
-                            </f:facet>
-                                <p:row>
+                    <p:panelGrid  style="margin-top:-50px; font: 9pt sans-serif; width: 100%; "  rendered="#{gMapsController.selected_point.decriminatorValue == 'Столб'}">  
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="8">Объект</p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">Тип</p:column>
+                                <p:column colspan="1">Балансодержатель опоры</p:column>
+                                <p:column colspan="1">Трансформаторная подстанция</p:column>
+                                <p:column colspan="1">Фидр</p:column>
+                                <p:column colspan="1">Номер опоры</p:column>
+                                <p:column colspan="1">Материал опоры</p:column>   
+                                <p:column colspan="1">Форма опоры:</p:column> 
+                                <p:column colspan="1">Инфо:</p:column>
+                            </p:row>
+                        </f:facet>
+                            <p:row>
+                                <p:dataList var="pillar" value="#{gMapsController.sel_pillar_list}">
                                     <p:column rowspan="1" colspan="1">#{gMapsController.selected_point.decriminatorValue}</p:column>
-                                    <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.owner}</p:column>
-                                    <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.transportStation}</p:column>
-                                    <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.id}</p:column>
-                                    <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.numberStation}</p:column>
-                                    <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.toString().substring(gMapsController.selected_point.toString().indexOf('material=')+9,gMapsController.selected_point.toString().indexOf('type=')-3)}</p:column> 
-                                    <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.toString().substring(gMapsController.selected_point.toString().indexOf('form=')+5,gMapsController.selected_point.toString().indexOf('clutch')-13)}</p:column>                                                                        
-                                </p:row> 
-                        <p:row style="padding-top: 20px;">
-                                <p:column colspan="1">Примечание</p:column>           
-                        </p:row>                             
-                        </p:panelGrid>
-
-                        <p:panelGrid  style="margin-top:-5px; font: 9pt sans-serif; width: 100%; " rendered="#{gMapsController.selected_point.decriminatorValue == 'Колодец'}">  
-                            <f:facet name="header">
-                                <p:row>
-                                    <p:column colspan="8">Объект</p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column colspan="2">Тип</p:column>
-                                    <p:column colspan="2">№ колодца</p:column>
-                                    <p:column colspan="2">№ канала:</p:column>
-                                    <p:column colspan="2">Приямок:</p:column>
-            
-                                </p:row>
-
-                            </f:facet>
-                                <p:row>
-                                    <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.decriminatorValue}</p:column>
-                                    <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.toString().substring(gMapsController.selected_point.toString().indexOf('number=')+7,gMapsController.selected_point.toString().indexOf('}'))} </p:column>
-                                    <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.numberStation}</p:column> 
-                                    <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.toString().substring(gMapsController.selected_point.toString().indexOf('pit=')+4,gMapsController.selected_point.toString().indexOf('chanel')-2)}</p:column>
-                                </p:row>                                              
-                        </p:panelGrid>                 
-                   
+                                    <p:column rowspan="1" colspan="1">#{gMapsController.selected_point.owner}</p:column>
+                                    <p:column rowspan="1" colspan="1">#{gMapsController.selected_point.transportStation}</p:column>
+                                    <p:column rowspan="1" colspan="1">#{pillar.fidr}</p:column>
+                                    <p:column rowspan="1" colspan="1">#{pillar.numberStation}</p:column>
+                                    <p:column rowspan="1" colspan="1">#{pillar.material}</p:column> 
+                                    <p:column rowspan="1" colspan="1">#{pillar.form}</p:column>    
+                                    <p:column rowspan="1" colspan="1">#{pillar.pillar_info}</p:column> 
+                                </p:dataList>
+                            </p:row>                             
+                    </p:panelGrid>
+                    <p:panelGrid  style="margin-top:-50px; font: 9pt sans-serif; width: 100%; " rendered="#{gMapsController.selected_point.decriminatorValue == 'Колодец'}">  
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="8">Объект</p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">Тип</p:column>
+                                <p:column colspan="2">№ колодца</p:column>
+                                <p:column colspan="2">№ канала:</p:column>
+                                <p:column colspan="2">Приямок:</p:column>
+                            </p:row>
+                        </f:facet>
+                            <p:row>
+                                <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.decriminatorValue}</p:column>
+                                <p:dataList var="draw" value="#{gMapsController.sel_draw_list}">
+                                    <p:column rowspan="1" colspan="2">#{draw.numberStation} </p:column>
+                                    <p:column rowspan="1" colspan="2">#{draw.chanel_number}</p:column> 
+                                    <p:column rowspan="1" colspan="2">#{draw.pit}</p:column>                                
+                                </p:dataList>
+                            </p:row>                                              
+                    </p:panelGrid>                                   
                     <p:panelGrid  style="margin-top:-5px; font: 9pt sans-serif; width: 100%; " >  
-                            <f:facet name="header">
+                        <f:facet name="header">
                             <p:row>
                                 <p:column colspan="12">Муфта</p:column>
                             </p:row>
@@ -210,23 +206,22 @@ and open the template in the editor.
                                 <p:column colspan="2">Маркировка</p:column>
                                 <p:column colspan="2">Информация</p:column>            
                             </p:row>
-
                         </f:facet>
-                            <p:dataList value="#{gMapsController.selected_point.clutch}" rowIndexVar="rowIndex" var="cl" type="definition" >
-                                <p:row>
-                                    <p:column rowspan="1" colspan="2">#{rowIndex+1}</p:column>
-                                    <p:column rowspan="1" colspan="2">#{cl.cassetsCount}</p:column>
-                                    <p:column rowspan="1" colspan="2">#{cl.conditions}</p:column>
-                                    <p:column rowspan="1" colspan="2">#{cl.inputs}</p:column>
-                                    <p:column rowspan="1" colspan="2">#{cl.mark }</p:column>
-                                    <p:column rowspan="1" colspan="2">#{cl.info }</p:column> 
-                                </p:row>                                              
-                            </p:dataList>
-                                              
+                        <p:dataList value="#{gMapsController.selected_point.clutch}" rowIndexVar="rowIndex" var="cl" type="definition" >
+                            <p:row>
+                                <p:column rowspan="1" colspan="2">#{rowIndex+1}</p:column>
+                                <p:column rowspan="1" colspan="2">#{cl.cassetsCount}</p:column>
+                                <p:column rowspan="1" colspan="2">#{cl.conditions}</p:column>
+                                <p:column rowspan="1" colspan="2">#{cl.inputs}</p:column>
+                                <p:column rowspan="1" colspan="2">#{cl.mark }</p:column>
+                                <p:column rowspan="1" colspan="2">#{cl.info }</p:column> 
+                            </p:row>                                              
+                        </p:dataList>                                             
                     </p:panelGrid>    
                 </p:panel>
             </p:outputPanel>             
         </p:dialog>
+        
         <p:panel id="legend_panel" styleClass="legendPanel" visible="false" widgetVar="testPanel" closable="true" toggleable="true" >            
             <table style=" font: 8pt sans-serif; width: 17vw; background: red; " >
                 <tr class="noBorder">                    

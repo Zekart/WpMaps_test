@@ -85,6 +85,8 @@ public class UserController implements Serializable {
                     return"";
                 }
             }
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", current.getLogin());
+            
         }
         addMessage("Совпадений не найдено");
         return "";

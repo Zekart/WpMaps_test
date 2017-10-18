@@ -12,11 +12,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import net.wildpark.wpmaps.entitys.BugsReport;
 import net.wildpark.wpmaps.facades.BugsReportFacade;
 import org.primefaces.context.RequestContext;
@@ -30,11 +35,12 @@ import org.primefaces.context.RequestContext;
 public class BugReportController implements Serializable{
     @EJB
     private BugsReportFacade bugsFacade;
-    
+
 
 
     private String text;
     private String data;
+    private Object user;
     
     private List<BugsReport> list_bug = new ArrayList<>();
 
@@ -44,7 +50,11 @@ public class BugReportController implements Serializable{
     
     @PostConstruct
     public void init() {
-
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        user = session.getAttribute("user");
+        
+        
         list_bug = bugsFacade.findAll();
         System.out.println(text);
         
@@ -56,16 +66,19 @@ public class BugReportController implements Serializable{
 
     
     public void addBugsReport(){
+                   
+        
         BugsReport bugs = new BugsReport() ;
-        bugs.setText(text);
+        bugs.setText(text + "from" + user);
         bugs.setAdded(data);
         bugs.setStatus("new");
         bugsFacade.create(bugs);
         
         RequestContext.getCurrentInstance().closeDialog("bugReportPage");
         reset();
-
     } 
+    
+    
     
     
     public void getListBug(){
@@ -99,6 +112,14 @@ public class BugReportController implements Serializable{
 
     public void setList_bug(List<BugsReport> list_bug) {
         this.list_bug = list_bug;
+    }
+
+    public Object getUser() {
+        return user;
+    }
+
+    public void setUser(Object user) {
+        this.user = user;
     }
 
 
