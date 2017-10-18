@@ -215,6 +215,11 @@ public class GMapsController implements Serializable {
         selected_point = (MapPoint) marker.getData(); 
         id = selected_point.getId();                    
             
+
+        selected_point = (MapPoint) marker.getData();  
+        //sel_house_list = (List<House>)(House)marker.getData();
+        id = selected_point.getId();
+
         decriminatorValue = selected_point.getDecriminatorValue();
 
         selectObj(id);

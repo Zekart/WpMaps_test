@@ -15,7 +15,7 @@
 <!--        <p:gmap center="46.968687,31.9790294" zoom="17" type="terrain" model="{gMapsController.model}" 
                 draggable="false" navigationControl="false" disableDefaultUI="true" scrollWheel="false"
                 mapTypeControl="false" disableDoubleClickZoom="true" style="width: 100vw;height: 100vh;" /> -->
-        <h:form id="authorizationForm" >
+        <h:form id="authorizationForm">
             <div id="login-box" class="wraper">      
                 <div class="left">
                     <h1>Авторизация</h1>
@@ -31,7 +31,8 @@
                     <h:inputText id="new_log" value="#{userController.newUser.login}"/>
                     <h:inputSecret id="new_pass" value="#{userController.newUser.password}"/>
                     <h:inputText id="new_about" value="#{userController.newUser.about}"/>
-                    <p:commandButton id="confirmRegistration" onclick="hideRegistrationForm()" styleClass="social-signin twitter" action="#{userController.registration()}" value="регистрация" />
+                    <p:commandButton id="confirmRegistration" onclick="hideRegistrationForm()" type="reset" styleClass="social-signin twitter" action="#{userController.registration()}" value="регистрация" >
+                    </p:commandButton>
                     <p:watermark for="new_log" value="Логин" />
                     <p:watermark for="new_pass" value="Пароль" />
                     <p:watermark for="new_about" value="ФИО" />
@@ -50,8 +51,10 @@
             }
         }); 
         function hideRegistrationForm(){
-            //$('#registrationCollapse').animate({left: '0%'}, 200);  
-            //$(this).toggleClass("active");
+            ('#registrationCollapse').animate({left: '0%'}, 200);  
+                $(this).toggleClass("active");
+                
+
         }
         
     </script>

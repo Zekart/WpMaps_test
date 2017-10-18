@@ -120,29 +120,33 @@ and open the template in the editor.
             <p:dialog widgetVar="dial" style="background: black; border-color: black;" resizable="no" width="800" height="300" >
             <p:outputPanel id="toUpdate" style="width: 750px; background: black; border-color: black;" >
                 <p:panel id="myPanel" rendered="#{gMapsController.flag}" widgetVar="ww" toggleable="true" closable="true" style=" border-color: black;"  toggleSpeed="500" closeSpeed="500">
-                    <h:panelGrid style="margin-top:-50px; font: 9pt sans-serif; width: 100%; border-color: black; " rendered="#{gMapsController.selected_point.decriminatorValue == 'Дом'}">
+                    <p:panelGrid  style="margin-top:-50px; font: 9pt sans-serif; width: 100%; "  rendered="#{gMapsController.selected_point.decriminatorValue == 'Дом'}">  
                         <f:facet name="header">
                             <p:row>
-                                <p:column colspan="12">Объект</p:column>
+                                <p:column colspan="8">Объект</p:column>
                             </p:row>
                             <p:row>
-                                <p:column colspan="2">Тип</p:column>
-                                <p:column colspan="2">Кол. кассет</p:column>
-                                <p:column colspan="2">Состояние</p:column>
-                                <p:column colspan="2">Кол. вводов</p:column>
-                                <p:column colspan="2">Маркировка</p:column>
-                                <p:column colspan="2">Информация</p:column>            
+                                <p:column colspan="1">Тип</p:column>
+                                <p:column colspan="1">Название </p:column>
+                                <p:column colspan="1">Владелец</p:column>
+                                <p:column colspan="1">Этажность</p:column>
+                                <p:column colspan="1">Кол-во подъездов </p:column>
+                                <p:column colspan="1">Тип подключения </p:column>
+                                <p:column colspan="1">Б.Я </p:column>
                             </p:row>
                         </f:facet>
                             <p:row>
-                                <p:column rowspan="1" colspan="2">#{gMapsController.selected_point.decriminatorValue}</p:column>                                                                           
-                                <p:column rowspan="1" colspan="2">#</p:column>
-                                <p:column rowspan="1" colspan="2">#{gMapsController.decriminatorValue}</p:column>
-                                <p:column rowspan="1" colspan="2">#</p:column>
-                                <p:column rowspan="1" colspan="2">#</p:column>
-                                <p:column rowspan="1" colspan="2">#</p:column> 
-                            </p:row> 
-                    </h:panelGrid>
+                                <p:dataList var="house" value="#{gMapsController.sel_house_list}">                                
+                                    <p:column rowspan="1" colspan="1">#{house.type_house}</p:column>                                                                           
+                                    <p:column rowspan="1" colspan="1">#{house.house_name}</p:column>
+                                    <p:column rowspan="1" colspan="1">#{house.owner}</p:column>
+                                    <p:column rowspan="1" colspan="1">#{house.count_floor}</p:column>
+                                    <p:column rowspan="1" colspan="1">#{house.count_entrance}</p:column>
+                                    <p:column rowspan="1" colspan="1">#{house.user_connection}</p:column> 
+                                    <p:column rowspan="1" colspan="1">#{house.bigBox}</p:column>
+                                </p:dataList>
+                            </p:row>                             
+                    </p:panelGrid>                    
                     <p:panelGrid  style="margin-top:-50px; font: 9pt sans-serif; width: 100%; "  rendered="#{gMapsController.selected_point.decriminatorValue == 'Столб'}">  
                         <f:facet name="header">
                             <p:row>

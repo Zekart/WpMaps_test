@@ -33,7 +33,6 @@ import javax.persistence.Transient;
 
 public  class MapPoint implements Serializable{
     
-
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -89,6 +88,7 @@ public  class MapPoint implements Serializable{
         this.numberStation = numberStation;
         this.clutch = clutch;
         this.pic = pic;
+        
     }
     
     protected  MapPoint(int id, Double lat,Double lng, byte[] pic,List<Clutch> clutch){

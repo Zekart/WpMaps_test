@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import net.wildpark.wpmaps.entitys.House;
 import net.wildpark.wpmaps.enums.HouseOwner;
 import net.wildpark.wpmaps.enums.HouseType;
+import net.wildpark.wpmaps.enums.TypeConnection;
 import net.wildpark.wpmaps.facades.HouseFacade;
 
 /**
@@ -29,6 +30,7 @@ public class HouseController implements Serializable {
     
     private HouseType typeOfHouse;
     private HouseOwner ownerofHouse;
+    private TypeConnection typeConnection;
 
     public HouseController() {
     }
@@ -49,7 +51,9 @@ public class HouseController implements Serializable {
     public HouseOwner[] getHouseOwner() {
         return HouseOwner.values();
     }    
-
+    public TypeConnection[] getTypeConnection() {
+        return TypeConnection.values();
+    } 
     public House getH() {
         return h;
     }
@@ -72,6 +76,14 @@ public class HouseController implements Serializable {
 
     public void setOwnerofHouse(HouseOwner ownerofHouse) {
         this.ownerofHouse = ownerofHouse;
+    }
+    
+    public TypeConnection getTypeOfConnection() {
+        return typeConnection;
+    }
+
+    public void setTypeOfConnection(TypeConnection typeConnection) {
+        this.typeConnection = typeConnection;
     }
     
     
