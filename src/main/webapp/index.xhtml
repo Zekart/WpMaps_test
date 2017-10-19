@@ -31,7 +31,7 @@
                     <h:inputText id="new_log" value="#{userController.newUser.login}"/>
                     <h:inputSecret id="new_pass" value="#{userController.newUser.password}"/>
                     <h:inputText id="new_about" value="#{userController.newUser.about}"/>
-                    <p:commandButton id="confirmRegistration" onclick="hideRegistrationForm()" type="reset" styleClass="social-signin twitter" action="#{userController.registration()}" value="регистрация" >
+                    <p:commandButton id="confirmRegistration" onclick="hideRegistrationForm()" styleClass="social-signin twitter" action="#{userController.registration()}" value="регистрация" >
                     </p:commandButton>
                     <p:watermark for="new_log" value="Логин" />
                     <p:watermark for="new_pass" value="Пароль" />

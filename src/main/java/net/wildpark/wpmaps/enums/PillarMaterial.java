@@ -7,7 +7,7 @@ package net.wildpark.wpmaps.enums;
 
 public enum PillarMaterial{
     CONCRETE("Бетонный"),
-    METALLIC("Металический"),
+    METALLIC("Металлический"),
     WOODEN("Деревянный");
     
     private String pillar_material;
