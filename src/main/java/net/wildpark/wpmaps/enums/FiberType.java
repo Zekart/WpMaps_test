@@ -11,8 +11,7 @@ package net.wildpark.wpmaps.enums;
  */
 public enum FiberType{
     SINGLEMODE("Одномодовый"),
-    MULTYMODE("Многомодовый"),
-    СOMBINED("Комбинирован");
+    MULTYMODE("Многомодовый");
     
     private String fiber_type;
 

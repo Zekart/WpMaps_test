@@ -53,60 +53,60 @@
 
 
                 <h:panelGrid style=" margin-top: 10%; padding: 30px; margin-left: 30%;  width: 40%;" rendered="#{AddController.selectObj == 'PILLAR'}" columns="2"  >
-<!--                    <p:row>
+                    <p:row>
                         <p:column>Транспортная подстанция </p:column>
                     </p:row>
                     <p:row>
-                        <p:inputText id="pil_name" required="true" value="{gMapsController.transportStation}" requiredMessage="Пустые поля"  style="width: 100%;">
+                        <p:inputText id="pil_name" required="true" value="#{gMapsController.transportStation}" requiredMessage="Пустые поля"  style="width: 100%;">
                         </p:inputText>                                           
                     </p:row>
                     <p:row>
                         <p:column>Номер подстанции </p:column>
                     </p:row>
                     <p:row>
-                        <p:inputText required="true" requiredMessage="Пустые поля" value="{gMapsController.numberStation}" style="width: 100%;">
+                        <p:inputText required="true" requiredMessage="Пустые поля" value="#{gMapsController.numberStation}" style="width: 100%;">
                         </p:inputText>
                     </p:row>  
                     <p:row>
                         <p:column>Адрес: </p:column>
                     </p:row>
                     <p:row>
-                        <p:inputText required="true" requiredMessage="Пустые поля" value="{gMapsController.address}" style="width: 100%;">
+                        <p:inputText required="true" requiredMessage="Пустые поля" value="#{gMapsController.address}" style="width: 100%;">
                         </p:inputText>
                     </p:row>                     
                     <p:row>
                         <p:column>Балансодержатель опоры </p:column>
                     </p:row>
                     <p:row>
-                        <p:selectOneMenu id="pillar_owner" value="{gMapsController.owner}" style="width:100%;" >
-                            <f:selectItems var="st" value="{gMapsController.pillarOwner}" itemValue="{st.ownerType}" itemLabel="{st.ownerType}"/>
+                        <p:selectOneMenu id="pillar_owner" value="#{gMapsController.owner}" style="width:100%;" >
+                            <f:selectItems var="st" value="#{gMapsController.pillarOwner}" itemValue="#{st.ownerType}" itemLabel="#{st.ownerType}"/>
                         </p:selectOneMenu>        
                     </p:row>
                     <p:row>
                         <p:column>Материал столба </p:column>
                     </p:row>
                     <p:row>
-                        <p:selectOneMenu id="matheriall" value="{gMapsController.matheriallPillar}" style="width:100%;">
-                            <f:selectItems var="mat"  value="{gMapsController.pillarMaterial}" itemValue="{mat}" itemLabel="{mat.pillarMaterial}" />
+                        <p:selectOneMenu id="matheriall" value="#{gMapsController.matheriallPillar}" style="width:100%;">
+                            <f:selectItems var="mat"  value="#{gMapsController.pillarMaterial}" itemValue="#{mat}" itemLabel="#{mat.pillarMaterial}" />
                         </p:selectOneMenu>                     
                     </p:row>   
                     <p:row>
                         <p:column>Тип столба</p:column>
                     </p:row> 
                     <p:row>
-                        <p:selectOneMenu id="pillar_type" value="{gMapsController.typePillar}" style="width:100%">
-                            <f:selectItems var="pl" value="{gMapsController.pillarType}" itemValue="{pl}" itemLabel="{pl.pilarType}"  />
+                        <p:selectOneMenu id="pillar_type" value="#{gMapsController.typePillar}" style="width:100%">
+                            <f:selectItems var="pl" value="#{gMapsController.pillarType}" itemValue="#{pl}" itemLabel="#{pl.pilarType}"  />
                         </p:selectOneMenu>     
                     </p:row>
                     <p:row>
                         <p:column>Изображение</p:column>
                     </p:row>
                     <p:row>
-                        <p:fileUpload value="{fileUploadView.file}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                     </p:row>   
                     <p:row>
                         
-                    </p:row> -->
+                    </p:row>
                     <p:panel>
                         <h:commandLink value="Create" action="#{gMapsController.addMarkerP()}" >
                         </h:commandLink>                
@@ -167,39 +167,41 @@
                 </h:panelGrid>
                 <h:panelGrid style=" margin-top: 10%; padding: 30px; margin-left: 30%; border: 1px silver solid;  width: 40%;" rendered="#{AddController.selectObj == 'DRAW_WELL'}" columns="2"  >
                     <p:row>
-                        <p:column>№ колодца: </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:inputText  value="#{mapObjController.drawWell.numberStation}" class="add_inputfield">
-                            <f:validateLength minimum="1" />
-                        </p:inputText>
-                    </p:row>
-                    <p:row>
-                        <p:column>№ канала: </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:inputText  value="#{mapObjController.drawWell.chanel_number}" class="add_inputfield">
-                            <f:validateLength minimum="1" />
-                        </p:inputText>
+                        <p:column>Тип</p:column>
                     </p:row> 
-                    <p:row>
-                        <h:outputText value="Приямок: " />
+                    <p:row>                    
+                        <p:selectOneMenu id="drawWell_type" value="#{gMapsController.type_drawWell}" style="width:150px" >
+                            <f:selectItems var="ht" value="#{gMapsController.drawWellType}" itemValue="#{ht}" itemLabel="#{ht.drawWellType}"/>
+                        </p:selectOneMenu>        
                     </p:row>
                     <p:row>
-                        <p:selectBooleanCheckbox value="#{mapObjController.drawWell.pit}" />
-                    </p:row>                                                                                        
+                        <p:column>Адрес: </p:column>
+                    </p:row>
                     <p:row>
-                        <h:outputText value="Без муфты: " />                      
-                    </p:row>        
+                        <p:inputText  value="#{gMapsController.address}">
+                            <f:validateLength minimum="1" />
+                        </p:inputText>
+                    </p:row>                     
                     <p:row>
-                        <p:selectBooleanCheckbox value="#{pointWizard.skip}" />                        
-                    </p:row>     
+                        <p:column>Владелец</p:column>
+                    </p:row>         
+                    <p:row>
+                        <p:selectOneMenu id="drawWell_owner" value="#{gMapsController.owner}" style="width:150px" >
+                            <f:selectItems var="ho" value="#{gMapsController.drawWellOwner}" itemValue="#{ho}" itemLabel="#{ho.drawWellOwner}"/>
+                        </p:selectOneMenu>        
+                    </p:row>
+                    <p:row>
+                        <p:column>Изображение</p:column>
+                    </p:row>
+                    <p:row>
+                        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                    </p:row> 
                     <p:panel>
                         <h:commandLink value="Продолжить" actionListener="#{AddController.changeIndex()}" action="#{AddController.setSelectObj('CLUTCH')}" >
                             </h:commandLink>                
                     </p:panel>                    
                 </h:panelGrid>
-                <h:panelGrid style=" margin-top: 10%; padding: 30px; margin-left: 20%; width: 100%; height: 400px;" rendered="#{AddController.selectObj == 'CLUTCH'}" columns="2"  >
+                <h:panelGrid style=" margin-top: 10%; padding: 30px; margin-left: 20%; border: 1px silver solid;  width: 60%;" rendered="#{AddController.selectObj == 'CLUTCH'}" columns="2"  >
                         <p:dataTable var="line" value="#{gMapsController.clutc_rend}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">                            
                             <p:column headerText="Адрес">
                                 <p:inputText value="#{line.address}" ><f:validateLength minimum="1" /></p:inputText>

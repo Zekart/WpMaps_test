@@ -48,17 +48,16 @@ public class MapObjController implements Serializable{
 
     private double lat;
     private double lng;
-    private String entrance_number;
     private String number_house;
+    private String user_connection;
     private String number_flat;
-    private String address_info;
     
     private List<Clutch> clutch = new ArrayList<>();
     private List<House> house_list = new ArrayList<>();
     private List<DrawWell> draw_list = new ArrayList<>();
     private List<Pillar> pillar_list = new ArrayList<>();
     private List<Pillar> temp_pillar_list = new ArrayList<>();
-
+    private Pillar select_pillar;
     
     
     Pillar pillar = new Pillar();
@@ -89,9 +88,9 @@ public class MapObjController implements Serializable{
     public void saveHouse(){
         house.setLat(this.lat);
         house.setLng(this.lng);
-        house.setNumber_entrance(entrance_number);
+        
         house.setAddress(house.getAddress().concat(" " + number_house + " " + number_flat));
-        house.setAddress_info(address_info);
+        
         
         if(pz.isSkip()!= true){
             house.setClutch(clutch);
@@ -100,8 +99,6 @@ public class MapObjController implements Serializable{
         clutch.clear();
         house = new House();
     }
-    
-    
     public void saveDrawWell(){
         drawWell.setLat(this.lat);
         drawWell.setLng(this.lng);
@@ -125,14 +122,6 @@ public class MapObjController implements Serializable{
         RequestContext.getCurrentInstance().execute("alert('peek-a-boo');");      
     }
 
-    public String getEntrance_number() {
-        return entrance_number;
-    }
-
-    public void setEntrance_number(String entrance_number) {
-        this.entrance_number = entrance_number;
-    }
-    
     public List<Pillar> getTemp_pillar_list() {
         return temp_pillar_list;
     }
@@ -164,15 +153,11 @@ public class MapObjController implements Serializable{
     public void setPillar_list(List<Pillar> pillar_list) {
         this.pillar_list = pillar_list;
     }
-
-    public String getAddress_info() {
-        return address_info;
-    }
-
-    public void setAddress_info(String address_info) {
-        this.address_info = address_info;
-    }
-        
+    
+    
+    
+    
+    
     public void delLine(ActionEvent actionEvent) {
         this.clutch.clear();
     }
@@ -237,6 +222,22 @@ public class MapObjController implements Serializable{
 
     public void setClutch(List<Clutch> clutch) {
         this.clutch = clutch;
+    }
+
+    public Pillar getSelect_pillar() {
+        return select_pillar;
+    }
+
+    public void setSelect_pillar(Pillar select_pillar) {
+        this.select_pillar = select_pillar;
+    }
+
+    public String getUser_connection() {
+        return user_connection;
+    }
+
+    public void setUser_connection(String user_connection) {
+        this.user_connection = user_connection;
     }
 
     public String getNumber_flat() {

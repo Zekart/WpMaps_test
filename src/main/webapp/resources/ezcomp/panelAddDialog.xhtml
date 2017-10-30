@@ -13,20 +13,14 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>  
-
         <script>
-            $(document).ready(function() {
-                $('.twitter').click(function() {
-                    $(this).addClass('active');
-                    setTimeout(function(){
-                        $('.active').removeClass('active');
-                    },2000);          
-                });        
-            });            
+         
         </script>
+        <style>
+
+        </style>
         <h:form id="ff" enctype="multipart/form-data">
-            <p:commandButton value="Отмена"  onclick="return cancel();" class="butCancel" >
-            </p:commandButton>
+        <p:commandButton value="Отмена" onclick="return cancel()" class="butCancel"></p:commandButton>
         <p:wizard id="wiz"  widgetVar="wizp" flowListener="#{pointWizard.onFlowProcess}" backLabel="Назад" nextLabel="Далее" >
             
             <p:tab id="obj" title="Объект">
@@ -178,8 +172,7 @@
                                         <f:selectItems var="h_type" value="#{houseController.houseType}" itemValue="#{h_type}" itemLabel="#{h_type.houseType}" />
                                         <f:ajax   render="owner_name"/>
                                         <f:ajax   render="o_type"/>
-                                        <f:ajax render="entr_number"/>
-                                        
+                                        <f:ajax   render="big_box"/>
                                     </p:selectOneMenu>        
                                 </p:row>
                                 <p:row>
@@ -195,11 +188,9 @@
                                     </p:inputText>
                                     <p:watermark for="h_number" value="№" />
                                     <p:inputText id="f_number" value="#{mapObjController.number_flat}" class="add_inputfield_number_house" >
+                                        <f:validateLength minimum="1" />
                                     </p:inputText>
-                                    <p:watermark for="f_number" value="Кв." />   
-                                    <p:inputText id="address_info" value="#{mapObjController.address_info}" class="add_inputfield" >
-                                    </p:inputText>
-                                    <p:watermark for="address_info" value="Дополнение" />                                    
+                                    <p:watermark for="f_number" value="Кв." />                                    
                                 </p:row> 
                                 <p:row>
                                     <p:column>Владелец: </p:column>
@@ -211,6 +202,7 @@
                                             <f:selectItems  var="o_type" value="#{houseController.houseOwner}" itemValue="#{o_type}" itemLabel="#{o_type.houseOwner}" />
                                         </p:selectOneMenu>   
                                         <p:inputText disabled="#{mapObjController.house.type_house == 'SINGLE'}" id="owner_name"  value="#{mapObjController.house.house_name}" class="add_inputfield" style="width: 117px;position: absolute;padding-top: 4px;margin-top: 4px;" >
+                                            <f:validateLength minimum="1" />
                                         </p:inputText> 
                                     <p:watermark for="owner_name" value="Название" />
                                     </h:panelGroup>
@@ -219,26 +211,18 @@
                                     <p:column>Этажность: </p:column>
                                 </p:row>  
                                 <p:row>                                    
-                                    <p:inputText id="count_flur" value="#{mapObjController.house.count_floor}" class="add_inputfield_number_house" >                                        
-                                    </p:inputText>   
-                                    <p:watermark for="count_flur" value="-" />
+                                    <p:inputText value="#{mapObjController.house.count_floor}" class="add_inputfield_number_house" >
+                                        <f:validateLength minimum="1" />
+                                    </p:inputText>                                   
                                 </p:row>
                                 <p:row>
                                     <p:column>Кол-во подъездов: </p:column>
                                 </p:row>  
                                 <p:row>                                    
-                                    <p:inputText id="count_entrance" value="#{mapObjController.house.count_entrance}" class="add_inputfield_number_house" title="fgdfgdg" >
-                                    </p:inputText>           
-                                    <p:watermark for="count_entrance" value="-" />
+                                    <p:inputText value="#{mapObjController.house.count_entrance}" class="add_inputfield_number_house" >
+                                        <f:validateLength minimum="1" />
+                                    </p:inputText>                                   
                                 </p:row>
-                                <p:row>
-                                    <p:column>№ подъездов: </p:column>
-                                </p:row>                                 
-                                <p:row>
-                                    <p:inputText id="entr_number" value="#{mapObjController.entrance_number}"  disabled="#{mapObjController.house.type_house != 'MULTYAPARTMENTS'}" class="add_inputfield" >
-                                    </p:inputText>
-                                    <p:watermark for="entr_number" value="Подъезд,№" />                                    
-                                </p:row>                              
                                 <p:row>
                                     <p:column>Тип подключения абонентов: </p:column>
                                 </p:row>                                
@@ -252,7 +236,7 @@
                                     <p:column>Б.Я: </p:column>
                                 </p:row>                                
                                 <p:row>
-                                    <p:selectBooleanCheckbox id="big_box" value="#{mapObjController.house.bigBox}" />         
+                                    <p:selectBooleanCheckbox id="big_box" disabled="#{mapObjController.house.type_house != 'SINGLE'}" value="#{mapObjController.house.bigBox}" />         
                                 </p:row>                                                                      
                                 <p:row> 
                                     <h:outputText value="Без муфты: " />                                       
