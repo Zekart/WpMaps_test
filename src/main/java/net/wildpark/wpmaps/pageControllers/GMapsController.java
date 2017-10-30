@@ -312,6 +312,11 @@ public class GMapsController implements Serializable {
         }
     }
     
+    public String viewOrderCustomized() {       
+        return"order_page.xhtml?faces-redirect=true";
+    } 
+
+
     
     public void viewBugCustomized() {
 

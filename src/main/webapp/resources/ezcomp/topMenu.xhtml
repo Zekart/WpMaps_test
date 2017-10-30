@@ -15,7 +15,24 @@
         <p:panel id="historyMenuPanel" styleClass="historyMenuPanel" >   
             <header>
                 <div class="container" id="one">  
-                    <img class="icon" src="../resources/images/file.png" title="Файл"></img> 
+                    <nav>
+                        <ul class="topmenu">
+                            <li><img class="icon" src="../resources/images/file.png" title="Файл"></img>
+                                <ul class="submenu" style="width: 150px !important;" >
+                                    <li >
+                                        <h:commandLink style=" color: white; font: 9pt sans-serif;" value="Создать задачу"  actionListener="#{gMapsController.viewOrderCustomized()}" >
+                                            <f:ajax  render="f_br" />
+                                        </h:commandLink>
+                                    </li>
+                                    <li>
+                                        <h:commandLink style=" color: white; font: 9pt sans-serif;" value="Просмотр задач"  action="#{gMapsController.viewBugListCustomized()}" >
+                                            <f:ajax  render="f_br" />
+                                        </h:commandLink>
+                                    </li>                                    
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>                    
                 </div>
                 <div class="container" id="two">  
                     <nav>

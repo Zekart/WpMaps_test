@@ -261,8 +261,8 @@
         }
 
         function cancel() {
-            PF('wizp').loadStep('obj', false);
             PF('dlg').hide();
+            PF('wizp').loadStep('obj', false);            
             currentMarker.setMap(null);
             currentMarker = null;
             return false;

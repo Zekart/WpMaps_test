@@ -57,6 +57,15 @@
 
         }
         
+        $(document).ready(function() {
+            $('.link').click(function() {
+                $(this).addClass('active');
+                setTimeout(function(){
+                    $('.active').removeClass('active');
+                },2000);          
+            });        
+        });        
+        
     </script>
 </html>
 
