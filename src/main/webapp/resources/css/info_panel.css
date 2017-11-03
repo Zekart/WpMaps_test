@@ -1,5 +1,5 @@
 .map-info-window tr, td{
-    color: #ffffff;
+    color: #000000 !important;
 }
  
 .gm-style-iw {
@@ -18,7 +18,18 @@
     font-weight: 300;
     font-size: 13px;
     overflow: hidden;
-    background: black;
+    background: white;
     box-shadow: transparent;
+}
+
+#myPanel{
+    border: none;
+    
+}
+#myPanel div{
+    border: none;
+}
+#myPanel .ui-panel .ui-panel-content{
+    padding: 0;
 }
 

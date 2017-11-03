@@ -31,6 +31,9 @@ public class House extends MapPoint implements Serializable{
     @Column(name = "count_floor")
     private int count_floor;    
     
+    @Column(name = "number_entrance")
+    private String number_entrance;    
+    
     @Column(name = "count_entrance")
     private int count_entrance;
        
@@ -40,12 +43,14 @@ public class House extends MapPoint implements Serializable{
     @Column(name = "user_conection")
     private String user_connection;
 
+    @Column(name = "address_info")
+    private String address_info;
     
     public House() {
 
     }
 
-    public House(int id, String owner, Double lat, Double lng,HouseType type_house,String user_connection,String house_name,String house_number,int count_floor,String address,int count_entrance,boolean bigBox,byte[] pic,List<Clutch> clutch) {
+    public House(int id, String owner, Double lat, Double lng,HouseType type_house,String user_connection,String house_name,String house_number,int count_floor,String number_entrance,String address,String address_info,int count_entrance,boolean bigBox,byte[] pic,List<Clutch> clutch) {
         super(id, owner,lat,lng,address,pic,clutch);
         this.house_name = house_name;
         this.type_house = type_house;
@@ -53,6 +58,8 @@ public class House extends MapPoint implements Serializable{
         this.count_entrance = count_entrance;
         this.bigBox = bigBox;
         this.user_connection = user_connection;
+        this.address_info = address_info;
+        this.number_entrance = number_entrance;
     }
 
     public HouseType getType_house() {
@@ -103,6 +110,22 @@ public class House extends MapPoint implements Serializable{
     public void setUser_connection(String user_connection) {
         this.user_connection = user_connection;
     }   
+
+    public String getAddress_info() {
+        return address_info;
+    }
+
+    public void setAddress_info(String address_info) {
+        this.address_info = address_info;
+    }
+
+    public String getNumber_entrance() {
+        return number_entrance;
+    }
+
+    public void setNumber_entrance(String number_entrance) {
+        this.number_entrance = number_entrance;
+    }
     
 
     @Override

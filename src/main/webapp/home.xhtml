@@ -86,9 +86,9 @@
         <tm:topMenu/>
 
         <p:dialog widgetVar="dial" id="panel_detail" resizable="no" width="800" height="300" header="Детальная информация">
-            <p:outputPanel id="toUpdate" style="width: 780px; border-color: black !important; background: black;" >
+            <p:outputPanel id="toUpdate" >
                 <p:panel id="myPanel" rendered="#{gMapsController.flag}"  styleClass="withOutBorder" widgetVar="ww" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500">
-                    <p:panelGrid  style="margin-top:-50px; font: 9pt sans-serif; width: 100%; "  rendered="#{gMapsController.selected_point.decriminatorValue == 'Дом'}">  
+                    <p:panelGrid  style="margin-top:-70px; font: 9pt sans-serif; width: 100%; "  rendered="#{gMapsController.selected_point.decriminatorValue == 'Дом'}">  
                         <f:facet name="header">
                             <p:row>
                                 <p:column colspan="8">Объект</p:column>

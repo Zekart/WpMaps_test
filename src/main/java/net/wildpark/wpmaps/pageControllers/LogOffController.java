@@ -18,7 +18,7 @@ public class LogOffController implements Serializable {
     
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index.xhtml?faces-redirect=true";
+        return "index_1.xhtml?faces-redirect=true";
     }
 
     public User getCurrent() {

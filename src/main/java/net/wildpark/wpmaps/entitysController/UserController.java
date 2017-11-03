@@ -92,7 +92,7 @@ public class UserController implements Serializable {
         return "";
     }
     
-    public void registration(){
+    public String registration(){
 
             User new_user=new User();
             new_user.setLogin(newUser.getLogin());
@@ -104,6 +104,7 @@ public class UserController implements Serializable {
             new_user.setEmail("Created automaticly by system");
             userFacade.create(newUser);
             users.add(new_user);    
+            return "index_1.xhtml?faces-redirect=true";
 
     }
     

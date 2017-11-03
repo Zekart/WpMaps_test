@@ -13,15 +13,14 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>  
-        <script>
-         
-        </script>
         <style>
-
+            #cabel_add input{
+                width: 120px;
+            }
         </style>
         <h:form id="ff" enctype="multipart/form-data">
         <p:commandButton value="Отмена" onclick="return cancel()" class="butCancel"></p:commandButton>
-        <p:wizard id="wiz"  widgetVar="wizp" flowListener="#{pointWizard.onFlowProcess}" backLabel="Назад" nextLabel="Далее" >
+        <p:wizard id="wiz" style="color:black;"  widgetVar="wizp" flowListener="#{pointWizard.onFlowProcess}" backLabel="Назад" nextLabel="Далее" >
             
             <p:tab id="obj" title="Объект">
                 <p:panel style="background: transparent; border: none; ">
@@ -172,7 +171,6 @@
                                         <f:selectItems var="h_type" value="#{houseController.houseType}" itemValue="#{h_type}" itemLabel="#{h_type.houseType}" />
                                         <f:ajax   render="owner_name"/>
                                         <f:ajax   render="o_type"/>
-                                        <f:ajax   render="big_box"/>
                                     </p:selectOneMenu>        
                                 </p:row>
                                 <p:row>
@@ -180,18 +178,27 @@
                                 </p:row>
                                 <p:row>                                    
                                     <p:inputText id="h_street" value="#{mapObjController.house.address}" class="add_inputfield">
-                                        <f:validateLength minimum="1" />
+                                        
                                     </p:inputText>
                                     <p:watermark for="h_street" value="Улица" />
                                     <p:inputText id="h_number" value="#{mapObjController.number_house}" class="add_inputfield_number_house" >
-                                        <f:validateLength minimum="1" />
+                                        
                                     </p:inputText>
                                     <p:watermark for="h_number" value="№" />
-                                    <p:inputText id="f_number" value="#{mapObjController.number_flat}" class="add_inputfield_number_house" >
-                                        <f:validateLength minimum="1" />
+                                    <p:inputText id="f_number" value="#{mapObjController.number_flat}" class="add_inputfield_number_house" >                                       
                                     </p:inputText>
                                     <p:watermark for="f_number" value="Кв." />                                    
                                 </p:row> 
+                                <p:row>
+                                    <p:column></p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:inputText id="address_info" value="#{mapObjController.address_info}" style="width: 325px;" >                                       
+                                        </p:inputText>  
+                                        <p:watermark for="address_info" value="Дополнение" />
+                                    </p:column>
+                                </p:row>                                
                                 <p:row>
                                     <p:column>Владелец: </p:column>
                                 </p:row>                                
@@ -202,7 +209,7 @@
                                             <f:selectItems  var="o_type" value="#{houseController.houseOwner}" itemValue="#{o_type}" itemLabel="#{o_type.houseOwner}" />
                                         </p:selectOneMenu>   
                                         <p:inputText disabled="#{mapObjController.house.type_house == 'SINGLE'}" id="owner_name"  value="#{mapObjController.house.house_name}" class="add_inputfield" style="width: 117px;position: absolute;padding-top: 4px;margin-top: 4px;" >
-                                            <f:validateLength minimum="1" />
+                                            
                                         </p:inputText> 
                                     <p:watermark for="owner_name" value="Название" />
                                     </h:panelGroup>
@@ -212,15 +219,14 @@
                                 </p:row>  
                                 <p:row>                                    
                                     <p:inputText value="#{mapObjController.house.count_floor}" class="add_inputfield_number_house" >
-                                        <f:validateLength minimum="1" />
+                                        
                                     </p:inputText>                                   
                                 </p:row>
                                 <p:row>
                                     <p:column>Кол-во подъездов: </p:column>
                                 </p:row>  
                                 <p:row>                                    
-                                    <p:inputText value="#{mapObjController.house.count_entrance}" class="add_inputfield_number_house" >
-                                        <f:validateLength minimum="1" />
+                                    <p:inputText value="#{mapObjController.house.count_entrance}" class="add_inputfield_number_house" >                                        
                                     </p:inputText>                                   
                                 </p:row>
                                 <p:row>
@@ -236,7 +242,7 @@
                                     <p:column>Б.Я: </p:column>
                                 </p:row>                                
                                 <p:row>
-                                    <p:selectBooleanCheckbox id="big_box" disabled="#{mapObjController.house.type_house != 'SINGLE'}" value="#{mapObjController.house.bigBox}" />         
+                                    <p:selectBooleanCheckbox id="big_box" value="#{mapObjController.house.bigBox}" />         
                                 </p:row>                                                                      
                                 <p:row> 
                                     <h:outputText value="Без муфты: " />                                       
@@ -275,13 +281,7 @@
                                 </p:row>        
                                 <p:row>
                                     <p:selectBooleanCheckbox value="#{pointWizard.skip}" />                        
-                                </p:row>    
-                                <p:row>
-                                    <p:column>Изображение</p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:fileUpload value="#{fileUploadView.image}" mode="simple"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                                </p:row>                                
+                                </p:row>                                   
                             </h:panelGrid>    
                         </p:panel>
 
@@ -289,67 +289,92 @@
                 </div>        
             </p:tab>
             <p:tab id="clutchInfo" title="Муфта">      
-        <div class="parent">
-            <div class="div1" style="width: 100%; color: black;">
-                <p:dataTable  style=" bottom: 0; border: none;" var="line" value="#{mapObjController.clutch}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">    
-                    
-                    <p:column style="bottom: 0;border-color: transparent;" headerText="Кол-во вводов">
-                        <p:inputText class="input_clutch" style="background: transparent;" value="#{line.inputs}" ><f:validateLength minimum="1" /></p:inputText>
-                    </p:column>
-                    
-                    <p:column style="bottom: 0;border-color: transparent;" headerText="Кол-во. кассет">
-                        <p:inputText class="input_clutch" style="background: transparent;" value="#{line.cassetsCount}" ><f:validateLength minimum="1" /></p:inputText>
-                    </p:column>
+                <div class="parent">
+                    <div class="div1" style="width: 100%; color: black;">
+                        <p:dataTable  style=" bottom: 0; border: none;" var="line" value="#{mapObjController.clutch}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">    
 
-                    <p:column style="bottom: 0;border-color: transparent;" headerText="Состояние">
-                        <p:inputText class="input_clutch" value="#{line.conditions}" ><f:validateLength minimum="1" /></p:inputText>
-                    </p:column>
+                            <p:column style="bottom: 0;border-color: transparent;" headerText="Кол-во вводов">
+                                <p:inputText class="input_clutch" style="background: transparent;" value="#{line.inputs}" ><f:validateLength minimum="1" /></p:inputText>
+                            </p:column>
 
-                    <p:column style="bottom: 0; border-color: transparent;" headerText="Доп. Инфо">
-                        <p:inputText class="input_clutch" value="#{line.info}" ><f:validateLength minimum="1" /></p:inputText>
-                    </p:column>
+                            <p:column style="bottom: 0;border-color: transparent;" headerText="Кол-во. кассет">
+                                <p:inputText class="input_clutch" style="background: transparent;" value="#{line.cassetsCount}" ><f:validateLength minimum="1" /></p:inputText>
+                            </p:column>
 
-                    <p:column style="bottom: 0; border-color: transparent" headerText="Маркировка">
-                        <p:inputText class="input_clutch" value="#{line.mark}" ></p:inputText>
-                    </p:column>    
-                    
-                </p:dataTable>              
-                <p:commandButton actionListener="#{mapObjController.newLine(actionEvent)}"
-                    value="Добавить" update="dataTableSaisiePiece" ajax="true" />
-                <p:commandButton actionListener="#{mapObjController.delLine(actionEvent)}"
-                    value="Удалить" update="dataTableSaisiePiece" ajax="true" />
-            </div>
+                            <p:column style="bottom: 0;border-color: transparent;" headerText="Состояние">
+                                <p:inputText class="input_clutch" value="#{line.conditions}" ><f:validateLength minimum="1" /></p:inputText>
+                            </p:column>
 
-        </div>
+                            <p:column style="bottom: 0; border-color: transparent;" headerText="Доп. Инфо">
+                                <p:inputText class="input_clutch" value="#{line.info}" ><f:validateLength minimum="1" /></p:inputText>
+                            </p:column>
+
+                            <p:column style="bottom: 0; border-color: transparent" headerText="Маркировка">
+                                <p:inputText class="input_clutch" value="#{line.mark}" ></p:inputText>
+                            </p:column>    
+
+                        </p:dataTable>              
+                        <p:commandButton actionListener="#{mapObjController.newLine(actionEvent)}"
+                            value="Добавить" update="dataTableSaisiePiece" ajax="true" />
+                        <p:commandButton actionListener="#{mapObjController.delLine(actionEvent)}"
+                            value="Удалить" update="dataTableSaisiePiece" ajax="true" />
+                    </div>
+                </div>
             </p:tab> 
-<!--            <p:tab id="cabel_add" title="Кабель">           
-                <p:dataTable var="cabel" value="{gMapsController.cabels}"
-                        id="dataTableSaisieCabel">
+            <p:tab id="cabel_add" title="Кабель">           
+                <div class="parent">
+                    <div class="div1" style="width: 100%;height: 100%; color: black; overflow: hidden;">
+                        <div style="width: 100%; height: 80px; padding-top: 20px;">
+                            <div style="margin-left: 10px; float: left; width: 100px; height: 60px; background: springgreen;">
+                                <p:commandLink value="1">
+                                    <img height="60" width="100" src="../resources/images/basic.png" />
+                                </p:commandLink>
+                            </div>
+                            <div style="margin-left: 10px; float: left; width: 100px; height: 60px; background: green;">
+                                
+                            </div>                            
+                        </div>
+                        <div style="width: 100%; height: 40px; margin-top: 100px; background: black;">
+                            
+                        </div>
+                    <!--    <p:dataTable  style=" bottom: 0; border: none;" var="lines" value="{mapObjController.cabel}" id="dataTableCable" editable="true" widgetVar="cellCable">    
 
-                    <p:column headerText="Вместимость">
-                        <p:inputText value="{cabel.capacity}" ><f:validateLength minimum="1" /></p:inputText>
-                    </p:column>                    
-                    <p:column headerText="Введён в">
-                        <p:inputText value="{cabel.inplace}" ><f:validateLength minimum="1" /></p:inputText>
-                    </p:column>
+                            <p:column style="bottom: 0;border-color: transparent;" headerText="Изготовитель">
+                                <p:inputText class="1input_clutch" style="background: transparent;" value="{lines.production}" ><f:validateLength minimum="1" /></p:inputText>
+                            </p:column>
 
-                    <p:column headerText="Выведен с">
-                        <p:inputText value="{cabel.outPlace}" ><f:validateLength minimum="1" /></p:inputText>
-                    </p:column>
+                            <p:column style="bottom: 0;border-color: transparent;" headerText="Ёмкость кабеля">
+                                <p:inputText class="1input_clutch" style="background: transparent;" value="{lines.capacity}" ><f:validateLength minimum="1" /></p:inputText>
+                            </p:column>
 
-                    <p:column headerText="Длинна">
-                        <p:inputText value="{cabel.lenthCable}" ><f:validateLength minimum="1" /></p:inputText>
-                    </p:column>
+                            <p:column style="bottom: 0;border-color: transparent;" headerText="К-во модулей">
+                                <p:inputText class="1input_clutch" value="{lines.moduleCount}" ><f:validateLength minimum="1" /></p:inputText>
+                            </p:column>
+                            
+                            <p:column style="bottom: 0; border-color: transparent;" headerText="Адрес откуда приходит">
+                                <p:inputText class="1input_clutch" value="{lines.outPlace}" ><f:validateLength minimum="1" /></p:inputText>
+                            </p:column>
+                                                        
+                            <p:column style="bottom: 0; border-color: transparent;" headerText="Адрес Муфты куда заведен">
+                                <p:inputText class="1input_clutch" value="{lines.inplace}" ><f:validateLength minimum="1" /></p:inputText>
+                            </p:column>
 
-                    <p:column headerText="Маркировка">
-                        <p:inputText value="{cabel.marking}" ><f:validateLength minimum="1" /></p:inputText>
-                    </p:column>                         
+                            <p:column style="bottom: 0; border-color: transparent" headerText="Метраж кабеля от точки к точке(м)">
+                                <p:inputText class="1input_clutch" value="{lines.lenthCable}" ></p:inputText>
+                            </p:column>    
 
-                    </p:dataTable>
+                        </p:dataTable>              
+                        <p:commandButton actionListener="{mapObjController.newLineCable(actionEvent)}"
+                            value="Добавить" update="dataTableCable" ajax="true" />
+                        <p:commandButton actionListener="{mapObjController.delLineCable(actionEvent)}"
+                            value="Удалить" update="dataTableCable" ajax="true" />
+                    -->
+                    </div>
+                </div>
+            </p:tab>   
+            <p:tab id="fiber_add" title="Волокно">           
 
-                <p:commandButton actionListener="{gMapsController.newLineC}"
-                    value="New" update="dataTableSaisieCabel" ajax="true" />
-            </p:tab>   -->         
+            </p:tab>            
             <p:tab id="confirm" title="Добавление">
                 <div class="parent">
                     <div class="div1" style="width: 100%;">

@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Авторизация</title>
+        <link href="resources/css/new_login_form/animate-custom.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/new_login_form/demo.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/new_login_form/style2.css" rel="stylesheet" type="text/css"/>
+        
+        
+    </h:head>
+    <h:body>
+        <h:form>
+        <div class="container">
+            <!-- Codrops top bar -->
+            <div class="codrops-top">
+                <a href="http://www.wildpark.net/">
+                    <strong>&laquo; Wild Park &raquo;</strong>
+                </a>
+                <span class="right">
+                    <a href="http://wpeco.mk.ua/">
+                        <strong>&laquo; WPEco &raquo;</strong>
+                    </a>
+                </span>
+                <div class="clr"></div>
+            </div><!--/ Codrops top bar -->
+            <section>				
+                <div id="container_demo" >
+                    <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+                    <a class="hiddenanchor" id="toregister"></a>
+                    <a class="hiddenanchor" id="tologin"></a>
+                    <div id="wrapper">
+                        <div id="login" class="animate form">
+                            <h:form> 
+                                <h1>Log in</h1> 
+                                <p> 
+                                    <label for="username" class="uname" data-icon="u" > Ваш логин </label>
+                                    <h:inputText id="username"  value="#{userController.current.login}" required="required"/>
+                                </p>
+                                <p> 
+                                    <label for="password" class="youpasswd" data-icon="p"> Ваш пароль </label>
+                                    <h:inputSecret  id="password" value="#{userController.current.password}" required="required" /> 
+                                </p>
+                                <p class="login button"> 
+                                    <p:commandButton action="#{userController.login()}" value="Авторизация" />
+				</p>
+                                <p class="change_link">
+                                    Ещё не зарегистрированы ?
+                                    <a href="#toregister" class="to_register">Регистрация</a>
+				</p>
+                            </h:form>
+                        </div>
+
+                        <div id="register" class="animate form">
+                                <h1> Регистрация </h1> 
+                                <p> 
+                                    <label for="usernamesignup" class="uname" data-icon="u">Ваш логин</label>
+                                    <h:inputText id="usernamesignup" value="#{userController.newUser.login}"  required="required" />
+                                </p>
+                                <p> 
+                                    <label for="passwordsignup" class="youpasswd" data-icon="p">Ваш пароль </label>
+                                    <h:inputSecret id="passwordsignup" value="#{userController.newUser.password}" required="required" />
+                                </p>
+                                <p> 
+                                    <label for="usernamesignupInfo" class="youpasswd" data-icon="p">Немного о себе </label>
+                                    <h:inputSecret id="usernamesignupInfo" value="#{userController.newUser.about}" required="required" />
+                                </p>                                
+                                <p class="signin button"> 
+                                    <p:commandButton action="#{userController.registration()}" value="Регистрация" />
+				</p>
+                                <p class="change_link">  
+                                    Уже зарегистрированы ?
+                                    <a href="#tologin" class="to_register"> На авторизацию </a>
+				</p>
+                        </div>
+						
+                    </div>
+                </div>  
+            </section>
+        </div>            
+        </h:form>
+    </h:body>
+    <script>
+        $('.or').click(function(){
+            if($(this).hasClass('active')) {
+                $('#registrationCollapse').animate({left: '50%'}, 200);
+                $(this).removeClass("active");
+            } else {
+                $('#registrationCollapse').animate({left: '0%'}, 200);
+                $(this).toggleClass("active");
+            }
+        }); 
+        function hideRegistrationForm(){
+            ('#registrationCollapse').animate({left: '0%'}, 200);  
+                $(this).toggleClass("active");
+                
+
+        }
+        
+    </script>
+</html>
+

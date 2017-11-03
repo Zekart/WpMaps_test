@@ -12,11 +12,13 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
+import net.wildpark.wpmaps.entitys.Cabel;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.DrawWell;
 import net.wildpark.wpmaps.entitys.House;
 import net.wildpark.wpmaps.entitys.MapPoint;
 import net.wildpark.wpmaps.entitys.Pillar;
+import net.wildpark.wpmaps.facades.CableFacade;
 import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
@@ -44,15 +46,19 @@ public class MapObjController implements Serializable{
     @EJB
     private DrawWellFacade drawWellFacade;
     
-    
+    @EJB
+    private CableFacade cableFacade;    
 
     private double lat;
     private double lng;
     private String number_house;
     private String user_connection;
     private String number_flat;
+    private String address_info;
+    private String number_entrance;
     
     private List<Clutch> clutch = new ArrayList<>();
+    private List<Cabel> cabel = new ArrayList<>();
     private List<House> house_list = new ArrayList<>();
     private List<DrawWell> draw_list = new ArrayList<>();
     private List<Pillar> pillar_list = new ArrayList<>();
@@ -64,7 +70,7 @@ public class MapObjController implements Serializable{
     House house = new House();
     DrawWell drawWell = new DrawWell();
     MapPoint point = new MapPoint();
-    
+     
     PointWizard pz = new PointWizard();
     
 
@@ -88,7 +94,8 @@ public class MapObjController implements Serializable{
     public void saveHouse(){
         house.setLat(this.lat);
         house.setLng(this.lng);
-        
+        house.setAddress_info(address_info);
+        house.setNumber_entrance(number_entrance);
         house.setAddress(house.getAddress().concat(" " + number_house + " " + number_flat));
         
         
@@ -104,6 +111,7 @@ public class MapObjController implements Serializable{
         drawWell.setLng(this.lng);
         if(pz.isSkip()!= true){
             drawWell.setClutch(clutch);
+            
         }
         drawWellFacade.create(drawWell);
         clutch.clear();
@@ -154,9 +162,12 @@ public class MapObjController implements Serializable{
         this.pillar_list = pillar_list;
     }
     
-    
-    
-    
+    public void delLineCable(ActionEvent actionEvent) {
+        this.cabel.clear();
+    }
+    public void newLineCable(ActionEvent actionEvent) {
+        this.cabel.add(new Cabel());     
+    }    
     
     public void delLine(ActionEvent actionEvent) {
         this.clutch.clear();
@@ -246,6 +257,22 @@ public class MapObjController implements Serializable{
 
     public void setNumber_flat(String number_flat) {
         this.number_flat = number_flat;
+    }
+
+    public String getAddress_info() {
+        return address_info;
+    }
+
+    public void setAddress_info(String address_info) {
+        this.address_info = address_info;
+    }
+
+    public List<Cabel> getCabel() {
+        return cabel;
+    }
+
+    public void setCabel(List<Cabel> cabel) {
+        this.cabel = cabel;
     }
     
     

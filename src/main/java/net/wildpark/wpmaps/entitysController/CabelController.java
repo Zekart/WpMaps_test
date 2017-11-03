@@ -6,8 +6,10 @@
 package net.wildpark.wpmaps.entitysController;
 
 import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import net.wildpark.wpmaps.facades.CableFacade;
 
 /**
  *
@@ -18,7 +20,12 @@ import javax.inject.Named;
 public class CabelController implements Serializable{
     
     private String text;
+    
+    @EJB
+    private CableFacade cableFacade;
  
+    
+    
     public String getText() {
         return text;
     }
