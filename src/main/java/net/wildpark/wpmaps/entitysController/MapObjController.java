@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 import net.wildpark.wpmaps.entitys.Cabel;
 import net.wildpark.wpmaps.entitys.Clutch;
@@ -57,6 +58,9 @@ public class MapObjController implements Serializable{
     private String address_info;
     private String number_entrance;
     
+    private String a_street;
+    private String a_number;
+    
     private List<Clutch> clutch = new ArrayList<>();
     private List<Cabel> cabel = new ArrayList<>();
     private List<House> house_list = new ArrayList<>();
@@ -80,16 +84,13 @@ public class MapObjController implements Serializable{
         
     
     public void savePillar(){
-        
-        
         pillar.setLat(this.lat);
         pillar.setLng(this.lng);
         if(pz.isSkip()!= true){
             pillar.setClutch(clutch);
         }
         this.pillarFacade.create(pillar);
-        clutch.clear();
-        pillar = new Pillar();
+        clearAll();
     }
     public void saveHouse(){
         house.setLat(this.lat);
@@ -103,8 +104,7 @@ public class MapObjController implements Serializable{
             house.setClutch(clutch);
         }
         houseFacade.create(house);     
-        clutch.clear();
-        house = new House();
+        clearAll();
     }
     public void saveDrawWell(){
         drawWell.setLat(this.lat);
@@ -114,10 +114,18 @@ public class MapObjController implements Serializable{
             
         }
         drawWellFacade.create(drawWell);
-        clutch.clear();
-        drawWell = new DrawWell();
+        clearAll();
         //closeAddPanell();
-    }    
+    }  
+    
+    public void clearAll(){
+        pillar = new Pillar();
+        house = new House();
+        drawWell = new DrawWell();
+        
+        clutch.clear();
+        RequestContext.getCurrentInstance().reset("ff:drawWell_panel");
+    }
     
     public List<Pillar> findPillar(int id){
         pillar_list.clear();
@@ -129,6 +137,28 @@ public class MapObjController implements Serializable{
     public void closeAddPanell(){
         RequestContext.getCurrentInstance().execute("alert('peek-a-boo');");      
     }
+    
+    
+    public void autoAddress(AjaxBehaviorEvent event){
+        System.out.println("Address: ");
+    }
+
+    public String getA_street() {
+        return a_street;
+    }
+
+    public void setA_street(String a_street) {
+        this.a_street = a_street;
+    }
+
+    public String getA_number() {
+        return a_number;
+    }
+
+    public void setA_number(String a_number) {
+        this.a_number = a_number;
+    }
+    
 
     public List<Pillar> getTemp_pillar_list() {
         return temp_pillar_list;

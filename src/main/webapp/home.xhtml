@@ -16,6 +16,8 @@
         <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/images/favicon.ico" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine"/>
         
+        <h:outputScript library="js" name="get_address.js"/>
+        
         <title>WP Maps</title>
         <h:outputStylesheet library="css" name="pf_template.css" />
         <h:outputStylesheet library="css" name="simple_add_panell.css" /> 
@@ -29,7 +31,7 @@
         <h:form id="form" prependId="false" enctype="multipart/form-data" >
         
         <p:growl id="messages" sticky="true" />
-        <p:gmap id ="gmap" center="#{gMapsController.centerGeoMap}" zoom="#{gMapsController.zoomMap}" type="terrain" model="#{gMapsController.model}"                 
+        <p:gmap id ="gmap" center="#{gMapsController.centerGeoMap}" zoom="#{gMapsController.zoomMap}" type="HYBRID" model="#{gMapsController.model}"                 
                 style="width: 100vw;height: 100vh;" onPointClick="handlePointClick(event);" widgetVar="map" fitBounds="false">
             
             <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}" /> 
@@ -266,7 +268,8 @@
             currentMarker.setMap(null);
             currentMarker = null;
             return false;
-        }  
+        } 
+               
         
         function geocode() {
             PF('map').geocode(document.getElementById('address').value);
