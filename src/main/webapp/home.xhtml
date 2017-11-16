@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine"/>
         
         <h:outputScript library="js" name="get_address.js"/>
+        <h:outputScript library="js" name="search_panel.js"/>
         
         <title>WP Maps</title>
         <h:outputStylesheet library="css" name="pf_template.css" />
@@ -223,10 +224,12 @@
                
             </table>  
         </p:panel>
-        <p:panel id="search_panel" widgetVar="search_pan"  visible="false" >
-            <h:panelGrid styleClass="searchPanel" columns="3" style="margin-bottom:10px" cellpadding="5">
-                <p:inputText id="address" />
-                <p:commandButton  icon="ui-icon-search" onclick="geocode()" type="button" />
+
+        <p:panel id="search_panel" widgetVar="search_pan"  visible="false">
+            <h:panelGrid styleClass="searchPanel" columns="2">
+                <p:autoComplete id="address_search" value="#{find_controller.txt1}" completeMethod="#{find_controller.completeText}"/>
+                
+                <p:commandButton id="address_search_button" icon="ui-icon-search" onclick="geocode()" type="button" />
             </h:panelGrid>            
         </p:panel>
        
@@ -271,10 +274,6 @@
         } 
                
         
-        function geocode() {
-            PF('map').geocode(document.getElementById('address').value);
-        }
-        
         function openHistory(){
             var query = $('#legend_panel');
             var isVisible = query.is(':visible');
@@ -285,20 +284,12 @@
             }
             
         }
-        function openSearch(){
-            var query = $('#search_panel');
-            var isVisible = query.is(':visible');
-            if(isVisible === true){
-              PF('search_pan').close();
-            }else{
-              PF('search_pan').show(); 
-            }
-            
-        }        
+     
         function closeWizard(){
             PF('wizp').loadStep('obj', false);
             PF('dlg').hide();
-        }        
+        } 
+
       //  function showCabel(){
        //     PF('cab_pan').show();
        // }

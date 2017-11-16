@@ -156,7 +156,19 @@ public class GMapsController implements Serializable {
     }
         
     public void onGeocode(GeocodeEvent event) {
+        List<GeocodeResult> results = event.getResults();
         
+        if (results != null && !results.isEmpty()) {
+            LatLng center = results.get(0).getLatLng();
+            System.out.println(center);
+            centerGeoMap = center.getLat() + "," + center.getLng();
+            initPoint();
+//             
+//            for (int i = 0; i < results.size(); i++) {
+//                GeocodeResult result = results.get(i);
+//                model.addOverlay(new Marker(center));
+//            }
+        }        
     } 
     
     public void onRevers( ReverseGeocodeEvent event){

@@ -10,8 +10,10 @@
     <cc:interface>
     </cc:interface>
 
+
     <!-- IMPLEMENTATION -->
     <cc:implementation>
+        <h:outputScript library="js" name="search_panel.js"/>
         <p:panel id="historyMenuPanel" styleClass="historyMenuPanel" >   
             <header>
                 <div class="container" id="one">  
@@ -65,7 +67,8 @@
                                     </li>
                                         <p:separator/>
                                     <li>
-                                        <p:outputLabel style="color: white; padding-bottom: 1px; font: 9pt sans-serif;" title="Поиск по адресу" onclick="openSearch()" value="Поиск"/>
+                                        <p:outputLabel id="find_button" style="color: white; padding-bottom: 1px; font: 9pt sans-serif;" title="Поиск по адресу" onclick="openSearch()" value="Поиск">
+                                        </p:outputLabel>
                                     </li>
                                     <p:separator/>
                                     <li>
