@@ -12,8 +12,13 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIInput;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.BehaviorEvent;
 import net.wildpark.wpmaps.entitys.Pillar;
 import net.wildpark.wpmaps.facades.PillarFacade;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.map.LatLng;
 
 /**
  *
@@ -30,6 +35,10 @@ public class Find_controller implements Serializable{
     
     private String txt1;
 
+    private LatLng coordinate;
+    
+    private int id;
+    
     public Find_controller() {
         
     }
@@ -39,18 +48,40 @@ public class Find_controller implements Serializable{
     }
     
     public List<String> completeText(String query) {
-
         List<String> results = new ArrayList<>();
+
         for(int i = 0; i < pillar_list.size(); i++) {
-//            if (pillar_list.get(i).) {
-//                
-//            }
-            results.add(query + pillar_list.get(0));
-        }      
+            if (pillar_list.get(i).getTransportStation().contains(query)) {
+                results.add(pillar_list.get(i).getTransportStation());
+            }else if(String.valueOf(pillar_list.get(i).getNumberStation()).contains(query)){
+                results.add(String.valueOf(pillar_list.get(i).getNumberStation()));
+            }          
+            
+        }         
+        if (results.isEmpty()) {
+            results.add("Нету результатов");
+        }
         
         return results;
     }
+    
 
+    public void action(SelectEvent event){
+        String selected_obj;
+        selected_obj = event.getObject().toString();
+
+        for (Pillar pillar : pillar_list) {
+            if (pillar.getTransportStation().equals(selected_obj) || pillar.getTransportStation().equals(selected_obj) ) {
+                coordinate = new LatLng(pillar.getLat(), pillar.getLng());
+            }else{
+                
+            }
+        }
+        System.out.println(coordinate);
+        
+    }
+        
+    
     public String getTxt1() {
         return txt1;
     }
@@ -66,9 +97,22 @@ public class Find_controller implements Serializable{
     public void setPillar_list(List<Pillar> pillar_list) {
         this.pillar_list = pillar_list;
     }
-    
-    
-    
+
+    public LatLng getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(LatLng coordinate) {
+        this.coordinate = coordinate;
+    }  
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
     
 }

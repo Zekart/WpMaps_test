@@ -124,7 +124,6 @@ public class MapObjController implements Serializable{
         drawWell = new DrawWell();
         
         clutch.clear();
-        RequestContext.getCurrentInstance().reset("j_idt186:ff:wizard_form:drawWell_panel");
     }
     
     public List<Pillar> findPillar(int id){

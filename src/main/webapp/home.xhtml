@@ -227,9 +227,20 @@
 
         <p:panel id="search_panel" widgetVar="search_pan"  visible="false">
             <h:panelGrid styleClass="searchPanel" columns="2">
-                <p:autoComplete id="address_search" value="#{find_controller.txt1}" completeMethod="#{find_controller.completeText}"/>
+                <p:autoComplete id="address_search" value="#{find_controller.txt1}" completeMethod="#{find_controller.completeText}" >
+                    <p:ajax event="itemSelect" listener="#{find_controller.action}" process="@form"/>
+                </p:autoComplete>
                 
                 <p:commandButton id="address_search_button" icon="ui-icon-search" onclick="geocode()" type="button" />
+            </h:panelGrid>
+            <h:panelGrid styleClass="searchPanel_detailInfo">
+                <table>
+                    <tr class="noBorder">                    
+                        <td>Дом:</td>
+                        <td><p:graphicImage height="27" width="27" value="../resources/marker/Дом_marker.png"  title="Дом/House"/></td>
+                        <td>Колодец:</td>                    
+                    </tr>                 
+                </table>                 
             </h:panelGrid>            
         </p:panel>
        

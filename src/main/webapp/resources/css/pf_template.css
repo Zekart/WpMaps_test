@@ -110,12 +110,18 @@ tr.noBorder td{
     padding: 0px;
 }
 
-.searchPanel{
+.searchPanel tr td{
+    padding: 0 !important;
+}
 
+.searchPanel_detailInfo{
+    width: 100%;
+    height: 100%;
+    background: red;
 }
 
 #address_search_input{
-    width: 100px;
+    width: 110px;
     font-size: 0.8em;
     font-family: Times New Roman,sans-serif;
 }
@@ -125,6 +131,7 @@ tr.noBorder td{
 }
 #address_search_panel{
     height: 200px !important;
+    background: #ffffff !important;
 }
 
 #search_panel{
