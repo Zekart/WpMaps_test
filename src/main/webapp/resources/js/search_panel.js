@@ -6,6 +6,8 @@ function openSearch(){
     }
 }   
 
-function geocode() {
+function geocode() {    
+    
     PF('map').geocode("Николаев," + document.getElementById('address_search_input').value);
+    
 }

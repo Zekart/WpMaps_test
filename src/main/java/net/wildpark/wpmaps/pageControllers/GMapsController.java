@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -42,6 +43,7 @@ import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.ReverseGeocodeEvent;
 import org.primefaces.event.map.StateChangeEvent;
+import org.primefaces.model.map.Circle;
 import org.primefaces.model.map.GeocodeResult;
 import org.primefaces.model.map.Polyline;
 
@@ -120,7 +122,7 @@ public class GMapsController implements Serializable {
     
     PointController pc = new PointController();
   
-    //@PostConstruct
+    @PostConstruct
     public void initPoint() {
         String market_type;
         model = new DefaultMapModel();
@@ -157,12 +159,16 @@ public class GMapsController implements Serializable {
         
     public void onGeocode(GeocodeEvent event) {
         List<GeocodeResult> results = event.getResults();
-        
+       
         if (results != null && !results.isEmpty()) {
             LatLng center = results.get(0).getLatLng();
-            System.out.println(center);
             centerGeoMap = center.getLat() + "," + center.getLng();
-            initPoint();
+            
+//            RequestContext.getCurrentInstance().execute("PF('map').map.setCenter({46.9422145},{31.9990089})");
+            RequestContext.getCurrentInstance().execute("PF('map').map.setZoom("+18+")");
+            RequestContext.getCurrentInstance().execute("clusterMarkers()");
+            
+            //initPoint();
 //             
 //            for (int i = 0; i < results.size(); i++) {
 //                GeocodeResult result = results.get(i);

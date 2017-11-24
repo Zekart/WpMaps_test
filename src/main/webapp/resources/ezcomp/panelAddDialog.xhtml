@@ -20,7 +20,7 @@
         </style>
 
         <h:form id="ff" enctype="multipart/form-data">
-            <p:commandButton id="xxx" value="Отмена" onclick="return cancel()" class="butCancel" action="#{mapObjController.clearAll()}">    
+            <p:commandButton id="xxx" type="reset" value="Отмена" update="wiz" process="@this" onclick="return cancel()" class="butCancel" action="#{mapObjController.clearAll()}">    
             </p:commandButton>
             <h:form id="wizard_form" >
                 <p:wizard id="wiz" style="color:black;"  widgetVar="wizp" flowListener="#{pointWizard.onFlowProcess}" backLabel="Назад" nextLabel="Далее" >            
@@ -178,11 +178,11 @@
                                             <p:column>Адрес: </p:column>
                                         </p:row>
                                         <p:row>                                    
-                                            <p:inputText id="h_street" value="#{mapObjController.house.address}" class="add_inputfield"   >
+                                            <p:inputText id="h_street" styleClass="h_street" value="#{mapObjController.house.address}" class="add_inputfield"   >
 
                                             </p:inputText>
                                             <p:watermark for="h_street" value="Улица" />
-                                            <p:inputText id="h_number" value="#{mapObjController.number_house}" class="add_inputfield_number_house" >
+                                            <p:inputText id="h_number" styleClass="h_number" value="#{mapObjController.number_house}" class="add_inputfield_number_house" >
 
                                             </p:inputText>
                                             <p:watermark for="h_number" value="№" />
@@ -295,8 +295,8 @@
                     <p:tab id="clutchInfo" title="Муфта">      
                         <div class="parent">
                     <div class="div1" style="width: 100%; color: black;">
-                        <p:dataTable  style=" bottom: 0; border: none;" var="line" value="#{mapObjController.clutch}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">    
-
+                        <p:dataTable class="add_clutch_table" style=" bottom: 0; border: none;" var="line" value="#{mapObjController.clutch}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">    
+                                 
                             <p:column style="bottom: 0;border-color: transparent;" headerText="Кол-во вводов">
                                 <p:inputText class="input_clutch" style="background: transparent;" value="#{line.inputs}" ><f:validateLength minimum="1" /></p:inputText>
                             </p:column>
@@ -316,6 +316,10 @@
                             <p:column style="bottom: 0; border-color: transparent" headerText="Маркировка">
                                 <p:inputText class="input_clutch" value="#{line.mark}" ></p:inputText>
                             </p:column>    
+                            <p:column style="bottom: 0; border-color: transparent">
+                                <p:commandButton actionListener="#{mapObjController.delLine(actionEvent)}"
+                                    value="del ##{mapObjController.countClutch}" update="dataTableSaisiePiece" ajax="true" />
+                            </p:column>
 
                         </p:dataTable>              
                         <p:commandButton actionListener="#{mapObjController.newLine(actionEvent)}"
@@ -326,21 +330,24 @@
                 </div>
                     </p:tab> 
                     <p:tab id="cabel_add" title="Кабель">           
-                        <div class="parent">
-                            <div class="div1" style="width: 100%;height: 100%; color: black; overflow: hidden;">
-                                <div style="height: 80px; padding-top: 20px; border: 1px solid">
-                                    <div style="margin-left: 10px; float: left; width: 100px; height: 60px; background: springgreen;">
-                                        <p:commandLink  >
-                                            <img height="60" width="100" src="../resources/images/basic.png" />
-                                        </p:commandLink>
-                                    </div>
-                                    <div style="margin-left: 10px; float: left; width: 100px; height: 60px; background: green;">
+                        <h:form id="hh" >
+                            <p:layout style="min-width:400px;min-height:300px; margin-top: 30px; font-size: ">
+                                <p:layoutUnit position="west" resizable="true" size="100" minSize="200" maxSize="200">
+                                    <ui:repeat value="#{mapObjController.clutch}" var="car">
+                                        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                            <p:commandButton style="min-width: 50px; padding-top: 5px;" value="#{car.id}"/>    
 
-                                    </div>                            
-                                </div>
-                                <div style="width: 100%; height: 40px; margin-top: 100px; background: black;">
+                                        </h:panelGrid>   
+                                        <hr />
+                                    </ui:repeat>
 
-                                </div>
+                                </p:layoutUnit>
+
+                                <p:layoutUnit position="center">
+                                    Center
+                                </p:layoutUnit>
+                            </p:layout>
+                        </h:form>
                     <!--    <p:dataTable  style=" bottom: 0; border: none;" var="lines" value="{mapObjController.cabel}" id="dataTableCable" editable="true" widgetVar="cellCable">    
 
                             <p:column style="bottom: 0;border-color: transparent;" headerText="Изготовитель">
@@ -373,8 +380,6 @@
                         <p:commandButton actionListener="{mapObjController.delLineCable(actionEvent)}"
                             value="Удалить" update="dataTableCable" ajax="true" />
                     -->
-                        </div>
-                    </div>
                     </p:tab>   
                     <p:tab id="fiber_add" title="Волокно">           
 
@@ -393,7 +398,7 @@
 
                     </div>
                     <h:panelGrid class="butAdd"  rendered="#{gMapsController.obj_type == 'DRAW_WELL'}"  >
-                        <p:commandButton value="Подтвердить" class="button_accept_add" actionListener="#{mapObjController.saveDrawWell()}" action="#{gMapsController.initPoint()}" validateClient="true" update="gmap">
+                        <p:commandButton value="Подтвердить" class="button_accept_add" actionListener="#{mapObjController.saveDrawWell()}" action="#{gMapsController.initPoint()}" validateClient="true" update="form">
                             <p:ajax oncomplete="PF('wizp').loadStep('obj',false);"/>
                         </p:commandButton>
                     </h:panelGrid> 

@@ -18,6 +18,7 @@
         
         <h:outputScript library="js" name="get_address.js"/>
         <h:outputScript library="js" name="search_panel.js"/>
+        <h:outputScript library="js" name="markerclusterer.js"/>
         
         <title>WP Maps</title>
         <h:outputStylesheet library="css" name="pf_template.css" />
@@ -32,12 +33,12 @@
         <h:form id="form" prependId="false" enctype="multipart/form-data" >
         
         <p:growl id="messages" sticky="true" />
-        <p:gmap id ="gmap" center="#{gMapsController.centerGeoMap}" zoom="#{gMapsController.zoomMap}" type="HYBRID" model="#{gMapsController.model}"                 
-                style="width: 100vw;height: 100vh;" onPointClick="handlePointClick(event);" widgetVar="map" fitBounds="false">
+        <p:gmap id ="gmap" center="#{gMapsController.centerGeoMap}" disableDefaultUI="true" zoom="#{gMapsController.zoomMap}" type="ROADMAP" model="#{gMapsController.model}"                 
+                style="width: 100vw;height: 100vh;" onPointClick="handlePointClick(event);" widgetVar="map">
             
             <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}" /> 
             <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />           
-            <p:ajax event="stateChange" listener="#{gMapsController.onStateChange}"  />
+            <!--<p:ajax event="stateChange" listener="{gMapsController.onStateChange}"  /> -->
 
             <p:gmapInfoWindow id="infoWindow" class="map-info-window"  maxWidth="300">                
                     <h:panelGrid  columns="2" style="font: 9pt sans-serif; width: 100%; " styleClass="withOutBorder">
@@ -231,7 +232,8 @@
                     <p:ajax event="itemSelect" listener="#{find_controller.action}" process="@form"/>
                 </p:autoComplete>
                 
-                <p:commandButton id="address_search_button" icon="ui-icon-search" onclick="geocode()" type="button" />
+                <p:commandButton id="address_search_button" icon="ui-icon-search" onclick="geocode()">
+                </p:commandButton>
             </h:panelGrid>
             <h:panelGrid styleClass="searchPanel_detailInfo">
                 <table>
@@ -304,8 +306,19 @@
       //  function showCabel(){
        //     PF('cab_pan').show();
        // }
-               
+       
+        
     </script> 
+    <script>
+        function clusterMarkers(){
+            var mcOptions = {gridSize: 50, maxZoom: 15, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'};
+            var mc = new MarkerClusterer(PF('map').map, PF('map').map.markers,mcOptions);
+            PF('map').map.fitBounds = google.maps.Map.prototype.fitBounds;
+        }
+        $(window).load(function() {
+            clusterMarkers();
+        });
+    </script>        
 
     </h:body>
 </html>

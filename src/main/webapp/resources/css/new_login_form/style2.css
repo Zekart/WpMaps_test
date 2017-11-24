@@ -8,27 +8,7 @@
 }
 
 /** fonts used for the icons **/ 
-@font-face {
-    font-family: 'FontomasCustomRegular';
-    src: url('fonts/fontomas-webfont.eot');
-    src: url('fonts/fontomas-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/fontomas-webfont.woff') format('woff'),
-         url('fonts/fontomas-webfont.ttf') format('truetype'),
-         url('fonts/fontomas-webfont.svg#FontomasCustomRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'FranchiseRegular';
-    src: url('fonts/franchise-bold-webfont.eot');
-    src: url('fonts/franchise-bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/franchise-bold-webfont.woff') format('woff'),
-         url('fonts/franchise-bold-webfont.ttf') format('truetype'),
-         url('fonts/franchise-bold-webfont.svg#FranchiseRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
 
-}
 a.hiddenanchor{
 	display: none;
 }
@@ -142,7 +122,6 @@ input {
 /** the magic icon trick ! **/
 [data-icon]:after {
     content: attr(data-icon);
-    font-family: 'FontomasCustomRegular';
     color: rgb(106, 159, 171);
     position: absolute;
     left: 10px;

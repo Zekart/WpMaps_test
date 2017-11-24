@@ -23,7 +23,16 @@
     margin: 40px;
     margin-left: 190px;
 
-}   
+}  
+.add_clutch_table td,th{
+    width: 80px;
+    font-size: 16px;
+}
+
+.input_clutch{
+    max-width: 145px;
+    padding: 0 !important;
+}
 
 .panelAddPillar{
     text-align: left; 

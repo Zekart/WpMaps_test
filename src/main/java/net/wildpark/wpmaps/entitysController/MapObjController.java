@@ -20,6 +20,7 @@ import net.wildpark.wpmaps.entitys.House;
 import net.wildpark.wpmaps.entitys.MapPoint;
 import net.wildpark.wpmaps.entitys.Pillar;
 import net.wildpark.wpmaps.facades.CableFacade;
+import net.wildpark.wpmaps.facades.ClutchFacade;
 import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.HouseFacade;
 import net.wildpark.wpmaps.facades.PillarFacade;
@@ -49,6 +50,9 @@ public class MapObjController implements Serializable{
     
     @EJB
     private CableFacade cableFacade;    
+    
+    @EJB
+    private ClutchFacade clutchFacade;
 
     private double lat;
     private double lng;
@@ -78,6 +82,7 @@ public class MapObjController implements Serializable{
     PointWizard pz = new PointWizard();
     
 
+    int count_clutch_cash = 0;
 
     public MapObjController() {
     }
@@ -124,6 +129,13 @@ public class MapObjController implements Serializable{
         drawWell = new DrawWell();
         
         clutch.clear();
+        RequestContext.getCurrentInstance().reset("j_idt189:ff:wizard_form:asd");
+    }
+    
+    public int getCountClutch(){
+        int count_clutch = clutchFacade.count();
+        count_clutch+=1;
+        return count_clutch;
     }
     
     public List<Pillar> findPillar(int id){

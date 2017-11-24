@@ -22,6 +22,8 @@ and open the template in the editor.
         
         <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/images/favicon.ico" />
         <h:outputScript library="js" name="search_panel.js"/>
+        <h:outputScript library="js" name="markerclusterer.js"/>
+        
         <title>WP Maps</title>
         <h:outputStylesheet library="css" name="pf_template.css" />
         <h:outputStylesheet library="css" name="info_panel.css" />
@@ -61,12 +63,12 @@ and open the template in the editor.
         <h:form id="form" prependId="false" enctype="multipart/form-data" >
         
         <p:growl id="messages" showDetail="true"  sticky="true" />
-        <p:gmap id ="gmap" center="#{gMapsController.centerGeoMap}" zoom="#{gMapsController.zoomMap}" type="terrain" model="#{gMapsController.model}"                 
-                style="width: 100vw;height: 100vh;" widgetVar="map" fitBounds="false">
+        <p:gmap id ="gmap" center="#{gMapsController.centerGeoMap}" zoom="#{gMapsController.zoomMap}" type="ROADMAP"  model="#{gMapsController.model}"                 
+                style="width: 100vw;height: 100vh;" widgetVar="map" >
             
             <p:ajax event="overlaySelect" listener="#{gMapsController.onMarkerSelect}"  />    
             <p:ajax event="geocode" listener="#{gMapsController.onGeocode}" update="@this" />
-            <p:ajax event="stateChange" listener="#{gMapsController.onStateChange}"  />
+            <!--<p:ajax event="stateChange" listener="{gMapsController.onStateChange}"  /> -->
             <!--
             <p:ajax event="stateChange" listener="{gMapsController.onStateChange}" />
             -->
@@ -266,8 +268,17 @@ and open the template in the editor.
               PF('testPanel').show(); 
             }
             
+        };
+    </script> 
+    <script>
+        function clusterMarkers(){
+            var mcOptions = {gridSize: 50, maxZoom: 15, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'};
+            var mc = new MarkerClusterer(PF('map').map, PF('map').map.markers,mcOptions);
+            PF('map').map.fitBounds = google.maps.Map.prototype.fitBounds;
         }
-    
-    </script>        
+        $(window).load(function() {
+            clusterMarkers();
+        });
+    </script> 
     </body>
 </html>
