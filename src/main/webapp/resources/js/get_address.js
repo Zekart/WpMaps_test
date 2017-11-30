@@ -16,8 +16,9 @@
         var street = "Unknow";
         var number ="Unknow";
         
-        var n = document.getElementById('j_idt189:ff:wizard_form:h_number');
-        var s = document.getElementById('j_idt189:ff:wizard_form:h_street');
+        //var n = document.getElementById('j_idt189:ff:wizard_form:h_number');
+        //var s = document.getElementById('j_idt189:ff:wizard_form:h_street');
+        var sss = document.getElementById('j_idt189:ff:wizard_form:hidden_address');
 
         geocoder.geocode({ 'location': point }, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
@@ -35,8 +36,10 @@
                     number = street_number.short_name;
                     street = street_name.short_name;
 
-                    n.value = number;
-                    s.value = street.substr(street.indexOf(' ')+1);
+                    //n.value = number;
+                    //s.value = street.substr(street.indexOf(' ')+1);
+                    sss.value = street +" " + number;
+                    //alert(street + "  " + number);
                     //strt.onchange();
                 }
             }

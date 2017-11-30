@@ -6,10 +6,12 @@
 package net.wildpark.wpmaps.entitys;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,17 +38,27 @@ public class Clutch implements Serializable {
     private int inputs;
     private String mark;
     
-    @OneToMany(mappedBy = "clutch", cascade = CascadeType.ALL)
-    private List<Cabel> cable;
+    @OneToMany(targetEntity = Cabel.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Cabel> cable = new ArrayList<>();
 
     public Clutch() {
     }
+
+    public Clutch(int id, String conditions, int cassetsCount, String info, int inputs, String mark, List<Cabel> cable) {
+        this.id = id;
+        this.conditions = conditions;
+        this.cassetsCount = cassetsCount;
+        this.info = info;
+        this.inputs = inputs;
+        this.mark = mark;
+        this.cable = cable;
+    }
     
     
 
-    public Clutch( List<Cabel> cable ) {
-        this.cable = cable;
-    }
+//    public Clutch( List<Cabel> cable ) {
+//        this.cable = cable;
+//    }
     
 //    
 //    
@@ -111,6 +123,7 @@ public class Clutch implements Serializable {
         this.mark = mark;
     }
 
+    
     
     @Override
     public String toString() {

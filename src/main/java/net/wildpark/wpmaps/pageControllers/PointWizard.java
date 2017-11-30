@@ -29,11 +29,9 @@ public class PointWizard implements Serializable {
     public String onFlowProcess(FlowEvent event) {
         if(skip) {
             skip = true;   //reset in case user goes back
-            System.out.println(skip);
             return "confirm";
         }
         else {
-            System.out.println(skip);
             return event.getNewStep();
         }
         

@@ -8,6 +8,7 @@ package net.wildpark.wpmaps.entitysController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
@@ -65,6 +66,8 @@ public class MapObjController implements Serializable{
     private String a_street;
     private String a_number;
     
+    private String address;
+    
     private List<Clutch> clutch = new ArrayList<>();
     private List<Cabel> cabel = new ArrayList<>();
     private List<House> house_list = new ArrayList<>();
@@ -78,6 +81,8 @@ public class MapObjController implements Serializable{
     House house = new House();
     DrawWell drawWell = new DrawWell();
     MapPoint point = new MapPoint();
+    Clutch clutch_o = new Clutch();
+    Cabel cabel_o = new Cabel();
      
     PointWizard pz = new PointWizard();
     
@@ -85,12 +90,14 @@ public class MapObjController implements Serializable{
     int count_clutch_cash = 0;
 
     public MapObjController() {
+        this.clutch.add(new Clutch());
     }
         
     
     public void savePillar(){
         pillar.setLat(this.lat);
         pillar.setLng(this.lng);
+        pillar.setAddress(address);
         if(pz.isSkip()!= true){
             pillar.setClutch(clutch);
         }
@@ -103,8 +110,6 @@ public class MapObjController implements Serializable{
         house.setAddress_info(address_info);
         house.setNumber_entrance(number_entrance);
         house.setAddress(house.getAddress().concat(" " + number_house + " " + number_flat));
-        
-        
         if(pz.isSkip()!= true){
             house.setClutch(clutch);
         }
@@ -114,11 +119,18 @@ public class MapObjController implements Serializable{
     public void saveDrawWell(){
         drawWell.setLat(this.lat);
         drawWell.setLng(this.lng);
+        drawWell.setAddress(address);
         if(pz.isSkip()!= true){
+            //clutch_o.getCable().add(cabel_o);
             drawWell.setClutch(clutch);
+            clutch_o.setCable(cabel);
+            clutchFacade.create(clutch_o);
+            //clutch_o.setCable(cabel);
             
         }
         drawWellFacade.create(drawWell);
+        //clutchFacade.create(clutch_o);
+        System.out.println(cabel);
         clearAll();
         //closeAddPanell();
     }  
@@ -149,6 +161,11 @@ public class MapObjController implements Serializable{
         RequestContext.getCurrentInstance().execute("alert('peek-a-boo');");      
     }
     
+    public int renderSomeValue(){
+        Random rnd = new Random(System.currentTimeMillis());
+        int numb = 0 + rnd.nextInt(1000 - 10 + 1);
+        return numb;
+    }
     
     public void autoAddress(AjaxBehaviorEvent event){
         System.out.println("Address: ");
@@ -211,7 +228,8 @@ public class MapObjController implements Serializable{
     }    
     
     public void delLine(ActionEvent actionEvent) {
-        this.clutch.clear();
+        this.clutch.remove(clutch.size() - 1);
+        //this.clutch.clear();
     }
     public void newLine(ActionEvent actionEvent) {
         this.clutch.add(new Clutch());     
@@ -314,6 +332,22 @@ public class MapObjController implements Serializable{
 
     public void setCabel(List<Cabel> cabel) {
         this.cabel = cabel;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Cabel getCabel_o() {
+        return cabel_o;
+    }
+
+    public void setCabel_o(Cabel cabel_o) {
+        this.cabel_o = cabel_o;
     }
     
     

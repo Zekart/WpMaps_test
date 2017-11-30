@@ -28,16 +28,16 @@
                         <p:panel style="background: transparent; border: none; ">
                         <p:messages />
                         <div class="buttons">  
-                            <p:commandLink id="pillar_link" class="twitter" actionListener="#{gMapsController.setObj_type('PILLAR')}" >
+                            <p:commandLink id="pillar_link" class="twitter" actionListener="#{gMapsController.setObj_type('PILLAR')}" onclick="GetAddress()">
                                 <img src="../resources/marker/panell_add/pillar_add.png" />
                             </p:commandLink>
-                            <p:commandLink id="house_link" class="facebook" actionListener="#{gMapsController.setObj_type('HOUSE')}">
+                            <p:commandLink id="house_link" class="facebook" actionListener="#{gMapsController.setObj_type('HOUSE')}" onclick="GetAddress()" >
                                 <img src="../resources/marker/panell_add/house_add.png" />
                             </p:commandLink>
-                            <p:commandLink id="draw_link" class="dribble" actionListener="#{gMapsController.setObj_type('DRAW_WELL')}" >
+                            <p:commandLink id="draw_link" class="dribble" actionListener="#{gMapsController.setObj_type('DRAW_WELL')}" onclick="GetAddress()">
                                 <img  src="../resources/marker/panell_add/drawWell_add.png" />
                             </p:commandLink>    
-                            
+                            <h:inputHidden id="hidden_address" value="#{mapObjController.address}" />
                         </div>    
                     <!--
                         <p:selectOneMenu id="object_t" value="{gMapsController.obj_type}" style="width:150px" >  
@@ -49,7 +49,7 @@
                     </p:tab>             
                     <p:tab id="point" title="Точка" class="step" >
                         <div class="parent">
-                            <div class="div1">
+                            <div class="div1">                                                                
                                 <p:panel id="gridPoint" style="background: transparent; border: none; " >
                                     <div class="panelAddPillar">
                                         <h:panelGrid style="background: transparent; border: none;" class="tableAddHome" rendered="#{gMapsController.obj_type == 'PILLAR'}" columns="2"  >
@@ -67,7 +67,7 @@
                                             <p:row>
                                                 <p:watermark for="pil_station" value="-" />
                                                 <p:inputText style="background: transparent;" id="pil_station" class="add_inputfield" value="#{mapObjController.pillar.transportStation}" >
-                                                </p:inputText>                                           
+                                                </p:inputText> 
                                             </p:row>
                                             <p:row>
                                                 <p:column>Фидр  </p:column>
@@ -157,7 +157,8 @@
                                                         </div>
                                                     </p:outputPanel>                                          
                                                 </h:panelGroup>
-                                            </f:facet>                                      
+                                                
+                                            </f:facet> 
                                         </h:panelGrid>    
                                     </div>
                                 <div class="panelAddPillar">
@@ -178,25 +179,24 @@
                                             <p:column>Адрес: </p:column>
                                         </p:row>
                                         <p:row>                                    
-                                            <p:inputText id="h_street" styleClass="h_street" value="#{mapObjController.house.address}" class="add_inputfield"   >
+                                            <p:inputText id="h_street" styleClass="h_street" value="#{mapObjController.address}" class="add_inputfield"   >
 
                                             </p:inputText>
                                             <p:watermark for="h_street" value="Улица" />
-                                            <p:inputText id="h_number" styleClass="h_number" value="#{mapObjController.number_house}" class="add_inputfield_number_house" >
-
-                                            </p:inputText>
+                                            <p:inputText id="h_number" styleClass="h_number" value="#{mapObjController.number_house}" class="add_inputfield_number_house" />
                                             <p:watermark for="h_number" value="№" />
-                                            <p:inputText id="f_number" value="#{mapObjController.number_flat}" class="add_inputfield_number_house" >                                       
+                                            <p:inputText id="f_number" value="#{mapObjController.number_flat}" class="add_inputfield_number_house" >     
+                                            <p:watermark for="f_number" value="Кв." />
                                             </p:inputText>
 
                                         </p:row> 
-                                        <p:row>
+                                        <!--<p:row>
                                             <p:column>
                                                 <h:commandButton value="Auto" onclick="GetAddress()">
                                                     <f:ajax execute="@form" render="@none" />
                                                 </h:commandButton>
                                             </p:column>
-                                        </p:row>
+                                        </p:row> -->
                                         <p:row>
                                             <p:column>
                                                 <p:inputText id="address_info" value="#{mapObjController.house.address_info}" style="width: 325px;" >                                       
@@ -298,27 +298,27 @@
                         <p:dataTable class="add_clutch_table" style=" bottom: 0; border: none;" var="line" value="#{mapObjController.clutch}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">    
                                  
                             <p:column style="bottom: 0;border-color: transparent;" headerText="Кол-во вводов">
-                                <p:inputText class="input_clutch" style="background: transparent;" value="#{line.inputs}" ><f:validateLength minimum="1" /></p:inputText>
+                                <p:inputText class="input_clutch" style="background: transparent;" value="#{line.inputs}" ></p:inputText>
                             </p:column>
 
                             <p:column style="bottom: 0;border-color: transparent;" headerText="Кол-во. кассет">
-                                <p:inputText class="input_clutch" style="background: transparent;" value="#{line.cassetsCount}" ><f:validateLength minimum="1" /></p:inputText>
+                                <p:inputText class="input_clutch" style="background: transparent;" value="#{line.cassetsCount}" ></p:inputText>
                             </p:column>
 
                             <p:column style="bottom: 0;border-color: transparent;" headerText="Состояние">
-                                <p:inputText class="input_clutch" value="#{line.conditions}" ><f:validateLength minimum="1" /></p:inputText>
+                                <p:inputText class="input_clutch" value="#{line.conditions}" ></p:inputText>
                             </p:column>
 
                             <p:column style="bottom: 0; border-color: transparent;" headerText="Доп. Инфо">
-                                <p:inputText class="input_clutch" value="#{line.info}" ><f:validateLength minimum="1" /></p:inputText>
+                                <p:inputText class="input_clutch" value="#{line.info}" ></p:inputText>
                             </p:column>
 
                             <p:column style="bottom: 0; border-color: transparent" headerText="Маркировка">
                                 <p:inputText class="input_clutch" value="#{line.mark}" ></p:inputText>
                             </p:column>    
                             <p:column style="bottom: 0; border-color: transparent">
-                                <p:commandButton actionListener="#{mapObjController.delLine(actionEvent)}"
-                                    value="del ##{mapObjController.countClutch}" update="dataTableSaisiePiece" ajax="true" />
+                                <p:outputLabel
+                                    value="##{mapObjController.countClutch}" />
                             </p:column>
 
                         </p:dataTable>              
@@ -329,25 +329,85 @@
                     </div>
                 </div>
                     </p:tab> 
-                    <p:tab id="cabel_add" title="Кабель">           
-                        <h:form id="hh" >
-                            <p:layout style="min-width:400px;min-height:300px; margin-top: 30px; font-size: ">
-                                <p:layoutUnit position="west" resizable="true" size="100" minSize="200" maxSize="200">
-                                    <ui:repeat value="#{mapObjController.clutch}" var="car">
-                                        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                                            <p:commandButton style="min-width: 50px; padding-top: 5px;" value="#{car.id}"/>    
-
-                                        </h:panelGrid>   
-                                        <hr />
-                                    </ui:repeat>
-
+                    <p:tab id="cabel_add" title="Кабель">                                   
+                        <p:layout style="min-width:500px;min-height:350px; margin-top: 30px; font-size: " >
+                                <p:layoutUnit position="west" resizable="true" size="100" minSize="200" maxSize="200" >
+                                    <h:form id="hh" >
+                                        <ui:repeat value="#{mapObjController.clutch}" var="clutch_number">
+                                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                                <p:commandButton style="min-width: 50px; padding-top: 5px;"  value="Inputs: #{clutch_number.inputs}" />                                                                                  
+                                            </h:panelGrid>   
+                                            <hr />
+                                        </ui:repeat>
+                                    </h:form>
                                 </p:layoutUnit>
 
-                                <p:layoutUnit position="center">
-                                    Center
+                                <p:layoutUnit position="center" id="centerLayout" minSize="400" >
+                                    <h:form prependId="false" id="update_form_layout">
+                                        <p:panelGrid id="panel_cable_add" style=" width: 100%; border: none;"  >    
+                                            <p:dataTable value="#{mapObjController.cabel}" id="bad" widgetVar="cabel_table" var="cabel">
+                                            <p:row>
+                                                <p:column style="left: 0;border-color: transparent;">
+                                                    <p:outputLabel value="Изготовитель"/>
+                                                </p:column>  
+                                                <p:column>
+                                                    <p:inputText value="#{cabel.production}" ></p:inputText>                                                    
+                                                </p:column>
+                                            </p:row>
+
+                                            <p:row>
+                                                <p:column style="border-color: transparent;">
+                                                    <p:outputLabel value="Ёмкость кабеля"/>
+                                                </p:column>      
+                                                <p:column style="border-color: transparent;">
+                                                    <p:inputText  style="background: transparent;" value="#{cabel.capacity}" ></p:inputText>
+                                                </p:column>                                                
+                                            </p:row>
+
+                                            <p:row>
+                                                <p:column style=";border-color: transparent;">
+                                                    <p:outputLabel value="К-во модулей"/>
+                                                </p:column>      
+                                                <p:column style="border-color: transparent;">
+                                                    <p:inputText value="#{cabel.moduleCount}" ></p:inputText>
+                                                </p:column>                                                
+                                            </p:row>
+
+                                            <p:row>
+                                                <p:column style="border-color: transparent;">
+                                                    <p:outputLabel value="Адрес откуда приходит"/>
+                                                </p:column>  
+                                                <p:column style="border-color: transparent;">
+                                                    <p:autoComplete value="#{clutchController.txt1}" completeMethod="#{clutchController.completeText}" >
+                                                    </p:autoComplete>                                                                                                        
+                                                </p:column>                                                
+                                            </p:row>
+
+                                            <p:row>
+                                                <p:column style=" border-color: transparent;">
+                                                    <p:outputLabel value="Адрес Муфты куда заведен"/>
+                                                </p:column>  
+                                                <p:column style=" border-color: transparent;">
+                                                    <p:selectOneMenu value="#{selectOneMenuView.option}" style="width:198px">
+                                                        <f:selectItem itemLabel="Select One" itemValue="" />
+                                                        <f:selectItems value="#{selectOneMenuView.options}" />
+                                                    </p:selectOneMenu>
+                                                </p:column>                                                
+                                            </p:row>
+
+                                            <p:row>
+                                                <p:column style=" border-color: transparent">
+                                                    <p:outputLabel value="Метраж кабеля от точки к точке(м)"/>
+                                                </p:column>  
+                                                <p:column style=" border-color: transparent">
+                                                    <p:inputText  value="#{cabel.lenthCable}" ></p:inputText>
+                                                </p:column>                                                 
+                                            </p:row>   
+                                            </p:dataTable>
+                                        </p:panelGrid> 
+                                    </h:form>
                                 </p:layoutUnit>
                             </p:layout>
-                        </h:form>
                     <!--    <p:dataTable  style=" bottom: 0; border: none;" var="lines" value="{mapObjController.cabel}" id="dataTableCable" editable="true" widgetVar="cellCable">    
 
                             <p:column style="bottom: 0;border-color: transparent;" headerText="Изготовитель">
@@ -383,7 +443,7 @@
                     </p:tab>   
                     <p:tab id="fiber_add" title="Волокно">           
 
-            </p:tab>            
+                    </p:tab>            
                     <p:tab id="confirm" title="Добавление">
                 <div class="parent">
                     <div class="div1" style="width: 100%;">

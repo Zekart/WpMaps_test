@@ -17,6 +17,12 @@
     padding-left: 10px;
 }
 
+#panel_cable_add tr,td{
+    border: none;
+    border-style: none !important;
+    text-align: left;
+}
+
 .tableAddHome {
     font-family: "Times New Roman", Times, serif;
     width: 80%;
