@@ -157,6 +157,15 @@ public class MapObjController implements Serializable{
         return pillar_list;
     }
     
+    public void submit(){
+        System.out.println("hi");
+    }
+    
+    public void validate() {
+        RequestContext context = RequestContext.getCurrentInstance();
+            context.update(":cabel_add");
+    }
+    
     public void closeAddPanell(){
         RequestContext.getCurrentInstance().execute("alert('peek-a-boo');");      
     }

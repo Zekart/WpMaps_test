@@ -329,13 +329,88 @@
                     </div>
                 </div>
                     </p:tab> 
-                    <p:tab id="cabel_add" title="Кабель">                                   
-                        <p:layout style="min-width:500px;min-height:350px; margin-top: 30px; font-size: " >
+                    <p:tab id="cabel_add" title="Кабель">    
+                        <div style="overflow: hidden;">
+                            <h:form id="left_form_cabel" >
+                                <p:panel id="left_panel_cabel" style="overflow: auto; width: 20%; height: 380px;margin-top: 30px; float: left">
+                                    <p:selectOneMenu id="car" value="set" >
+                                        <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+                                        <f:selectItems value="#{mapObjController.clutch}" var="input" itemLabel=" Вводы: #{input.inputs}" />
+                                    </p:selectOneMenu>
+                                </p:panel>
+                            </h:form>
+                            <h:form id="right_form_cabel">
+                                <p:panel  id="right_panel_cabel" style="margin-top: 30px; min-width: 75%; min-height: 380px; float: left;margin-left: 20px;" >
+                                    <p:panelGrid id="panel_cable_add" style=" width: 100%; border: none;"  >    
+                                        <p:dataTable value="#{mapObjController.cabel}" id="bad" widgetVar="cabel_table" var="cabel">
+                                        <p:row>
+                                            <p:column style="left: 0;border-color: transparent;">
+                                                <p:outputLabel value="Изготовитель"/>
+                                            </p:column>  
+                                            <p:column>
+                                                <p:inputText value="#{cabel.production}" ></p:inputText>                                                    
+                                            </p:column>
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column style="border-color: transparent;">
+                                                <p:outputLabel value="Ёмкость кабеля"/>
+                                            </p:column>      
+                                            <p:column style="border-color: transparent;">
+                                                <p:inputText  style="background: transparent;" value="#{cabel.capacity}" ></p:inputText>
+                                            </p:column>                                                
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column style=";border-color: transparent;">
+                                                <p:outputLabel value="К-во модулей"/>
+                                            </p:column>      
+                                            <p:column style="border-color: transparent;">
+                                                <p:inputText value="#{cabel.moduleCount}" ></p:inputText>
+                                            </p:column>                                                
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column style="border-color: transparent;">
+                                                <p:outputLabel value="Адрес откуда приходит"/>
+                                            </p:column>  
+                                            <p:column style="border-color: transparent;">
+                                                <p:autoComplete value="#{clutchController.txt1}" completeMethod="{clutchController.completeText}" >
+                                                </p:autoComplete>                                                                                                        
+                                            </p:column>                                                
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column style=" border-color: transparent;">
+                                                <p:outputLabel value="Адрес Муфты куда заведен"/>
+                                            </p:column>  
+                                            <p:column style=" border-color: transparent;">
+                                                <p:selectOneMenu value="#{selectOneMenuView.option}" style="width:198px">
+                                                    <f:selectItem itemLabel="Select One" itemValue="" />
+                                                    <f:selectItems value="#{selectOneMenuView.options}" />
+                                                </p:selectOneMenu>
+                                            </p:column>                                                
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column style=" border-color: transparent">
+                                                <p:outputLabel value="Метраж кабеля от точки к точке(м)"/>
+                                            </p:column>  
+                                            <p:column style=" border-color: transparent">
+                                                <p:inputText  value="#{cabel.lenthCable}" ></p:inputText>
+                                            </p:column>                                                 
+                                        </p:row>   
+                                        </p:dataTable>
+                                    </p:panelGrid> 
+                                </p:panel> 
+                            </h:form>
+                        </div>
+                    <!--    <p:layout style="min-width:500px;min-height:350px; margin-top: 30px; font-size: 14;" >
                                 <p:layoutUnit position="west" resizable="true" size="100" minSize="200" maxSize="200" >
                                     <h:form id="hh" >
-                                        <ui:repeat value="#{mapObjController.clutch}" var="clutch_number">
+                                        <ui:repeat value="{mapObjController.clutch}" var="clutch_number">
                                             <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                                                <p:commandButton style="min-width: 50px; padding-top: 5px;"  value="Inputs: #{clutch_number.inputs}" />                                                                                  
+                                                <p:commandButton style="min-width: 50px; padding-top: 5px;"  value="Inputs: {clutch_number.inputs}" />                                                                                  
                                             </h:panelGrid>   
                                             <hr />
                                         </ui:repeat>
@@ -345,13 +420,13 @@
                                 <p:layoutUnit position="center" id="centerLayout" minSize="400" >
                                     <h:form prependId="false" id="update_form_layout">
                                         <p:panelGrid id="panel_cable_add" style=" width: 100%; border: none;"  >    
-                                            <p:dataTable value="#{mapObjController.cabel}" id="bad" widgetVar="cabel_table" var="cabel">
+                                            <p:dataTable value="{mapObjController.cabel}" id="bad" widgetVar="cabel_table" var="cabel">
                                             <p:row>
                                                 <p:column style="left: 0;border-color: transparent;">
                                                     <p:outputLabel value="Изготовитель"/>
                                                 </p:column>  
                                                 <p:column>
-                                                    <p:inputText value="#{cabel.production}" ></p:inputText>                                                    
+                                                    <p:inputText value="{cabel.production}" ></p:inputText>                                                    
                                                 </p:column>
                                             </p:row>
 
@@ -360,7 +435,7 @@
                                                     <p:outputLabel value="Ёмкость кабеля"/>
                                                 </p:column>      
                                                 <p:column style="border-color: transparent;">
-                                                    <p:inputText  style="background: transparent;" value="#{cabel.capacity}" ></p:inputText>
+                                                    <p:inputText  style="background: transparent;" value="{cabel.capacity}" ></p:inputText>
                                                 </p:column>                                                
                                             </p:row>
 
@@ -369,7 +444,7 @@
                                                     <p:outputLabel value="К-во модулей"/>
                                                 </p:column>      
                                                 <p:column style="border-color: transparent;">
-                                                    <p:inputText value="#{cabel.moduleCount}" ></p:inputText>
+                                                    <p:inputText value="{cabel.moduleCount}" ></p:inputText>
                                                 </p:column>                                                
                                             </p:row>
 
@@ -378,7 +453,7 @@
                                                     <p:outputLabel value="Адрес откуда приходит"/>
                                                 </p:column>  
                                                 <p:column style="border-color: transparent;">
-                                                    <p:autoComplete value="#{clutchController.txt1}" completeMethod="#{clutchController.completeText}" >
+                                                    <p:autoComplete value="{clutchController.txt1}" completeMethod="{clutchController.completeText}" >
                                                     </p:autoComplete>                                                                                                        
                                                 </p:column>                                                
                                             </p:row>
@@ -388,9 +463,9 @@
                                                     <p:outputLabel value="Адрес Муфты куда заведен"/>
                                                 </p:column>  
                                                 <p:column style=" border-color: transparent;">
-                                                    <p:selectOneMenu value="#{selectOneMenuView.option}" style="width:198px">
+                                                    <p:selectOneMenu value="{selectOneMenuView.option}" style="width:198px">
                                                         <f:selectItem itemLabel="Select One" itemValue="" />
-                                                        <f:selectItems value="#{selectOneMenuView.options}" />
+                                                        <f:selectItems value="{selectOneMenuView.options}" />
                                                     </p:selectOneMenu>
                                                 </p:column>                                                
                                             </p:row>
@@ -400,14 +475,14 @@
                                                     <p:outputLabel value="Метраж кабеля от точки к точке(м)"/>
                                                 </p:column>  
                                                 <p:column style=" border-color: transparent">
-                                                    <p:inputText  value="#{cabel.lenthCable}" ></p:inputText>
+                                                    <p:inputText  value="{cabel.lenthCable}" ></p:inputText>
                                                 </p:column>                                                 
                                             </p:row>   
                                             </p:dataTable>
                                         </p:panelGrid> 
                                     </h:form>
                                 </p:layoutUnit>
-                            </p:layout>
+                            </p:layout> -->
                     <!--    <p:dataTable  style=" bottom: 0; border: none;" var="lines" value="{mapObjController.cabel}" id="dataTableCable" editable="true" widgetVar="cellCable">    
 
                             <p:column style="bottom: 0;border-color: transparent;" headerText="Изготовитель">
