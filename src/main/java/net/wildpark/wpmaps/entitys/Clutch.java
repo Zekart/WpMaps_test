@@ -65,7 +65,7 @@ public class Clutch implements Serializable {
 //    @ManyToOne
 //    @JoinColumn(name = "point_id")
 //    private MapPoint mappoint;
-
+    
     public int getId() {
         return id;
     }

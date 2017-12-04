@@ -50,8 +50,7 @@ public class Cabel implements Serializable {
     }
     
 
-    @ManyToOne
-    @JoinColumn(name = "clutch_id")  
+    @ManyToOne(fetch = FetchType.LAZY) 
     private Clutch clutch;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY )
     private List<Fiber> fiber;

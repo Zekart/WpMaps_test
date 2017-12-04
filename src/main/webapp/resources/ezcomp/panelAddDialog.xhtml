@@ -5,7 +5,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <!-- INTERFACE -->
     <cc:interface>
@@ -331,79 +332,142 @@
                     </p:tab> 
                     <p:tab id="cabel_add" title="Кабель">    
                         <div style="overflow: hidden;">
-                            <h:form id="left_form_cabel" >
-                                <p:panel id="left_panel_cabel" style="overflow: auto; width: 20%; height: 380px;margin-top: 30px; float: left">
-                                    <p:selectOneMenu id="car" value="set" >
-                                        <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
-                                        <f:selectItems value="#{mapObjController.clutch}" var="input" itemLabel=" Вводы: #{input.inputs}" />
-                                    </p:selectOneMenu>
+                                <p:panel id="left_panel_cabel" style="overflow: auto; width: 99%; height: 380px;margin-top: 30px; float: left">
+                                    <c:forEach items="#{mapObjController.clutch}"  var="clutch_count">
+                                        <p:panel class="cabel_add_panel" header="Inputs: #{clutch_count.inputs},Mark: #{clutch_count.mark}" style="padding: 0 !important;">
+                                            <c:forEach id="repeat_cable" begin="1" end="#{clutch_count.inputs}"    varStatus="loop">
+                                                <p:outputLabel value="Кабель № ${loop.index}"/>
+                                                <hr></hr>
+                                                <p:panelGrid id="panel_cable_add"  style=" width: 85%; border: none; padding: 0 !important;"  >    
+                                                    
+                                                        <p:row>
+                                                            <p:column style="left: 0;border-color: transparent;">
+                                                                <p:outputLabel value="Изготовитель"/>
+                                                            </p:column>  
+                                                            <p:column>
+                                                                <p:inputText value="#{mapObjController.cabel_o.production}" ></p:inputText>                                                    
+                                                            </p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column style="border-color: transparent;">
+                                                                <p:outputLabel value="Ёмкость кабеля"/>
+                                                            </p:column>      
+                                                            <p:column style="border-color: transparent;">
+                                                                <p:inputText  style="background: transparent;" value="#{mapObjController.cabel_o.capacity}" ></p:inputText>
+                                                            </p:column>                                                
+                                                        </p:row>
+
+                                                        <p:row>
+                                                            <p:column style=";border-color: transparent;">
+                                                                <p:outputLabel value="К-во модулей"/>
+                                                            </p:column>      
+                                                            <p:column style="border-color: transparent;">
+                                                                <p:inputText value="#{mapObjController.cabel_o.moduleCount}" ></p:inputText>
+                                                            </p:column>                                                
+                                                        </p:row>
+
+                                                        <p:row>
+                                                            <p:column style="border-color: transparent;">
+                                                                <p:outputLabel value="Адрес откуда приходит"/>
+                                                            </p:column>  
+                                                            <p:column style="border-color: transparent;">
+                                                                <p:autoComplete value="#{clutchController.txt1}" completeMethod="#{clutchController.completeText}" >
+                                                                </p:autoComplete>                                                                                                        
+                                                            </p:column>                                                
+                                                        </p:row>
+
+                                                        <p:row>
+                                                            <p:column style=" border-color: transparent;">
+                                                                <p:outputLabel value="Адрес Муфты куда заведен"/>
+                                                            </p:column>  
+                                                            <p:column style=" border-color: transparent;">
+                                                                <p:autoComplete value="#{clutchController.txt1}" completeMethod="#{clutchController.completeText}" >
+                                                                </p:autoComplete>
+                                                            </p:column>                                                
+                                                        </p:row>
+
+                                                        <p:row>
+                                                            <p:column style=" border-color: transparent">
+                                                                <p:outputLabel value="Метраж кабеля от точки к точке(м)"/>
+                                                            </p:column>  
+                                                            <p:column style=" border-color: transparent">
+                                                                <p:inputText  value="#{mapObjController.cabel_o.lenthCable}" ></p:inputText>
+                                                            </p:column>                                                 
+                                                        </p:row>   
+                                                    
+                                                </p:panelGrid>    
+                                                <hr></hr>
+                                            </c:forEach>                                            
+                                        </p:panel>                                         
+                                    </c:forEach>
+<!--                                    <p:selectOneMenu id="car" value="set" >
+                                        <f:selectItem itemLabel="Select One" itemValue="{null}" noSelectionOption="true" />
+                                        <f:selectItems value="{mapObjController.clutch}" var="input" itemLabel=" Вводы: {input.inputs}" />
+                                        <p:ajax listener="{mapObjController.newLineCable}" />
+                                    </p:selectOneMenu> -->
                                 </p:panel>
-                            </h:form>
-                            <h:form id="right_form_cabel">
-                                <p:panel  id="right_panel_cabel" style="margin-top: 30px; min-width: 75%; min-height: 380px; float: left;margin-left: 20px;" >
+
+<!--                                <p:panel  id="right_panel_cabel" style="margin-top: 30px; min-width: 75%; min-height: 380px; float: left;margin-left: 20px;" >
                                     <p:panelGrid id="panel_cable_add" style=" width: 100%; border: none;"  >    
-                                        <p:dataTable value="#{mapObjController.cabel}" id="bad" widgetVar="cabel_table" var="cabel">
-                                        <p:row>
-                                            <p:column style="left: 0;border-color: transparent;">
-                                                <p:outputLabel value="Изготовитель"/>
-                                            </p:column>  
-                                            <p:column>
-                                                <p:inputText value="#{cabel.production}" ></p:inputText>                                                    
-                                            </p:column>
-                                        </p:row>
+                                            <p:row>
+                                                <p:column style="left: 0;border-color: transparent;">
+                                                    <p:outputLabel value="Изготовитель"/>
+                                                </p:column>  
+                                                <p:column>
+                                                    <p:inputText value="{mapObjController.cabel_o.production}" ></p:inputText>                                                    
+                                                </p:column>
+                                            </p:row>
 
-                                        <p:row>
-                                            <p:column style="border-color: transparent;">
-                                                <p:outputLabel value="Ёмкость кабеля"/>
-                                            </p:column>      
-                                            <p:column style="border-color: transparent;">
-                                                <p:inputText  style="background: transparent;" value="#{cabel.capacity}" ></p:inputText>
-                                            </p:column>                                                
-                                        </p:row>
+                                            <p:row>
+                                                <p:column style="border-color: transparent;">
+                                                    <p:outputLabel value="Ёмкость кабеля"/>
+                                                </p:column>      
+                                                <p:column style="border-color: transparent;">
+                                                    <p:inputText  style="background: transparent;" value="{mapObjController.cabel_o.capacity}" ></p:inputText>
+                                                </p:column>                                                
+                                            </p:row>
 
-                                        <p:row>
-                                            <p:column style=";border-color: transparent;">
-                                                <p:outputLabel value="К-во модулей"/>
-                                            </p:column>      
-                                            <p:column style="border-color: transparent;">
-                                                <p:inputText value="#{cabel.moduleCount}" ></p:inputText>
-                                            </p:column>                                                
-                                        </p:row>
+                                            <p:row>
+                                                <p:column style=";border-color: transparent;">
+                                                    <p:outputLabel value="К-во модулей"/>
+                                                </p:column>      
+                                                <p:column style="border-color: transparent;">
+                                                    <p:inputText value="{mapObjController.cabel_o.moduleCount}" ></p:inputText>
+                                                </p:column>                                                
+                                            </p:row>
 
-                                        <p:row>
-                                            <p:column style="border-color: transparent;">
-                                                <p:outputLabel value="Адрес откуда приходит"/>
-                                            </p:column>  
-                                            <p:column style="border-color: transparent;">
-                                                <p:autoComplete value="#{clutchController.txt1}" completeMethod="{clutchController.completeText}" >
-                                                </p:autoComplete>                                                                                                        
-                                            </p:column>                                                
-                                        </p:row>
+                                            <p:row>
+                                                <p:column style="border-color: transparent;">
+                                                    <p:outputLabel value="Адрес откуда приходит"/>
+                                                </p:column>  
+                                                <p:column style="border-color: transparent;">
+                                                    <p:autoComplete value="{clutchController.txt1}" completeMethod="{clutchController.completeText}" >
+                                                    </p:autoComplete>                                                                                                        
+                                                </p:column>                                                
+                                            </p:row>
 
-                                        <p:row>
-                                            <p:column style=" border-color: transparent;">
-                                                <p:outputLabel value="Адрес Муфты куда заведен"/>
-                                            </p:column>  
-                                            <p:column style=" border-color: transparent;">
-                                                <p:selectOneMenu value="#{selectOneMenuView.option}" style="width:198px">
-                                                    <f:selectItem itemLabel="Select One" itemValue="" />
-                                                    <f:selectItems value="#{selectOneMenuView.options}" />
-                                                </p:selectOneMenu>
-                                            </p:column>                                                
-                                        </p:row>
+                                            <p:row>
+                                                <p:column style=" border-color: transparent;">
+                                                    <p:outputLabel value="Адрес Муфты куда заведен"/>
+                                                </p:column>  
+                                                <p:column style=" border-color: transparent;">
+                                                    <p:selectOneMenu value="{selectOneMenuView.option}" style="width:198px">
+                                                        <f:selectItem itemLabel="Select One" itemValue="" />
+                                                        <f:selectItems value="{selectOneMenuView.options}" />
+                                                    </p:selectOneMenu>
+                                                </p:column>                                                
+                                            </p:row>
 
-                                        <p:row>
-                                            <p:column style=" border-color: transparent">
-                                                <p:outputLabel value="Метраж кабеля от точки к точке(м)"/>
-                                            </p:column>  
-                                            <p:column style=" border-color: transparent">
-                                                <p:inputText  value="#{cabel.lenthCable}" ></p:inputText>
-                                            </p:column>                                                 
-                                        </p:row>   
-                                        </p:dataTable>
+                                            <p:row>
+                                                <p:column style=" border-color: transparent">
+                                                    <p:outputLabel value="Метраж кабеля от точки к точке(м)"/>
+                                                </p:column>  
+                                                <p:column style=" border-color: transparent">
+                                                    <p:inputText  value="{mapObjController.cabel_o.lenthCable}" ></p:inputText>
+                                                </p:column>                                                 
+                                            </p:row>   
                                     </p:panelGrid> 
-                                </p:panel> 
-                            </h:form>
+                                </p:panel> -->
                         </div>
                     <!--    <p:layout style="min-width:500px;min-height:350px; margin-top: 30px; font-size: 14;" >
                                 <p:layoutUnit position="west" resizable="true" size="100" minSize="200" maxSize="200" >
@@ -533,8 +597,8 @@
 
                     </div>
                     <h:panelGrid class="butAdd"  rendered="#{gMapsController.obj_type == 'DRAW_WELL'}"  >
-                        <p:commandButton value="Подтвердить" class="button_accept_add" actionListener="#{mapObjController.saveDrawWell()}" action="#{gMapsController.initPoint()}" validateClient="true" update="form">
-                            <p:ajax oncomplete="PF('wizp').loadStep('obj',false);"/>
+                        <p:commandButton value="Подтвердить" class="button_accept_add" actionListener="#{mapObjController.saveDrawWell()}" action="#{gMapsController.initPoint()}" validateClient="true" update="gmap">
+                            <p:ajax oncomplete="PF('wizp').loadStep('obj',false);" resetValues="true"/>
                         </p:commandButton>
                     </h:panelGrid> 
                     <h:panelGrid class="butAdd"  rendered="#{gMapsController.obj_type == 'HOUSE'}"  >

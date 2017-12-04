@@ -69,7 +69,7 @@ public class MapObjController implements Serializable{
     private String address;
     
     private List<Clutch> clutch = new ArrayList<>();
-    private List<Cabel> cabel = new ArrayList<>();
+    private List<Cabel> cabel;
     private List<House> house_list = new ArrayList<>();
     private List<DrawWell> draw_list = new ArrayList<>();
     private List<Pillar> pillar_list = new ArrayList<>();
@@ -121,16 +121,14 @@ public class MapObjController implements Serializable{
         drawWell.setLng(this.lng);
         drawWell.setAddress(address);
         if(pz.isSkip()!= true){
-            //clutch_o.getCable().add(cabel_o);
-            drawWell.setClutch(clutch);
-            clutch_o.setCable(cabel);
-            clutchFacade.create(clutch_o);
-            //clutch_o.setCable(cabel);
+            
+            
+            
+            drawWell.setClutch(clutch);   
+
             
         }
         drawWellFacade.create(drawWell);
-        //clutchFacade.create(clutch_o);
-        System.out.println(cabel);
         clearAll();
         //closeAddPanell();
     }  
@@ -229,11 +227,11 @@ public class MapObjController implements Serializable{
         this.pillar_list = pillar_list;
     }
     
-    public void delLineCable(ActionEvent actionEvent) {
-        this.cabel.clear();
+    public void delLineCable() {
+        cabel.clear();
     }
-    public void newLineCable(ActionEvent actionEvent) {
-        this.cabel.add(new Cabel());     
+    public void newLineCable() {
+        cabel.add(new Cabel());     
     }    
     
     public void delLine(ActionEvent actionEvent) {
@@ -243,6 +241,8 @@ public class MapObjController implements Serializable{
     public void newLine(ActionEvent actionEvent) {
         this.clutch.add(new Clutch());     
     }
+    
+    
 
     public double getLat() {
         return lat;
