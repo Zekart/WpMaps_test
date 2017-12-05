@@ -38,8 +38,8 @@ public class Clutch implements Serializable {
     private int inputs;
     private String mark;
     
-    @OneToMany(targetEntity = Cabel.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Cabel> cable = new ArrayList<>();
+    @OneToMany(mappedBy = "clutch",cascade = CascadeType.ALL)
+    private List<Cabel> cable;
 
     public Clutch() {
     }

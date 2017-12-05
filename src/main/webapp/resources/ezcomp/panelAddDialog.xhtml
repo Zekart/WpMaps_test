@@ -334,8 +334,8 @@
                         <div style="overflow: hidden;">
                                 <p:panel id="left_panel_cabel" style="overflow: auto; width: 99%; height: 380px;margin-top: 30px; float: left">
                                     <c:forEach items="#{mapObjController.clutch}"  var="clutch_count">
-                                        <p:panel class="cabel_add_panel" header="Inputs: #{clutch_count.inputs},Mark: #{clutch_count.mark}" style="padding: 0 !important;">
-                                            <c:forEach id="repeat_cable" begin="1" end="#{clutch_count.inputs}"    varStatus="loop">
+                                        <p:panel class="cabel_add_panel" header="Вводы: #{clutch_count.inputs}, Маркировка: #{clutch_count.mark}" style="padding: 0 !important;">
+                                            <c:forEach id="repeat_cable" begin="1" end="#{clutch_count.inputs}" varStatus="loop">
                                                 <p:outputLabel value="Кабель № ${loop.index}"/>
                                                 <hr></hr>
                                                 <p:panelGrid id="panel_cable_add"  style=" width: 85%; border: none; padding: 0 !important;"  >    

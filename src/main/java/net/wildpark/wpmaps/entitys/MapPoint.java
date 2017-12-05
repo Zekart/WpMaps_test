@@ -106,7 +106,7 @@ public  class MapPoint implements Serializable{
         this.owner = owner;
         this.address = address;
         this.pic = pic;
-        this.clutch = clutch;
+        this.clutch = clutch;        
     }    
 
 
@@ -174,6 +174,7 @@ public  class MapPoint implements Serializable{
     public void setClutch(List<Clutch> clutch) {
         this.clutch = clutch;
     }
+    
 
     public String getTransportStation() {
         return transportStation;

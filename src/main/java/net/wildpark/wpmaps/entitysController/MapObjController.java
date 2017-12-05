@@ -69,7 +69,7 @@ public class MapObjController implements Serializable{
     private String address;
     
     private List<Clutch> clutch = new ArrayList<>();
-    private List<Cabel> cabel;
+    private List<Cabel> cabel = new ArrayList<>();
     private List<House> house_list = new ArrayList<>();
     private List<DrawWell> draw_list = new ArrayList<>();
     private List<Pillar> pillar_list = new ArrayList<>();
@@ -120,14 +120,16 @@ public class MapObjController implements Serializable{
         drawWell.setLat(this.lat);
         drawWell.setLng(this.lng);
         drawWell.setAddress(address);
+        
         if(pz.isSkip()!= true){
             
+            cabel.add(cabel_o);
+            clutch_o.setCable(cabel);
+            cableFacade.create(cabel_o);
             
-            
-            drawWell.setClutch(clutch);   
-
-            
+            drawWell.setClutch(clutch); 
         }
+        
         drawWellFacade.create(drawWell);
         clearAll();
         //closeAddPanell();
@@ -139,6 +141,7 @@ public class MapObjController implements Serializable{
         drawWell = new DrawWell();
         
         clutch.clear();
+        cabel.clear();
         RequestContext.getCurrentInstance().reset("j_idt189:ff:wizard_form:asd");
     }
     
