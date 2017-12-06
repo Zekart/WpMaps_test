@@ -38,7 +38,7 @@ public class Clutch implements Serializable {
     private int inputs;
     private String mark;
     
-    @OneToMany(mappedBy = "clutch",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Cabel> cable;
 
     public Clutch() {

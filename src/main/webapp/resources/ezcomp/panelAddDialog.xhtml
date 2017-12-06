@@ -336,10 +336,14 @@
                                     <c:forEach items="#{mapObjController.clutch}"  var="clutch_count">
                                         <p:panel class="cabel_add_panel" header="Вводы: #{clutch_count.inputs}, Маркировка: #{clutch_count.mark}" style="padding: 0 !important;">
                                             <c:forEach id="repeat_cable" begin="1" end="#{clutch_count.inputs}" varStatus="loop">
-                                                <p:outputLabel value="Кабель № ${loop.index}"/>
+                                                <!--<p:outputLabel value="Кабель № {loop.index}"/> -->
+                                                <p:commandButton value="${loop.index}" actionListener="#{mapObjController.addCableNew(loop.index)}"  >
+                                                    <p:ajax resetValues="true" update="panel_cable_add"/>
+                                                </p:commandButton>
+ 
+                                            </c:forEach>
                                                 <hr></hr>
                                                 <p:panelGrid id="panel_cable_add"  style=" width: 85%; border: none; padding: 0 !important;"  >    
-                                                    
                                                         <p:row>
                                                             <p:column style="left: 0;border-color: transparent;">
                                                                 <p:outputLabel value="Изготовитель"/>
@@ -393,11 +397,8 @@
                                                             <p:column style=" border-color: transparent">
                                                                 <p:inputText  value="#{mapObjController.cabel_o.lenthCable}" ></p:inputText>
                                                             </p:column>                                                 
-                                                        </p:row>   
-                                                    
-                                                </p:panelGrid>    
-                                                <hr></hr>
-                                            </c:forEach>                                            
+                                                        </p:row>          
+                                                </p:panelGrid>                                                                                           
                                         </p:panel>                                         
                                     </c:forEach>
 <!--                                    <p:selectOneMenu id="car" value="set" >

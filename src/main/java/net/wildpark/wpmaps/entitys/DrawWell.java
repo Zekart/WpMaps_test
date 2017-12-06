@@ -32,8 +32,8 @@ public class DrawWell extends MapPoint implements Serializable{
 
     }
 
-    public DrawWell(int id,Double lat,Double lng,Boolean pit,int chanel_number, byte[] pic,List<Clutch> clutch) {
-        super(id, lat, lng,pic, clutch);
+    public DrawWell(int id,Double lat,Double lng,Boolean pit,int chanel_number, byte[] pic) {
+        super(id, lat, lng,pic);
         this.pit = pit;
         this.chanel_number = chanel_number;
         

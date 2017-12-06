@@ -135,6 +135,10 @@ public class MapObjController implements Serializable{
         //closeAddPanell();
     }  
     
+    public void addCable(){
+        cabel.add(new Cabel());
+    }
+    
     public void clearAll(){
         pillar = new Pillar();
         house = new House();
@@ -171,12 +175,21 @@ public class MapObjController implements Serializable{
         RequestContext.getCurrentInstance().execute("alert('peek-a-boo');");      
     }
     
-    public int renderSomeValue(){
+    public int getRenderSomeValue(){
+        
         Random rnd = new Random(System.currentTimeMillis());
         int numb = 0 + rnd.nextInt(1000 - 10 + 1);
         return numb;
     }
     
+    public void addCableNew(int x){
+        x = x -1;
+        this.cabel.add(new Cabel());
+        this.cabel.add(cabel_o);
+        System.out.println(cabel_o);
+
+    }
+        
     public void autoAddress(AjaxBehaviorEvent event){
         System.out.println("Address: ");
     }
