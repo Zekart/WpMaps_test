@@ -6,10 +6,15 @@
 package net.wildpark.wpmaps.entitysController;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import net.wildpark.wpmaps.entitys.Cabel;
+import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.facades.CableFacade;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -19,22 +24,112 @@ import net.wildpark.wpmaps.facades.CableFacade;
 @SessionScoped
 public class CabelController implements Serializable{
     
-    private String text;
-    
     @EJB
     private CableFacade cableFacade;
- 
     
     
-    public String getText() {
-        return text;
+    private int capacity;
+    private String inplace;
+    private int lenthCable;
+    private String marking;
+    private int moduleCount;
+    private String outPlace;
+    private String production;
+    
+    private List<Cabel> cabel_list = new ArrayList<>();
+    private Cabel cabel = new Cabel();
+    
+    public String cabelRegister(){
+        this.cabel_list.add(cabel);
+        this.cabel = new Cabel();
+        return "";
     }
-    public void setText(String text) {
-        this.text = text;
+    
+    public Cabel clearForm(int index){
+        if (cabel_list.isEmpty()) {
+            for (int i = 0; i < index; i++) {
+                cabel_list.add(i, new Cabel());
+            }            
+        }
+        return cabel_list.get(index -1);
+        
     }
-     
-    public void handleKeyEvent() {
-        text = text.toUpperCase();
+    
+    
+    
+
+    public List<Cabel> getCabel_list() {
+        return cabel_list;
     }
+
+    public void setCabel_list(List<Cabel> cabel_list) {
+        this.cabel_list = cabel_list;
+    }
+
+    public Cabel getCabel() {
+        return cabel;
+    }
+
+    public void setCabel(Cabel cabel) {
+        this.cabel = cabel;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public String getInplace() {
+        return inplace;
+    }
+
+    public void setInplace(String inplace) {
+        this.inplace = inplace;
+    }
+
+    public int getLenthCable() {
+        return lenthCable;
+    }
+
+    public void setLenthCable(int lenthCable) {
+        this.lenthCable = lenthCable;
+    }
+
+    public String getMarking() {
+        return marking;
+    }
+
+    public void setMarking(String marking) {
+        this.marking = marking;
+    }
+
+    public int getModuleCount() {
+        return moduleCount;
+    }
+
+    public void setModuleCount(int moduleCount) {
+        this.moduleCount = moduleCount;
+    }
+
+    public String getOutPlace() {
+        return outPlace;
+    }
+
+    public void setOutPlace(String outPlace) {
+        this.outPlace = outPlace;
+    }
+
+    public String getProduction() {
+        return production;
+    }
+
+    public void setProduction(String production) {
+        this.production = production;
+    }
+
+    
     
 }

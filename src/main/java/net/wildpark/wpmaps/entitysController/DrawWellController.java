@@ -8,10 +8,16 @@ package net.wildpark.wpmaps.entitysController;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.DrawWell;
 import net.wildpark.wpmaps.facades.DrawWellFacade;
+import net.wildpark.wpmaps.facades.PointFacade;
+import net.wildpark.wpmaps.pageControllers.PointWizard;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -22,31 +28,84 @@ import net.wildpark.wpmaps.facades.DrawWellFacade;
 public class DrawWellController implements Serializable {
 
     @EJB
+    private PointFacade pointFacade;
+    
+    @EJB
     private DrawWellFacade drawWellFacade;
-    private DrawWell d = new DrawWell();
+    
+    
+    DrawWell drawWell = new DrawWell();
+    
+    MapObjController mapObjController = new MapObjController();
+    PointWizard pz = new PointWizard();
+    
+    private List<Clutch> clutch = new ArrayList<>();
 
     public DrawWellController() {
     }
+           
+    
+    public void setSaveDrawWell(Double lat, double lng, String address){
+        
+        DrawWell draw = new DrawWell();
+        draw.setLat(lat);
+        draw.setLng(lng);
+        draw.setAddress(address);
+
+        if(pz.isSkip()!= true){
+
+//            cabel.add(cabel_o);
+//            clutch_o.setCable(cabel);
+//            cableFacade.create(cabel_o);
+
+            draw.setClutch(clutch); 
+        }
+//
+//            System.out.println(drawWell.getAddress() + "   " );
+//            
+        System.out.println(draw.getAddress());
+        drawWellFacade.create(drawWell);
+//            drawWell = new DrawWell();            
+        //closeAddPanell();
+    }
+    
+    public void clearAll(){
+        drawWell = new DrawWell();       
+        clutch.clear();
+        RequestContext.getCurrentInstance().reset("j_idt189:ff:wizard_form:drawWell_panel");
+    }
+    
     
     public String add(){
-        this.drawWellFacade.create(this.d);
+        this.drawWellFacade.create(this.drawWell);
         return "index";
     }
     
     public void delete(){
-        this.drawWellFacade.remove(this.d);
+        this.drawWellFacade.remove(this.drawWell);
     }
     
     public List<DrawWell> findAll(){
         return this.drawWellFacade.findAll();
     }
 
-    public DrawWell getD() {
-        return d;
+    public DrawWell getDrawWell() {
+        return drawWell;
     }
 
-    public void setD(DrawWell d) {
-        this.d = d;
+    public void setDrawWell(DrawWell drawWell) {
+        this.drawWell = drawWell;
     }
+
+    public List<Clutch> getClutch() {
+        return clutch;
+    }
+
+    public void setClutch(List<Clutch> clutch) {
+        this.clutch = clutch;
+    }
+
+
+    
     
 }

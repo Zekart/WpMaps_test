@@ -88,6 +88,8 @@ public class MapObjController implements Serializable{
     
 
     int count_clutch_cash = 0;
+    
+
 
     public MapObjController() {
         this.clutch.add(new Clutch());
@@ -117,22 +119,28 @@ public class MapObjController implements Serializable{
         clearAll();
     }
     public void saveDrawWell(){
-        drawWell.setLat(this.lat);
-        drawWell.setLng(this.lng);
-        drawWell.setAddress(address);
         
-        if(pz.isSkip()!= true){
-            
-            cabel.add(cabel_o);
-            clutch_o.setCable(cabel);
-            cableFacade.create(cabel_o);
-            
-            drawWell.setClutch(clutch); 
-        }
+        DrawWellController dr = new DrawWellController();
+        dr.setSaveDrawWell(lat, lng, address);
         
-        drawWellFacade.create(drawWell);
-        clearAll();
-        //closeAddPanell();
+        
+        //drawWellFacade.create(drawWell);
+//        drawWell.setLat(this.lat);
+//        drawWell.setLng(this.lng);
+//        drawWell.setAddress(address);
+//        
+//        if(pz.isSkip()!= true){
+//            
+//            cabel.add(cabel_o);
+//            clutch_o.setCable(cabel);
+//            cableFacade.create(cabel_o);
+//            
+//            drawWell.setClutch(clutch); 
+//        }
+//        
+//        drawWellFacade.create(drawWell);
+//        clearAll();
+//        //closeAddPanell();
     }  
     
     public void addCable(){

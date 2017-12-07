@@ -38,8 +38,8 @@ public class Clutch implements Serializable {
     private int inputs;
     private String mark;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Cabel> cable;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<Cabel> cable = new ArrayList<>();
 
     public Clutch() {
     }

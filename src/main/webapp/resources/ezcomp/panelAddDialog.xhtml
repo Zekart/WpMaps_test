@@ -264,7 +264,7 @@
                                             <p:column>№ колодца: </p:column>
                                         </p:row>
                                         <p:row>
-                                            <p:inputText  value="#{mapObjController.drawWell.numberStation}" class="add_inputfield">
+                                            <p:inputText  value="#{drawWellController.drawWell.numberStation}" class="add_inputfield">
                                                 <f:validateLength minimum="1" />
                                             </p:inputText>
                                         </p:row>
@@ -272,7 +272,7 @@
                                             <p:column>№ канала: </p:column>
                                         </p:row>
                                         <p:row>
-                                            <p:inputText  value="#{mapObjController.drawWell.chanel_number}" class="add_inputfield">
+                                            <p:inputText  value="#{drawWellController.drawWell.chanel_number}" class="add_inputfield">
                                                 <f:validateLength minimum="1" />
                                             </p:inputText>
                                         </p:row> 
@@ -280,7 +280,7 @@
                                             <h:outputText value="Приямок: " />
                                         </p:row>
                                         <p:row>
-                                            <p:selectBooleanCheckbox value="#{mapObjController.drawWell.pit}" />
+                                            <p:selectBooleanCheckbox value="#{drawWellController.drawWell.pit}" />
                                         </p:row>                                                                                        
                                         <p:row>
                                             <h:outputText value="Без муфты: " />                      
@@ -335,21 +335,21 @@
                                 <p:panel id="left_panel_cabel" style="overflow: auto; width: 99%; height: 380px;margin-top: 30px; float: left">
                                     <c:forEach items="#{mapObjController.clutch}"  var="clutch_count">
                                         <p:panel class="cabel_add_panel" header="Вводы: #{clutch_count.inputs}, Маркировка: #{clutch_count.mark}" style="padding: 0 !important;">
-                                            <c:forEach id="repeat_cable" begin="1" end="#{clutch_count.inputs}" varStatus="loop">
+                                            <c:forEach id="repeat_cable" begin="1" end="#{clutch_count.inputs}" varStatus="loop" >
                                                 <!--<p:outputLabel value="Кабель № {loop.index}"/> -->
-                                                <p:commandButton value="${loop.index}" actionListener="#{mapObjController.addCableNew(loop.index)}"  >
-                                                    <p:ajax resetValues="true" update="panel_cable_add"/>
+                                                <p:commandButton value="${loop.index}" actionListener="#{cabelController.clearForm(loop)}" >
+                                                    <p:ajax resetValues="true" />
                                                 </p:commandButton>
  
                                             </c:forEach>
                                                 <hr></hr>
-                                                <p:panelGrid id="panel_cable_add"  style=" width: 85%; border: none; padding: 0 !important;"  >    
+                                                <p:panelGrid id="panelGrid_cable_add"  style=" width: 85%; border: none; padding: 0 !important;"  >    
                                                         <p:row>
                                                             <p:column style="left: 0;border-color: transparent;">
                                                                 <p:outputLabel value="Изготовитель"/>
                                                             </p:column>  
                                                             <p:column>
-                                                                <p:inputText value="#{mapObjController.cabel_o.production}" ></p:inputText>                                                    
+                                                                <p:inputText value="#{cabelController.cabel.production}" ></p:inputText>                                                    
                                                             </p:column>
                                                         </p:row>
                                                         <p:row>
@@ -357,7 +357,7 @@
                                                                 <p:outputLabel value="Ёмкость кабеля"/>
                                                             </p:column>      
                                                             <p:column style="border-color: transparent;">
-                                                                <p:inputText  style="background: transparent;" value="#{mapObjController.cabel_o.capacity}" ></p:inputText>
+                                                                <p:inputText  style="background: transparent;" value="#{cabelController.cabel.capacity}" ></p:inputText>
                                                             </p:column>                                                
                                                         </p:row>
 
@@ -366,7 +366,7 @@
                                                                 <p:outputLabel value="К-во модулей"/>
                                                             </p:column>      
                                                             <p:column style="border-color: transparent;">
-                                                                <p:inputText value="#{mapObjController.cabel_o.moduleCount}" ></p:inputText>
+                                                                <p:inputText value="#{cabelController.cabel.moduleCount}" ></p:inputText>
                                                             </p:column>                                                
                                                         </p:row>
 
@@ -395,9 +395,12 @@
                                                                 <p:outputLabel value="Метраж кабеля от точки к точке(м)"/>
                                                             </p:column>  
                                                             <p:column style=" border-color: transparent">
-                                                                <p:inputText  value="#{mapObjController.cabel_o.lenthCable}" ></p:inputText>
+                                                                <p:inputText  value="#{cabelController.cabel.lenthCable}" ></p:inputText>
                                                             </p:column>                                                 
-                                                        </p:row>          
+                                                        </p:row>    
+                                                    <p:row>
+                                                        <p:commandButton action="#{cabelController.cabelRegister}" value="Add"/>
+                                                    </p:row>
                                                 </p:panelGrid>                                                                                           
                                         </p:panel>                                         
                                     </c:forEach>
@@ -581,8 +584,12 @@
                             value="Удалить" update="dataTableCable" ajax="true" />
                     -->
                     </p:tab>   
-                    <p:tab id="fiber_add" title="Волокно">           
-
+                    <p:tab id="fiber_add" title="Волокно" >           
+                        <p:dataTable value="#{cabelController.cabel_list}" var="cabelr">
+                            <p:column>
+                                <p:outputLabel value="#{cabelr.lenthCable}"/>
+                            </p:column>
+                        </p:dataTable>
                     </p:tab>            
                     <p:tab id="confirm" title="Добавление">
                 <div class="parent">
