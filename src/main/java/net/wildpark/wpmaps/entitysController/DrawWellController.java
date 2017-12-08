@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.DrawWell;
+import net.wildpark.wpmaps.entitys.MapPoint;
 import net.wildpark.wpmaps.facades.DrawWellFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
 import net.wildpark.wpmaps.pageControllers.PointWizard;
@@ -35,6 +36,7 @@ public class DrawWellController implements Serializable {
     
     
     DrawWell drawWell = new DrawWell();
+    MapPoint point = new MapPoint();
     
     MapObjController mapObjController = new MapObjController();
     PointWizard pz = new PointWizard();
@@ -105,6 +107,31 @@ public class DrawWellController implements Serializable {
         this.clutch = clutch;
     }
 
+    public PointFacade getPointFacade() {
+        return pointFacade;
+    }
+
+    public void setPointFacade(PointFacade pointFacade) {
+        this.pointFacade = pointFacade;
+    }
+
+    public DrawWellFacade getDrawWellFacade() {
+        return drawWellFacade;
+    }
+
+    public void setDrawWellFacade(DrawWellFacade drawWellFacade) {
+        this.drawWellFacade = drawWellFacade;
+    }
+
+    public MapObjController getMapObjController() {
+        return mapObjController;
+    }
+
+    public void setMapObjController(MapObjController mapObjController) {
+        this.mapObjController = mapObjController;
+    }
+
+    
 
     
     
