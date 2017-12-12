@@ -38,42 +38,41 @@ public class DrawWellController implements Serializable {
     DrawWell drawWell = new DrawWell();
     MapPoint point = new MapPoint();
     
+    
     MapObjController mapObjController = new MapObjController();
     PointWizard pz = new PointWizard();
     
-    private List<Clutch> clutch = new ArrayList<>();
-
     public DrawWellController() {
     }
            
     
-    public void setSaveDrawWell(Double lat, double lng, String address){
+    public void setSaveDrawWell(Double lat, double lng, String address){   
         
-        DrawWell draw = new DrawWell();
-        draw.setLat(lat);
-        draw.setLng(lng);
-        draw.setAddress(address);
+        drawWell.setLat(lat);
+        drawWell.setLng(lng);
+        drawWell.setAddress(address);
 
         if(pz.isSkip()!= true){
 
+            ClutchController clutch = new ClutchController();
+            
 //            cabel.add(cabel_o);
 //            clutch_o.setCable(cabel);
 //            cableFacade.create(cabel_o);
 
-            draw.setClutch(clutch); 
+            drawWell.setClutch(clutch.getAdded_clutch()); 
         }
-//
-//            System.out.println(drawWell.getAddress() + "   " );
-//            
-        System.out.println(draw.getAddress());
-        drawWellFacade.create(drawWell);
+        
+        //drawWellFacade.create(drawWell);
 //            drawWell = new DrawWell();            
         //closeAddPanell();
     }
     
     public void clearAll(){
-        drawWell = new DrawWell();       
-        clutch.clear();
+        drawWell = new DrawWell();   
+        ClutchController clutch = new ClutchController();
+        
+        clutch.getAdded_clutch().clear();
         RequestContext.getCurrentInstance().reset("j_idt189:ff:wizard_form:drawWell_panel");
     }
     
@@ -97,14 +96,6 @@ public class DrawWellController implements Serializable {
 
     public void setDrawWell(DrawWell drawWell) {
         this.drawWell = drawWell;
-    }
-
-    public List<Clutch> getClutch() {
-        return clutch;
-    }
-
-    public void setClutch(List<Clutch> clutch) {
-        this.clutch = clutch;
     }
 
     public PointFacade getPointFacade() {

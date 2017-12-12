@@ -83,6 +83,8 @@ public class MapObjController implements Serializable{
     MapPoint point = new MapPoint();
     Clutch clutch_o = new Clutch();
     Cabel cabel_o = new Cabel();
+    
+    ClutchController cl_contr = new ClutchController();
      
     PointWizard pz = new PointWizard();
     
@@ -111,17 +113,18 @@ public class MapObjController implements Serializable{
         house.setLng(this.lng);
         house.setAddress_info(address_info);
         house.setNumber_entrance(number_entrance);
-        house.setAddress(house.getAddress().concat(" " + number_house + " " + number_flat));
+        //house.setAddress(house.getAddress().concat(" " + number_house + " " + number_flat));
         if(pz.isSkip()!= true){
             house.setClutch(clutch);
         }
         houseFacade.create(house);     
         clearAll();
     }
-    public void saveDrawWell(){
-        
-        DrawWellController dr = new DrawWellController();
+    public void saveDrawWell(){       
+        DrawWellController dr = new DrawWellController();   
         dr.setSaveDrawWell(lat, lng, address);
+    
+        drawWellFacade.create(dr.getDrawWell());
         
         
         //drawWellFacade.create(drawWell);
@@ -258,13 +261,13 @@ public class MapObjController implements Serializable{
         cabel.add(new Cabel());     
     }    
     
-    public void delLine(ActionEvent actionEvent) {
-        this.clutch.remove(clutch.size() - 1);
-        //this.clutch.clear();
-    }
-    public void newLine(ActionEvent actionEvent) {
-        this.clutch.add(new Clutch());     
-    }
+//    public void delLine(ActionEvent actionEvent) {
+//        this.clutch.remove(clutch.size() - 1);
+//        //this.clutch.clear();
+//    }
+//    public void newLine(ActionEvent actionEvent) {
+//        this.clutch.add(new Clutch());     
+//    }
     
     
 

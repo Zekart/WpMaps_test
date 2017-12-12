@@ -15,7 +15,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.MapPoint;
-import net.wildpark.wpmaps.entitys.Pillar;
+import net.wildpark.wpmaps.facades.ClutchFacade;
 import net.wildpark.wpmaps.facades.PointFacade;
 
 /**
@@ -29,17 +29,15 @@ public class ClutchController implements Serializable {
 
     @EJB
     private PointFacade pointFacade;
-
+    @EJB
+    private ClutchFacade clutchFacade;
+        
+    Clutch clutch_o = new Clutch();
     
-    private List<Pillar> pillar_list;
-
     private String txt1;
     
-    private Clutch cl = new Clutch();
-    
-    private List<Clutch> added_clutch = new ArrayList<>();
-    
-    private List<Clutch> clutch_list;
+    private List<Clutch> added_clutch = new ArrayList<>() ;
+
     private List<MapPoint> mapPoint_list;
 
     @PostConstruct
@@ -50,12 +48,6 @@ public class ClutchController implements Serializable {
     
     public ClutchController() {
     }
-    
-    
-    
-    
-    
-    
     
     
     public List<String> completeText(String query) {
@@ -73,13 +65,6 @@ public class ClutchController implements Serializable {
         return results;
     } 
     
-    
-    
-    
-    public List<Clutch> takeList(){
-        return this.added_clutch;
-    }
-    
     public void delLine(ActionEvent actionEvent) {
         this.added_clutch.clear();
     }
@@ -87,16 +72,8 @@ public class ClutchController implements Serializable {
         this.added_clutch.add(new Clutch());     
     }
 
-    public Clutch getCl() {
-        return cl;
-    }
-
-    public void setCl(Clutch cl) {
-        this.cl = cl;
-    }
-
     public List<Clutch> getAdded_clutch() {
-        return added_clutch;
+        return this.added_clutch;
     }
 
     public void setAdded_clutch(List<Clutch> added_clutch) {
@@ -111,22 +88,6 @@ public class ClutchController implements Serializable {
         this.txt1 = txt1;
     }
 
-    public List<Pillar> getPillar_list() {
-        return pillar_list;
-    }
-
-    public void setPillar_list(List<Pillar> pillar_list) {
-        this.pillar_list = pillar_list;
-    }
-
-    public List<Clutch> getClutch_list() {
-        return clutch_list;
-    }
-
-    public void setClutch_list(List<Clutch> clutch_list) {
-        this.clutch_list = clutch_list;
-    }
-
     public List<MapPoint> getMapPoint_list() {
         return mapPoint_list;
     }
@@ -134,8 +95,22 @@ public class ClutchController implements Serializable {
     public void setMapPoint_list(List<MapPoint> mapPoint_list) {
         this.mapPoint_list = mapPoint_list;
     }
-    
-    
-    
+
+    public ClutchFacade getClutchFacade() {
+        return clutchFacade;
+    }
+
+    public void setClutchFacade(ClutchFacade clutchFacade) {
+        this.clutchFacade = clutchFacade;
+    }
+
+    public Clutch getClutch_o() {
+        return clutch_o;
+    }
+
+    public void setClutch_o(Clutch clutch_o) {
+        this.clutch_o = clutch_o;
+    }
+
     
 }

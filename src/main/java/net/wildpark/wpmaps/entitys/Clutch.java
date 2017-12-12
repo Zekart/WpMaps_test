@@ -44,14 +44,21 @@ public class Clutch implements Serializable {
     public Clutch() {
     }
 
-    public Clutch(int id, String conditions, int cassetsCount, String info, int inputs, String mark, List<Cabel> cable) {
-        this.id = id;
+    public Clutch( String conditions, int cassetsCount, String info, int inputs, String mark, List<Cabel> cable) {
         this.conditions = conditions;
         this.cassetsCount = cassetsCount;
         this.info = info;
         this.inputs = inputs;
         this.mark = mark;
         this.cable = cable;
+    }
+    
+    public Clutch( String conditions, int cassetsCount, String info, int inputs, String mark) {
+        this.conditions = conditions;
+        this.cassetsCount = cassetsCount;
+        this.info = info;
+        this.inputs = inputs;
+        this.mark = mark;
     }
     
     

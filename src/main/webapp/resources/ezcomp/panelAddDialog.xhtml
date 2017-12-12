@@ -296,26 +296,26 @@
                     <p:tab id="clutchInfo" title="Муфта">      
                         <div class="parent">
                     <div class="div1" style="width: 100%; color: black;">
-                        <p:dataTable class="add_clutch_table" style=" bottom: 0; border: none;" var="line" value="#{mapObjController.clutch}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">    
+                        <p:dataTable class="add_clutch_table" style=" bottom: 0; border: none;" var="line_clutch" value="#{clutchController.added_clutch}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">    
                                  
                             <p:column style="bottom: 0;border-color: transparent;" headerText="Кол-во вводов">
-                                <p:inputText class="input_clutch" style="background: transparent;" value="#{line.inputs}" ></p:inputText>
+                                <p:inputText class="input_clutch" style="background: transparent;" value="#{line_clutch.inputs}" ></p:inputText>
                             </p:column>
 
                             <p:column style="bottom: 0;border-color: transparent;" headerText="Кол-во. кассет">
-                                <p:inputText class="input_clutch" style="background: transparent;" value="#{line.cassetsCount}" ></p:inputText>
+                                <p:inputText class="input_clutch" style="background: transparent;" value="#{line_clutch.cassetsCount}" ></p:inputText>
                             </p:column>
 
                             <p:column style="bottom: 0;border-color: transparent;" headerText="Состояние">
-                                <p:inputText class="input_clutch" value="#{line.conditions}" ></p:inputText>
+                                <p:inputText class="input_clutch" value="#{line_clutch.conditions}" ></p:inputText>
                             </p:column>
 
                             <p:column style="bottom: 0; border-color: transparent;" headerText="Доп. Инфо">
-                                <p:inputText class="input_clutch" value="#{line.info}" ></p:inputText>
+                                <p:inputText class="input_clutch" value="#{line_clutch.info}" ></p:inputText>
                             </p:column>
 
                             <p:column style="bottom: 0; border-color: transparent" headerText="Маркировка">
-                                <p:inputText class="input_clutch" value="#{line.mark}" ></p:inputText>
+                                <p:inputText class="input_clutch" value="#{line_clutch.mark}" ></p:inputText>
                             </p:column>    
                             <p:column style="bottom: 0; border-color: transparent">
                                 <p:outputLabel
@@ -323,9 +323,9 @@
                             </p:column>
 
                         </p:dataTable>              
-                        <p:commandButton actionListener="#{mapObjController.newLine(actionEvent)}"
+                        <p:commandButton actionListener="#{clutchController.newLine(actionEvent)}"
                             value="Добавить" update="dataTableSaisiePiece" ajax="true" />
-                        <p:commandButton actionListener="#{mapObjController.delLine(actionEvent)}"
+                        <p:commandButton actionListener="#{clutchController.delLine(actionEvent)}"
                             value="Удалить" update="dataTableSaisiePiece" ajax="true" />
                     </div>
                 </div>
@@ -333,7 +333,7 @@
                     <p:tab id="cabel_add" title="Кабель">    
                         <div style="overflow: hidden;">
                                 <p:panel id="left_panel_cabel" style="overflow: auto; width: 99%; height: 380px;margin-top: 30px; float: left">
-                                    <c:forEach items="#{mapObjController.clutch}"  var="clutch_count">
+                                    <c:forEach items="#{clutchController.added_clutch}"  var="clutch_count">
                                         <p:panel class="cabel_add_panel" header="Вводы: #{clutch_count.inputs}, Маркировка: #{clutch_count.mark}" style="padding: 0 !important;">
                                             <c:forEach id="repeat_cable" begin="1" end="#{clutch_count.inputs}" varStatus="loop" >
                                                 <!--<p:outputLabel value="Кабель № {loop.index}"/> -->
