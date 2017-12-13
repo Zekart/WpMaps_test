@@ -35,6 +35,8 @@ public class DrawWellController implements Serializable {
     private DrawWellFacade drawWellFacade;
     
     
+    
+    
     DrawWell drawWell = new DrawWell();
     MapPoint point = new MapPoint();
     
@@ -42,9 +44,12 @@ public class DrawWellController implements Serializable {
     MapObjController mapObjController = new MapObjController();
     PointWizard pz = new PointWizard();
     
+    ClutchController clutch_controll;
+    List<Clutch> clutch = new ArrayList<>();
+    
     public DrawWellController() {
-    }
-           
+
+    }        
     
     public void setSaveDrawWell(Double lat, double lng, String address){   
         
@@ -54,19 +59,18 @@ public class DrawWellController implements Serializable {
 
         if(pz.isSkip()!= true){
 
-            ClutchController clutch = new ClutchController();
-            
 //            cabel.add(cabel_o);
 //            clutch_o.setCable(cabel);
 //            cableFacade.create(cabel_o);
 
-            drawWell.setClutch(clutch.getAdded_clutch()); 
+            //drawWell.setClutch(clutch.getAdded_clutch()); 
         }
-        
         //drawWellFacade.create(drawWell);
 //            drawWell = new DrawWell();            
         //closeAddPanell();
+        System.out.println(clutch_controll.returnNewClutch());
     }
+          
     
     public void clearAll(){
         drawWell = new DrawWell();   
@@ -120,6 +124,14 @@ public class DrawWellController implements Serializable {
 
     public void setMapObjController(MapObjController mapObjController) {
         this.mapObjController = mapObjController;
+    }
+
+    public List<Clutch> getClutch() {
+        return clutch;
+    }
+
+    public void setClutch(List<Clutch> clutch) {
+        this.clutch = clutch;
     }
 
     
