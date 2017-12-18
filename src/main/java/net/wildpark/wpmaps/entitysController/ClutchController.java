@@ -37,16 +37,11 @@ public class ClutchController implements Serializable {
     Clutch clutch_o = new Clutch();
     
     private String txt1;
-    
-    private List<Clutch> added_clutch;
-    private List<Clutch> newClutch;
-
+        
     private List<MapPoint> mapPoint_list;
     
     @PostConstruct
     public void initPoint() {
-        added_clutch = new ArrayList<>();
-        newClutch = new ArrayList<>();
         mapPoint_list = pointFacade.findAll();
     }
 
@@ -54,23 +49,7 @@ public class ClutchController implements Serializable {
     public ClutchController() {
 
     }
-    
-    
-    public void saveClutch(){
-        if (added_clutch.isEmpty()) {
-            newClutch.add(new Clutch());
-            System.out.println("Emprty");
-        }else{
-            newClutch.addAll(added_clutch);
-            System.out.println(newClutch);
-        }        
-    }
-    
-    
-    public List<Clutch> returnNewClutch(){
-        return newClutch;  
-    }
-    
+        
     public List<String> completeText(String query) {
         List<String> results = new ArrayList<>();
 
@@ -85,21 +64,6 @@ public class ClutchController implements Serializable {
         
         return results;
     } 
-
-    public void delLine(ActionEvent actionEvent) {
-        this.added_clutch.clear();
-    }
-    public void newLine(ActionEvent actionEvent) {        
-        this.added_clutch.add(new Clutch());     
-    }
-
-    public List<Clutch> getAdded_clutch() {
-        return this.added_clutch;
-    }
-
-    public void setAdded_clutch(List<Clutch> added_clutch) {
-        this.added_clutch = added_clutch;
-    }
 
     public String getTxt1() {
         return txt1;

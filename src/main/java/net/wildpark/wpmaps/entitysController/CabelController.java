@@ -8,6 +8,7 @@ package net.wildpark.wpmaps.entitysController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -39,11 +40,18 @@ public class CabelController implements Serializable{
     private List<Cabel> cabel_list = new ArrayList<>();
     private Cabel cabel = new Cabel();
     
+//    @PostConstruct
+//    public void initPoint() {
+//        this.cabel_list.add(new Cabel());
+//    }
+    
     public String cabelRegister(){
         this.cabel_list.add(cabel);
         this.cabel = new Cabel();
         return "";
     }
+    
+    
     
     public Cabel clearForm(int index){
         if (cabel_list.isEmpty()) {
@@ -54,9 +62,7 @@ public class CabelController implements Serializable{
         return cabel_list.get(index -1);
         
     }
-    
-    
-    
+        
 
     public List<Cabel> getCabel_list() {
         return cabel_list;

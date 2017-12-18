@@ -10,8 +10,8 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedProperty;
 import net.wildpark.wpmaps.entitys.Clutch;
 import net.wildpark.wpmaps.entitys.DrawWell;
 import net.wildpark.wpmaps.entitys.MapPoint;
@@ -34,7 +34,8 @@ public class DrawWellController implements Serializable {
     @EJB
     private DrawWellFacade drawWellFacade;
     
-    
+    @ManagedProperty("#{ClutchController}")
+            private ClutchController temp;
     
     
     DrawWell drawWell = new DrawWell();
@@ -43,43 +44,32 @@ public class DrawWellController implements Serializable {
     
     MapObjController mapObjController = new MapObjController();
     PointWizard pz = new PointWizard();
+    ClutchController clutchController;
     
-    ClutchController clutch_controll;
-    List<Clutch> clutch = new ArrayList<>();
+    private Clutch dClutch;
+    private List<Clutch> clutch;
+  
     
     public DrawWellController() {
 
     }        
     
-    public void setSaveDrawWell(Double lat, double lng, String address){   
+    public void setSaveDrawWell(Double lat, double lng, String address,List<Clutch>clutch){   
+        
+        clutchController = new ClutchController();
         
         drawWell.setLat(lat);
         drawWell.setLng(lng);
         drawWell.setAddress(address);
 
         if(pz.isSkip()!= true){
-
+            drawWell.setClutch(clutch);
 //            cabel.add(cabel_o);
 //            clutch_o.setCable(cabel);
 //            cableFacade.create(cabel_o);
 
-            //drawWell.setClutch(clutch.getAdded_clutch()); 
         }
-        //drawWellFacade.create(drawWell);
-//            drawWell = new DrawWell();            
-        //closeAddPanell();
-        System.out.println(clutch_controll.returnNewClutch());
-    }
-          
-    
-    public void clearAll(){
-        drawWell = new DrawWell();   
-        ClutchController clutch = new ClutchController();
-        
-        clutch.getAdded_clutch().clear();
-        RequestContext.getCurrentInstance().reset("j_idt189:ff:wizard_form:drawWell_panel");
-    }
-    
+    }  
     
     public String add(){
         this.drawWellFacade.create(this.drawWell);

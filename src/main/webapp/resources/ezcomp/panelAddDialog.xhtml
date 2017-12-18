@@ -296,7 +296,7 @@
                     <p:tab id="clutchInfo" title="Муфта">      
                         <div class="parent">
                     <div class="div1" style="width: 100%; color: black;">
-                        <p:dataTable class="add_clutch_table" style=" bottom: 0; border: none;" var="line_clutch" value="#{clutchController.added_clutch}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">    
+                        <p:dataTable class="add_clutch_table" style=" bottom: 0; border: none;" var="line_clutch" value="#{mapObjController.clutch}" id="dataTableSaisiePiece" editable="true" widgetVar="cellClutch">    
                                  
                             <p:column style="bottom: 0;border-color: transparent;" headerText="Кол-во вводов">
                                 <p:inputText class="input_clutch" style="background: transparent;" value="#{line_clutch.inputs}" ></p:inputText>
@@ -323,89 +323,52 @@
                             </p:column>
 
                         </p:dataTable>              
-                        <p:commandButton actionListener="#{clutchController.newLine(actionEvent)}"
+                        <p:commandButton actionListener="#{mapObjController.newLine(actionEvent)}"
                             value="Добавить" update="dataTableSaisiePiece" ajax="true" />
-                        <p:commandButton actionListener="#{clutchController.delLine(actionEvent)}"
+                        <p:commandButton actionListener="#{mapObjController.delLine(actionEvent)}"
                             value="Удалить" update="dataTableSaisiePiece" ajax="true" />
-                        <p:commandButton actionListener="#{clutchController.saveClutch()}"
-                            value="Сохранить" ajax="true" />
                     </div>
                 </div>
                     </p:tab> 
                     <p:tab id="cabel_add" title="Кабель">    
                         <div style="overflow: hidden;">
+                            <p:dataTable value="#{mapObjController.clutch}" var="mapClutch">
+                                <h:column>
+                                    <p:commandLink value=""/>
+                                </h:column>                               
+                            </p:dataTable>
                                 <p:panel id="left_panel_cabel" style="overflow: auto; width: 99%; height: 380px;margin-top: 30px; float: left">
-                                    <c:forEach items="#{clutchController.added_clutch}"  var="clutch_count">
-                                        <p:panel class="cabel_add_panel" header="Вводы: #{clutch_count.inputs}, Маркировка: #{clutch_count.mark}" style="padding: 0 !important;">
-                                            <c:forEach id="repeat_cable" begin="1" end="#{clutch_count.inputs}" varStatus="loop" >
-                                                <!--<p:outputLabel value="Кабель № {loop.index}"/> -->
-                                                <p:commandButton value="${loop.index}" actionListener="#{cabelController.clearForm(loop)}" >
-                                                    <p:ajax resetValues="true" />
-                                                </p:commandButton>
- 
-                                            </c:forEach>
+
                                                 <hr></hr>
-                                                <p:panelGrid id="panelGrid_cable_add"  style=" width: 85%; border: none; padding: 0 !important;"  >    
-                                                        <p:row>
-                                                            <p:column style="left: 0;border-color: transparent;">
-                                                                <p:outputLabel value="Изготовитель"/>
-                                                            </p:column>  
-                                                            <p:column>
-                                                                <p:inputText value="#{cabelController.cabel.production}" ></p:inputText>                                                    
-                                                            </p:column>
-                                                        </p:row>
-                                                        <p:row>
-                                                            <p:column style="border-color: transparent;">
-                                                                <p:outputLabel value="Ёмкость кабеля"/>
-                                                            </p:column>      
-                                                            <p:column style="border-color: transparent;">
-                                                                <p:inputText  style="background: transparent;" value="#{cabelController.cabel.capacity}" ></p:inputText>
-                                                            </p:column>                                                
-                                                        </p:row>
+                                                <p:panelGrid id="panelGrid_cable_add"  style=" width: 85%; border: none; padding: 0 !important;"  >                                                      
+                                                    <p:dataTable class="add_clutch_table" style=" bottom: 0; border: none;" var="line_cabel" value="#{cabelController.cabel_list}" id="dataTableCabel" editable="true" widgetVar="cellCabel">    
 
-                                                        <p:row>
-                                                            <p:column style=";border-color: transparent;">
-                                                                <p:outputLabel value="К-во модулей"/>
-                                                            </p:column>      
-                                                            <p:column style="border-color: transparent;">
-                                                                <p:inputText value="#{cabelController.cabel.moduleCount}" ></p:inputText>
-                                                            </p:column>                                                
-                                                        </p:row>
+                                                        <p:column style="bottom: 0;border-color: transparent;" headerText="Изготовитель">
+                                                            <p:inputText class="input_clutch" style="background: transparent;" value="#{line_cabel.production}" ></p:inputText>
+                                                        </p:column>
 
-                                                        <p:row>
-                                                            <p:column style="border-color: transparent;">
-                                                                <p:outputLabel value="Адрес откуда приходит"/>
-                                                            </p:column>  
-                                                            <p:column style="border-color: transparent;">
-                                                                <p:autoComplete value="#{clutchController.txt1}" completeMethod="#{clutchController.completeText}" >
-                                                                </p:autoComplete>                                                                                                        
-                                                            </p:column>                                                
-                                                        </p:row>
+                                                        <p:column style="bottom: 0;border-color: transparent;" headerText="Ёмкость кабеля">
+                                                            <p:inputText class="input_clutch" style="background: transparent;" value="#{line_cabel.capacity}" ></p:inputText>
+                                                        </p:column>
 
-                                                        <p:row>
-                                                            <p:column style=" border-color: transparent;">
-                                                                <p:outputLabel value="Адрес Муфты куда заведен"/>
-                                                            </p:column>  
-                                                            <p:column style=" border-color: transparent;">
-                                                                <p:autoComplete value="#{clutchController.txt1}" completeMethod="#{clutchController.completeText}" >
-                                                                </p:autoComplete>
-                                                            </p:column>                                                
-                                                        </p:row>
+                                                        <p:column style="bottom: 0;border-color: transparent;" headerText="К-во модулей">
+                                                            <p:inputText class="input_clutch" value="#{line_cabel.moduleCount}" ></p:inputText>
+                                                        </p:column>
 
-                                                        <p:row>
-                                                            <p:column style=" border-color: transparent">
-                                                                <p:outputLabel value="Метраж кабеля от точки к точке(м)"/>
-                                                            </p:column>  
-                                                            <p:column style=" border-color: transparent">
-                                                                <p:inputText  value="#{cabelController.cabel.lenthCable}" ></p:inputText>
-                                                            </p:column>                                                 
-                                                        </p:row>    
-                                                    <p:row>
-                                                        <p:commandButton action="#{cabelController.cabelRegister}" value="Add"/>
-                                                    </p:row>
-                                                </p:panelGrid>                                                                                           
-                                        </p:panel>                                         
-                                    </c:forEach>
+                                                        <p:column style="bottom: 0; border-color: transparent;" headerText="Адрес откуда приходит">
+                                                            <p:inputText class="input_clutch" value="#{line_cabel.inplace}" ></p:inputText>
+                                                        </p:column>
+
+                                                        <p:column style="bottom: 0; border-color: transparent" headerText="Адрес Муфты куда заведен">
+                                                            <p:inputText class="input_clutch" value="#{line_cabel.outPlace}" ></p:inputText>
+                                                        </p:column>    
+                                                        <p:column style="bottom: 0; border-color: transparent" headerText="Метраж кабеля от точки к точке(м)">
+
+                                                                <p:inputText class="input_clutch" value="#{line_cabel.lenthCable}" ></p:inputText>
+                                                        </p:column>
+                                                    </p:dataTable>
+                                                </p:panelGrid> 
+                                      
 <!--                                    <p:selectOneMenu id="car" value="set" >
                                         <f:selectItem itemLabel="Select One" itemValue="{null}" noSelectionOption="true" />
                                         <f:selectItems value="{mapObjController.clutch}" var="input" itemLabel=" Вводы: {input.inputs}" />

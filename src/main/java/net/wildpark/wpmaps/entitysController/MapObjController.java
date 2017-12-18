@@ -74,6 +74,8 @@ public class MapObjController implements Serializable{
     private List<DrawWell> draw_list = new ArrayList<>();
     private List<Pillar> pillar_list = new ArrayList<>();
     private List<Pillar> temp_pillar_list = new ArrayList<>();
+    
+
     private Pillar select_pillar;
     
     
@@ -83,9 +85,7 @@ public class MapObjController implements Serializable{
     MapPoint point = new MapPoint();
     Clutch clutch_o = new Clutch();
     Cabel cabel_o = new Cabel();
-    
-    ClutchController cl_contr = new ClutchController();
-     
+             
     PointWizard pz = new PointWizard();
     
 
@@ -122,11 +122,10 @@ public class MapObjController implements Serializable{
     }
     public void saveDrawWell(){       
         DrawWellController dr = new DrawWellController();   
-        dr.setSaveDrawWell(lat, lng, address);
+        dr.setSaveDrawWell(lat, lng, address,clutch);     
     
         drawWellFacade.create(dr.getDrawWell());
-        
-        
+
         //drawWellFacade.create(drawWell);
 //        drawWell.setLat(this.lat);
 //        drawWell.setLng(this.lng);
@@ -142,7 +141,7 @@ public class MapObjController implements Serializable{
 //        }
 //        
 //        drawWellFacade.create(drawWell);
-//        clearAll();
+        clearAll();
 //        //closeAddPanell();
     }  
     
@@ -155,6 +154,7 @@ public class MapObjController implements Serializable{
         house = new House();
         drawWell = new DrawWell();
         
+        //clutch.clear();
         clutch.clear();
         cabel.clear();
         RequestContext.getCurrentInstance().reset("j_idt189:ff:wizard_form:asd");
@@ -261,13 +261,13 @@ public class MapObjController implements Serializable{
         cabel.add(new Cabel());     
     }    
     
-//    public void delLine(ActionEvent actionEvent) {
-//        this.clutch.remove(clutch.size() - 1);
-//        //this.clutch.clear();
-//    }
-//    public void newLine(ActionEvent actionEvent) {
-//        this.clutch.add(new Clutch());     
-//    }
+    public void delLine(ActionEvent actionEvent) {
+        this.clutch.remove(clutch.size() - 1);
+        //this.clutch.clear();
+    }
+    public void newLine(ActionEvent actionEvent) {
+        this.clutch.add(new Clutch());     
+    }
     
     
 
@@ -384,9 +384,7 @@ public class MapObjController implements Serializable{
 
     public void setCabel_o(Cabel cabel_o) {
         this.cabel_o = cabel_o;
-    }
-    
-    
+    }    
     
     
 }
