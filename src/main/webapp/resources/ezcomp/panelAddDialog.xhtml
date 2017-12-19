@@ -332,12 +332,17 @@
                     </p:tab> 
                     <p:tab id="cabel_add" title="Кабель">    
                         <div style="overflow: hidden;">
-                            <c:forEach var="items" items="#{mapObjController.clutch}" varStatus="itemIndex">
-                                <h:commandButton value="#{itemIndex.index + 1}" actionListener="#{cabelController.setCabelList(itemIndex.index)}">
-                                    <f:ajax execute="@form @this" render="left_panel_cabel" listener="#{cabelController.cabelRegister(mapObjController.getInputs(itemIndex.index))}"/>
-                                </h:commandButton>
-                                 
-                            </c:forEach>
+                            <div align="left">
+                                <p:outputLabel value="Муфты  :" />
+                                <div align="center">
+                                    <c:forEach  var="items" items="#{mapObjController.clutch}" varStatus="itemIndex">
+                                        <h:commandButton value="#{itemIndex.index + 1}" actionListener="#{cabelController.setCabelList(itemIndex.index)}">
+                                            <f:ajax execute="@form @this" render="left_panel_cabel" listener="#{cabelController.cabelRegister(mapObjController.getInputs(itemIndex.index))}"/>
+                                        </h:commandButton>                                 
+                                    </c:forEach>                                    
+                                </div>                                
+                            </div>
+                            
                             <p:outputPanel layout="block" id="left_panel_cabel" style="overflow: auto; width: 99%; height: 380px;margin-top: 30px; float: left">
 
                                                 <hr></hr>
