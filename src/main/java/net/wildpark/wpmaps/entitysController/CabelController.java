@@ -45,12 +45,20 @@ public class CabelController implements Serializable{
 //        this.cabel_list.add(new Cabel());
 //    }
     
-    public String cabelRegister(){
-        this.cabel_list.add(cabel);
+    public String cabelRegister(int count){
+        for (int i = 0; i < count; i++) {
+            this.cabel_list.add(cabel);
+        }
+        
         this.cabel = new Cabel();
         return "";
     }
     
+    
+    public String setCabelList(int index){
+        System.out.println("Index" + index);
+        return "";
+    }
     
     
     public Cabel clearForm(int index){

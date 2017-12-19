@@ -166,6 +166,10 @@ public class MapObjController implements Serializable{
         return count_clutch;
     }
     
+    public int getInputs(int index){       
+        return this.clutch.get(index).getInputs();
+    }
+    
     public List<Pillar> findPillar(int id){
         pillar_list.clear();
         pillar = pillarFacade.find(id);

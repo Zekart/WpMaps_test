@@ -332,12 +332,13 @@
                     </p:tab> 
                     <p:tab id="cabel_add" title="Кабель">    
                         <div style="overflow: hidden;">
-                            <p:dataTable value="#{mapObjController.clutch}" var="mapClutch">
-                                <h:column>
-                                    <p:commandLink value=""/>
-                                </h:column>                               
-                            </p:dataTable>
-                                <p:panel id="left_panel_cabel" style="overflow: auto; width: 99%; height: 380px;margin-top: 30px; float: left">
+                            <c:forEach var="items" items="#{mapObjController.clutch}" varStatus="itemIndex">
+                                <h:commandButton value="#{itemIndex.index + 1}" actionListener="#{cabelController.setCabelList(itemIndex.index)}">
+                                    <f:ajax execute="@form @this" render="left_panel_cabel" listener="#{cabelController.cabelRegister(mapObjController.getInputs(itemIndex.index))}"/>
+                                </h:commandButton>
+                                 
+                            </c:forEach>
+                            <p:outputPanel layout="block" id="left_panel_cabel" style="overflow: auto; width: 99%; height: 380px;margin-top: 30px; float: left">
 
                                                 <hr></hr>
                                                 <p:panelGrid id="panelGrid_cable_add"  style=" width: 85%; border: none; padding: 0 !important;"  >                                                      
@@ -374,7 +375,7 @@
                                         <f:selectItems value="{mapObjController.clutch}" var="input" itemLabel=" Вводы: {input.inputs}" />
                                         <p:ajax listener="{mapObjController.newLineCable}" />
                                     </p:selectOneMenu> -->
-                                </p:panel>
+                                </p:outputPanel>
 
 <!--                                <p:panel  id="right_panel_cabel" style="margin-top: 30px; min-width: 75%; min-height: 380px; float: left;margin-left: 20px;" >
                                     <p:panelGrid id="panel_cable_add" style=" width: 100%; border: none;"  >    
