@@ -46,11 +46,17 @@ public class CabelController implements Serializable{
 //    }
     
     public String cabelRegister(int count){
-        for (int i = 0; i < count; i++) {
-            this.cabel_list.add(cabel);
+        if (this.cabel_list.isEmpty() != true) {
+            this.cabel_list.clear();
+        } else {
+            for (int i = 0; i < count; i++) {
+                this.cabel_list.add(cabel);
+                this.cabel = new Cabel();
+            }
         }
+
         
-        this.cabel = new Cabel();
+        
         return "";
     }
     

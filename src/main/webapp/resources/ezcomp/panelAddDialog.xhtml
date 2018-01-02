@@ -344,43 +344,41 @@
                             </div>
                             
                             <p:outputPanel layout="block" id="left_panel_cabel" style="overflow: auto; width: 99%; height: 380px;margin-top: 30px; float: left">
+                                <hr></hr>
+                                    <p:panelGrid id="panelGrid_cable_add"  style=" width: 85%; border: none; padding: 0 !important;"  >                                                      
+                                        <p:dataTable class="add_clutch_table" style=" bottom: 0; border: none;" var="line_cabel" value="#{cabelController.cabel_list}" id="dataTableCabel" editable="true" widgetVar="cellCabel">    
 
-                                                <hr></hr>
-                                                <p:panelGrid id="panelGrid_cable_add"  style=" width: 85%; border: none; padding: 0 !important;"  >                                                      
-                                                    <p:dataTable class="add_clutch_table" style=" bottom: 0; border: none;" var="line_cabel" value="#{cabelController.cabel_list}" id="dataTableCabel" editable="true" widgetVar="cellCabel">    
+                                            <p:column style="bottom: 0;border-color: transparent;" headerText="Изготовитель">
+                                                <p:inputText class="input_clutch" style="background: transparent;" value="#{line_cabel.production}" ></p:inputText>
+                                            </p:column>
 
-                                                        <p:column style="bottom: 0;border-color: transparent;" headerText="Изготовитель">
-                                                            <p:inputText class="input_clutch" style="background: transparent;" value="#{line_cabel.production}" ></p:inputText>
-                                                        </p:column>
+                                            <p:column style="bottom: 0;border-color: transparent;" headerText="Ёмкость кабеля">
+                                                <p:inputText class="input_clutch" style="background: transparent;" value="#{line_cabel.capacity}" ></p:inputText>
+                                            </p:column>
 
-                                                        <p:column style="bottom: 0;border-color: transparent;" headerText="Ёмкость кабеля">
-                                                            <p:inputText class="input_clutch" style="background: transparent;" value="#{line_cabel.capacity}" ></p:inputText>
-                                                        </p:column>
+                                            <p:column style="bottom: 0;border-color: transparent;" headerText="К-во модулей">
+                                                <p:inputText class="input_clutch" value="#{line_cabel.moduleCount}" ></p:inputText>
+                                            </p:column>
 
-                                                        <p:column style="bottom: 0;border-color: transparent;" headerText="К-во модулей">
-                                                            <p:inputText class="input_clutch" value="#{line_cabel.moduleCount}" ></p:inputText>
-                                                        </p:column>
+                                            <p:column style="bottom: 0; border-color: transparent;" headerText="Адрес откуда приходит">
+                                                <p:inputText class="input_clutch" value="#{line_cabel.inplace}" ></p:inputText>
+                                            </p:column>
 
-                                                        <p:column style="bottom: 0; border-color: transparent;" headerText="Адрес откуда приходит">
-                                                            <p:inputText class="input_clutch" value="#{line_cabel.inplace}" ></p:inputText>
-                                                        </p:column>
-
-                                                        <p:column style="bottom: 0; border-color: transparent" headerText="Адрес Муфты куда заведен">
-                                                            <p:inputText class="input_clutch" value="#{line_cabel.outPlace}" ></p:inputText>
-                                                        </p:column>    
-                                                        <p:column style="bottom: 0; border-color: transparent" headerText="Метраж кабеля от точки к точке(м)">
-
-                                                                <p:inputText class="input_clutch" value="#{line_cabel.lenthCable}" ></p:inputText>
-                                                        </p:column>
-                                                    </p:dataTable>
-                                                </p:panelGrid> 
+                                            <p:column style="bottom: 0; border-color: transparent" headerText="Адрес Муфты куда заведен">
+                                                <p:inputText class="input_clutch" value="#{line_cabel.outPlace}" ></p:inputText>
+                                            </p:column>    
+                                            <p:column style="bottom: 0; border-color: transparent" headerText="Метраж кабеля от точки к точке(м)">
+                                                <p:inputText class="input_clutch" value="#{line_cabel.lenthCable}" ></p:inputText>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </p:panelGrid> 
                                       
 <!--                                    <p:selectOneMenu id="car" value="set" >
                                         <f:selectItem itemLabel="Select One" itemValue="{null}" noSelectionOption="true" />
                                         <f:selectItems value="{mapObjController.clutch}" var="input" itemLabel=" Вводы: {input.inputs}" />
                                         <p:ajax listener="{mapObjController.newLineCable}" />
                                     </p:selectOneMenu> -->
-                                </p:outputPanel>
+                            </p:outputPanel>
 
 <!--                                <p:panel  id="right_panel_cabel" style="margin-top: 30px; min-width: 75%; min-height: 380px; float: left;margin-left: 20px;" >
                                     <p:panelGrid id="panel_cable_add" style=" width: 100%; border: none;"  >    
